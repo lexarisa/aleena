@@ -3,14 +3,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
-import Board from '../common/components/Board';
+import Main from 'next/document';
+import Container from '../common/components/Container';
 
 const Home: NextPage = () => {
-  return (
-    <div style={styles}>
-      <Board></Board>
-    </div>
-  );
+  return <Container />;
 };
 
 export default Home;

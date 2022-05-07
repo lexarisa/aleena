@@ -1,6 +1,9 @@
-export default interface Task {
+import IUser from './IUser';
+
+export default interface ITask {
   id: Number;
   title: String;
+  users: String[]; //IUser[];
   description: String;
   status: String;
   priority: String;
@@ -8,7 +11,7 @@ export default interface Task {
   deadline: String;
   milestone_id: String;
   comments: String[]; // Comment[]
-  github: String[]; // Github[]
-  created_at: String;
-  //user?
+  githubs: String[]; // Github[]
+  created_at: String; //Date;
+  updated_at: String; //Date;
 }
