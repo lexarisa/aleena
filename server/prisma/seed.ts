@@ -1,4 +1,3 @@
-const fs = require('fs');
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 import { userMockData } from './userMockData';
@@ -29,8 +28,17 @@ const runSeeding = async () => {
   );
   await Promise.all(
     projectMockData.map((project) => {
-      return prisma.project.create({
-        data: project,
+      return prisma.project.upsert({
+        where: { id: project.id },
+        update: {},
+        create: {
+          id: project.id,
+          title: project.title,
+          description: project.description,
+          status: project.status,
+          created_at: project.created_at,
+          deadline: project.deadline,
+        },
       });
     })
   );

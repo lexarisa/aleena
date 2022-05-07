@@ -27,9 +27,6 @@ model User {
   comments Comment[]
   projects User_Projects[]
   documentationDetail DocumentationDetail[]
- 
-  
-     
 }
 
 model Project {
