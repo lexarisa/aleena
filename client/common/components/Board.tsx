@@ -54,7 +54,6 @@ function Board() {
         return (
           <div key={index}>
             <BoardSection title={section} tasks={filteredTasks} />
-            );
           </div>
         );
       })}

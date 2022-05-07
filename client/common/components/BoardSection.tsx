@@ -11,13 +11,13 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
   return (
     <div>
       <div>
-        <h3>{props.title}</h3>
+        <h2>{props.title}</h2>
       </div>
       <div>
         {props.tasks.map((task: Task, index) => {
           return (
             <div key={index}>
-              <Card {...task} />;
+              <Card {...task} />
             </div>
           );
         })}
