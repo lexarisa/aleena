@@ -13,27 +13,29 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
   email String @unique
   username String @unique
   password String
-  firstname String
-  lastname String
-  slack_id String @unique
+  firstname String?
+  lastname String?
+  slack_id String? @unique
   profile_pic String 
   status String
   tasks User_Tasks[]
   comments Comment[]
   projects User_Projects[]
-  bookMarks UserBookMark[]
+  documentationDetail DocumentationDetail[]
+ 
+  
      
 }
 
 model Project {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime? @updatedAt
   title String
   description String
   status String
@@ -61,7 +63,7 @@ model User_Tasks {
 model Milestone {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime? @updatedAt
   title String
   status String
   project_id Int
@@ -73,7 +75,7 @@ model Milestone {
 model Task {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime? @updatedAt
   title String
   description String
   status String
@@ -91,7 +93,7 @@ model Task {
 model Comment {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime? @updatedAt
   description String
   user_id Int
   task_id Int
@@ -110,27 +112,20 @@ documentationDetails DocumentationDetail[]
 model DocumentationDetail {
 id Int @id @default(autoincrement())
 created_at DateTime @default(now())
-updated_at DateTime @updatedAt
+updated_at DateTime? @updatedAt
 bookMarked Boolean @default(false)
-userBookMark UserBookMark[]
+user_id Int
+user User @relation(fields: [user_id], references: [id])
 documentation_id Int
 documentation Documentation @relation(fields: [documentation_id], references: [id])
 }
 
-// table to join docDetail and userbookmark
-model UserBookMark {
-  id Int @id @default(autoincrement())
-  created_at DateTime @default(now())
-  user_id Int
-  documentationDetail_id Int
-  user User @relation(fields: [user_id], references: [id])
-  documentationDetail DocumentationDetail @relation(fields: [documentationDetail_id], references: [id])
-}
+
 
 model Github {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime? @updatedAt
   task_id Int
   pull_id Int
   task Task @relation(fields: [task_id], references: [id])
@@ -139,7 +134,7 @@ model Github {
 model Tag {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime? @updatedAt
   color String
   label String
   task_id Int
