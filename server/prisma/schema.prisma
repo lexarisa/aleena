@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  email String @unique
+  username String @unique
+  password String
+  firstname String
+  lastname String
+  slack_id String @unique
+  profile_pic String 
+  status String
+  tasks User_Tasks[]
+  comments Comment[]
+  projects User_Projects[]
+  bookMarks UserBookMark[]
+     
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  title String
+  description String
+  status String
+  deadline DateTime  
+  user User_Projects[]
+  milestones Milestone[]
+}
+
+model User_Projects {
+  id Int @id
+  user_id Int
+  project_id Int
+  user User @relation(fields: [user_id], references: [id])
+  project Project @relation(fields: [project_id], references: [id])
+}
+
+model User_Tasks {
+  id Int @id
+  user_id Int
+  task_id Int
+  subscribed Boolean
+  user User @relation(fields: [user_id], references: [id])
+  task Task @relation(fields: [task_id], references: [id])
+}
+model Milestone {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  title String
+  status String
+  project_id Int
+  project Project @relation(fields: [project_id], references: [id])
+  tasks Task[]
+  documents Documentation[]
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  title String
+  description String
+  status String
+  deadline DateTime
+  user_id Int 
+  project_id Int
+  milestone_id Int
+  comments Comment[]
+  milestone Milestone @relation(fields: [milestone_id], references: [id])
+  users User_Tasks[]
+  tags Tag[]
+  githubs Github[]
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  description String
+  user_id Int
+  task_id Int
+  user User @relation(fields:[user_id], references: [id])
+  task Task @relation(fields: [task_id], references: [id])
+}
+
+model Documentation {
+id Int @id @default(autoincrement())
+created_at DateTime @default(now())
+milestone_id Int
+milestone Milestone @relation(fields: [milestone_id], references: [id])
+documentationDetails DocumentationDetail[]
+}
+
+model DocumentationDetail {
+id Int @id @default(autoincrement())
+created_at DateTime @default(now())
+updated_at DateTime @updatedAt
+bookMarked Boolean @default(false)
+userBookMark UserBookMark[]
+documentation_id Int
+documentation Documentation @relation(fields: [documentation_id], references: [id])
+}
+
+// table to join docDetail and userbookmark
+model UserBookMark {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  user_id Int
+  documentationDetail_id Int
+  user User @relation(fields: [user_id], references: [id])
+  documentationDetail DocumentationDetail @relation(fields: [documentationDetail_id], references: [id])
+}
+
+model Github {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  task_id Int
+  pull_id Int
+  task Task @relation(fields: [task_id], references: [id])
+}
+
+model Tag {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  color String
+  label String
+  task_id Int
+  task Task @relation(fields: [task_id], references: [id])
+
+}
