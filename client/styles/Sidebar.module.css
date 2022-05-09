@@ -1,0 +1,9 @@
+.container {
+  height: 100vw;
+  min-width: 15rem;
+  flex-direction: column;
+}
+
+.userImage {
+  margin: var(--unit5);
+}

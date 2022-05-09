@@ -6,6 +6,6 @@ dotenv.config({ path: path.join(__dirname, '..', '.dev.env') });
 
 const PORT = process.env.PORT;
 
-app.listen(PORT,(): void => {
-    console.log(`👻 Server up and running on http://localhost:${PORT} 👻`);
+app.listen(PORT, (): void => {
+  console.log(`👻 Server up and running on http://localhost:${PORT} 👻`);
 });
