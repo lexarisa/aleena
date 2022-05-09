@@ -22,21 +22,19 @@ function Board() {
     'Done',
   ];
   return (
-    <div className={styles.container}>
-      <div className={styles.scrollContainer}>
-        {sections.map((section, index) => {
-          let filteredTasks: ITask[] = tasks
-            ? tasks.filter((task: ITask) => {
-                return task.status === section;
-              })
-            : [];
-          return (
-            <div key={index} className={styles.taskColumn}>
-              <BoardSection title={section} tasks={filteredTasks} />
-            </div>
-          );
-        })}
-      </div>
+    <div className={styles.scrollContainer}>
+      {sections.map((section, index) => {
+        let filteredTasks: ITask[] = tasks
+          ? tasks.filter((task: ITask) => {
+              return task.status === section;
+            })
+          : [];
+        return (
+          <div key={index} className={styles.taskColumn}>
+            <BoardSection title={section} tasks={filteredTasks} />
+          </div>
+        );
+      })}
     </div>
   );
 }

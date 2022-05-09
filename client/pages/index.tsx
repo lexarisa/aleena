@@ -7,7 +7,7 @@ import Main from 'next/document';
 import Container from '../common/components/Container';
 
 const Home: NextPage = () => {
-  return <Container />;
+  return <h1>home</h1>;
 };
 
 export default Home;

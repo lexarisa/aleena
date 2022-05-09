@@ -1,8 +1,13 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/globals.css';
+import DashboardLayout from '../common/components/DashboardLayout';
+import type { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <DashboardLayout>
+      <Component {...pageProps} />
+    </DashboardLayout>
+  );
 }
 
-export default MyApp
+export default MyApp;
