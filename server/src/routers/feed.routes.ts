@@ -1,6 +1,8 @@
 import { Router, Response, Request } from 'express';
 const routerFeed: Router = Router();
 
+let tasks = ['task one', 'task two', 'task three'];
+
 routerFeed.get('/feed', async (req: Request, res: Response) => {
   console.log('reached router');
   try {
@@ -10,18 +12,13 @@ routerFeed.get('/feed', async (req: Request, res: Response) => {
       'Content-Type': 'text/event-stream',
       Connection: 'keep-alive',
     });
-    res.flushHeaders();
+    // res.flushHeaders();
 
-    //send data
-    // let count = 0;
-    res.write('data: ' + 'hello\n\n');
-    // while (true) {
-    //   await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    //   console.log('Emit', ++count);
-    //   // Emit an SSE that contains the current 'count' as a string
-    //   res.write(`data: ${count}\n\n`);
-    // }
+    while (tasks.length > 0) {
+      let currentTask = tasks.pop();
+      res.write(`data: ${currentTask}\n\n`);
+    }
+    // tasks = [];
 
     res.on('close', () => {
       console.log('client closed connection');
@@ -29,6 +26,7 @@ routerFeed.get('/feed', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
+    res.end();
   }
 });
 
