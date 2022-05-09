@@ -15,6 +15,33 @@ a {
   box-sizing: border-box;
 }
 
+
+/* .boardContainer {
+  min-height: 100vh;
+  max-width: 100vw;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scrollContainer {
+  min-height: 80vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+.taskColumn {
+  min-height: 80vh;
+  min-width: 20rem;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+} */
+
 :root {
   /*colors */
   --color-primary: #415a77;
@@ -55,3 +82,4 @@ a {
   --unit10: calc(var(--unit) * 10);
   --unit11: calc(var(--unit) * 11);
 }
+
