@@ -1,12 +1,13 @@
 import type { NextPage } from 'next';
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
+import MainDashboard from '../common/components/MainDashBoard';
 
 const Home: NextPage = () => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <h1>hello</h1>
+        <MainDashboard />
       </TabContainer>
     </DashboardLayout>
   );
