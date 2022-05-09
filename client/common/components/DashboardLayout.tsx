@@ -1,6 +1,5 @@
 import SideBar from './SideBar';
 import Layout from './Layout';
-import Container from './Container';
 
 type DashBoardLayoutProps = {
   children: React.ReactNode; // 👈️ type children

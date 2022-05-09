@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  flex-direction: column;
+  padding: var(--unit5);
+  background: rgba(119, 141, 169, 0.1);
+  color: var(--color-white);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.headerTitle {
+  font-size: var(--size-xl);
+}

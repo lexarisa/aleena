@@ -1,13 +1,15 @@
 .scrollContainer {
   min-height: 80vh;
-
   display: flex;
   flex-direction: row;
+
+  align-content: space-around;
+  gap: var(--unit10);
+  margin: 0 var(--unit5);
 }
 
 .taskColumn {
   min-height: 80vh;
-
   padding: 4rem 0;
   flex: 1;
   display: flex;

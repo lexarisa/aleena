@@ -14,7 +14,7 @@ function SideBar() {
         />
       </div>
       <div className={styles.sideBar}>
-        <ul>
+        <ul className={styles.links}>
           <li>Home</li>
         </ul>
       </div>
