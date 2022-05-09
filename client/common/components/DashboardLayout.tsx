@@ -14,7 +14,6 @@ const DashboardLayout = ({ children }: DashBoardLayoutProps) => {
     <Layout>
       <SideBar />
       <Nav />
-
       <Board />
     </Layout>
   );
