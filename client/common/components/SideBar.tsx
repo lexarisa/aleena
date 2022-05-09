@@ -8,8 +8,8 @@ function SideBar() {
       <div className={styles.userImage}>
         <Image
           src="https://github.com/thaiscosta.png"
-          width={300}
-          height={300}
+          width={100}
+          height={100}
           alt="User profile image"
         />
       </div>

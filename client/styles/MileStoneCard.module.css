@@ -6,7 +6,7 @@
   border-radius: 10px;
   flex-direction: column;
   padding: var(--unit5);
-  background: rgba(119, 141, 169, 0.1);
+  background: var(--color-lightBg);
   color: var(--color-white);
 }
 

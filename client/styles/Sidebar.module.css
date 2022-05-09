@@ -7,6 +7,9 @@
 
 .userImage {
   margin: var(--unit5);
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .links {

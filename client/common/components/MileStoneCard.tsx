@@ -12,7 +12,13 @@ const MileStoneCard = ({ title }: MileStoneCardProp) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
-        <Image src="https://github.com/thaiscosta.png" width={20} height={20} />
+        <div>
+          <Image
+            src="https://github.com/thaiscosta.png"
+            width={50}
+            height={50}
+          />
+        </div>
       </div>
 
       <div></div>

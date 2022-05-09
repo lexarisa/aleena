@@ -39,7 +39,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
           </Link>
         </div>
       </div>
-      <div>{children}</div>
+      <div className={styles.tabContent}>{children}</div>
     </div>
   );
 };

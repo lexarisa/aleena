@@ -1,0 +1,13 @@
+.boardTitle {
+  font-size: var(--size-m);
+  text-align: center;
+  color: var(--color-white);
+}
+
+.taskCard {
+  transition: 0.3s all ease;
+}
+.taskCard:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}

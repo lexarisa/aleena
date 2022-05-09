@@ -2,6 +2,7 @@ import React from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
+import CustomButton from './small/MainBtn';
 import styles from '../../styles/BoardSection.module.css';
 
 interface BoardInterface {
@@ -26,15 +27,25 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
     setShowTask(!showTask);
     setCurrentTask(task);
   };
+
+  const onClick = () => {
+    console.log('hi');
+  };
   return (
     <div className={styles.container}>
       <div>
-        <h2>{props.title}</h2>
+        <h2 className={styles.boardTitle}>{props.title}</h2>
       </div>
+      <CustomButton button="+ add" onClick={onClick} />
+
       <div>
         {props.tasks.map((task: ITask, index) => {
           return (
-            <div key={index} onClick={() => handleClick(task)}>
+            <div
+              key={index}
+              onClick={() => handleClick(task)}
+              className={styles.taskCard}
+            >
               <Card {...task} />
             </div>
           );

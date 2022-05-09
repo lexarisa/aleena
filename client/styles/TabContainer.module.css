@@ -15,7 +15,11 @@
 }
 
 .active {
-  font-size: var(--size-xl);
+  font-size: var(--size-l);
   font-weight: 400;
   color: var(--color-white);
+}
+
+.tabContent {
+  overflow-x: scroll;
 }

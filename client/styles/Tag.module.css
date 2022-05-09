@@ -1,6 +1,6 @@
 .container {
-  height: 1.5rem;
-  width: 3.5rem;
+  height: 1rem;
+  width: 2.5rem;
   border-radius: 6px;
   background-color: var(--color-accent);
 }
