@@ -1,6 +1,9 @@
 .container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  align-content: flex-start;
+  justify-content: start;
+  background-color: var(--color-primary);
+  margin: var(--unit4);
+  border-radius: var(--unit2);
+  padding: var(--unit4);
 }

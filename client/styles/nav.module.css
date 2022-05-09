@@ -1,6 +1,7 @@
 .nav {
   display: flex;
-  gap: var(--unit5);
+  gap: var(--unit9);
+  padding: var(--unit5);
 }
 
 .navLinks {
