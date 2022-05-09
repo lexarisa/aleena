@@ -2,6 +2,7 @@ import React from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
+import styles from '../../styles/BoardSection.module.css';
 
 interface BoardInterface {
   title: String;
@@ -26,7 +27,7 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
     setCurrentTask(task);
   };
   return (
-    <div>
+    <div className={styles.container}>
       <div>
         <h2>{props.title}</h2>
       </div>
