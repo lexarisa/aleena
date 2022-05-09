@@ -1,9 +1,12 @@
-import { Request, Response, Router, NextFunction } from 'express';
+import { Router } from 'express';
+import { GithubControllers } from './../controllers/github.controller';
 
 const router: Router = Router();
+const controller = new GithubControllers;
 
-router
-    .route('/github')
-    .get((req: Request, res: Response, next: NextFunction): void => {
-        
-    });
+router.get('/login', controller.loginGithub);
+
+router.post('/payload', controller.payloadGithub);
+
+
+export default router;

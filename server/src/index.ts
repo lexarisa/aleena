@@ -1,7 +1,8 @@
 import app from './app';
+import path from 'path';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '..', '.dev.env') });
 
 const PORT = process.env.PORT;
 
