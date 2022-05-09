@@ -1,0 +1,6 @@
+export const createUserQuery = () => {
+    data: {
+
+    }
+}
+
