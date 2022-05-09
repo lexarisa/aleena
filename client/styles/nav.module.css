@@ -1,0 +1,9 @@
+.nav {
+  display: flex;
+  gap: var(--unit5);
+}
+
+.navLinks {
+  font-size: var(--size-l);
+  font-weight: 500;
+}
