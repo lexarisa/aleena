@@ -6,7 +6,7 @@ const Document = () => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <h1>hello</h1>{' '}
+        <h1>hello</h1>
       </TabContainer>
     </DashboardLayout>
   );
