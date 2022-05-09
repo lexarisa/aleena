@@ -5,9 +5,14 @@ import styles from '../styles/Home.module.css';
 
 import Main from 'next/document';
 import Container from '../common/components/Container';
+import DashboardLayout from '../common/components/DashboardLayout';
 
 const Home: NextPage = () => {
-  return <h1>home</h1>;
+  return (
+    <DashboardLayout>
+      <Container />
+    </DashboardLayout>
+  );
 };
 
 export default Home;

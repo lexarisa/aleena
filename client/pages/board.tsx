@@ -1,15 +1,16 @@
 import React from 'react';
-import TabContainer from '../common/components/TabContainer';
+import Board from '../common/components/Board';
 import DashboardLayout from '../common/components/DashboardLayout';
+import TabContainer from '../common/components/TabContainer';
 
-function Dashboard() {
+const board = () => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <h1>hello</h1>
+        <Board />
       </TabContainer>
     </DashboardLayout>
   );
-}
+};
 
-export default Dashboard;
+export default board;

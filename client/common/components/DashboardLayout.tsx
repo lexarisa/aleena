@@ -10,7 +10,7 @@ const DashboardLayout = ({ children }: DashBoardLayoutProps) => {
   return (
     <Layout>
       <SideBar />
-      <Container />
+      <div>{children}</div>
     </Layout>
   );
 };
