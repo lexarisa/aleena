@@ -1,0 +1,16 @@
+.container {
+  background-color: var(--color-black);
+  padding: var(--unit3);
+  margin-top: var(--unit4);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-white);
+}
+
+.title {
+  font-size: var(--size-s);
+  font-weight: 400;
+}
