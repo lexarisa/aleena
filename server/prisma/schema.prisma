@@ -34,9 +34,9 @@ model Project {
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
   title String
-  description String
-  status String
-  deadline DateTime  
+  description String?
+  status String?
+  deadline DateTime? 
   user User_Projects[]
   milestones Milestone[]
 }
@@ -53,7 +53,7 @@ model User_Tasks {
   id Int @id
   user_id Int
   task_id Int
-  subscribed Boolean
+  subscribed Boolean?
   user User @relation(fields: [user_id], references: [id])
   task Task @relation(fields: [task_id], references: [id])
 }
@@ -62,7 +62,7 @@ model Milestone {
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
   title String
-  status String
+  status String?
   project_id Int
   project Project @relation(fields: [project_id], references: [id])
   tasks Task[]
@@ -74,9 +74,9 @@ model Task {
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
   title String
-  description String
-  status String
-  deadline DateTime
+  description String?
+  status String?
+  deadline DateTime?
   user_id Int 
   project_id Int
   milestone_id Int
@@ -110,7 +110,7 @@ model DocumentationDetail {
 id Int @id @default(autoincrement())
 created_at DateTime @default(now())
 updated_at DateTime? @updatedAt
-bookMarked Boolean @default(false)
+bookMarked Boolean? @default(false)
 user_id Int
 user User @relation(fields: [user_id], references: [id])
 documentation_id Int
