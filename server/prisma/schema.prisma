@@ -15,9 +15,9 @@ model User {
   id Int @id
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
-  email String @unique
+  email String? @unique
   username String @unique
-  name String
+  name String?
   slack_id String? @unique
   profile_pic String 
   status String? 
@@ -40,7 +40,7 @@ model Project {
 }
 
 model User_Projects {
-  id Int @id
+  id Int @id @default(autoincrement())
   user_id Int
   project_id Int
   user User @relation(fields: [user_id], references: [id])
@@ -48,7 +48,7 @@ model User_Projects {
 }
 
 model User_Tasks {
-  id Int @id
+  id Int @id @default(autoincrement())
   user_id Int
   task_id Int
   subscribed Boolean?
@@ -114,8 +114,6 @@ user User @relation(fields: [user_id], references: [id])
 documentation_id Int
 documentation Documentation @relation(fields: [documentation_id], references: [id])
 }
-
-
 
 model Github {
   id Int @id @default(autoincrement())
