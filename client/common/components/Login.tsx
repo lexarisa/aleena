@@ -33,9 +33,7 @@ const Login = () => {
     //       <h1 className={styles.header}>Login</h1>
     //       <button className={styles.github}>Log in with Github</button>
     //     </form> */}
-          //{' '}
         </div>
-        //{' '}
       </div>
 
       <button onClick={handleSignIn}>Login with Github</button>
