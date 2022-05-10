@@ -1,9 +1,8 @@
-const bcrypt = require('bcrypt');
-const { PrismaClient } = require('@prisma/client');
+import bcrypt from 'bcrypt';
+import { prisma } from './prisma-client';
 import { userMockData } from './userMockData';
 import { projectMockData } from './project-mock-data';
 
-const prisma = new PrismaClient();
 
 const runSeeding = async () => {
   const salt = bcrypt.genSaltSync();
@@ -16,9 +15,8 @@ const runSeeding = async () => {
           id: user.id,
           email: user.email,
           username: user.username,
-          password: bcrypt.hashSync(user.password, salt),
-          firstname: user.firstname,
-          lastname: user.lastname,
+          // @ts-ignore
+          name: user.name,
           slack_id: user.slack_id,
           profile_pic: user.profile_pic,
           status: user.status,
