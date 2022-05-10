@@ -20,8 +20,11 @@ export class GithubControllers {
             if (findUser === null) {
                 // res.send('Sorry you don\'t have an account. Install our app and join us')
                 res.redirect('https://github.com/apps/aleena-app/installations/new?state=AB12thttp://localhost:3000/');
+
                 const createUser = await dataService.createUser(user);
+
             } else {
+                // TODO need to add logic to check the projects.length 
                 res.redirect('http://localhost:3000/');
             }
         } catch (error) {

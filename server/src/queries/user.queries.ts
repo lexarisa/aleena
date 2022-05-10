@@ -1,19 +1,18 @@
 import { IUser, INewUser } from "./../interfaces/user"
 import { prisma } from "./../../prisma/prisma-client"
 
-export const createUserQuery = async (newUser: INewUser): Promise<IUser> => {
+export const createUserQuery = async (newUser: INewUser) => {
     const userData = await prisma.user.create({
-        // @ts-ignore
+        //@ts-ignore
         data: newUser
     })
 
     if(!userData) throw new Error();
 
-    // @ts-ignore
     return userData;
 }
 
-export const findUserQuery = async (id: number): Promise<IUser | null> => {
+export const findUserQuery = async (id: number) => {
     const userData = await prisma.user.findUnique({
         where: {
             id
@@ -21,8 +20,7 @@ export const findUserQuery = async (id: number): Promise<IUser | null> => {
     })
 
     if(!userData) return null;
-
-    // @ts-ignore
+    
     return userData;
 }
 
