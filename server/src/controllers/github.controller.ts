@@ -15,14 +15,13 @@ export class GithubControllers {
 
             const user = await gitService.gitUser(token);
 
+            console.log('weird',user)
             const findUser = await dataService.getUser(user.id);
-
+            console.log('find',findUser)
             if (findUser === null) {
                 // res.send('Sorry you don\'t have an account. Install our app and join us')
-                res.redirect('https://github.com/apps/aleena-app/installations/new?state=AB12thttp://localhost:3000/');
-
+                res.redirect('https://github.com/apps/aleena-app/installations/new?state=AB12');
                 const createUser = await dataService.createUser(user);
-
             } else {
                 // TODO need to add logic to check the projects.length 
                 res.redirect('http://localhost:3000/');
@@ -33,8 +32,6 @@ export class GithubControllers {
         }
 
     }
-  }
-
 
     async payloadGithub(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
@@ -46,5 +43,5 @@ export class GithubControllers {
         }
 
     }
-  }
+
 }
