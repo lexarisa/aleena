@@ -2,3 +2,4 @@
 /node_modules
 private.key.pem
 .env
+node_modules
