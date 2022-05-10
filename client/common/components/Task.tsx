@@ -16,7 +16,7 @@ interface taskProps {
 
 const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
   const handleClick = () => {
-    // setShowTask(false);
+    setShowTask(false);
     const source = new EventSource('http://localhost:3001/feed');
 
     source.addEventListener('message', (message) => {
