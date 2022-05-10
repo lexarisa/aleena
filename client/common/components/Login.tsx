@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../styles/Login.module.css';
 // import { useSession, signOut } from 'next-auth/react';
 import path from 'path';
 
@@ -25,8 +26,19 @@ const Login = () => {
 
   return (
     <>
-      <h1>Hello Urze</h1>
-      <button onClick={handleSignIn}>Sign In</button>
+      <div className={styles.container}>
+        <div className={styles.form}>
+          {/* <form action=" ">
+    //       <div className={styles.logo}>Alena</div>
+    //       <h1 className={styles.header}>Login</h1>
+    //       <button className={styles.github}>Log in with Github</button>
+    //     </form> */}
+          //{' '}
+        </div>
+        //{' '}
+      </div>
+
+      <button onClick={handleSignIn}>Login with Github</button>
       <button onClick={handleSignUp}>Sign Up</button>
     </>
   );

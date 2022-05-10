@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(
-    `${process.env.BASEURL}/getDashboard/${context.params}` //still have to add params
+    `${process.env.BASEURL}/getDashboard/${context.params}` //still have to add proper params
   );
   const data = await res.json();
   return {

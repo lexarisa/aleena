@@ -2,8 +2,8 @@ import { Router } from 'express';
 import express from 'express';
 import projectController from '../controllers/project.controller';
 
-const router: Router = express.Router();
+const projectRouter: Router = express.Router();
 
-router.get('/project/:projectId', projectController.selectProject);
+projectRouter.get('/project/:projectId', projectController.selectProject);
 
-export default router;
+export default projectRouter;
