@@ -1,7 +1,7 @@
 import React from 'react';
 
-function ProfilePic() {
+const ProfilePic = () => {
   return <div>ProfilePic</div>;
-}
+};
 
 export default ProfilePic;
