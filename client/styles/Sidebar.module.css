@@ -2,8 +2,16 @@
   height: 100vw;
   min-width: 15rem;
   flex-direction: column;
+  margin: var(--unit9) var(--unit3);
 }
 
 .userImage {
   margin: var(--unit5);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.links {
+  color: var(--color-white);
 }

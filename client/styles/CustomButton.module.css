@@ -1,0 +1,17 @@
+.container {
+  padding: var(--unit3);
+  width: 100%;
+  border-radius: 10px;
+  outline: 0;
+  border: none;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  transition: 0.3s all ease;
+  font-size: var(--size-s);
+  font-weight: 600;
+}
+
+.container:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
