@@ -1,5 +1,7 @@
+
 import axios, { AxiosResponse } from "axios";
 import path from 'path'
+
 import dotenv from 'dotenv';
 import { INewUser } from './../interfaces/user'
 
@@ -55,4 +57,5 @@ export class GitHubService {
     gitPayload(payload: any): void {
         console.log(payload.body);
     }
+
 }

@@ -1,34 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
 function Feed() {
-  // const [tasks, setTasks] = useState([]);
-  // useEffect(() => {
-  //   //fetch from db
+  // const [events, setEvents] = useState(['first event']);
 
-  //   //SSE
-  //   const sse = new EventSource('/feed');
-  //   //on error
-  //   sse.onerror = () => {
-  //     console.log('server closed connection');
-  //     sse.close();
-  //   };
+  // useEffect(()=>{}) -> LOAD FEED FROM DB
 
-  //   function getRealtimeData(data) {
-  //     // process the data here
-  //     let newTask = data;
-  //     // pass it to state to be rendered
-  //     setTasks(() => [...tasks, newTask]);
-  //   }
-  //   sse.onmessage = (e) => getRealtimeData(JSON.parse(e.data));
-  //   sse.close();
+  // const source = new EventSource('http://localhost:3001/feed');
+  // // useEffect(() => {
+  // source.addEventListener('message', (message) => {
+  //   console.log('Data from server:', message);
+  // });
+  // source.addEventListener('test', (message) => {
+  //   console.log('Test event:', message.target);
+  // });
   // }, []);
-  const source = new EventSource('/feed');
 
-  source.addEventListener('message', (message) => {
-    console.log('Got', message);
-  });
-
-  return <div>Feed</div>;
+  return <div></div>;
 }
 
 export default Feed;
