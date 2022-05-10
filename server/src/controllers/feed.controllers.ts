@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-// import * as service from '../services/feed.service';
+import * as service from '../services/feed.service';
 
 export const sendFeed = async (req: Request, res: Response): Promise<any> => {
   console.log('reached router');
