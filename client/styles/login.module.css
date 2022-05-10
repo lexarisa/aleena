@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  background-color: var(--color-black2);
+  justify-content: center;
+  align-content: center;
+  color: var(--color-white);
+}
+
+.form {
+  justify-content: center;
+  align-content: center;
+}
+
+.header {
+  font-size: var(--size-xl3);
+}

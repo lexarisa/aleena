@@ -1,16 +1,16 @@
-import type { NextPage } from 'next';
+import React from 'react';
+import Board from '../common/components/Board';
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
-import MainDashboard from '../common/components/MainDashBoard';
 
-const Home: NextPage = () => {
+const board = () => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDashboard />
+        <Board />
       </TabContainer>
     </DashboardLayout>
   );
 };
 
-export default Home;
+export default board;

@@ -1,7 +1,16 @@
-import React from 'react';
+import styles from '../../../styles/CustomButton.module.css';
 
-function MainBtn() {
-  return <div>MainBtn</div>;
+interface CustomButtonProp {
+  button: String;
+  onClick?: React.MouseEventHandler;
 }
 
-export default MainBtn;
+function CustomButton({ button, onClick }: CustomButtonProp) {
+  return (
+    <button onClick={onClick} className={styles.container}>
+      {button}
+    </button>
+  );
+}
+
+export default CustomButton;

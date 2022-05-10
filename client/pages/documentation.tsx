@@ -1,16 +1,15 @@
-import type { NextPage } from 'next';
+import React from 'react';
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
-import MainDashboard from '../common/components/MainDashBoard';
 
-const Home: NextPage = () => {
+const Document = () => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDashboard />
+        <h1>hello</h1>
       </TabContainer>
     </DashboardLayout>
   );
 };
 
-export default Home;
+export default Document;
