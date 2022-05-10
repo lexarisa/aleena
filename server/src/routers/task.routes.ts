@@ -2,9 +2,9 @@ import { Router } from 'express';
 import express from 'express';
 import taskController from '../controllers/task.controller';
 
-const router: Router = express.Router();
+const taskRouter: Router = express.Router();
 
-router.post('/task', taskController.createNewTask);
-router.get('/task/:taskId', taskController.findSingleTask);
+taskRouter.post('/task', taskController.createNewTask);
+taskRouter.get('/task/:taskId', taskController.findSingleTask);
 
-export default router;
+export default taskRouter;
