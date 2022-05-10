@@ -1,14 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
-import pipePullRequest from 'src/utils/piping/pull.request';
+import { pipePullRequest } from '../utils/piping/pull.request';
 
-export const pipe = async (
+export const cleanData = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<any> => {
+  console.log('reached cleanData');
   const event_type = req.headers['X-GitHub-Event'];
   const payload = JSON.parse(req.body);
   if (event_type === 'pull_request') {
-    return pipePullRequest(payload);
+    req.body = JSON.stringify(pipePullRequest(payload)); //OVERWRITTING BODY  req.pipedData
   }
+  next();
 };

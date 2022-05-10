@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 
-export const sendFeed = async (req: Request, res: Response): Promise<any> => {
-  console.log('reached router');
+export const updateTasks = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     console.log('client connected');
     res.set({
