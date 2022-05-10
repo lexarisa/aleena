@@ -9,13 +9,13 @@ export const pipe = async (
   const payload = JSON.parse(req.body);
 
   switch (event_type) {
-    case 'repository':
+    case 'pull_request_review_comment':
       //
       break;
     case 'pull_request':
       //
       break;
-    case 'issues':
+    case 'repository':
       //
       break;
 
