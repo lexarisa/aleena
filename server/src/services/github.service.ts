@@ -6,7 +6,7 @@ dotenv.config({ path: path.join(__dirname, '..', '.dev.env') });
 
 export class GitHubService {
 
-    async gitLogin(code: string, state?: string): Promise<any> {
+    async gitToken(code: string, state?: string): Promise<any> {
 
         const url = 'https://github.com/login/oauth/access_token';
 
@@ -18,7 +18,7 @@ export class GitHubService {
 
         const see = await axios.post(url, params)
         .then(response => {
-            console.log('logger', response.data);
+            console.log(response)
             return response.data;
         })
 

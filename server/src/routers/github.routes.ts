@@ -4,7 +4,7 @@ import { GithubControllers } from './../controllers/github.controller';
 const router: Router = Router();
 const controller = new GithubControllers();
 
-router.get('/login', controller.loginGithub);
+router.get('/api/auth/callback/github', controller.tokenGithub);
 
 router.post('/payload', controller.payloadGithub);
 

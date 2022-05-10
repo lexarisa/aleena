@@ -5,10 +5,11 @@ const service = new GitHubService();
 
 export class GithubControllers {
 
-    async loginGithub(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async tokenGithub(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
             const code = req.query.code
-            const token = await service.gitLogin(code as string);
+            console.log('codeee', req)
+            const token = await service.gitToken(code as string);
             res.send(token)
         } catch (error) {
             console.error(error)
