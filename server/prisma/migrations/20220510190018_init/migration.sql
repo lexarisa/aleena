@@ -1,16 +1,14 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-    "email" TEXT NOT NULL,
+    "id" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
+    "email" TEXT,
     "username" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "firstname" TEXT NOT NULL,
-    "lastname" TEXT NOT NULL,
-    "slack_id" TEXT NOT NULL,
+    "name" TEXT,
+    "slack_id" TEXT,
     "profile_pic" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
+    "status" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -19,11 +17,11 @@ CREATE TABLE "User" (
 CREATE TABLE "Project" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
-    "deadline" TIMESTAMP(3) NOT NULL,
+    "description" TEXT,
+    "status" TEXT,
+    "deadline" TIMESTAMP(3),
 
     CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
@@ -42,7 +40,7 @@ CREATE TABLE "User_Tasks" (
     "id" INTEGER NOT NULL,
     "user_id" INTEGER NOT NULL,
     "task_id" INTEGER NOT NULL,
-    "subscribed" BOOLEAN NOT NULL,
+    "subscribed" BOOLEAN,
 
     CONSTRAINT "User_Tasks_pkey" PRIMARY KEY ("id")
 );
@@ -51,9 +49,9 @@ CREATE TABLE "User_Tasks" (
 CREATE TABLE "Milestone" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "title" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
+    "status" TEXT,
     "project_id" INTEGER NOT NULL,
 
     CONSTRAINT "Milestone_pkey" PRIMARY KEY ("id")
@@ -63,11 +61,11 @@ CREATE TABLE "Milestone" (
 CREATE TABLE "Task" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
-    "deadline" TIMESTAMP(3) NOT NULL,
+    "description" TEXT,
+    "status" TEXT,
+    "deadline" TIMESTAMP(3),
     "user_id" INTEGER NOT NULL,
     "project_id" INTEGER NOT NULL,
     "milestone_id" INTEGER NOT NULL,
@@ -79,7 +77,7 @@ CREATE TABLE "Task" (
 CREATE TABLE "Comment" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "description" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
     "task_id" INTEGER NOT NULL,
@@ -100,28 +98,19 @@ CREATE TABLE "Documentation" (
 CREATE TABLE "DocumentationDetail" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-    "bookMarked" BOOLEAN NOT NULL DEFAULT false,
+    "updated_at" TIMESTAMP(3),
+    "bookMarked" BOOLEAN DEFAULT false,
+    "user_id" INTEGER NOT NULL,
     "documentation_id" INTEGER NOT NULL,
 
     CONSTRAINT "DocumentationDetail_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "UserBookMark" (
-    "id" SERIAL NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "user_id" INTEGER NOT NULL,
-    "documentationDetail_id" INTEGER NOT NULL,
-
-    CONSTRAINT "UserBookMark_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Github" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "task_id" INTEGER NOT NULL,
     "pull_id" INTEGER NOT NULL,
 
@@ -132,7 +121,7 @@ CREATE TABLE "Github" (
 CREATE TABLE "Tag" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
     "color" TEXT NOT NULL,
     "label" TEXT NOT NULL,
     "task_id" INTEGER NOT NULL,
@@ -177,13 +166,10 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_task_id_fkey" FOREIGN KEY ("task_i
 ALTER TABLE "Documentation" ADD CONSTRAINT "Documentation_milestone_id_fkey" FOREIGN KEY ("milestone_id") REFERENCES "Milestone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "DocumentationDetail" ADD CONSTRAINT "DocumentationDetail_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "DocumentationDetail" ADD CONSTRAINT "DocumentationDetail_documentation_id_fkey" FOREIGN KEY ("documentation_id") REFERENCES "Documentation"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "UserBookMark" ADD CONSTRAINT "UserBookMark_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "UserBookMark" ADD CONSTRAINT "UserBookMark_documentationDetail_id_fkey" FOREIGN KEY ("documentationDetail_id") REFERENCES "DocumentationDetail"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Github" ADD CONSTRAINT "Github_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "Task"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

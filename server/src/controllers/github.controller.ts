@@ -20,17 +20,21 @@ export class GithubControllers {
 
       const findUser = await dataService.getUser(user.id);
 
-      if (findUser === null) {
-        // res.send('Sorry you don\'t have an account. Install our app and join us')
-        res.redirect(
-          'https://github.com/apps/aleena-app/installations/new?state=AB12thttp://localhost:3000/'
-        );
+      const createUser = await dataService.createUser(user);
 
-        const createUser = await dataService.createUser(user);
-      } else {
-        // TODO need to add logic to check the projects.length
-        res.redirect('http://localhost:3000/');
-      }
+      console.log('hey');
+      res.redirect('http://localhost:3000/');
+      // if (findUser === null) {
+      //   // res.send('Sorry you don\'t have an account. Install our app and join us')
+      //   res.redirect(
+      //     'https://github.com/apps/aleena-app/installations/new?state=AB12thttp://localhost:3000/'
+      //   );
+
+      //   const createUser = await dataService.createUser(user);
+      // } else {
+      //   // TODO need to add logic to check the projects.length
+      //   res.redirect('http://localhost:3000/');
+      // }
     } catch (error) {
       console.error(error);
       res.status(500);

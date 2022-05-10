@@ -3,6 +3,7 @@ import cors from 'cors';
 import router from './routers/github.routes';
 import routerFeed from './routers/feed.routes';
 import routerUpdateTasks from './routers/updateTasks.routes';
+import dashRouter from './routers/dashboard.routes';
 
 const app: Application = express();
 
@@ -11,5 +12,6 @@ app.use(express.json());
 app.use(router);
 app.use(routerFeed);
 app.use(routerUpdateTasks);
+app.use(dashRouter);
 
 export default app;

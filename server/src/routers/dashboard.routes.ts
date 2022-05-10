@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import express from 'express';
-const router: Router = express.Router();
+const dashRouter: Router = express.Router();
 import dashboardControllers from '../controllers/dashboard.controller';
 
-router.get('/dashboard', dashboardControllers.getMainDashboard);
+dashRouter.get(
+  '/dashboard/:project_id/:user_id/:page',
+  dashboardControllers.getMainDashboard
+);
 
-export default router;
+export default dashRouter;
