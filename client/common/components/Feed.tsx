@@ -10,7 +10,7 @@ function Feed() {
   source.addEventListener('message', (message) => {
     console.log('Data from server:', message);
   });
-
+  // {url} Pull request {action} by {sender} ,{number} {title} {comments} {repoUrl}
   // }, []);
 
   return <div></div>;
