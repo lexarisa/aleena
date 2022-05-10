@@ -7,22 +7,20 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  url      = "postgres://efvubjdgccjxji:db21c7c801dde62acf6ea5de475602884e310f0101d5d8db07f5d0cee096124b@ec2-44-199-143-43.compute-1.amazonaws.com:5432/dfsrjkkvo1pbpk"
+  shadowDatabaseUrl = "postgres://ittgxvahaxzglh:f95d120c9310f8d17a06e813fed36b4cab4b8362ae5f9a41ade9aaca0e7aa477@ec2-35-168-194-15.compute-1.amazonaws.com:5432/d4nv0h451ir1jf"
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id Int @id
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
   email String @unique
   username String @unique
-  password String
-  firstname String?
-  lastname String?
+  name String
   slack_id String? @unique
   profile_pic String 
-  status String
+  status String? 
   tasks User_Tasks[]
   comments Comment[]
   projects User_Projects[]
