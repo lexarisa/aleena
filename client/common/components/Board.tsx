@@ -10,7 +10,7 @@ import styles from '../../styles/Board.module.css';
 //mock tasks
 import tasks from '../../mockTasks';
 
-function Board() {
+const Board = () => {
   //call the API
   //if error -> return <p>error</p>
   //if loading -> return <p>loading...</p>

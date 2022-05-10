@@ -1,7 +1,9 @@
-export default interface ITask {
+import { IUser } from "./user";
+
+export interface ITask {
   id: Number;
   title: String;
-  users: String[]; //IUser[];
+  users: IUser[]; //IUser[];
   description: String;
   status: String;
   priority: String;
