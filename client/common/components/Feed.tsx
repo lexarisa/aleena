@@ -5,24 +5,17 @@ function Feed() {
 
   // useEffect(()=>{}) -> LOAD FEED FROM DB
 
-  const source = new EventSource('http://localhost:3001/feed');
-  // useEffect(() => {
-  source.addEventListener('message', (message) => {
-    console.log('Data from server:', message);
-  });
+  // const source = new EventSource('http://localhost:3001/feed');
+  // // useEffect(() => {
+  // source.addEventListener('message', (message) => {
+  //   console.log('Data from server:', message);
+  // });
+  // source.addEventListener('test', (message) => {
+  //   console.log('Test event:', message.target);
+  // });
   // }, []);
 
-  return (
-    <div>
-      <button
-        onClick={() => {
-          source.close();
-        }}
-      >
-        close
-      </button>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default Feed;

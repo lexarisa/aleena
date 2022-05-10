@@ -1,7 +1,9 @@
 import { Router } from 'express';
-import { connectClient } from '../controllers/feed.controllers';
+import { sendFeed } from '../controllers/feed.controllers';
 const routerFeed: Router = Router();
 
-routerFeed.get('/feed', connectClient);
+routerFeed.get('/feed', sendFeed);
+
+routerFeed.post('/payload', sendFeed);
 
 export default routerFeed;

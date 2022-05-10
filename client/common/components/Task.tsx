@@ -16,7 +16,12 @@ interface taskProps {
 
 const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
   const handleClick = () => {
-    setShowTask(false);
+    // setShowTask(false);
+    const source = new EventSource('http://localhost:3001/feed');
+
+    source.addEventListener('message', (message) => {
+      console.log('Data from server:', message);
+    });
   };
   return (
     <div className={styles.container}>
@@ -27,7 +32,7 @@ const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
         </div>
         <div>{task.description}</div>
         <div>{task.comments}</div>
-        <Feed></Feed>
+        {/* <Feed /> */}
 
         <button onClick={handleClick}>x</button>
       </div>

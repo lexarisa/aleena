@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
+import * as service from '../services/feed.service';
 
-export const connectClient = async (
-  req: Request,
-  res: Response
-): Promise<any> => {
+export const sendFeed = async (req: Request, res: Response): Promise<any> => {
   console.log('reached router');
   try {
     console.log('client connected');
@@ -13,8 +11,13 @@ export const connectClient = async (
       'Access-Control-Allow-Origin': '*',
       Connection: 'keep-alive',
     });
-    console.log('REQ', req.body);
-    res.write(`data: ${'currentTask'}\n\n`);
+
+    //CLEAN DATA
+
+    if (req.body) {
+      const payload = await service.cleanFeedPayload(req);
+      res.write(`data: ${payload}\n\n`);
+    } else res.write(`data: ${'data'}\n\n`);
 
     res.on('close', () => {
       console.log('client closed connection');
