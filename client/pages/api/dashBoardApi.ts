@@ -1,8 +1,21 @@
-const URL = 'http://localhost:3001';
-export const getServerSideProps = async (context) => {
-  // const res = await fetch(`${URL}/dashboard/${project_id}/${user_id}/${page}`);
+import { GetServerSideProps } from 'next';
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const res = await fetch(
+    `${process.env.BASEURL}/getDashboard/${context.params}` //still have to add params
+  );
+  const data = await res.json();
   return {
-    props: {},
+    props: {
+      data,
+    },
   };
 };
+
+//typescript for later
+
+// import { InferGetServerSidePropsType } from 'next'
+
+// function Page({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+//   // will resolve posts to type Data
+// }

@@ -28,8 +28,8 @@ const createNewTask = async (req: Request, res: Response) => {
       milestone_id,
     };
     const task = await prisma.task.create({ data: taskDetail });
-    console.log(task);
-    res.status(201).json(task);
+
+    res.status(201).send(task);
   } catch (error) {
     res.status(500).send(error);
   }
