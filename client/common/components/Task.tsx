@@ -16,7 +16,7 @@ const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
     setShowTask(false);
   };
   return (
-    <div className={styles.container}>
+    <div className={styles.overlay}>
       <div className={styles.main}>
         <div>
           <h1>{task.title}</h1>

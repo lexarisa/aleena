@@ -4,14 +4,7 @@ import type { AppProps } from 'next/app';
 import Login from '../common/components/Login';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Login></Login>
-      <DashboardLayout>
-        <Component {...pageProps} />
-      </DashboardLayout>
-    </>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

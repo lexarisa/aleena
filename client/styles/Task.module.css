@@ -1,6 +1,6 @@
 .main {
   max-height: 50rem;
-  max-width: 50rem;
+  max-width: 40rem;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -8,15 +8,16 @@
   justify-content: center;
   align-items: center;
   z-index: 2;
-  background-color: #eaeaea;
+  border-radius: 20px;
+  background-color: var(--color-black);
 }
-.container {
+.overlay {
   min-height: 100vh;
   min-width: 100vw;
   top: 0;
   left: 0;
   position: absolute;
-  background-color: 'rgba(52, 52, 52, 0)';
+  background-color: rgba(0, 0, 0, 0.7);
   align-items: center;
   justify-content: center;
   display: flex;
