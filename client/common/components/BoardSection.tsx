@@ -21,7 +21,6 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
   };
 
   const handleClick = (task: ITask) => {
-    console.log(task.title);
     setShowTask(!showTask);
     setCurrentTask(task);
   };

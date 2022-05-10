@@ -5,6 +5,9 @@ import styles from '../../styles/Task.module.css';
 // interfaces
 import ITask from '../types/ITask';
 
+//components
+import Feed from './Feed';
+
 interface taskProps {
   setShowTask: Dispatch<SetStateAction<boolean>>;
   setCurrentTask: Dispatch<SetStateAction<ITask>>;
@@ -24,6 +27,7 @@ const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
         </div>
         <div>{task.description}</div>
         <div>{task.comments}</div>
+        <Feed></Feed>
 
         <button onClick={handleClick}>x</button>
       </div>
