@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import Login from '../common/components/Login';
 import styles from '../styles/login.module.css';
 
@@ -15,7 +16,16 @@ const login = () => {
     //   </div>
     // </div>
     <Login />
+=======
+import Login from './../common/components/Login'
+
+const LoginPage = () => {
+
+  return (
+    <Login></Login>
+>>>>>>> development
   );
+
 };
 
-export default login;
+export default LoginPage;
