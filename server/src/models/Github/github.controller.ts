@@ -25,7 +25,6 @@ export class GithubControllers {
                 // TODO need to add logic to check the projects.length 
                 res.redirect('http://localhost:3000/');
             }
-
         } catch (error) {
             console.error(error)
             res.status(500)
