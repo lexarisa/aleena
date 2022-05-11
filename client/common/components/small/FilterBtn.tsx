@@ -1,7 +1,7 @@
 import React from 'react';
 
-function FilterBtn() {
+const FilterBtn = () => {
   return <div>FilterBtn</div>;
-}
+};
 
 export default FilterBtn;

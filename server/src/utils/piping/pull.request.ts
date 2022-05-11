@@ -1,4 +1,4 @@
-export const pipePullRequest = (event: any) => {
+export const cleanPullRequest = (event: any) => {
   if (event.action === 'created' || event.action === 'closed') {
     console.log('EVENT ACTION', event.action);
     const pullEvent = {

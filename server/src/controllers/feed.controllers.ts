@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
+<<<<<<< HEAD
+=======
 
+>>>>>>> development
 
 export const sendFeed = async (req: Request, res: Response): Promise<any> => {
   console.log('reached router');

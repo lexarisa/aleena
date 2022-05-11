@@ -1,8 +1,8 @@
 import React from 'react';
 
-function TagsContainer() {
+const TagsContainer = () => {
   // get tags
   return <div>TagsContainer</div>;
-}
+};
 
 export default TagsContainer;

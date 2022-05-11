@@ -5,12 +5,12 @@ interface CustomButtonProp {
   onClick?: React.MouseEventHandler;
 }
 
-function CustomButton({ button, onClick }: CustomButtonProp) {
+const CustomButton = ({ button, onClick }: CustomButtonProp) => {
   return (
     <button onClick={onClick} className={styles.container}>
       {button}
     </button>
   );
-}
+};
 
 export default CustomButton;

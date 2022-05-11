@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { pipePullRequest } from '../utils/piping/pull.request';
+import { cleanPullRequest } from '../utils/piping/pull.request';
 
 export const cleanData = async (
   req: Request,
@@ -10,7 +10,7 @@ export const cleanData = async (
   const event_type = req.headers['X-GitHub-Event'];
   const payload = JSON.parse(req.body);
   if (event_type === 'pull_request') {
-    req.body = JSON.stringify(pipePullRequest(payload)); //OVERWRITTING BODY  req.pipedData
-  }
+    req.body = JSON.stringify(cleanPullRequest(payload)); //OVERWRITING BODY
+  } else req.body = { data: 'empty data' };
   next();
 };
