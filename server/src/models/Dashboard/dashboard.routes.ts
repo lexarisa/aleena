@@ -6,4 +6,6 @@ const controller = new DashboardController();
 
 router.get('/dashboard/:project_id/:user_id/:page', controller.getDashboard);
 
+// router.get('/dashboard/:token', controller.getDashboard);
+
 export default router;
