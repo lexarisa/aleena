@@ -41,6 +41,7 @@ export class GitHubService {
 
         const user = axios.get(url, { headers })
         .then((res: AxiosResponse) => {
+            console.log('aleeex', res)
             const data = {
                 id: res.data.id,
                 email: res.data.email,

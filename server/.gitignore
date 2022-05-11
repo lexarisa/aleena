@@ -1,5 +1,5 @@
-.dev.env
 /node_modules
-private.key.pem
-.env
 node_modules
+.env
+.dev.env
+private.key.pem
