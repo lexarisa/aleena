@@ -4,13 +4,13 @@ import { DataService } from '../../services/data.service';
 const service: DataService = new DataService();
 
 export class TaskController {
-
   constructor() {}
 
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
-      
+      console.log(newTask);
+
       const task = await service.createTask(newTask);
 
       res.send(task);
@@ -19,12 +19,12 @@ export class TaskController {
       res.status(500);
     }
   }
-  
+
   async findTask(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      
-      const task = await service.getTask(+id)
+
+      const task = await service.getTask(+id);
 
       res.send(task);
     } catch (error) {

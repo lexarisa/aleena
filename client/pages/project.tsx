@@ -7,6 +7,7 @@ import Link from 'next/link';
 const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log('dataprops', data);
   return (
     <div className={styles.container}>
       <div className={styles.cardWrapper}>
@@ -39,10 +40,9 @@ export default project;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.BASEURL}/project/1`); //get userid
-
-  console.log(context.params);
-  // console.log('reeees', context.params);
-  const data = await res.json();
+  console.log('hi', res);
+  const data = await res.text();
+  console.log(data);
 
   return { props: { data: [data] }, notFound: false };
 };
