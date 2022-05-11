@@ -1,15 +1,9 @@
 import { Request, Response } from 'express';
-<<<<<<< HEAD:server/src/models/Feed/feed.controllers.ts
-// import * as service from './../../services/feed.service';
-=======
-<<<<<<< HEAD
-=======
 
->>>>>>> development
->>>>>>> development:server/src/controllers/feed.controllers.ts
-
-export const sendFeed = async (req: Request, res: Response): Promise<any> => {
-  console.log('reached router');
+export const updateTasks = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     console.log('client connected');
     res.set({
@@ -21,7 +15,7 @@ export const sendFeed = async (req: Request, res: Response): Promise<any> => {
 
     //CLEAN DATA
     if (req.body) {
-      const payload = req.body;
+      const payload = JSON.stringify(req.body);
       res.write(`data: ${payload}\n\n`);
     } else res.write(`data: ${'establishing connection'}\n\n`);
 
