@@ -1,5 +1,5 @@
 // import { IProject } from 
-import { prisma } from "./../../prisma/prisma-client"
+import { prisma } from "../../../prisma/prisma-client"
 
 export const createProjectQuery = async () => {
     // const userData = await prisma.user.create({

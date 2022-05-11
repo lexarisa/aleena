@@ -1,8 +1,8 @@
 import express, { Application } from 'express';
 import cors from 'cors';
-import gitRouter from './routers/github.routes';
-import feedRouter from './routers/feed.routes';
-import dashRouter from './Dashboard/dashboard.routes';
+import gitRouter from './models/Github/github.routes';
+import feedRouter from './models/Feed/feed.routes';
+import dashRouter from './models/Dashboard/dashboard.routes';
 
 const app: Application = express();
 

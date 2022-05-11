@@ -1,4 +1,4 @@
-import { prisma } from "./../../prisma/prisma-client"
+import { prisma } from "../../../prisma/prisma-client"
 
 export const findDashboardQuery = 
     async (project_id: number, user_id: number, page: number) => {

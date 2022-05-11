@@ -1,5 +1,5 @@
-import { IUser, INewUser } from "./../interfaces/user"
-import { prisma } from "./../../prisma/prisma-client"
+import { IUser, INewUser } from "../../interfaces/user"
+import { prisma } from "../../../prisma/prisma-client"
 
 export const createUserQuery = async (newUser: INewUser) => {
     const userData = await prisma.user.create({
