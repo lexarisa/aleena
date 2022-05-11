@@ -1,7 +1,8 @@
 import ITask from '../../common/types/ITask';
 
 export const createNewTask = async (task: string) => {
-  console.log(task);
+  console.log('task', task);
+  console.log('process', process.env.BASEURL);
   const response = await fetch(`${process.env.BASEURL}/task`, {
     method: 'POST',
     body: JSON.stringify(task),
