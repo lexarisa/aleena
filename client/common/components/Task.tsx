@@ -16,13 +16,14 @@ interface taskProps {
 
 const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
   const handleClick = () => {
-    setShowTask(false);
-    const source = new EventSource('http://localhost:3001/feed');
-
+    const source = new EventSource('http://localhost:3001/updateTasks');
     source.addEventListener('message', (message) => {
       console.log('Data from server:', message);
     });
+
+    setShowTask(false);
   };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.main}>
