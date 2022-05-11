@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sendFeed } from './feed.controllers'
+import { sendFeed } from './feed.controllers';
 import { cleanData } from './../../middlewares/clean.middleware';
 
 const routerFeed: Router = Router();
