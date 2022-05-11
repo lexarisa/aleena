@@ -28,14 +28,12 @@ const createProject = async (req: Request, res: Response) => {
 };
 
 const getAllProjects = async (req: Request, res: Response) => {
-  console.log('running');
   try {
-    console.log('heeeee');
-    console.log(req.params);
+    console.log('running');
     const { userId } = req.params; // pass with body or params?
     const allProjects = await prisma.user_Projects.findMany({
       where: {
-        user_id: Number(userId),
+        user_id: 93489785,
       },
     });
     res.status(200).send(allProjects);

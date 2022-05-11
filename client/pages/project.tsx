@@ -1,22 +1,12 @@
 import React from 'react';
-import MileStoneCard from '../common/components/MileStoneCard';
-import CustomButton from '../common/components/small/MainBtn';
 import styles from '../styles/projectPage.module.css';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const res = await fetch(`${process.env.BASEURL}/project/${context.params}`);
-//   const selectedProject = await res.json();
-
-//   if (!selectedProject) {
-//     return { notFound: true };
-//   }
-//   return { props: { selectedProject } };
+import ITask from '../common/types/ITask';
+import Link from 'next/link';
 
 const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log('hi', data);
   return (
     <div className={styles.container}>
       <div className={styles.cardWrapper}>
@@ -27,17 +17,32 @@ const project = ({
           <div className={styles.addButton}>+</div>
           <p>Create a new project</p>
         </div>
+        <div>
+          {data &&
+            data.map((item: ITask) => (
+              <div key={String(item.id)}>
+                <Link href={{ pathname: '/dashboard', query: { id: item.id } }}>
+                  <div className={styles.selectCard}>
+                    <p>Your Project</p>
+                    <p>{item.title}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`${process.env.BASEURL}/project/${context.params}`);
+export default project;
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const res = await fetch(`${process.env.BASEURL}/project/1`); //get userid
+
+  console.log(context.params);
+  // console.log('reeees', context.params);
   const data = await res.json();
 
-  return { props: { data: 'Hello' }, notFound: false };
+  return { props: { data: [data] }, notFound: false };
 };
-
-export default project;

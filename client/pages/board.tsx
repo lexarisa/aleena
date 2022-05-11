@@ -3,7 +3,7 @@ import Board from '../common/components/Board';
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
 
-const board = () => {
+const BoardPage = () => {
   return (
     <DashboardLayout>
       <TabContainer>
@@ -13,4 +13,4 @@ const board = () => {
   );
 };
 
-export default board;
+export default BoardPage;

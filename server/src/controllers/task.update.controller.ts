@@ -15,7 +15,7 @@ export const updateTasks = async (
 
     //CLEAN DATA
     if (req.body) {
-      const payload = req.body;
+      const payload = JSON.stringify(req.body);
       res.write(`data: ${payload}\n\n`);
     } else res.write(`data: ${'establishing connection'}\n\n`);
 
