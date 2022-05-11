@@ -54,7 +54,8 @@ export class GitHubService {
     }
 
     gitPayload(payload: any): void {
-        console.log(payload.body);
+        console.log('GOT ITTTT');
+        // console.log(payload.body);
     }
 
 }

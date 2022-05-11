@@ -1,6 +1,10 @@
+import { Subject } from 'rxjs';
+
+export const newLog = new Subject();
+
 export const cleanPullRequest = (event: any) => {
-  if (event.action === 'created' || event.action === 'closed') {
-    console.log('EVENT ACTION', event.action);
+  if (event.action === 'created' || event.action === 'open' ||
+  event.action === 'reopened' || event.action === 'closed') {
     const pullEvent = {
       action: event.action,
       number: event.number,
@@ -9,11 +13,14 @@ export const cleanPullRequest = (event: any) => {
       sender: event.sender.login,
       senderId: event.sender.id,
       comment: event.body,
-      repoUrl: event.repo.url,
+      repoUrl: event.repository.html_url,
     };
+    console.log(' a pull ',pullEvent)
+    
+    newLog.next(pullEvent);
     return pullEvent; // send it to in-progress
   }
-  return {};
+  return 'Sorry xuxu';
 };
 
 // {url} Pull request {action} by {sender} ,{number} {title} {comments} {repoUrl}

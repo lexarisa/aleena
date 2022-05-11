@@ -1,12 +1,4 @@
 import { Request, Response } from 'express';
-<<<<<<< HEAD:server/src/models/Feed/feed.controllers.ts
-// import * as service from './../../services/feed.service';
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> development
->>>>>>> development:server/src/controllers/feed.controllers.ts
 
 export const sendFeed = async (req: Request, res: Response): Promise<any> => {
   console.log('reached router');

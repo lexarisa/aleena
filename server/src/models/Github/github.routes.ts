@@ -6,6 +6,6 @@ const controller = new GithubControllers();
 
 router.get('/api/auth/callback/github', controller.tokenGithub);
 
-router.post('/payload', controller.payloadGithub);
+// router.post('/payload', controller.payloadGithub);
 
 export default router;
