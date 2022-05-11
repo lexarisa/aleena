@@ -1,4 +1,10 @@
 import React from 'react';
+<<<<<<< HEAD
+import Login from '../common/components/Login';
+
+const login = () => {
+  return <Login />;
+=======
 import Login from '../common/components/Login';
 import styles from '../styles/login.module.css';
 import Login from '../common/components/Login';
@@ -19,6 +25,7 @@ const login = () => {
     // </div>
     <Login />
   );
+>>>>>>> development
 };
 
 export default login;
