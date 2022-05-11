@@ -3,7 +3,7 @@ import TabContainer from '../common/components/TabContainer';
 import DashboardLayout from '../common/components/DashboardLayout';
 import MainDashboard from '../common/components/MainDashBoard';
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <DashboardLayout>
       <TabContainer>

@@ -1,5 +1,5 @@
-import { Router, Response, Request } from 'express';
-import { GithubControllers } from './../controllers/github.controller';
+import { Router } from 'express';
+import { GithubControllers } from './github.controller';
 
 const router: Router = Router();
 const controller = new GithubControllers();

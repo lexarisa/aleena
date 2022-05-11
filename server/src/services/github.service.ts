@@ -1,9 +1,7 @@
-
 import axios, { AxiosResponse } from "axios";
-import path from 'path'
-
-import dotenv from 'dotenv';
 import { INewUser } from './../interfaces/user'
+import dotenv from 'dotenv';
+import path from 'path'
 
 dotenv.config({ path: path.join(__dirname, '..', '.dev.env') });
 
@@ -41,7 +39,6 @@ export class GitHubService {
 
         const user = axios.get(url, { headers })
         .then((res: AxiosResponse) => {
-            console.log('aleeex', res)
             const data = {
                 id: res.data.id,
                 email: res.data.email,
@@ -49,6 +46,7 @@ export class GitHubService {
                 username: res.data.login,
                 profile_pic: res.data.avatar_url,
             }
+
             return data;
         });
 

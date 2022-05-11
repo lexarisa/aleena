@@ -2,7 +2,7 @@ import React from 'react';
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
 
-const Document = () => {
+const DocumentPage = () => {
   return (
     <DashboardLayout>
       <TabContainer>
@@ -12,4 +12,4 @@ const Document = () => {
   );
 };
 
-export default Document;
+export default DocumentPage;
