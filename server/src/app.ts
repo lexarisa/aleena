@@ -6,7 +6,6 @@ import feedRouter from './models/Feed/feed.routes';
 import dashRouter from './models/Dashboard/dashboard.routes';
 import taskRouter from './models/Dashboard/dashboard.routes';
 import routerUpdateTasks from './routers/updateTasks.routes';
-import projectRouter from './routers/project.routes';
 
 const app: Application = express();
 
@@ -17,6 +16,5 @@ app.use(dashRouter);
 app.use(feedRouter);
 app.use(taskRouter);
 app.use(routerUpdateTasks);
-app.use(projectRouter);
 
 export default app;
