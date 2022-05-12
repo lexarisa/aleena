@@ -24,9 +24,11 @@ export class TaskController {
 
   async findTask(req: Request, res: Response): Promise<void> {
     try {
-      const { id } = req.params;
+      const { task_id } = req.params;
 
-      const task = await service.getTask(+id);
+      console.log(task_id)
+
+      const task = await service.getTask(+task_id);
 
       res.send(task);
     } catch (error) {
@@ -60,6 +62,22 @@ export class TaskController {
       res.status(200);
     } catch (error) {
       console.log(error);
+      res.status(500);
+    }
+  }
+
+  async updateTask(req: Request, res: Response): Promise<void> {
+    try {
+      const { task_id } = req.params;
+
+      const updateTaskData = req.body;
+
+      const task = await service.updateTask(+task_id, updateTaskData);
+
+      res.send(task);
+    } catch (error) {
+      console.error(error);
+
       res.status(500);
     }
   }
