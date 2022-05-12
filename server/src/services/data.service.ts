@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-
 import { INewUser } from './../interfaces/user';
-
 import {
   findProjectQuery,
   createProjectQuery,
@@ -24,9 +22,9 @@ import {
   findTaskQuery,
   findPRsInTask,
   updateTaskStatusQuery,
+  updateTaskQuery,
 } from '../models/Task/task.queries';
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
-
 // import { getTaskByPR } from '../models/Github/github.queries';
 
 export class DataService {
@@ -68,6 +66,11 @@ export class DataService {
   createTask(newTask: any) {
     return createTaskQuery(newTask);
   }
+
+  updateTask(id: number, updateTaskData: any) {
+    return updateTaskQuery(id, updateTaskData);
+  }
+
   createPR(newPR: any) {
     return createPRQuery(newPR);
   }
