@@ -16,7 +16,6 @@ export const checkPR = async (
   try {
     const pullId = pull_request.id;
     const status = pull_request.action === 'closed' ? 'closed' : 'opened';
-    // const updatedTask;
 
     //find pr in db and update status
     let taskId;
@@ -30,21 +29,21 @@ export const checkPR = async (
       // update status of task if all PRs closed
       const allStatus = await service.getPRsInTask(+taskId);
       console.log(allStatus); // check type to see how to iterate
-      if (allStatus?.githubs.every((s) => s.status === 'closed')) {
-        let updatedTask = await service.updateTaskStatus(+taskId);
-        //send the updated task
-        newHook.next(updatedTask);
+      let updatedTask;
 
-        next();
+      if (allStatus?.githubs.every((s) => s.status === 'closed')) {
+        updatedTask = await service.updateTaskStatus(+taskId, 'done');
+      } else {
+        updatedTask = await service.updateTaskStatus(+taskId, 'review');
       }
+      newHook.next(updatedTask);
+      next();
     } else {
       //create Github table
       let { pull_id, title, number, pull_url, comment } = pull_request;
       const newPR = { pull_id, title, status, number, pull_url, comment }; // not linked with any tasks
       await service.createPR(newPR);
     }
-
-    //TODO  send to frontend
   } catch (error) {
     console.error(error);
     res.status(500);

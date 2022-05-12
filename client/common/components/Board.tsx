@@ -14,6 +14,15 @@ const Board = () => {
   //call the API
   //if error -> return <p>error</p>
   //if loading -> return <p>loading...</p>
+
+  // SSE
+  const source = new EventSource('http://localhost:3001/updateTasks');
+  source.addEventListener('message', (message) => {
+    console.log('Data from server:', message);
+    // returns task with new status
+    // update state of all tasks
+  });
+
   const sections: String[] = [
     'Backlog',
     'Todo',
@@ -37,6 +46,6 @@ const Board = () => {
       })}
     </div>
   );
-}
+};
 
 export default Board;
