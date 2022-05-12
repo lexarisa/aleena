@@ -23,3 +23,29 @@ export const findUserQuery = async (id: number) => {
     return user;
 }
 
+export const findUserProjectsQuery = async (id: number) => {
+    const projects = await prisma.user.findUnique({
+        where: {
+            id
+        },
+        include: {
+            projects: {
+                select: {
+                    project: {
+                        select: {
+                            title: true,
+                            description: true,
+                            status: true,
+                            deadline: true,
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    if(!projects) return null;
+   
+    return projects;
+}
+

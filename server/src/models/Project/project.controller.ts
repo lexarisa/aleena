@@ -19,4 +19,31 @@ export class ProjectController {
       res.status(500);
     }
   }
-}
+
+  async createProject (req: Request, res: Response) {
+    try {
+      const project = await service.createProject(req.body)
+
+      res.send(project);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  };
+  
+  
+  async deleteProject(req: Request, res: Response) {
+    try {
+      const { id } = req.body;
+      const project = await service.deleteProject(+id)
+
+      res.send(project);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+
+};

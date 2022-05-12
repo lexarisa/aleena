@@ -4,8 +4,8 @@ import cors from 'cors';
 import gitRouter from './models/Github/github.routes';
 import feedRouter from './models/Feed/feed.routes';
 import dashRouter from './models/Dashboard/dashboard.routes';
-import taskRouter from './models/Task/task.routes';
-import routerUpdateTasks from './routers/updateTasks.routes';
+import taskRouter from './models/Dashboard/dashboard.routes';
+import userRouter from './models/User/user.routes';
 
 const app: Application = express();
 
@@ -15,6 +15,6 @@ app.use(gitRouter);
 app.use(dashRouter);
 app.use(feedRouter);
 app.use(taskRouter);
-app.use(routerUpdateTasks);
+app.use(userRouter);
 
 export default app;

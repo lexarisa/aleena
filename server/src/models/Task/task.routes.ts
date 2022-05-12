@@ -1,10 +1,16 @@
 import { Router } from 'express';
+import { cleanData } from './../../middlewares/clean.middleware';
 import { TaskController } from './task.controller';
 
-const taskRouter: Router = Router();
+const router: Router = Router();
 const controller = new TaskController();
 
-taskRouter.post('/task', controller.createTask);
-taskRouter.get('/task/:id', controller.findTask);
+router.get('/hookTask', controller.hookTask);
 
-export default taskRouter;
+router.get('/task/:task_id', controller.findTask);
+
+router.post('/task', controller.createTask);
+
+router.post('/payload', cleanData, controller.createTask);
+
+export default router;
