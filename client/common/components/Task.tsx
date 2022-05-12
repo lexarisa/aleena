@@ -22,6 +22,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
   //   console.log('Data from server:', message);
   // });
 
+  console.log(task);
+
   const [selectedStatus, setSelectedStatus] = useState(options[0].value);
   const [selectedTag, setSelectedTag] = useState(tags[0].label);
   const [description, setDescription] = useState('');
@@ -104,7 +106,11 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
           </div>
           <div>{task.users}</div>
         </div>
-        <div>{task.description}</div>
+        <div className={styles.descriptionWrapper}>
+          <div>
+            <p className={styles.description}> {task.description}</p>
+          </div>
+        </div>
         <div>{task.comments}</div>
         <button onClick={() => handleUpdateTask()}>Save</button>
       </div>

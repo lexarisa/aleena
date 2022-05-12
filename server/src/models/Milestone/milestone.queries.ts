@@ -8,6 +8,7 @@ export const getAllTasksInMilestoneQuery = async (milestoneId: number) => {
     select: {
       tasks: {
         select: {
+          id: true,
           title: true,
           description: true,
           status: true,
