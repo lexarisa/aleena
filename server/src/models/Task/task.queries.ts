@@ -21,3 +21,16 @@ export const findTaskQuery = async (id: number) => {
 
   return task;
 };
+
+// TODO 
+export const updateTaskQuery = async (id: number) => {
+  // const task = await prisma.task.upsert({
+  //   where: {
+  //     id: id,
+  //   },
+  // });
+
+  // if (!task) return null;
+
+  // return task;
+};
