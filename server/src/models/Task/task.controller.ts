@@ -27,7 +27,7 @@ export class TaskController {
     try {
       const { task_id } = req.params;
 
-      console.log(task_id)
+      console.log(task_id);
 
       const task = await service.getTask(+task_id);
 
@@ -67,13 +67,13 @@ export class TaskController {
     }
   }
 
-  async updateTask(req: Request, res: Response): Promise<void> {
+  async updateTaskDetail(req: Request, res: Response): Promise<void> {
     try {
       const { task_id } = req.params;
 
       const updateTaskData = req.body;
 
-      const task = await service.updateTask(+task_id, updateTaskData);
+      const task = await service.updateTaskDetail(+task_id, updateTaskData);
 
       res.send(task);
     } catch (error) {

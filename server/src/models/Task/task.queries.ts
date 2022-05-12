@@ -62,8 +62,7 @@ export const updateTaskStatusQuery = async (id: number, status: string) => {
   return task;
 };
 
-
-export const updateTaskQuery = async (
+export const updateTaskDetailQuery = async (
   id: number,
   updateTaskData: IUpdateTask
 ) => {
@@ -77,5 +76,4 @@ export const updateTaskQuery = async (
   if (!task) return null;
 
   return task;
-
 };
