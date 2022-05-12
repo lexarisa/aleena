@@ -64,7 +64,7 @@ CREATE TABLE "Task" (
     "updated_at" TIMESTAMP(3),
     "title" TEXT NOT NULL,
     "description" TEXT,
-    "status" TEXT,
+    "status" TEXT NOT NULL,
     "deadline" TIMESTAMP(3),
     "user_id" INTEGER NOT NULL,
     "project_id" INTEGER NOT NULL,

@@ -4,7 +4,6 @@ import Card from './Card';
 import Task from './Task';
 import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
-import { INewTask } from '../types/INewTask';
 import styles from '../../styles/BoardSection.module.css';
 
 interface BoardInterface {
@@ -13,7 +12,7 @@ interface BoardInterface {
 }
 
 const emptyTask = {} as ITask;
-const BoardSection: React.FC<BoardInterface> = (props) => {
+const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
   const [showTask, setShowTask] = useState(false);
   const [currentTask, setCurrentTask] = useState<ITask>(emptyTask);
   const [showButton, setShowButton] = useState(true);
@@ -38,11 +37,12 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
   };
 
   const handleCreateTask = async () => {
-    const newTask: INewTask = {
+    const newTask: ITask = {
       title: taskTitle,
       user_id: 1,
       project_id: 1,
       milestone_id: 1,
+      status: title,
     };
     await createNewTask(newTask);
     setTaskTitle('');
@@ -56,12 +56,12 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
     <>
       <div className={styles.container}>
         <div>
-          <h2 className={styles.boardTitle}>{props.title}</h2>
+          <h2 className={styles.boardTitle}>{title}</h2>
         </div>
         {/* <CustomButton button="+ add" onClick={() => onClick()} /> */}
 
         <div>
-          {props.tasks.map((task: ITask, index) => {
+          {tasks.map((task: ITask, index) => {
             return (
               <div
                 key={index}

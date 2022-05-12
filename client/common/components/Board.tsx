@@ -4,7 +4,6 @@ import React from 'react';
 import BoardSection from './BoardSection';
 //interfaces
 import ITask from '../types/ITask';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 //styling
 import styles from '../../styles/Board.module.css';
@@ -12,24 +11,30 @@ import styles from '../../styles/Board.module.css';
 //mock tasks
 import tasks from '../../mockTasks';
 
-const Board = () => {
+// interface BoardProps {
+//   data: ;
+// }
+
+const Board = ({ data }: BoardProps) => {
+  console.log(data);
+
   // fetch all the tasks
 
   //call the API
   //if error -> return <p>error</p>
   //if loading -> return <p>loading...</p>
   const sections: String[] = [
-    'Backlog',
-    'Todo',
+    'To Do',
     'In Progress',
     'Review',
     'Done',
+    'Backlog',
   ];
   return (
     <div className={styles.scrollContainer}>
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = tasks
-          ? tasks.filter((task: ITask) => {
+          ? data[0].tasks.filter((task: ITask) => {
               return task.status === section;
             })
           : [];
