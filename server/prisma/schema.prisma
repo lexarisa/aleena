@@ -126,7 +126,7 @@ model Github {
   status String
   number Int
   pull_url String
-  comment String
+  comment String?
 }
 
 model Tag {
