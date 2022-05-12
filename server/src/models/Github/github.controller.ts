@@ -48,4 +48,17 @@ export class GithubControllers {
       res.status(500);
     }
   }
+
+  async createPR(req: Request, res: Response): Promise<void> {
+    try {
+      const newPR = req.body;
+
+      const pr = await dataService.createPR(newPR)
+
+      res.send(pr);
+    } catch (error) {
+      console.error(error);
+      res.status(500);
+    }
+  }
 }
