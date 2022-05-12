@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { cleanPullRequest } from '../utils/pull.request.utils';
+
+import { Subject } from 'rxjs';
+export const newLog = new Subject();
 
 import { DataService } from '../services/data.service'; //check db
 
@@ -37,8 +39,7 @@ export const checkPR = async (
       await service.createPR(newPR);
     }
 
-    //update task if all closed
-    // if (prInDB) next();
+    //TODO  send to frontend
   } catch (error) {
     console.error(error);
     res.status(500);
