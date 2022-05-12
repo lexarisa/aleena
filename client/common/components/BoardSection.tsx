@@ -46,6 +46,7 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
     };
     await createNewTask(newTask);
     setTaskTitle('');
+    setShowInput(false);
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {

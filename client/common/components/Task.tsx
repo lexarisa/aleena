@@ -21,18 +21,20 @@ const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
     setShowTask(false);
   };
 
+  //TODO make reusable button
   return (
     <div className={styles.overlay}>
       <div className={styles.main}>
-        <div>
+        <button onClick={handleClick} className={styles.button}>
+          x
+        </button>
+
+        <div className={styles.headerSection}>
           <h1>{task.title}</h1>
           <div>{task.users}</div>
         </div>
-
         <div>{task.description}</div>
         <div>{task.comments}</div>
-
-        <button onClick={handleClick}>x</button>
       </div>
     </div>
   );
