@@ -7,16 +7,16 @@ import { checkPR } from './../../middlewares/checkPR.middleware';
 
 const router: Router = Router();
 // @ts-ignore missing correct dependency injection
-const controller = new GithubControllers();
+const controller = new GithubController();
 // @ts-ignore missing correct dependency injection
-const feedController = new FeedControllers();
+const feedController = new FeedController();
 // @ts-ignore missing correct dependency injection
-const taskController = new TaskControllers();
+const taskController = new TaskController();
 
 router.get('/api/auth/callback/github', controller.tokenGithub);
 
 router.post('/github/PR', controller.createPR);
 
-router.post('/payload', cleanData, checkPR, taskController.updateTasks, feedController.hookFeed);
+router.post('/payload', cleanData, checkPR, taskController.updateTask, feedController.hookFeed);
 
 export default router;
