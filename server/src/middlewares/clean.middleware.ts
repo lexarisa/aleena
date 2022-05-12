@@ -9,8 +9,8 @@ export const cleanData = async (
   const event_type = req.headers['x-github-event'];
   const payload = req.body;
   if (event_type === 'pull_request') {
-    let cleanPull = cleanPullRequest(payload);
-    if (cleanPull) req.body = cleanPull;
+    let cleanPR = cleanPullRequest(payload);
+    if (cleanPR) req.body = cleanPR;
     else res.send({ error: 'not a selected event' });
     next();
   } else res.send({ error: 'not a pull request' });

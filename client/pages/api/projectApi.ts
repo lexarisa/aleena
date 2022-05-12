@@ -1,11 +1,39 @@
-import { GetServerSideProps } from 'next';
+// };
+import IProject from '../../common/types/IProject';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`${process.env.BASEURL}/project/${context.params}`);
-  const selectedProject = await res.json();
+export const selectProject = async (id: number) => {
+  const response = await fetch(`${process.env.BASEURL}/project/${id}`);
 
-  if (!selectedProject) {
-    return { notFound: true };
+  if (!response.ok) {
+    const message = `An error has occurred: ${response.status}`;
+    throw new Error(message);
   }
-  return { props: { selectedProject } };
+  const project = await response.json();
+  return project;
+};
+
+export const createProject = async (data: IProject) => {
+  const response = await fetch(`${process.env.BASEURL}/project`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const message = `An error has occurred: ${response.status}`;
+    throw new Error(message);
+  }
+  return response.json();
+};
+
+export const deleteProject = async (id: number) => {
+  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    const message = `An error has occurred: ${response.status}`;
+    throw new Error(message);
+  }
+  return response.json();
 };

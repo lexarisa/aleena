@@ -2,10 +2,17 @@ import { PrismaClient } from '@prisma/client';
 
 import { INewUser } from './../interfaces/user';
 
-import { findProjectQuery } from '../models/Project/project.queries';
-import { findUserQuery, createUserQuery } from '../models/User/user.queries';
+import {
+  findProjectQuery,
+  createProjectQuery,
+  deleteProjectQuery,
+} from '../models/Project/project.queries';
+import {
+  findUserQuery,
+  createUserQuery,
+  findUserProjectsQuery,
+} from '../models/User/user.queries';
 import { findDashboardQuery } from '../models/Dashboard/dashboard.queries';
-import { createTaskQuery, findTaskQuery } from '../models/Task/task.queries';
 import {
   createPRQuery,
   findPRQuery,
@@ -13,6 +20,8 @@ import {
   openPRQuery,
 } from '../models/Github/github.queries';
 import {
+  createTaskQuery,
+  findTaskQuery,
   findPRsInTask,
   updateTaskStatusQuery,
 } from '../models/Task/task.queries';
@@ -36,10 +45,19 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-  createProject() {}
-
   getDashboard(project_id: number, user_id: number, page: number) {
     return findDashboardQuery(project_id, user_id, page);
+  }
+  getUserProjects(id: number) {
+    return findUserProjectsQuery(id);
+  }
+
+  createProject(project: any) {
+    return createProjectQuery(project);
+  }
+
+  deleteProject(id: number) {
+    return deleteProjectQuery(id);
   }
 
   getTask(id: number) {

@@ -13,7 +13,7 @@ export const createTaskQuery = async (newTask: any) => {
 export const findTaskQuery = async (id: number) => {
   const task = await prisma.task.findUnique({
     where: {
-      id,
+      id: id,
     },
   });
 
