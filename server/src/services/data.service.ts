@@ -25,6 +25,7 @@ import {
   findPRsInTask,
   updateTaskStatusQuery,
 } from '../models/Task/task.queries';
+import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 // import { getTaskByPR } from '../models/Github/github.queries';
 
@@ -87,5 +88,8 @@ export class DataService {
   }
   updateTaskStatus(id: number) {
     return updateTaskStatusQuery(id);
+  }
+  getAllTasksInMilestone(id: number) {
+    return getAllTasksInMilestoneQuery(id);
   }
 }
