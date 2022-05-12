@@ -5,13 +5,11 @@ function Feed() {
 
   // useEffect(()=>{}) -> LOAD FEED FROM DB
 
-  const source = new EventSource('http://localhost:3001/feed');
-  // useEffect(() => {
+  const source = new EventSource('http://localhost:3001/updateTasks');
   source.addEventListener('message', (message) => {
     console.log('Data from server:', message);
   });
   // {url} Pull request {action} by {sender} ,{number} {title} {comments} {repoUrl}
-  // }, []);
 
   return (
     <div>

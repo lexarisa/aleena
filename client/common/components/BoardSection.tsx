@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
-import CustomButton from './small/MainBtn';
+import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
 import { INewTask } from '../types/INewTask';
 import styles from '../../styles/BoardSection.module.css';
