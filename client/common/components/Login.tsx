@@ -34,13 +34,13 @@ const Login = () => {
           <div className={styles.login}>
             <CustomButton
               button="Login with Github"
-              onClick={handleSignUp}
+              onClick={handleSignIn}
               color="#415a77"
               textColor="#fff"
-            />
+              />
             <CustomButton
               button="Sign Up"
-              onClick={handleSignIn}
+              onClick={handleSignUp}
               color="#e0e1dd"
               textColor="#191919"
             />
