@@ -28,8 +28,8 @@ export class GithubControllers {
         console.log('my id', user.id)
         const token = await createToken(user.id)
         console.log('my token', token)
-        res.redirect(`http://localhost:3000/project/1`);
-        // res.redirect(`http://localhost:3000/project/${token}`);
+        // res.redirect(`http://localhost:3000/project/1`);
+        res.redirect(`http://localhost:3000/project/${token}`);
       }
     } catch (error) {
       console.error(error);
