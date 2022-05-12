@@ -1,21 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { cleanPullRequest } from '../utils/pull_request.utils';
+import { cleanPullRequest } from '../utils/pull.request.utils';
 
-export const cleanData = 
-async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-  try {
-    const event_type = req.headers['x-github-event'];
-  
-    const payload = req.body;
-  
-    if (event_type === 'pull_request') {
-      req.body = cleanPullRequest(payload);
-    } else {
-      req.body = { data: 'empty data' };
-    }
+export const cleanData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  const event_type = req.headers['x-github-event'];
+  const payload = req.body;
+  if (event_type === 'pull_request') {
+    let cleanPR = cleanPullRequest(payload);
+    if (cleanPR) req.body = cleanPR;
+    else res.send({ error: 'not a selected event' });
     next();
-  } catch (error) {
-    console.error(error);
-    res.status(500)
-  }
+  } else res.send({ error: 'not a pull request' });
 };
