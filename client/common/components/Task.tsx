@@ -31,6 +31,9 @@ const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
 
         <div className={styles.headerSection}>
           <h1>{task.title}</h1>
+          <div>
+            <p>status</p>
+          </div>
           <div>{task.users}</div>
         </div>
         <div>{task.description}</div>
