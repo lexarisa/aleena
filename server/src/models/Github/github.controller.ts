@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { GitHubService } from '../../services/github.service';
 import { DataService } from '../../services/data.service';
+import { createToken } from './../../utils/crypt.utils'
 
 const gitService: GitHubService = new GitHubService();
 const dataService: DataService = new DataService();
@@ -24,10 +25,15 @@ export class GithubControllers {
         const createUser = await dataService.createUser(user);
       } else {
         // TODO need to add logic to check the projects.length
-        res.redirect('http://localhost:3000/');
+        console.log('my id', user.id)
+        const token = await createToken(user.id)
+        console.log('my token', token)
+        res.redirect(`http://localhost:3000/project/1`);
+        // res.redirect(`http://localhost:3000/project/${token}`);
       }
     } catch (error) {
       console.error(error);
+
       res.status(500);
     }
   }

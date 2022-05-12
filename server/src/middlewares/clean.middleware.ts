@@ -1,19 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
-import { updateTasks } from './../controllers/task.update.controller';
-import { cleanPullRequest } from '../utils/piping/pull.request';
+import { cleanPullRequest } from '../utils/pull_request.utils';
 
-export const cleanData = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
+export const cleanData = 
+async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    const event_type = req.headers['x-github-event'];
   
-  const event_type = req.headers['x-github-event'];
-  // console.log('body', req.body)
-  const payload = req.body;
-  if (event_type === 'pull_request') {
-    req.body = cleanPullRequest(payload); //OVERWRITING BODY
-
-  } else req.body = { data: 'empty data' };
-  next();
+    const payload = req.body;
+  
+    if (event_type === 'pull_request') {
+      req.body = cleanPullRequest(payload);
+    } else {
+      req.body = { data: 'empty data' };
+    }
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500)
+  }
 };
