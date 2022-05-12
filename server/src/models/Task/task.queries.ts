@@ -20,8 +20,8 @@ export const findTaskQuery = async (id: number) => {
       githubs: true,
       comments: true,
       users: true,
-      tags: true
-    }
+      tags: true,
+    },
   });
 
   if (!task) return null;
@@ -62,7 +62,10 @@ export const updateTaskStatusQuery = async (id: number) => {
   return task;
 };
 
-export const updateTaskQuery = async (id: number, updateTaskData: IUpdateTask) => {
+export const updateTaskQuery = async (
+  id: number,
+  updateTaskData: IUpdateTask
+) => {
   const task = await prisma.task.update({
     where: {
       id: id,
@@ -73,5 +76,4 @@ export const updateTaskQuery = async (id: number, updateTaskData: IUpdateTask) =
   if (!task) return null;
 
   return task;
-
 };

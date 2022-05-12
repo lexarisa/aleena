@@ -1,20 +1,18 @@
 import React from 'react';
-import styles from './../../styles/projectPage.module.css';
+import styles from '../styles/projectPage.module.css';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import ITask from '../../common/types/ITask';
+import ITask from '../common/types/ITask';
 import Link from 'next/link';
 import Cryptr from 'cryptr';
 
 const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log('dataprops', data);
-  console.log('dataprops', data.username);
   return (
     <div className={styles.container}>
       <div className={styles.cardWrapper}>
         <div>
-          <h1>Welcome to Alena, {data.username}</h1>
+          <h1>Welcome to Alena, user</h1>
         </div>
         <div className={styles.selectCard}>
           <div className={styles.addButton}>+</div>
@@ -22,7 +20,7 @@ const project = ({
         </div>
         <div>
           {data &&
-            data.projects.map((item: any) => (
+            data.map((item: ITask) => (
               <div key={String(item.id)}>
                 <Link
                   href={{ pathname: '/dashboard', query: { id: +item.id } }}
@@ -49,9 +47,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
+  console.log(token);
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
 
-  return { props: { data: data }, notFound: false };
+  return { props: { data: [data] }, notFound: false };
 };

@@ -1,11 +1,30 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
-import { findProjectQuery, createProjectQuery, deleteProjectQuery} from '../models/Project/project.queries';
-import { findUserQuery, createUserQuery, findUserProjectsQuery } from '../models/User/user.queries';
+import {
+  findProjectQuery,
+  createProjectQuery,
+  deleteProjectQuery,
+} from '../models/Project/project.queries';
+import {
+  findUserQuery,
+  createUserQuery,
+  findUserProjectsQuery,
+} from '../models/User/user.queries';
 import { findDashboardQuery } from '../models/Dashboard/dashboard.queries';
-import { createPRQuery, findPRQuery, closePRQuery, openPRQuery } from '../models/Github/github.queries';
-import { createTaskQuery, findTaskQuery, findPRsInTask, updateTaskStatusQuery, updateTaskQuery} from '../models/Task/task.queries';
-
+import {
+  createPRQuery,
+  findPRQuery,
+  closePRQuery,
+  openPRQuery,
+} from '../models/Github/github.queries';
+import {
+  createTaskQuery,
+  findTaskQuery,
+  findPRsInTask,
+  updateTaskStatusQuery,
+  updateTaskQuery,
+} from '../models/Task/task.queries';
+import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 // import { getTaskByPR } from '../models/Github/github.queries';
 
 export class DataService {
@@ -72,5 +91,8 @@ export class DataService {
   }
   updateTaskStatus(id: number) {
     return updateTaskStatusQuery(id);
+  }
+  getAllTasksInMilestone(id: number) {
+    return getAllTasksInMilestoneQuery(id);
   }
 }
