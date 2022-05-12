@@ -117,7 +117,7 @@ CREATE TABLE "Github" (
     "status" TEXT NOT NULL,
     "number" INTEGER NOT NULL,
     "pull_url" TEXT NOT NULL,
-    "comment" TEXT NOT NULL,
+    "comment" TEXT,
 
     CONSTRAINT "Github_pkey" PRIMARY KEY ("id")
 );
@@ -134,6 +134,20 @@ CREATE TABLE "Tag" (
     CONSTRAINT "Tag_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Feed" (
+    "id" SERIAL NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "pull_id" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "number" INTEGER NOT NULL,
+    "pull_url" TEXT NOT NULL,
+    "comment" TEXT,
+
+    CONSTRAINT "Feed_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -145,6 +159,9 @@ CREATE UNIQUE INDEX "User_slack_id_key" ON "User"("slack_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Github_pull_id_key" ON "Github"("pull_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Feed_pull_id_key" ON "Feed"("pull_id");
 
 -- AddForeignKey
 ALTER TABLE "User_Projects" ADD CONSTRAINT "User_Projects_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

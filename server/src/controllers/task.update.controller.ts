@@ -1,10 +1,10 @@
 import { newHook } from '../middlewares/checkPR.middleware';
-import { Request, Response, Next } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 export const updateTasks = async (
   req: Request,
   res: Response,
-  next: Next
+  next: NextFunction
 ): Promise<any> => {
   try {
     res.set({

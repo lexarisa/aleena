@@ -1,10 +1,8 @@
 import { prisma } from '../../../prisma/prisma-client';
 
-export const createFeedQuery = async (log: any) => {
+export const createFeedQuery = async (feedUnit: any) => {
   const feedItem = await prisma.feed.create({
-    data: {
-      log,
-    },
+    data: feedUnit,
   });
 
   if (!feedItem) throw new Error();

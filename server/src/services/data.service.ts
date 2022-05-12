@@ -90,7 +90,7 @@ export class DataService {
   createMilestone(title: string, project_id: number) {
     return createMilestoneQuery(title, project_id);
   }
-  createFeed(log: any) {
-    return createFeedQuery(log);
+  createFeed(feedUnit: any) {
+    return createFeedQuery(feedUnit);
   }
 }

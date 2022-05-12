@@ -34,8 +34,8 @@ export const checkPR = async (
       updatedTask && newHook.next(updatedTask); // with db id
     }
 
-    const log = await service.createFeed(pull_request); //TODO
-    newLog.next(log); // always send the pull req to feed
+    const feedUnit = await service.createFeed(pull_request); //TODO
+    newLog.next(feedUnit); // always send the pull req to feed
     next();
   } catch (error) {
     console.error(error);
