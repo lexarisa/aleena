@@ -6,7 +6,7 @@ import feedRouter from './models/Feed/feed.routes';
 import dashRouter from './models/Dashboard/dashboard.routes';
 import taskRouter from './models/Task/task.routes';
 import userRouter from './models/User/user.routes';
-import mileStoneRouter from './models/Milestone/milestone.routes';
+import milestoneRouter from './models/Milestone/milestone.routes';
 
 const app: Application = express();
 
@@ -17,6 +17,6 @@ app.use(dashRouter);
 app.use(feedRouter);
 app.use(taskRouter);
 app.use(userRouter);
-app.use(mileStoneRouter);
+app.use(milestoneRouter);
 
 export default app;

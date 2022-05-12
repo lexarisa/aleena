@@ -1,7 +1,3 @@
-// import { Subject } from 'rxjs';
-
-// export const newLog = new Subject();
-
 export const cleanPullRequest = (event: any) => {
   if (
     event.action === 'open' ||
@@ -20,10 +16,8 @@ export const cleanPullRequest = (event: any) => {
       comment: event.pull_request.body,
     };
 
-    // newLog.next(pullEvent);
     return pullEvent;
   }
+  
   return null;
 };
-
-// {url} Pull request {action} by {sender} ,{number} {title} {comments} {repoUrl}
