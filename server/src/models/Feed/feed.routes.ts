@@ -1,11 +1,9 @@
-// import { Router } from 'express';
-// import { updateFeed } from './feed.controllers';
-// import { cleanData } from './../../middlewares/clean.middleware';
-// import { sendEvent } from '../../middlewares/feed.middleware';
+import { Router } from 'express';
+import { FeedController } from './feed.controllers';
 
-// const routerFeed: Router = Router();
+const router: Router = Router();
+const controller: FeedController = new FeedController();
 
-// routerFeed.post('/payload', cleanData, sendEvent, updateFeed); // to send clean data to client
-// routerFeed.get('/feed', updateFeed); // to connect
+router.get('/feed', controller.hookFeed);
 
-// export default routerFeed;
+export default router;

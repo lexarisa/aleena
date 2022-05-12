@@ -1,16 +1,15 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 
-const service: DataService = new DataService();
-
 export class ProjectController {
-  constructor() {}
+
+  constructor(private service: DataService) {}
 
   async selectProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
 
-      const project = await service.getProject(+id);
+      const project = await this.service.getProject(+id);
 
       res.send(project);
     } catch (error) {
@@ -20,9 +19,9 @@ export class ProjectController {
     }
   }
 
-  async createProject (req: Request, res: Response) {
+  async createProject (req: Request, res: Response): Promise<void> {
     try {
-      const project = await service.createProject(req.body)
+      const project = await this.service.createProject(req.body)
 
       res.send(project);
     } catch (error) {
@@ -33,10 +32,10 @@ export class ProjectController {
   };
   
   
-  async deleteProject(req: Request, res: Response) {
+  async deleteProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.body;
-      const project = await service.deleteProject(+id)
+      const project = await this.service.deleteProject(+id)
 
       res.send(project);
     } catch (error) {

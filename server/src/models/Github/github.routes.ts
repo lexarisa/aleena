@@ -1,13 +1,22 @@
 import { Router } from 'express';
-import { GithubControllers } from './github.controller';
+import { GithubController } from './github.controller';
+import { FeedController } from './../Feed/feed.controllers';
+import { TaskController } from './../Task/task.controller';
+import { cleanData } from './../../middlewares/clean.middleware';
+import { checkPR } from './../../middlewares/checkPR.middleware';
 
 const router: Router = Router();
-const controller = new GithubControllers();
+// @ts-ignore missing correct dependency injection
+const controller = new GithubController();
+// @ts-ignore missing correct dependency injection
+const feedController = new FeedController();
+// @ts-ignore missing correct dependency injection
+const taskController = new TaskController();
 
 router.get('/api/auth/callback/github', controller.tokenGithub);
 
 router.post('/github/PR', controller.createPR);
 
-// router.post('/payload', controller.payloadGithub);
+router.post('/payload', cleanData, checkPR, taskController.updateTask, feedController.hookFeed);
 
 export default router;
