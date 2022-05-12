@@ -18,7 +18,6 @@ const Dashboard = () => {
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
   const token = context.query.token;
 
   const res = await fetch(`${process.env.BASEURL}/project/${token}`); //get userid

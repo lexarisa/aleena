@@ -23,7 +23,9 @@ const project = ({
           {data &&
             data.map((item: ITask) => (
               <div key={String(item.id)}>
-                <Link href={{ pathname: '/dashboard', query: { id: +item.id } }}>
+                <Link
+                  href={{ pathname: '/dashboard', query: { id: +item.id } }}
+                >
                   <div className={styles.selectCard}>
                     <p>Your Project</p>
                     <p>{item.title}</p>
@@ -40,8 +42,6 @@ const project = ({
 export default project;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-<<<<<<< HEAD
-
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
   console.log('yeeeees');
@@ -52,12 +52,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
-=======
-  const res = await fetch(`${process.env.BASEURL}/project/1`); //get userid
-  console.log('hi', res);
-  const data = await res.text();
-  console.log(data);
->>>>>>> development
 
   return { props: { data: [data] }, notFound: false };
 };
