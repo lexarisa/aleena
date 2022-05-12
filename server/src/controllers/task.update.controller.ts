@@ -1,7 +1,10 @@
+import { newHook } from '../middlewares/checkPR.middleware';
 import { Request, Response } from 'express';
-import { newLog } from '../../middlewares/feed.middleware';
 
-export const updateFeed = async (req: Request, res: Response): Promise<any> => {
+export const updateTasks = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     res.set({
       'Cache-Control': 'no-cache',
@@ -11,7 +14,7 @@ export const updateFeed = async (req: Request, res: Response): Promise<any> => {
     });
     res.flushHeaders();
 
-    newLog.subscribe((data) => {
+    newHook.subscribe((data) => {
       res.write(`data: ${JSON.stringify(data)} \n\n`);
     });
 

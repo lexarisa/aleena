@@ -120,8 +120,13 @@ model Github {
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
   task_id Int
-  pull_id Int
+  pull_id Int @unique
   task Task @relation(fields: [task_id], references: [id])
+  title String
+  status String
+  number Int
+  pull_url String
+  comment String
 }
 
 model Tag {

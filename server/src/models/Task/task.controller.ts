@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
-import { newHook } from '../../utils/pull_request.utils'
+// import { newHook } from '../../utils/pull_request.utils'
+import { newHook } from '../../middlewares/checkPR.middleware';
 
 const service: DataService = new DataService();
 
@@ -10,7 +11,7 @@ export class TaskController {
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
-    
+
       const task = await service.createTask(newTask);
 
       res.send(task);
@@ -36,13 +37,13 @@ export class TaskController {
   }
 
   async hookTask(req: Request, res: Response): Promise<void> {
-    try{
+    try {
       const headers = {
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
         'Access-Control-Allow-Origin': '*',
         Connection: 'keep-alive',
-      }
+      };
 
       res.set(headers);
 
@@ -62,4 +63,4 @@ export class TaskController {
       res.status(500);
     }
   }
-};
+}

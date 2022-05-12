@@ -28,7 +28,7 @@ CREATE TABLE "Project" (
 
 -- CreateTable
 CREATE TABLE "User_Projects" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "project_id" INTEGER NOT NULL,
 
@@ -37,7 +37,7 @@ CREATE TABLE "User_Projects" (
 
 -- CreateTable
 CREATE TABLE "User_Tasks" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "task_id" INTEGER NOT NULL,
     "subscribed" BOOLEAN,
@@ -113,6 +113,11 @@ CREATE TABLE "Github" (
     "updated_at" TIMESTAMP(3),
     "task_id" INTEGER NOT NULL,
     "pull_id" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "number" INTEGER NOT NULL,
+    "pull_url" TEXT NOT NULL,
+    "comment" TEXT NOT NULL,
 
     CONSTRAINT "Github_pkey" PRIMARY KEY ("id")
 );
@@ -137,6 +142,9 @@ CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_slack_id_key" ON "User"("slack_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Github_pull_id_key" ON "Github"("pull_id");
 
 -- AddForeignKey
 ALTER TABLE "User_Projects" ADD CONSTRAINT "User_Projects_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
