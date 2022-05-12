@@ -30,7 +30,7 @@ export const checkPR = async (
       // update status of task if all PRs closed
       const allStatus = await service.getPRsInTask(+taskId);
       console.log(allStatus); // check type to see how to iterate
-      if (allStatus.every((s: string) => s === 'closed')) {
+      if (allStatus?.githubs.every((s) => s.status === 'closed')) {
         let updatedTask = await service.updateTaskStatus(+taskId);
         //send the updated task
         newHook.next(updatedTask);

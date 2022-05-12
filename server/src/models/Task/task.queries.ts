@@ -22,21 +22,22 @@ export const findTaskQuery = async (id: number) => {
   return task;
 };
 export const findPRsInTask = async (id: number) => {
-  const task = await prisma.task.findUnique({
+  const status = await prisma.task.findUnique({
     where: {
       id,
     },
-
-    githubs: {
-      select: {
-        status: true,
+    select: {
+      githubs: {
+        select: {
+          status: true,
+        },
       },
     },
   });
 
-  if (!task) return null;
+  if (!status) return null;
 
-  return task;
+  return status;
 };
 
 export const updateTaskStatusQuery = async (id: number) => {
