@@ -3,7 +3,6 @@ import { DataService } from '../../services/data.service';
 import { newHookTask } from '../../middlewares/checkPR.middleware';
 
 export class TaskController {
-  
   constructor(private service: DataService) {}
 
   async createTask(req: Request, res: Response): Promise<void> {
@@ -25,7 +24,7 @@ export class TaskController {
     try {
       const { task_id } = req.params;
 
-      console.log(task_id)
+      console.log(task_id);
 
       const task = await this.service.getTask(+task_id);
 

@@ -12,7 +12,7 @@ interface taskProps {
 }
 
 const Task: React.FC<taskProps> = ({ setShowTask, task }) => {
-  // const source = new EventSource('http://localhost:3001/updateTasks');
+  // const source = new EventSource(`${process.env.BASEURL}/updateTasks`);
   // source.addEventListener('message', (message) => {
   //   console.log('Data from server:', message);
   // });
