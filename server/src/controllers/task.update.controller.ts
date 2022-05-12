@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { newLog } from './../utils/piping/pull.request';
+import { newLog } from '../utils/pull.request.utils';
 
 export const updateTasks = async (
   req: Request,
@@ -16,7 +16,7 @@ export const updateTasks = async (
 
     newLog.subscribe((data) => {
       res.write(`data: ${JSON.stringify(data)} \n\n`);
-    })
+    });
 
     req.on('close', () => {
       console.log('client closed connection');
