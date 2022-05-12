@@ -16,8 +16,6 @@ import tasks from '../../mockTasks';
 // }
 
 const Board = ({ data }: BoardProps) => {
-  console.log(data);
-
   // fetch all the tasks
 
   //call the API

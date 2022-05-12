@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/MainDashBoard.module.css';
 import MileStoneCard from './MileStoneCard';
+import MilestoneAdd from './small/MilestoneAdd';
 
 const MainDashboard = () => {
   return (
@@ -9,6 +10,7 @@ const MainDashboard = () => {
       <MileStoneCard title="Title2" />
       <MileStoneCard title="Title3" />
       <MileStoneCard title="Title4" />
+      <MilestoneAdd />
     </div>
   );
 };
