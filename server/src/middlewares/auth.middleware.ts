@@ -35,6 +35,7 @@ export const createToken = async (req: Request, res: Response, next: NextFunctio
         next();
     } catch (error) {
         console.error(error);
+        
         res.status(401);
     }
 }

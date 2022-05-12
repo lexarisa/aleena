@@ -71,6 +71,7 @@ export const updateTaskQuery = async (
     where: {
       id: id,
     },
+    // @ts-ignore
     data: updateTaskData,
   });
 
