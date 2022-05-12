@@ -45,13 +45,13 @@ export default project;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
-  console.log('yeeeees');
-
   const token = await cryptr.decrypt(`${context.query.token}`);
 
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
+
+  console.log(data);
 
   return { props: { data: data }, notFound: false };
 };

@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 
+const service: DataService = new DataService();
+
 export class MilestoneController {
 
   constructor(private service: DataService) {}
@@ -11,7 +13,7 @@ export class MilestoneController {
 
       const { project_id } = req.params;
 
-      const milestone = await this.service.createMilestone(title, +project_id);
+      const milestone = await service.createMilestone(title, +project_id);
 
       res.send(milestone);
           
@@ -26,7 +28,7 @@ export class MilestoneController {
     try {
       const { milestoneId } = req.params;
 
-      const allTasks = await this.service.getAllTasksInMilestone(+milestoneId);
+      const allTasks = await service.getAllTasksInMilestone(+milestoneId);
 
       res.send(allTasks);
     } catch (error) {

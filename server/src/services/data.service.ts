@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
+import { Service } from 'typedi';
 
 import {
   findProjectQuery,
@@ -33,7 +34,7 @@ import { createMilestoneQuery } from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
-
+@Service()
 export class DataService {
   constructor(private prisma?: PrismaClient) {
     prisma = new PrismaClient();

@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+import Container from 'typedi';
 import express, { Application } from 'express';
 import cors from 'cors';
 
