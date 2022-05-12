@@ -21,30 +21,13 @@ export const createPRQuery = async (newPR: any) => {
   return pr;
 };
 
-export const closePRQuery = async (pull_id: number) => {
+export const updatePRQuery = async (pull_id: number, status: string) => {
   const taskId = await prisma.github.update({
     where: {
       pull_id,
     },
     data: {
-      status: 'closed',
-    },
-    select: {
-      task_id: true,
-    },
-  });
-
-  if (!taskId) return null;
-
-  return taskId;
-};
-export const openPRQuery = async (pull_id: number) => {
-  const taskId = await prisma.github.update({
-    where: {
-      pull_id,
-    },
-    data: {
-      status: 'opened',
+      status: status,
     },
     select: {
       task_id: true,

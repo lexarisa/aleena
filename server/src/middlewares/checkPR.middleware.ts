@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { Subject } from 'rxjs';
 export const newHook = new Subject();
+export const newLog = new Subject();
 
 import { DataService } from '../services/data.service'; //check db
 
@@ -15,20 +16,14 @@ export const checkPR = async (
   const pull_request = req.body;
   try {
     const pullId = pull_request.id;
-    const status = pull_request.action === 'closed' ? 'closed' : 'opened';
+    const status = pull_request.action;
 
     //find pr in db and update status
-    let taskId;
-    if (status === 'closed') {
-      taskId = await service.closePR(+pullId);
-    } else {
-      taskId = await service.openPR(+pullId);
-    }
+    let taskId = await service.updatePR(+pullId, status);
 
     if (taskId) {
       // update status of task if all PRs closed
       const allStatus = await service.getPRsInTask(+taskId);
-      console.log(allStatus); // check type to see how to iterate
       let updatedTask;
 
       if (allStatus?.githubs.every((s) => s.status === 'closed')) {
@@ -36,17 +31,14 @@ export const checkPR = async (
       } else {
         updatedTask = await service.updateTaskStatus(+taskId, 'review');
       }
-      newHook.next(updatedTask);
-      next();
-    } else {
-      //create Github table
-      let { pull_id, title, number, pull_url, comment } = pull_request;
-      const newPR = { pull_id, title, status, number, pull_url, comment }; // not linked with any tasks
-      await service.createPR(newPR);
+      updatedTask && newHook.next(updatedTask); // with db id
     }
+
+    const log = await service.createFeed(pull_request); //TODO
+    newLog.next(log); // always send the pull req to feed
+    next();
   } catch (error) {
     console.error(error);
     res.status(500);
-    //res.send()
   }
 };

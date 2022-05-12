@@ -1,9 +1,10 @@
 import { newHook } from '../middlewares/checkPR.middleware';
-import { Request, Response } from 'express';
+import { Request, Response, Next } from 'express';
 
 export const updateTasks = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: Next
 ): Promise<any> => {
   try {
     res.set({
@@ -21,6 +22,7 @@ export const updateTasks = async (
     req.on('close', () => {
       console.log('client closed connection');
     });
+    next();
 
     return res.status(200);
   } catch (error) {
