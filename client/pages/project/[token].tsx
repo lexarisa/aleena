@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from '../styles/projectPage.module.css';
+import styles from './../../styles/projectPage.module.css';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import ITask from '../common/types/ITask';
+import ITask from '../../common/types/ITask';
 import Link from 'next/link';
 import Cryptr from 'cryptr';
 
@@ -9,11 +9,12 @@ const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   console.log('dataprops', data);
+  console.log('dataprops', data.username);
   return (
     <div className={styles.container}>
       <div className={styles.cardWrapper}>
         <div>
-          <h1>Welcome to Alena, user</h1>
+          <h1>Welcome to Alena, {data.username}</h1>
         </div>
         <div className={styles.selectCard}>
           <div className={styles.addButton}>+</div>
@@ -21,7 +22,7 @@ const project = ({
         </div>
         <div>
           {data &&
-            data.map((item: ITask) => (
+            data.projects.map((item: any) => (
               <div key={String(item.id)}>
                 <Link href={{ pathname: '/dashboard', query: { id: +item.id } }}>
                   <div className={styles.selectCard}>
@@ -40,7 +41,6 @@ const project = ({
 export default project;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-<<<<<<< HEAD
 
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
@@ -48,16 +48,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
-  console.log(token);
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
-=======
-  const res = await fetch(`${process.env.BASEURL}/project/1`); //get userid
-  console.log('hi', res);
-  const data = await res.text();
-  console.log(data);
->>>>>>> development
 
-  return { props: { data: [data] }, notFound: false };
+  return { props: { data: data }, notFound: false };
 };

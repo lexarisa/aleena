@@ -21,6 +21,7 @@ export const findTaskQuery = async (id: number) => {
 
   return task;
 };
+
 export const findPRsInTask = async (id: number) => {
   const status = await prisma.task.findUnique({
     where: {
@@ -52,4 +53,16 @@ export const updateTaskStatusQuery = async (id: number) => {
   if (!task) return null;
 
   return task;
+
+export const updateTaskQuery = async (id: number) => {
+  // const task = await prisma.task.upsert({
+  //   where: {
+  //     id: id,
+  //   },
+  // });
+
+  // if (!task) return null;
+
+  // return task;
+
 };
