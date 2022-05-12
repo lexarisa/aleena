@@ -42,6 +42,7 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
     title: data.title,
     status: data.state,
     number: data.number,
+    pull_url: data.url,
     comment: data.body
   }
 
