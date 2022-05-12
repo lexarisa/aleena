@@ -17,7 +17,9 @@ export const createPRQuery = async (newPR: any) => {
   const pr = await prisma.github.create({
     data: newPR,
   });
+
   if (!pr) return null;
+  
   return pr;
 };
 

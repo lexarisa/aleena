@@ -1,3 +1,4 @@
+import { IUpdateTask } from './../../interfaces/ITask';
 import { prisma } from '../../../prisma/prisma-client';
 
 export const createTaskQuery = async (newTask: any) => {
@@ -14,6 +15,12 @@ export const findTaskQuery = async (id: number) => {
   const task = await prisma.task.findUnique({
     where: {
       id: id,
+    },
+    include: {
+      githubs: true,
+      comments: true,
+      users: true,
+      tags: true,
     },
   });
 
@@ -44,7 +51,7 @@ export const findPRsInTask = async (id: number) => {
 export const updateTaskStatusQuery = async (id: number, status: string) => {
   const task = await prisma.task.update({
     where: {
-      id,
+      id: id,
     },
     data: {
       status: status,
@@ -55,12 +62,20 @@ export const updateTaskStatusQuery = async (id: number, status: string) => {
   return task;
 };
 
-export const updateTaskQuery = async (id: number) => {
-  // const task = await prisma.task.upsert({
-  //   where: {
-  //     id: id,
-  //   },
-  // });
-  // if (!task) return null;
-  // return task;
+
+export const updateTaskQuery = async (
+  id: number,
+  updateTaskData: IUpdateTask
+) => {
+  const task = await prisma.task.update({
+    where: {
+      id: id,
+    },
+    data: updateTaskData,
+  });
+
+  if (!task) return null;
+
+  return task;
+
 };

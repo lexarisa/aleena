@@ -1,3 +1,4 @@
+
 import { newHook } from '../middlewares/checkPR.middleware';
 import { Request, Response, NextFunction } from 'express';
 
@@ -15,19 +16,22 @@ export const updateTasks = async (
     });
     res.flushHeaders();
 
-    newHook.subscribe((data) => {
-      res.write(`data: ${JSON.stringify(data)} \n\n`);
-    });
+
+//     newHook.subscribe((data) => {
+//       res.write(`data: ${JSON.stringify(data)} \n\n`);
+//     });
+
 
     req.on('close', () => {
       console.log('client closed connection');
     });
     next();
 
-    return res.status(200);
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-    res.end();
-  }
-};
+
+//     return res.status(200);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500);
+//     res.end();
+//   }
+// };
