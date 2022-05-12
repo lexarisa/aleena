@@ -8,6 +8,7 @@ import Cryptr from 'cryptr';
 const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log('dataprops', data);
   return (
     <div className={styles.container}>
       <div className={styles.cardWrapper}>
@@ -39,6 +40,7 @@ const project = ({
 export default project;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+<<<<<<< HEAD
 
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
@@ -50,6 +52,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
+=======
+  const res = await fetch(`${process.env.BASEURL}/project/1`); //get userid
+  console.log('hi', res);
+  const data = await res.text();
+  console.log(data);
+>>>>>>> development
 
   return { props: { data: [data] }, notFound: false };
 };

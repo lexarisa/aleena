@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../styles/Login.module.css';
 // import { useSession, signOut } from 'next-auth/react';
-import path from 'path';
+import CustomButton from './small/CustomButton';
 
 const Login = () => {
   // const { data, status } = useSession()
@@ -27,17 +27,26 @@ const Login = () => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.form}>
-          {/* <form action=" ">
-    //       <div className={styles.logo}>Alena</div>
-    //       <h1 className={styles.header}>Login</h1>
-    //       <button className={styles.github}>Log in with Github</button>
-    //     </form> */}
+        <div className={styles.cardWrapper}>
+          <div>
+            <h1>Login to Alena</h1>
+          </div>
+          <div className={styles.login}>
+            <CustomButton
+              button="Login with Github"
+              onClick={handleSignUp}
+              color="#415a77"
+              textColor="#fff"
+            />
+            <CustomButton
+              button="Sign Up"
+              onClick={handleSignIn}
+              color="#e0e1dd"
+              textColor="#191919"
+            />
+          </div>
         </div>
       </div>
-
-      <button onClick={handleSignIn}>Login with Github</button>
-      <button onClick={handleSignUp}>Sign Up</button>
     </>
   );
 };

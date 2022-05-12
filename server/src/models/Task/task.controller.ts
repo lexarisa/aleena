@@ -20,12 +20,12 @@ export class TaskController {
       res.status(500);
     }
   }
-  
+
   async findTask(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      
-      const task = await service.getTask(+id)
+
+      const task = await service.getTask(+id);
 
       res.send(task);
     } catch (error) {

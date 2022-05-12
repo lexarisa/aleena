@@ -1,5 +1,5 @@
-// import { IProject } from 
-import { prisma } from "../../../prisma/prisma-client"
+// import { IProject } from
+import { prisma } from '../../../prisma/prisma-client';
 
 export const createProjectQuery = async (newProject: any) => {
     const project = await prisma.user.create({
@@ -12,13 +12,13 @@ export const createProjectQuery = async (newProject: any) => {
 }
 
 export const findProjectQuery = async (id: number) => {
-    const project = await prisma.project.findUnique({
-        where: {
-          id
-        }
-    });
+  const project = await prisma.project.findUnique({
+    where: {
+      id,
+    },
+  });
 
-    if (project === null) return null;
+  if (project === null) return null;
 
     return project
 }
