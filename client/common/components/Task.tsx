@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from '../../styles/Task.module.css';
 import ITaskProps from '../types/ITaskProps';
 import Tag from '../components/small/Tag';
+import { updateTaskDetail } from '../../pages/api/taskApi';
 
 const options = [
   { value: 'To Do' },
@@ -29,6 +30,19 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
     setShowTask(false);
   };
 
+  const handleUpdateTask = async () => {
+    const dataToUpdate = {
+      user_id: 1,
+      project_id: 1,
+      status: selectedStatus,
+      // tags: [selectedTag],
+      description: description,
+    };
+
+    console.log(dataToUpdate);
+    await updateTaskDetail(1, dataToUpdate);
+    setShowTask(false);
+  };
   //TODO make reusable button
   return (
     <div className={styles.overlay}>
@@ -69,7 +83,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
                   className={styles.options}
                 >
                   {tag.label}
-                  <Tag />
                 </option>
               ))}
             </select>
@@ -93,6 +106,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
         </div>
         <div>{task.description}</div>
         <div>{task.comments}</div>
+        <button onClick={() => handleUpdateTask()}>Save</button>
       </div>
     </div>
   );

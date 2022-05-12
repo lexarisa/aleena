@@ -48,7 +48,7 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
         status: title,
       };
 
-      await createNewTask(newTask);
+      await createNewTask(newTask).catch((error) => console.log(error));
       setTaskTitle('');
       setShowInput(false);
     }
@@ -68,6 +68,7 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
 
         <div>
           {tasks.map((task: ITask, index) => {
+            console.log(task);
             return (
               <div
                 key={index}
