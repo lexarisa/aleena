@@ -11,6 +11,8 @@ import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 
 const Board = () => {
+  // fetch all the tasks
+
   //call the API
   //if error -> return <p>error</p>
   //if loading -> return <p>loading...</p>
@@ -37,6 +39,6 @@ const Board = () => {
       })}
     </div>
   );
-}
+};
 
 export default Board;
