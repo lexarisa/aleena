@@ -16,6 +16,12 @@ export const findTaskQuery = async (id: number) => {
     where: {
       id: id,
     },
+    include: {
+      githubs: true,
+      comments: true,
+      users: true,
+      tags: true
+    }
   });
 
   if (!task) return null;
