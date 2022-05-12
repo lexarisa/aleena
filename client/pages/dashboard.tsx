@@ -17,12 +17,12 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const token = context.query.token;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const token = context.query.token;
 
-  const res = await fetch(`${process.env.BASEURL}/project/${token}`); //get userid
+//   const res = await fetch(`${process.env.BASEURL}/project/${token}`); //get userid
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  return { props: { data: [data] }, notFound: false };
-};
+//   return { props: { data: [data] }, notFound: false };
+// };

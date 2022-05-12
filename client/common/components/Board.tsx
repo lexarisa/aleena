@@ -1,8 +1,10 @@
 import React from 'react';
+
 //components
 import BoardSection from './BoardSection';
 //interfaces
 import ITask from '../types/ITask';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 //styling
 import styles from '../../styles/Board.module.css';

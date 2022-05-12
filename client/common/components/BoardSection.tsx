@@ -52,7 +52,6 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
     setTaskTitle(e.currentTarget.value);
   };
 
-  console.log(taskTitle);
   return (
     <>
       <div className={styles.container}>
