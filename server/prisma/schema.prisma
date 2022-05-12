@@ -139,3 +139,14 @@ model Tag {
   task Task @relation(fields: [task_id], references: [id])
 
 }
+
+model Feed {
+  id Int @id @default(autoincrement())
+  created_at DateTime @default(now())
+  pull_id Int @unique
+  title String
+  status String
+  number Int
+  pull_url String
+  comment String?
+}

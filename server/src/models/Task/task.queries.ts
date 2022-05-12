@@ -48,19 +48,20 @@ export const findPRsInTask = async (id: number) => {
   return status;
 };
 
-export const updateTaskStatusQuery = async (id: number) => {
+export const updateTaskStatusQuery = async (id: number, status: string) => {
   const task = await prisma.task.update({
     where: {
       id: id,
     },
     data: {
-      status: 'closed',
+      status: status,
     },
   });
   if (!task) return null;
 
   return task;
 };
+
 
 export const updateTaskQuery = async (
   id: number,
@@ -76,4 +77,5 @@ export const updateTaskQuery = async (
   if (!task) return null;
 
   return task;
+
 };

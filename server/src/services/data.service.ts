@@ -14,8 +14,7 @@ import { findDashboardQuery } from '../models/Dashboard/dashboard.queries';
 import {
   createPRQuery,
   findPRQuery,
-  closePRQuery,
-  openPRQuery,
+  updatePRQuery,
 } from '../models/Github/github.queries';
 import {
   createTaskQuery,
@@ -24,7 +23,13 @@ import {
   updateTaskStatusQuery,
   updateTaskQuery,
 } from '../models/Task/task.queries';
+
+import { createMilestoneQuery } from '../models/Milestone/milestone.queries';
+import { createFeedQuery } from '../models/Feed/feed.queries';
+
+
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
+
 // import { getTaskByPR } from '../models/Github/github.queries';
 
 export class DataService {
@@ -83,14 +88,18 @@ export class DataService {
     return findPRsInTask(id);
   }
 
-  closePR(pullId: number) {
-    return closePRQuery(pullId);
+  updatePR(pullId: number, status: string) {
+    return updatePRQuery(pullId, status);
   }
-  openPR(pullId: number) {
-    return openPRQuery(pullId);
+
+  updateTaskStatus(id: number, status: string) {
+    return updateTaskStatusQuery(id, status);
   }
-  updateTaskStatus(id: number) {
-    return updateTaskStatusQuery(id);
+  createMilestone(title: string, project_id: number) {
+    return createMilestoneQuery(title, project_id);
+  }
+  createFeed(feedUnit: any) {
+    return createFeedQuery(feedUnit);
   }
   getAllTasksInMilestone(id: number) {
     return getAllTasksInMilestoneQuery(id);
