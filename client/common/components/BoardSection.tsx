@@ -4,6 +4,7 @@ import Card from './Card';
 import Task from './Task';
 import CustomButton from './small/MainBtn';
 import { createNewTask } from '../../pages/api/taskApi';
+import { INewTask } from '../types/INewTask';
 import styles from '../../styles/BoardSection.module.css';
 
 interface BoardInterface {
@@ -37,7 +38,14 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
   };
 
   const handleCreateTask = async () => {
-    await createNewTask(taskTitle);
+    const newTask: INewTask = {
+      title: taskTitle,
+      user_id: 1,
+      project_id: 1,
+      milestone_id: 1,
+    };
+    await createNewTask(newTask);
+    setTaskTitle('');
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
