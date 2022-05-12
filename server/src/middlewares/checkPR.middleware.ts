@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { Subject } from 'rxjs';
-export const newLog = new Subject();
+export const newHook = new Subject();
 
 import { DataService } from '../services/data.service'; //check db
 
@@ -16,6 +16,7 @@ export const checkPR = async (
   try {
     const pullId = pull_request.id;
     const status = pull_request.action === 'closed' ? 'closed' : 'opened';
+    // const updatedTask;
 
     //find pr in db and update status
     let taskId;
@@ -30,7 +31,11 @@ export const checkPR = async (
       const allStatus = await service.getPRsInTask(+taskId);
       console.log(allStatus); // check type to see how to iterate
       if (allStatus.every((s: string) => s === 'closed')) {
-        await service.updateTaskStatus(+taskId);
+        let updatedTask = await service.updateTaskStatus(+taskId);
+        //send the updated task
+        newHook.next(updatedTask);
+
+        next();
       }
     } else {
       //create Github table

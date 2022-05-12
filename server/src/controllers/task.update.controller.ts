@@ -1,5 +1,5 @@
+import { newHook } from '../middlewares/checkPR.middleware';
 import { Request, Response } from 'express';
-import { newLog } from '../utils/pull.request.utils';
 
 export const updateTasks = async (
   req: Request,
@@ -14,7 +14,7 @@ export const updateTasks = async (
     });
     res.flushHeaders();
 
-    newLog.subscribe((data) => {
+    newHook.subscribe((data) => {
       res.write(`data: ${JSON.stringify(data)} \n\n`);
     });
 
