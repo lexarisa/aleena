@@ -1,19 +1,16 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
-// import { newHook } from '../../utils/pull_request.utils'
-import { newHook } from '../../middlewares/checkPR.middleware';
-
-const service: DataService = new DataService();
+import { newHookTask } from '../../middlewares/checkPR.middleware';
 
 export class TaskController {
-  constructor() {}
+  constructor(private service: DataService) {}
 
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
       console.log(newTask);
 
-      const task = await service.createTask(newTask);
+      const task = await this.service.createTask(newTask);
 
       res.send(task);
     } catch (error) {
@@ -29,7 +26,7 @@ export class TaskController {
 
       console.log(task_id);
 
-      const task = await service.getTask(+task_id);
+      const task = await this.service.getTask(+task_id);
 
       res.send(task);
     } catch (error) {
@@ -52,7 +49,7 @@ export class TaskController {
 
       res.flushHeaders();
 
-      newHook.subscribe((data: any) => {
+      newHookTask.subscribe((data: any) => {
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
 
