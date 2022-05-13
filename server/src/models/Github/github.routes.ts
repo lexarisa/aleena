@@ -22,6 +22,4 @@ router.get('/api/auth/callback/github', controller.tokenGithub);
 // SSE
 router.post('/payload', cleanData, checkPR, feedController.hookFeed);
 
-
-
 export default router;

@@ -30,8 +30,16 @@ import {
   updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
+<<<<<<< HEAD
 import { createMilestoneQuery, findDashMilestonesQuery } from '../models/Milestone/milestone.queries';
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
+=======
+import {
+  createMilestoneQuery,
+  findDashMilestonesQuery,
+} from '../models/Milestone/milestone.queries';
+import { createFeedQuery } from '../models/Feed/feed.queries';
+>>>>>>> development
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {

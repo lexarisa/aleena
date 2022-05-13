@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './../../styles/projectPage.module.css';
+import styles from '../../styles/projectPage.module.css';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import ITask from '../../common/types/ITask';
 import Link from 'next/link';
@@ -8,10 +8,9 @@ import Cryptr from 'cryptr';
 const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-
-  const handleClick = ()  => {
+  const handleClick = () => {
     // go to another page ???
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -20,15 +19,20 @@ const project = ({
           <h1>Welcome to Aleena, {data.username}</h1>
         </div>
         <div className={styles.selectCard}>
-          <div className={styles.addButton} onClick={handleClick}>+</div>
+          <div className={styles.addButton} onClick={handleClick}>
+            +
+          </div>
           <p>Create a new project</p>
         </div>
         <div>
-        {data &&
+          {data &&
             data.projects.map((el: any) => (
               <div key={String(el.project.id)}>
                 <Link
-                  href={{ pathname: '/dashboard', query: { id: el.project.id } }}
+                  href={{
+                    pathname: '/dashboard',
+                    query: { id: el.project.id },
+                  }}
                 >
                   <div className={styles.selectCard}>
                     <h2>{el.project.title}</h2>
@@ -58,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await res.json();
 
-  console.log('thiiiis', data.projects)
+  console.log('thiiiis', data.projects);
 
   return { props: { data: data }, notFound: false };
 };

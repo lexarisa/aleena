@@ -7,8 +7,11 @@ const service: DataService = new DataService();
 export const newHookTask = new Subject();
 export const newHookFeed = new Subject();
 
-export const checkPR = 
-async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+export const checkPR = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
   try {
     const pull_request = req.body;
     const pull_id = pull_request.pull_id;
@@ -28,7 +31,6 @@ async (req: Request, res: Response, next: NextFunction): Promise<any> => {
       } else {
         updatedTask = await service.updateTaskStatus(+taskId, 'review');
       }
-      
       updatedTask && newHookTask.next(updatedTask); // with db id
       req.body = true;
       next();
