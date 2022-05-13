@@ -15,6 +15,9 @@ const MainDashboard = ({ data }: any) => {
     source.addEventListener('delete', (message) => {
       console.log('Data from server Delete:', message);
     });
+    source.onmessage = (message) => {
+      console.log(message);
+    };
   }, []);
 
   return (

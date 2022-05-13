@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 import { Subject } from 'rxjs';
+import { nextTick } from 'process';
 
 const newMilestoneSSE = new Subject();
 
@@ -11,7 +12,11 @@ export class MilestoneController {
 
   //-----SSE-----//
 
-  async createMilestone(req: Request, res: Response): Promise<void> {
+  async createMilestone(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     //POST
     try {
       const { title, project_id } = req.body;
@@ -20,15 +25,18 @@ export class MilestoneController {
       // connect with other computers
       const sse = { event: 'create', data: milestone };
       newMilestoneSSE.next(sse);
-
-      res.send(milestone);
+      next();
     } catch (error) {
       console.error(error);
 
       res.status(500);
     }
   }
-  async updateMilestone(req: Request, res: Response): Promise<void> {
+  async updateMilestone(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     //POST
     try {
       const { title, milestone_id } = req.body;
@@ -38,14 +46,18 @@ export class MilestoneController {
       const sse = { event: 'update', data: milestone };
       newMilestoneSSE.next(sse);
 
-      res.send(milestone);
+      next();
     } catch (error) {
       console.error(error);
 
       res.status(500);
     }
   }
-  async deleteMilestone(req: Request, res: Response): Promise<void> {
+  async deleteMilestone(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     //POST
     try {
       const { milestone_id } = req.body;
@@ -53,8 +65,7 @@ export class MilestoneController {
 
       const sse = { event: 'delete', data: milestone };
       newMilestoneSSE.next(sse);
-
-      res.send(milestone);
+      next();
     } catch (error) {
       console.error(error);
 
@@ -108,6 +119,7 @@ export class MilestoneController {
 
       const stream = newMilestoneSSE.subscribe((data: any) => {
         const { event, message } = data;
+
         res.write(
           `event: ${JSON.stringify(event)}\ndata: ${JSON.stringify(
             message
@@ -116,7 +128,8 @@ export class MilestoneController {
       });
 
       req.on('close', () => {
-        stream.unsubscribe();
+        // stream.unsubscribe();
+        console.log('connection closed');
       });
     } catch (error) {
       console.error(error);
