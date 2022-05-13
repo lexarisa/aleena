@@ -5,12 +5,12 @@ export const cleanPullRequest = (event: any) => {
     event.action === 'closed'
   ) {
     const pullEvent = {
-      id: event.pull_request.id,
-      action: event.action,
+      pull_id: event.pull_request.id,
       title: event.pull_request.title,
-      sender: event.sender.login,
-      senderId: event.sender.id,
-      repoUrl: event.repository.html_url,
+      status: event.action,
+      // sender: event.sender.login,
+      // senderId: event.sender.id,
+      // repoUrl: event.repository.html_url,
       number: event.number,
       pull_url: event.pull_request.url,
       comment: event.pull_request.body,

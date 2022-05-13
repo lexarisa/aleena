@@ -7,6 +7,7 @@ import gitRouter from './models/Github/github.routes';
 import dashRouter from './models/Dashboard/dashboard.routes';
 import taskRouter from './models/Task/task.routes';
 import userRouter from './models/User/user.routes';
+import feedRouter from './models/Feed/feed.routes';
 import milestoneRouter from './models/Milestone/milestone.routes';
 
 const app: Application = express();
@@ -17,7 +18,7 @@ app.use(gitRouter);
 app.use(dashRouter);
 app.use(taskRouter);
 app.use(userRouter);
-// app.use(feedRouter);
+app.use(feedRouter);
 app.use(milestoneRouter);
 
 export default app;
