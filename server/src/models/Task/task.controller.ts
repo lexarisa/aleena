@@ -12,9 +12,7 @@ export class TaskController {
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
-
       const task = await service.createTask(newTask);
-
       res.send(task);
     } catch (error) {
       console.error(error);
@@ -39,30 +37,33 @@ export class TaskController {
     }
   }
 
-  async hookTask(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async hookTask(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       // if(newHookTask.observed currentObservers === null)
       console.log('hit task', req.body);
 
+      const headers = {
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/event-stream',
+        'Access-Control-Allow-Origin': '*',
+        Connection: 'keep-alive',
+      };
 
-        const headers = {
-          'Cache-Control': 'no-cache',
-          'Content-Type': 'text/event-stream',
-          'Access-Control-Allow-Origin': '*',
-          Connection: 'keep-alive',
-        };
-  
-        res.set(headers);
-  
-        res.flushHeaders();
-  
-        newHookTask.subscribe((data: any) => {
-          res.write(`data: ${JSON.stringify(data)} \n\n`);
-        });
-  
-        req.on('close', () => {
-          console.log('client closed connection');
-        });
+      res.set(headers);
+
+      res.flushHeaders();
+
+      newHookTask.subscribe((data: any) => {
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+
+      req.on('close', () => {
+        console.log('client closed connection');
+      });
     } catch (error) {
       console.log(error);
       res.status(500);

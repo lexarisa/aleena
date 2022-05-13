@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
-import { Service } from 'typedi';
+// import { Service } from 'typedi';
 
 import {
   findProjectQuery,
@@ -36,6 +36,11 @@ import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
 =======
 import {
   createMilestoneQuery,
+<<<<<<< HEAD
+  updateMilestoneQuery,
+  deleteMilestoneQuery,
+=======
+>>>>>>> development
   findDashMilestonesQuery,
 } from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';
@@ -126,5 +131,11 @@ export class DataService {
 
   getAllTasksInMilestone(id: number) {
     return getAllTasksInMilestoneQuery(id);
+  }
+  updateMilestone(title: string, milestone_id: number) {
+    return updateMilestoneQuery(title, milestone_id);
+  }
+  deleteMilestone(milestone_id: number) {
+    return deleteMilestoneQuery(milestone_id);
   }
 }

@@ -2,7 +2,7 @@ import { INewMilestone } from '../../common/types/IMilestone';
 
 export const createMilestone = async (data: INewMilestone) => {
   const response = await fetch(`http://localhost:3001/milestone`, {
-  // const response = await fetch(`${process.env.BASEURL}/milestone`, {
+    // const response = await fetch(`${process.env.BASEURL}/milestone`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
