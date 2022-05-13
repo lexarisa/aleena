@@ -10,7 +10,6 @@ export class TaskController {
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
-      console.log(newTask);
 
       const task = await service.createTask(newTask);
 
@@ -72,11 +71,7 @@ export class TaskController {
 
       const updateTaskData = req.body;
 
-<<<<<<< HEAD
-      const task = await service.updateTask(+task_id, updateTaskData);
-=======
       const task = await service.updateTaskDetail(+task_id, updateTaskData);
->>>>>>> development
 
       res.send(task);
     } catch (error) {
