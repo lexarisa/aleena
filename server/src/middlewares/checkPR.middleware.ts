@@ -14,13 +14,13 @@ export const checkPR = async (
 ): Promise<any> => {
   try {
     const pull_request = req.body;
-    const pullId = pull_request.id;
-    const status = pull_request.action;
+    const pull_id = pull_request.pull_id;
+    const status = pull_request.status;
 
     //find pr in db and update status
-    let taskId = await service.updatePR(+pullId, status);
+    let taskId = await service.findAndUpdatePR(+pull_id, status);
 
-    if (taskId) {
+    if (taskId !== null) {
       // update status of task if all PRs closed
       const allStatus = await service.getPRsInTask(+taskId);
 
@@ -31,14 +31,16 @@ export const checkPR = async (
       } else {
         updatedTask = await service.updateTaskStatus(+taskId, 'review');
       }
-
       updatedTask && newHookTask.next(updatedTask); // with db id
+      req.body = true;
+      next();
+    } else {
+      req.body = false;
+      const feedUnit = await service.createOrUpdateFeed(pull_request); 
+   
+      newHookFeed.next(feedUnit); // always send the pull req to feed
+      next();
     }
-    const feedUnit = await service.createFeed(pull_request);
-
-    newHookFeed.next(feedUnit); // always send the pull req to feed
-
-    next();
   } catch (error) {
     console.error(error);
 

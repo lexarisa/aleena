@@ -3,26 +3,36 @@ import styles from '../../../styles/MileStoneCard.module.css';
 import { INewMilestone } from '../../types/INewMilistone';
 import { createMilestone } from '../../../pages/api/milestoneApi';
 
-const MilestoneAdd = () => {
+const MilestoneAdd = ({project_id}: any) => {
+
   const [milestoneTitle, setMilestoneTitle] = useState('');
 
   const handleCreateMilestone = async () => {
+<<<<<<< HEAD
+    if (milestoneTitle === '') return;
+=======
+
+>>>>>>> development
     const newMilestone: INewMilestone = {
       title: milestoneTitle,
-      project_id: 10, //! hardcoded
+      project_id: 1, //! hardcoded
     };
+
     createMilestone(newMilestone).then((data) => console.log(data));
+
     setMilestoneTitle('');
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setMilestoneTitle(e.currentTarget.value);
   };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleCreateMilestone();
     }
   };
+
   return (
     <div className={styles.container}>
       <input

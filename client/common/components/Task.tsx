@@ -17,10 +17,10 @@ const tags = [
   { label: 'Low Priority', color: 'yellow' },
 ];
 const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
-  // const source = new EventSource('http://localhost:3001/updateTasks');
-  // source.addEventListener('message', (message) => {
-  //   console.log('Data from server:', message);
-  // });
+  const source = new EventSource('http://localhost:3001/updateTasks');
+  source.addEventListener('message', (message) => {
+    console.log('Data from server:', message);
+  });
 
   console.log(task);
 
