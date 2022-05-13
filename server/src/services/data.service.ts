@@ -32,8 +32,11 @@ import {
 
 import {
   createMilestoneQuery,
+<<<<<<< HEAD
   updateMilestoneQuery,
   deleteMilestoneQuery,
+=======
+>>>>>>> development
   findDashMilestonesQuery,
 } from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';

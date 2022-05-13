@@ -7,11 +7,12 @@ import Crypt from 'cryptr';
 
 const Dashboard = ({
   data,
+  project_id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDashboard data={data} />
+        <MainDashboard data={data} project_id={project_id} />
       </TabContainer>
     </DashboardLayout>
   );
@@ -22,10 +23,12 @@ export default Dashboard;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.query.id;
 
+  console.log(context);
+
   const res = await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);
 
   const data = await res.json();
 
-  // console.log(data[1].tasks[0])
-  return { props: { data: data }, notFound: false };
+  console.log('data', data);
+  return { props: { data: data, project_id: id }, notFound: false };
 };

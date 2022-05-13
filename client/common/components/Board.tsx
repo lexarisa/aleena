@@ -16,6 +16,8 @@ import tasks from '../../mockTasks';
 // }
 
 const Board = ({ data }: BoardProps) => {
+  // console.log('data on the board', data);
+
   // fetch all the tasks
 
   //call the API
@@ -47,7 +49,7 @@ const Board = ({ data }: BoardProps) => {
           : [];
         return (
           <div key={index} className={styles.taskColumn}>
-            <BoardSection title={section} tasks={filteredTasks} />
+            <BoardSection columnTitle={section} tasks={filteredTasks} />
           </div>
         );
       })}

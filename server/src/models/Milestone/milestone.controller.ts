@@ -79,7 +79,6 @@ export class MilestoneController {
     try {
       console.log('runnnningg');
       const { milestoneId } = req.params;
-      console.log(milestoneId);
 
       const allTasks = await service.getAllTasksInMilestone(+milestoneId);
 
@@ -96,7 +95,7 @@ export class MilestoneController {
       const { project_id } = req.params;
 
       const milestones = await service.getDashMilestones(+project_id);
-      console.log('urze', milestones);
+
       res.send(milestones);
     } catch (error) {
       console.error(error);

@@ -13,6 +13,8 @@ export const getAllTasksInMilestoneQuery = async (milestoneId: number) => {
           description: true,
           status: true,
           deadline: true,
+          milestone_id: true,
+          user_id: true,
           tags: {
             select: {
               label: true,
