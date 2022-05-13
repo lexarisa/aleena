@@ -7,8 +7,11 @@ const service: DataService = new DataService();
 export const newHookTask = new Subject();
 export const newHookFeed = new Subject();
 
-export const checkPR = 
-async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+export const checkPR = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
   try {
     const pull_request = req.body;
     const pullId = pull_request.id;
@@ -28,11 +31,10 @@ async (req: Request, res: Response, next: NextFunction): Promise<any> => {
       } else {
         updatedTask = await service.updateTaskStatus(+taskId, 'review');
       }
-      
-      updatedTask && newHookTask.next(updatedTask); // with db id
 
+      updatedTask && newHookTask.next(updatedTask); // with db id
     }
-    const feedUnit = await service.createFeed(pull_request); 
+    const feedUnit = await service.createFeed(pull_request);
 
     newHookFeed.next(feedUnit); // always send the pull req to feed
 

@@ -7,9 +7,7 @@ interface MileStoneCardProp {
   title: String;
 }
 
-const MileStoneCard = ({ title, issue }: any) => {
-  console.log(issue)
-
+const MileStoneCard = ({ title, task }: any) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -26,9 +24,8 @@ const MileStoneCard = ({ title, issue }: any) => {
       <div></div>
       <div className={styles.tags}>
         {/* {issue ?  issue.map( */}
-        <Card title={issue.title} />
-        <Card title={issue.title} />: null
-       
+        {/* <Card title={task.title} />
+        <Card title={task.title} />: null */}
       </div>
     </div>
   );

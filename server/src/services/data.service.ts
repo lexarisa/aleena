@@ -30,7 +30,10 @@ import {
   updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
-import { createMilestoneQuery, findDashMilestonesQuery } from '../models/Milestone/milestone.queries';
+import {
+  createMilestoneQuery,
+  findDashMilestonesQuery,
+} from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 

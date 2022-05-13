@@ -19,6 +19,12 @@ router.get('/api/auth/callback/github', controller.tokenGithub);
 
 router.post('/github/PR', controller.createPR);
 
-router.post('/payload', cleanData, checkPR, taskController.updateTask, feedController.hookFeed);
+router.post(
+  '/payload',
+  cleanData,
+  checkPR,
+  taskController.hookTask,
+  feedController.hookFeed
+);
 
 export default router;
