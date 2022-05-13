@@ -5,9 +5,15 @@ import MilestoneAdd from './small/MilestoneAdd'; //issue={data[1].tasks[0]}
 
 const MainDashboard = ({ data }: any) => {
   useEffect(() => {
-    const source = new EventSource('http://localhost:3001/updateMilestones');
-    source.addEventListener('message', (message) => {
-      console.log('Data from server:', message);
+    const source = new EventSource('http://localhost:3001/milestone/sse');
+    source.addEventListener('create', (message) => {
+      console.log('Data from server Create:', message);
+    });
+    source.addEventListener('update', (message) => {
+      console.log('Data from server Update:', message);
+    });
+    source.addEventListener('delete', (message) => {
+      console.log('Data from server Delete:', message);
     });
   }, []);
 

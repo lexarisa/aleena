@@ -18,7 +18,7 @@ export class MilestoneController {
 
       const milestone = await service.createMilestone(title, +project_id);
       // connect with other computers
-      const sse = { milestone: milestone };
+      const sse = { event: 'create', data: milestone };
       newMilestoneSSE.next(sse);
 
       res.send(milestone);
@@ -35,7 +35,7 @@ export class MilestoneController {
 
       const milestone = await service.updateMilestone(title, +milestone_id);
       // connect with other computers
-      const sse = { milestone: milestone };
+      const sse = { event: 'update', data: milestone };
       newMilestoneSSE.next(sse);
 
       res.send(milestone);
@@ -49,11 +49,10 @@ export class MilestoneController {
     //POST
     try {
       const { milestone_id } = req.body;
-
       const milestone = await service.deleteMilestone(+milestone_id);
-      // connect with other computers
-      // const sse = { milestone: milestone };
-      // newMilestoneSSE.next(sse);
+
+      const sse = { event: 'delete', data: milestone };
+      newMilestoneSSE.next(sse);
 
       res.send(milestone);
     } catch (error) {
@@ -108,7 +107,12 @@ export class MilestoneController {
       res.flushHeaders();
 
       const stream = newMilestoneSSE.subscribe((data: any) => {
-        res.write(`data: ${JSON.stringify(data)} \n\n`);
+        const { event, message } = data;
+        res.write(
+          `event: ${JSON.stringify(event)}\ndata: ${JSON.stringify(
+            message
+          )}\n\n`
+        );
       });
 
       req.on('close', () => {
