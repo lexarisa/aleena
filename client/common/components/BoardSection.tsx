@@ -22,7 +22,6 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
   const [taskTitle, setTaskTitle] = useState('');
   const router = useRouter();
 
-  console.log(router);
   // console.log('TASKS', tasks);
 
   const taskProps = {
@@ -49,7 +48,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
       const newTask: ITask = {
         title: taskTitle,
         user_id: 1,
-        project_id: 1,
+        project_id: Number(router.query.project_id),
         milestone_id: Number(router.query.id),
         status: columnTitle,
       };

@@ -10,12 +10,15 @@ import styles from '../../styles/Board.module.css';
 
 //mock tasks
 import tasks from '../../mockTasks';
+import { useRouter } from 'next/router';
 
 // interface BoardProps {
 //   data: ;
 // }
 
 const Board = ({ data }: BoardProps) => {
+  const router = useRouter();
+
   // console.log('data on the board', data);
 
   // fetch all the tasks

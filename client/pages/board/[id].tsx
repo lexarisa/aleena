@@ -6,14 +6,13 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 const BoardPage = ({
   data,
-  id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   console.log('data as props', data);
 
   return (
     <DashboardLayout>
       <TabContainer>
-        <Board data={data} id={id} />
+        <Board data={data} />
       </TabContainer>
     </DashboardLayout>
   );
@@ -28,5 +27,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await res.json();
 
-  return { props: { data, id: context.query }, notFound: false };
+  return { props: { data }, notFound: false };
 };
