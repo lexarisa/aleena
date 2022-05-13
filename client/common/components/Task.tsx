@@ -3,6 +3,7 @@ import styles from '../../styles/Task.module.css';
 import ITaskProps from '../types/ITaskProps';
 import Tag from '../components/small/Tag';
 import { updateTaskDetail } from '../../pages/api/taskApi';
+import Modal from './Modal';
 
 const options = [
   { value: 'To Do' },
@@ -41,80 +42,77 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
       description: description,
     };
 
-    console.log(dataToUpdate);
     await updateTaskDetail(task.id as Number, dataToUpdate);
     setShowTask(false);
   };
   //TODO make reusable button
   return (
-    <div className={styles.overlay}>
-      <div className={styles.main}>
-        <button onClick={handleShowTask} className={styles.button}>
-          x
-        </button>
-        <h1>{task.title}</h1>
-        <div className={styles.headerSection}>
-          <div>
-            <label className={styles.label}>Status</label>
-          </div>
-          <div>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-            >
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.value}
-                </option>
-              ))}
-            </select>
-          </div>
+    <Modal>
+      <button onClick={handleShowTask} className={styles.button}>
+        x
+      </button>
+      <h1>{task.title}</h1>
+      <div className={styles.headerSection}>
+        <div>
+          <label className={styles.label}>Status</label>
+        </div>
+        <div>
+          <select
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+          >
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.value}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <div>
-            <label className={styles.label}>Tags</label>
-          </div>
-          <div>
-            <select
-              value={selectedTag}
-              onChange={(e) => setSelectedTag(e.target.value)}
-            >
-              {tags.map((tag) => (
-                <option
-                  key={tag.label}
-                  value={tag.label}
-                  className={styles.options}
-                >
-                  {tag.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className={styles.label}>Task Detail</label>
-          </div>
-          <div>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className={styles.label}>Deadline</label>
-          </div>
-          <div>
-            <input type="datetime-local" />
-          </div>
-          <div>{task.users}</div>
+        <div>
+          <label className={styles.label}>Tags</label>
         </div>
-        <div className={styles.descriptionWrapper}>
-          <div>
-            <p className={styles.description}> {task.description}</p>
-          </div>
+        <div>
+          <select
+            value={selectedTag}
+            onChange={(e) => setSelectedTag(e.target.value)}
+          >
+            {tags.map((tag) => (
+              <option
+                key={tag.label}
+                value={tag.label}
+                className={styles.options}
+              >
+                {tag.label}
+              </option>
+            ))}
+          </select>
         </div>
-        <div>{task.comments}</div>
-        <button onClick={() => handleUpdateTask()}>Save</button>
+        <div>
+          <label className={styles.label}>Task Detail</label>
+        </div>
+        <div>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className={styles.label}>Deadline</label>
+        </div>
+        <div>
+          <input type="datetime-local" />
+        </div>
+        <div>{task.users}</div>
       </div>
-    </div>
+      <div className={styles.descriptionWrapper}>
+        <div>
+          <p className={styles.description}> {task.description}</p>
+        </div>
+      </div>
+      <div>{task.comments}</div>
+      <button onClick={() => handleUpdateTask()}>Save</button>
+    </Modal>
   );
 };
 

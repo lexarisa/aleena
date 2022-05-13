@@ -7,8 +7,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 const BoardPage = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log('data as props', data);
-
   return (
     <DashboardLayout>
       <TabContainer>
