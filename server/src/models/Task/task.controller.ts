@@ -1,6 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 import { newHookTask } from '../../middlewares/checkPR.middleware';
+import { nextTick } from 'process';
+import { NextNotification } from 'rxjs';
 
 const service: DataService = new DataService();
 
@@ -38,28 +40,30 @@ export class TaskController {
     }
   }
 
-  async hookTask(req: Request, res: Response): Promise<void> {
+  async hookTask(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const headers = {
-        'Cache-Control': 'no-cache',
-        'Content-Type': 'text/event-stream',
-        'Access-Control-Allow-Origin': '*',
-        Connection: 'keep-alive',
-      };
+      // if(newHookTask.observed currentObservers === null)
+      console.log('hit task', req.body);
 
-      res.set(headers);
 
-      res.flushHeaders();
-
-      newHookTask.subscribe((data: any) => {
-        res.write(`data: ${JSON.stringify(data)} \n\n`);
-      });
-
-      req.on('close', () => {
-        console.log('client closed connection');
-      });
-
-      res.status(200);
+        const headers = {
+          'Cache-Control': 'no-cache',
+          'Content-Type': 'text/event-stream',
+          'Access-Control-Allow-Origin': '*',
+          Connection: 'keep-alive',
+        };
+  
+        res.set(headers);
+  
+        res.flushHeaders();
+  
+        newHookTask.subscribe((data: any) => {
+          res.write(`data: ${JSON.stringify(data)} \n\n`);
+        });
+  
+        req.on('close', () => {
+          console.log('client closed connection');
+        });
     } catch (error) {
       console.log(error);
       res.status(500);
