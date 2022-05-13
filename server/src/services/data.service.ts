@@ -52,15 +52,15 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-  getDashboard(project_id: number, user_id: number, page: number) {
-    return findDashboardQuery(project_id, user_id, page);
+  getDashboard(project_id: number, user_id: number, page: number, status: string) {
+    return findDashboardQuery(project_id, user_id, page, status);
   }
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
   }
 
-  createProject(project: any) {
-    return createProjectQuery(project);
+  createProject(user_id: number, project: any) {
+    return createProjectQuery(user_id, project);
   }
 
   deleteProject(id: number) {

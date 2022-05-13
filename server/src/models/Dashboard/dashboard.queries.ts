@@ -1,7 +1,7 @@
 import { prisma } from "../../../prisma/prisma-client"
 
 export const findDashboardQuery = 
-    async (project_id: number, user_id: number, page: number) => {
+    async (project_id: number, user_id: number, page: number, status: string) => {
 
         const next = page * 10;
 
@@ -21,6 +21,9 @@ export const findDashboardQuery =
                         take: 10,
                         orderBy: {
                           updated_at: 'desc',
+                        },
+                        where: {
+                          status: status
                         },
                         select: {
                           id: true,

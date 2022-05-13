@@ -10,7 +10,7 @@ export class ProjectController {
   async selectProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-
+      console.log('here')
       const project = await service.getProject(+id);
 
       res.send(project);
@@ -23,7 +23,9 @@ export class ProjectController {
 
   async createProject (req: Request, res: Response): Promise<void> {
     try {
-      const project = await service.createProject(req.body)
+
+      const { user_id } = req.params
+      const project = await service.createProject(+user_id, req.body)
 
       res.send(project);
     } catch (error) {

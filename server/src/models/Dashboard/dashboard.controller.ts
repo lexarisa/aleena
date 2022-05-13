@@ -11,8 +11,17 @@ export class DashboardController {
     try {
       const { project_id, user_id, page } = req.params;
 
-      const dashboard = await service.getDashboard(+project_id, +user_id, +page);
+      const allStatus = ['To Do','In Progress','Review','Done','Backlog'];
 
+      const dashboard: any = [];
+
+      allStatus.forEach(async (status: string) => {
+        const dash = await service.getDashboard(+project_id, +user_id, +page, status);
+        dashboard.push(dash);
+      })
+
+      console.log(dashboard);
+      
       res.send(dashboard);
     } catch (error) {
       console.error(error);
