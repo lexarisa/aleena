@@ -2,7 +2,7 @@ import IUser from './IUser';
 
 export default interface ITask {
   id?: Number;
-  title: String;
+  title?: String;
   users?: String[]; //IUser[];
   description?: String;
   status?: String;

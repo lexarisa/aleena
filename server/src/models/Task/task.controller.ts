@@ -5,7 +5,6 @@ import { newHookTask } from '../../middlewares/checkPR.middleware';
 const service: DataService = new DataService();
 
 export class TaskController {
-  
   constructor(private service: DataService) {}
 
   async createTask(req: Request, res: Response): Promise<void> {
@@ -27,7 +26,7 @@ export class TaskController {
     try {
       const { task_id } = req.params;
 
-      console.log(task_id)
+      console.log(task_id);
 
       const task = await service.getTask(+task_id);
 
@@ -67,13 +66,17 @@ export class TaskController {
     }
   }
 
-  async updateTask(req: Request, res: Response): Promise<void> {
+  async updateTaskDetail(req: Request, res: Response): Promise<void> {
     try {
       const { task_id } = req.params;
 
       const updateTaskData = req.body;
 
+<<<<<<< HEAD
       const task = await service.updateTask(+task_id, updateTaskData);
+=======
+      const task = await service.updateTaskDetail(+task_id, updateTaskData);
+>>>>>>> development
 
       res.send(task);
     } catch (error) {

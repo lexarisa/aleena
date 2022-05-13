@@ -2,14 +2,17 @@ import type { NextPage } from 'next';
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
 import MainDashboard from '../common/components/MainDashBoard';
+import Login from '../common/components/Login';
 
 const Home: NextPage = () => {
   return (
-    <DashboardLayout>
-      <TabContainer>
-        <MainDashboard />
-      </TabContainer>
-    </DashboardLayout>
+    <>
+      <DashboardLayout>
+        <TabContainer>
+          <MainDashboard />
+        </TabContainer>
+      </DashboardLayout>
+    </>
   );
 };
 
