@@ -11,10 +11,10 @@ export const createMilestone = async (data: INewMilestone) => {
   });
 
   if (!response.ok) {
-    const message = `An error has occurred: ${response.status}`;
+    const message = `An error has occurred: 404`;
     throw new Error(message);
   }
-  const milestone = await response.json();
+  // const milestone = await response.json();
 
-  return milestone;
+  // return milestone;
 };

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 import { Subject } from 'rxjs';
-import { nextTick } from 'process';
 
 const newMilestoneSSE = new Subject();
 
@@ -25,7 +24,8 @@ export class MilestoneController {
       // connect with other computers
       const sse = { event: 'create', data: milestone };
       newMilestoneSSE.next(sse);
-      next();
+      console.log('XXXXXXX');
+      res.send(true);
     } catch (error) {
       console.error(error);
 
@@ -45,8 +45,7 @@ export class MilestoneController {
       // connect with other computers
       const sse = { event: 'update', data: milestone };
       newMilestoneSSE.next(sse);
-
-      next();
+      res.send(milestone);
     } catch (error) {
       console.error(error);
 
@@ -65,7 +64,7 @@ export class MilestoneController {
 
       const sse = { event: 'delete', data: milestone };
       newMilestoneSSE.next(sse);
-      next();
+      res.send(milestone);
     } catch (error) {
       console.error(error);
 
@@ -108,7 +107,7 @@ export class MilestoneController {
     //     /GET
     try {
       const headers = {
-        'Cache-Control': 'no-cache, no-transform',
+        'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
         'Access-Control-Allow-Origin': '*',
         Connection: 'keep-alive',
@@ -117,17 +116,11 @@ export class MilestoneController {
       res.flushHeaders();
 
       const stream = newMilestoneSSE.subscribe((data: any) => {
-        const { event, message } = data;
-
-        res.write(
-          `event: ${JSON.stringify(event)}\ndata: ${JSON.stringify(
-            message
-          )}\n\n`
-        );
+        res.write(`data: ${JSON.stringify(data)}\n\n`);
       });
 
       req.on('close', () => {
-        // stream.unsubscribe();
+        stream.unsubscribe();
         console.log('connection closed');
       });
     } catch (error) {
