@@ -52,11 +52,7 @@ export class MilestoneController {
       res.status(500);
     }
   }
-  async deleteMilestone(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
+  async deleteMilestone(req: Request, res: Response): Promise<void> {
     //POST
     try {
       const { milestone_id } = req.body;
@@ -76,7 +72,6 @@ export class MilestoneController {
   // TODO 10 TASKS PER STATUS PER MILESTONE
   async getAllTasksInMilestone(req: Request, res: Response): Promise<void> {
     try {
-      console.log('runnnningg');
       const { milestoneId } = req.params;
 
       const allTasks = await service.getAllTasksInMilestone(+milestoneId);
