@@ -26,13 +26,12 @@ import {
   findTaskQuery,
   findPRsInTask,
   updateTaskStatusQuery,
-  updateTaskQuery,
+  updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
 import { createMilestoneQuery } from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
-
 
 export class DataService {
   constructor(private prisma?: PrismaClient) {
@@ -74,8 +73,8 @@ export class DataService {
     return createTaskQuery(newTask);
   }
 
-  updateTask(id: number, updateTaskData: any) {
-    return updateTaskQuery(id, updateTaskData);
+  updateTaskDetail(id: number, updateTaskData: any) {
+    return updateTaskDetailQuery(id, updateTaskData);
   }
 
   createPR(newPR: any) {

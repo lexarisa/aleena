@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 
 export class MilestoneController {
-
   constructor(private service: DataService) {}
 
   async createMilestone(req: Request, res: Response): Promise<void> {
@@ -14,24 +13,25 @@ export class MilestoneController {
       const milestone = await this.service.createMilestone(title, +project_id);
 
       res.send(milestone);
-          
     } catch (error) {
       console.error(error);
 
       res.status(500);
     }
-  };
+  }
 
   async getAllTasksInMilestone(req: Request, res: Response): Promise<void> {
     try {
+      console.log('runnnningg');
       const { milestoneId } = req.params;
+      console.log(milestoneId);
 
       const allTasks = await this.service.getAllTasksInMilestone(+milestoneId);
 
       res.send(allTasks);
     } catch (error) {
       console.error(error);
-      
+
       res.status(500);
     }
   }

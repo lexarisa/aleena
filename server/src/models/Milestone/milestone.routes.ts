@@ -5,7 +5,7 @@ const router: Router = Router();
 // @ts-ignore missing correct dependency injection
 const controller = new MilestoneController();
 
-router.get('/milestone/:id', controller.getAllTasksInMilestone);
+router.get('/milestone/:milestoneId', controller.getAllTasksInMilestone);
 
 // router.post('/payload', controller.payloadGithub);
 
