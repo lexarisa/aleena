@@ -20,3 +20,11 @@
 .headerTitle {
   font-size: var(--size-xl);
 }
+.input {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  color: var(--color-white);
+  padding: var(--unit3) var(--unit);
+  font-size: var(--size-xl);
+}

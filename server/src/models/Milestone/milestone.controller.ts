@@ -39,16 +39,16 @@ export class MilestoneController {
     }
   }
 
-  async getDashMilestones(req: Request, res: Response): Promise <void> {
+  async getDashMilestones(req: Request, res: Response): Promise<void> {
     try {
       const { project_id } = req.params;
 
       const milestones = await service.getDashMilestones(+project_id);
-      console.log('urze', milestones)
+      console.log('urze', milestones);
       res.send(milestones);
     } catch (error) {
       console.error(error);
-      
+
       res.status(500);
     }
   }
