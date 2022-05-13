@@ -7,7 +7,9 @@ interface MileStoneCardProp {
   title: String;
 }
 
-const MileStoneCard = ({ title }: MileStoneCardProp) => {
+const MileStoneCard = ({ title, issue }: any) => {
+  console.log(issue)
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -23,7 +25,10 @@ const MileStoneCard = ({ title }: MileStoneCardProp) => {
 
       <div></div>
       <div className={styles.tags}>
-        <Card title="Issue title" description="Description" />
+        {/* {issue ?  issue.map( */}
+        <Card title={issue.title} />
+        <Card title={issue.title} />: null
+       
       </div>
     </div>
   );

@@ -44,3 +44,24 @@ export const createMilestoneQuery = async (
 
   return milestone;
 };
+
+export const findDashMilestonesQuery = async (project_id: number) => {
+  const milestone = await prisma.milestone.findMany({
+    where: {
+      project_id: project_id,
+    },
+    take: 6,
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      tasks: {
+        take: 2,
+      },
+    },   
+  });
+
+  if (!milestone) throw new Error();
+
+  return milestone;
+};

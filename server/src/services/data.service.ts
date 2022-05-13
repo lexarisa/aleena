@@ -30,11 +30,11 @@ import {
   updateTaskQuery,
 } from '../models/Task/task.queries';
 
-import { createMilestoneQuery } from '../models/Milestone/milestone.queries';
+import { createMilestoneQuery, findDashMilestonesQuery } from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
-@Service()
+
 export class DataService {
   constructor(private prisma?: PrismaClient) {
     prisma = new PrismaClient();
@@ -98,12 +98,19 @@ export class DataService {
   updateTaskStatus(id: number, status: string) {
     return updateTaskStatusQuery(id, status);
   }
+
   createMilestone(title: string, project_id: number) {
     return createMilestoneQuery(title, project_id);
   }
+
+  getDashMilestones(project_id: number) {
+    return findDashMilestonesQuery(project_id);
+  }
+
   createFeed(feedUnit: any) {
     return createFeedQuery(feedUnit);
   }
+
   getAllTasksInMilestone(id: number) {
     return getAllTasksInMilestoneQuery(id);
   }

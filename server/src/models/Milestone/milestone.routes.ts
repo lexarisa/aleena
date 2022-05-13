@@ -7,6 +7,8 @@ const controller = new MilestoneController();
 
 router.get('/milestone/:id', controller.getAllTasksInMilestone);
 
+router.get('/milestone/dash/:project_id', controller.getDashMilestones);
+
 // router.post('/payload', controller.payloadGithub);
 
 export default router;

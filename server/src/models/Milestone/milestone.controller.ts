@@ -24,6 +24,7 @@ export class MilestoneController {
     }
   };
 
+  // TODO 10 TASKS PER STATUS PER MILESTONE
   async getAllTasksInMilestone(req: Request, res: Response): Promise<void> {
     try {
       const { milestoneId } = req.params;
@@ -31,6 +32,20 @@ export class MilestoneController {
       const allTasks = await service.getAllTasksInMilestone(+milestoneId);
 
       res.send(allTasks);
+    } catch (error) {
+      console.error(error);
+      
+      res.status(500);
+    }
+  }
+
+  async getDashMilestones(req: Request, res: Response): Promise <void> {
+    try {
+      const { project_id } = req.params;
+
+      const milestones = await service.getDashMilestones(+project_id);
+      console.log('urze', milestones)
+      res.send(milestones);
     } catch (error) {
       console.error(error);
       
