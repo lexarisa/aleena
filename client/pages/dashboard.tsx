@@ -5,11 +5,13 @@ import MainDashboard from '../common/components/MainDashBoard';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Crypt from 'cryptr';
 
-const Dashboard = () => {
+const Dashboard = ({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDashboard />
+        <MainDashboard data={data}/>
       </TabContainer>
     </DashboardLayout>
   );
@@ -17,12 +19,13 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const token = context.query.token;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id = context.query.id;
 
-//   const res = await fetch(`${process.env.BASEURL}/project/${token}`); //get userid
+  const res = await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);
 
-//   const data = await res.json();
+  const data = await res.json();
 
-//   return { props: { data: [data] }, notFound: false };
-// };
+  console.log(data[1].tasks[0])
+  return { props: { data: data}, notFound: false };
+};

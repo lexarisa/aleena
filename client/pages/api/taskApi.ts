@@ -22,12 +22,14 @@ export const getSingleTask = async (id: string) => {
 };
 
 export const linkPRTask = async (pr_url: string, task_id: number) => {
-
   const splitPR = pr_url.split('/');
   const lastIndex = splitPR.length - 1;
 
-  const response = 
-  await fetch(`${process.env.PR_API_URL}/${splitPR[lastIndex - 3]}/${splitPR[lastIndex - 2]}/pulls/${splitPR[lastIndex]}`);
+  const response = await fetch(
+    `${process.env.PR_API_URL}/${splitPR[lastIndex - 3]}/${
+      splitPR[lastIndex - 2]
+    }/pulls/${splitPR[lastIndex]}`
+  );
 
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
@@ -43,8 +45,8 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
     status: data.state,
     number: data.number,
     pull_url: data.url,
-    comment: data.body
-  }
+    comment: data.body,
+  };
 
   const options = {
     method: 'POST',
@@ -52,10 +54,21 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(newPR),
-  }
+  };
 
   const sendPR = await fetch(`${process.env.BASEURL}/github/PR`, options);
-  
+
   return await sendPR.json();
 };
 
+export const updateTaskDetail = async (id: Number, taskData: ITask) => {
+  const response = await fetch(`http://localhost:3001/task/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(taskData),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return await response.json();
+};

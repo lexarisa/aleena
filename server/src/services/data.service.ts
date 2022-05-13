@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
+import { Service } from 'typedi';
 
 import {
   findProjectQuery,
@@ -26,13 +27,12 @@ import {
   findTaskQuery,
   findPRsInTask,
   updateTaskStatusQuery,
-  updateTaskQuery,
+  updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
-import { createMilestoneQuery } from '../models/Milestone/milestone.queries';
+import { createMilestoneQuery, findDashMilestonesQuery } from '../models/Milestone/milestone.queries';
 import { createFeedQuery } from '../models/Feed/feed.queries';
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
-
 
 export class DataService {
   constructor(private prisma?: PrismaClient) {
@@ -74,8 +74,8 @@ export class DataService {
     return createTaskQuery(newTask);
   }
 
-  updateTask(id: number, updateTaskData: any) {
-    return updateTaskQuery(id, updateTaskData);
+  updateTaskDetail(id: number, updateTaskData: any) {
+    return updateTaskDetailQuery(id, updateTaskData);
   }
 
   createPR(newPR: any) {
@@ -97,12 +97,19 @@ export class DataService {
   updateTaskStatus(id: number, status: string) {
     return updateTaskStatusQuery(id, status);
   }
+
   createMilestone(title: string, project_id: number) {
     return createMilestoneQuery(title, project_id);
   }
+
+  getDashMilestones(project_id: number) {
+    return findDashMilestonesQuery(project_id);
+  }
+
   createFeed(feedUnit: any) {
     return createFeedQuery(feedUnit);
   }
+
   getAllTasksInMilestone(id: number) {
     return getAllTasksInMilestoneQuery(id);
   }

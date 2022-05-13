@@ -37,16 +37,21 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
   };
 
   const handleCreateTask = async () => {
-    const newTask: ITask = {
-      title: taskTitle,
-      user_id: 1,
-      project_id: 1,
-      milestone_id: 1,
-      status: title,
-    };
-    await createNewTask(newTask);
-    setTaskTitle('');
-    setShowInput(false);
+    if (taskTitle === '') {
+      return;
+    } else {
+      const newTask: ITask = {
+        title: taskTitle,
+        user_id: 1,
+        project_id: 1,
+        milestone_id: 1,
+        status: title,
+      };
+
+      await createNewTask(newTask).catch((error) => console.log(error));
+      setTaskTitle('');
+      setShowInput(false);
+    }
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -63,6 +68,7 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
 
         <div>
           {tasks.map((task: ITask, index) => {
+            console.log(task);
             return (
               <div
                 key={index}

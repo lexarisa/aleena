@@ -7,6 +7,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 const BoardPage = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log(data);
   return (
     <DashboardLayout>
       <TabContainer>
@@ -19,9 +20,10 @@ const BoardPage = ({
 export default BoardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`http://localhost:3001/milestone/1`); //need milestone id
-
+  const res = await fetch(`http://localhost:3001/milestone/2`); //need milestone id
+  console.log('hpalsdfsf');
   const data = await res.json();
+  console.log(data);
 
   return { props: { data }, notFound: false };
 };

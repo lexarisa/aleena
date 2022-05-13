@@ -33,6 +33,7 @@ export const findUserProjectsQuery = async (id: number) => {
         select: {
           project: {
             select: {
+              id: true,
               title: true,
               description: true,
               status: true,

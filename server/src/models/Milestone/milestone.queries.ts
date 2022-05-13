@@ -1,13 +1,14 @@
 import { prisma } from '../../../prisma/prisma-client';
 
-export const getAllTasksInMilestoneQuery = async (mileStoneId: number) => {
+export const getAllTasksInMilestoneQuery = async (milestoneId: number) => {
   const allTasks = await prisma.milestone.findMany({
     where: {
-      id: mileStoneId,
+      id: milestoneId,
     },
     select: {
       tasks: {
         select: {
+          id: true,
           title: true,
           description: true,
           status: true,
@@ -35,6 +36,27 @@ export const createMilestoneQuery = async (
     data: {
       project_id: project_id,
       title: title,
+    },
+  });
+
+  if (!milestone) throw new Error();
+
+  return milestone;
+};
+
+export const findDashMilestonesQuery = async (project_id: number) => {
+  const milestone = await prisma.milestone.findMany({
+    where: {
+      project_id: project_id,
+    },
+    take: 6,
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      tasks: {
+        take: 2,
+      },
     },
   });
 

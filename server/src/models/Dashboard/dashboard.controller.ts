@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service'
 
+const service = new DataService();
+
 export class DashboardController {
 
   constructor(private service: DataService){}
@@ -9,7 +11,7 @@ export class DashboardController {
     try {
       const { project_id, user_id, page } = req.params;
 
-      const dashboard = await this.service.getDashboard(+project_id, +user_id, +page);
+      const dashboard = await service.getDashboard(+project_id, +user_id, +page);
 
       res.send(dashboard);
     } catch (error) {
