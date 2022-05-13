@@ -2,20 +2,26 @@ import { Request, Response } from 'express';
 import { GitHubService } from '../../services/github.service';
 import { DataService } from '../../services/data.service';
 import { createToken } from './../../utils/crypt.utils'
+import { Container, Service } from 'typedi';
+
+// const serviceInstance = Container.get(DataService);
+
+const dataService: DataService = new DataService();
+const gitService: GitHubService = new GitHubService();
 
 export class GithubController {
   
-  constructor(private dataService: DataService, private gitService: GitHubService){}
+  constructor(private readonly dataService: DataService, private readonly gitService: GitHubService){}
 
   async tokenGithub(req: Request, res: Response): Promise<void> {
     try {
       const { code } = req.query;
 
-      const token = await this.gitService.gitToken(code as string);
+      const token = await gitService.gitToken(code as string);
 
-      const user = await this.gitService.gitUser(token);
+      const user = await gitService.gitUser(token);
 
-      const findUser = await this.dataService.getUser(user.id);
+      const findUser = await dataService.getUser(user.id);
 
       if (findUser === null) {
         // res.send('Sorry you don\'t have an account. Install our app and join us')
@@ -24,7 +30,7 @@ export class GithubController {
           'https://github.com/apps/aleena-app/installations/new?state=AB12'
         );
 
-        const createUser = await this.dataService.createUser(user);
+        const createUser = await dataService.createUser(user);
       } else {
         // TODO need to add logic to check the projects.length
 
@@ -41,7 +47,7 @@ export class GithubController {
 
   async payloadGithub(req: Request, res: Response): Promise<void> {
     try {
-      const payload = await this.gitService.gitPayload(req);
+      const payload = await gitService.gitPayload(req);
 
       res.send(payload);
     } catch (error) {
@@ -54,7 +60,7 @@ export class GithubController {
     try {
       const newPR = req.body;
 
-      const pr = await this.dataService.createPR(newPR)
+      const pr = await dataService.createPR(newPR)
 
       res.send(pr);
     } catch (error) {

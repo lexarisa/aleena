@@ -8,28 +8,32 @@ import Cryptr from 'cryptr';
 const project = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log('dataprops', data);
-  console.log('dataprops', data.username);
+
+  const handleClick = ()  => {
+    // go to another page ???
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.cardWrapper}>
         <div>
-          <h1>Welcome to Alena, {data.username}</h1>
+          <h1>Welcome to Aleena, {data.username}</h1>
         </div>
         <div className={styles.selectCard}>
-          <div className={styles.addButton}>+</div>
+          <div className={styles.addButton} onClick={handleClick}>+</div>
           <p>Create a new project</p>
         </div>
         <div>
-          {data &&
-            data.projects.map((item: any) => (
-              <div key={String(item.id)}>
+        {data &&
+            data.projects.map((el: any) => (
+              <div key={String(el.project.id)}>
                 <Link
-                  href={{ pathname: '/dashboard', query: { id: +item.id } }}
+                  href={{ pathname: '/dashboard', query: { id: el.project.id } }}
                 >
                   <div className={styles.selectCard}>
-                    <p>Your Project</p>
-                    <p>{item.title}</p>
+                    <h2>{el.project.title}</h2>
+                    <p>{el.project.description}</p>
+                    <p>{el.project.status}</p>
                   </div>
                 </Link>
               </div>
@@ -49,9 +53,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
+  console.log(token);
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
+
+  console.log('thiiiis', data.projects)
 
   return { props: { data: data }, notFound: false };
 };

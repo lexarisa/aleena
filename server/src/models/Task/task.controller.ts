@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 import { newHookTask } from '../../middlewares/checkPR.middleware';
 
+const service: DataService = new DataService();
+
 export class TaskController {
   constructor(private service: DataService) {}
 
@@ -10,7 +12,7 @@ export class TaskController {
       const newTask = req.body;
       console.log(newTask);
 
-      const task = await this.service.createTask(newTask);
+      const task = await service.createTask(newTask);
 
       res.send(task);
     } catch (error) {
@@ -26,7 +28,7 @@ export class TaskController {
 
       console.log(task_id);
 
-      const task = await this.service.getTask(+task_id);
+      const task = await service.getTask(+task_id);
 
       res.send(task);
     } catch (error) {
@@ -70,7 +72,11 @@ export class TaskController {
 
       const updateTaskData = req.body;
 
+<<<<<<< HEAD
+      const task = await service.updateTask(+task_id, updateTaskData);
+=======
       const task = await service.updateTaskDetail(+task_id, updateTaskData);
+>>>>>>> development
 
       res.send(task);
     } catch (error) {
