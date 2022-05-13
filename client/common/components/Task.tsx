@@ -42,7 +42,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
     };
 
     console.log(dataToUpdate);
-    await updateTaskDetail(1, dataToUpdate);
+    await updateTaskDetail(task.id as Number, dataToUpdate);
     setShowTask(false);
   };
   //TODO make reusable button
