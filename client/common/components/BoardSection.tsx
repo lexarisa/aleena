@@ -58,6 +58,11 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
     setTaskTitle(e.currentTarget.value);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+     handleCreateTask();
+    }
+
   return (
     <>
       <div className={styles.container}>
@@ -96,6 +101,7 @@ const BoardSection: React.FC<BoardInterface> = ({ title, tasks }) => {
             name="task"
             id="task"
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             value={taskTitle}
             placeholder="Add new task"
             className={styles.input}
