@@ -1,3 +1,4 @@
+import { Console } from 'console';
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 
@@ -8,9 +9,8 @@ export class MilestoneController {
 
   async createMilestone(req: Request, res: Response): Promise<void> {
     try {
-      const title = req.body;
-
-      const { project_id } = req.params;
+      
+      const { title, project_id} = req.body;
 
       const milestone = await service.createMilestone(title, +project_id);
 

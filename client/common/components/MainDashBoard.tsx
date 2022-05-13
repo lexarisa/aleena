@@ -9,7 +9,7 @@ const MainDashboard = ({ data }: any) => {
   console.log(router);
   return (
     <div className={styles.container}>
-      {data.map((item) => (
+      {data.map((item: any) => (
         <div key={item.id}>
           <Link
             href={{

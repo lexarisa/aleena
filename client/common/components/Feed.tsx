@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import FeedItem from './../components/FeedItem';
+import styles from '../../styles/Card.module.css';
 
 function Feed() {
-  const [events, setEvents] = useState(['first event']);
+  const [events, setEvents] = useState([]);
 
-  // useEffect(()=>{}) -> LOAD FEED FROM DB
+  useEffect(() => {
+    feedEvent();
+  })
 
-  const source = new EventSource('http://localhost:3001/updateTasks');
-  source.addEventListener('message', (message) => {
-    console.log('Data from server:', message);
-  });
-  // {url} Pull request {action} by {sender} ,{number} {title} {comments} {repoUrl}
+  const feedEvent = () => {
+    const source = new EventSource('http://localhost:3001/feed');
+
+    source.addEventListener('feed', (feed) => {
+
+      setEvents((event: any[]): any => {
+        const data = JSON.parse(feed.data)
+        const oldFeed = event.filter((pr: any) => pr.pull_id !== data.pull_id);
+        return [...oldFeed, data]
+      });
+
+    });
+  }
 
   return (
-    <div>
+    <>
+    <div className={styles.container}>
+    <h1>FEED</h1>
       {events.map((e) => {
-        return <FeedItem />;
+        return <FeedItem event={e}/>;
       })}
     </div>
+    </>
   );
 }
 
 export default Feed;
+
