@@ -4,6 +4,7 @@ import ITaskProps from '../types/ITaskProps';
 import Tag from '../components/small/Tag';
 import { updateTaskDetail } from '../../pages/api/taskApi';
 import Modal from './Modal';
+import RoundButton from './small/RoundButton';
 
 const options = [
   { value: 'To Do' },
@@ -22,8 +23,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
   source.addEventListener('message', (message) => {
     console.log('Data from server:', message);
   });
-
-  console.log(task);
 
   const [selectedStatus, setSelectedStatus] = useState(options[0].value);
   const [selectedTag, setSelectedTag] = useState(tags[0].label);
@@ -48,9 +47,13 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
   //TODO make reusable button
   return (
     <Modal>
-      <button onClick={handleShowTask} className={styles.button}>
-        x
-      </button>
+      <RoundButton
+        button="x"
+        onClick={handleShowTask}
+        color="#333"
+        textColor="#fff"
+      />
+
       <h1>{task.title}</h1>
       <div className={styles.headerSection}>
         <div>

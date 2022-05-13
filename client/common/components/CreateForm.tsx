@@ -1,15 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import styles from '../../styles/CreateForm.module.css';
+import ICreateFormProps from '../types/ICreateFormProps';
+import { FormValues } from '../types/FormValues';
+import CustomButton from './small/CustomButton';
+import RoundButton from './small/RoundButton';
 
-type FormValues = {
-  title: string;
-  status: string;
-  Milestones: { title: string; id: number }[];
-  user: { id: number }[];
-};
-
-const CreateForm = () => {
+const CreateForm = ({ setShowForm }: ICreateFormProps) => {
   const {
     register,
     handleSubmit,
@@ -20,51 +17,71 @@ const CreateForm = () => {
     control,
     name: 'Milestones',
   });
-  // const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-  //   setProjectTitle(e.currentTarget.value);
-  // };
 
   const onSubmit = (data: FormValues) => console.log(data);
+
+  const handleShowModal = () => {
+    setShowForm(false);
+  };
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="title">Project Name:</label>
-        <input
-          {...register('title', {
-            required: 'required',
-            minLength: {
-              value: 3,
-              message: 'Please enter your project name',
-            },
-          })}
-        />
-        {errors.title && <p>This is required</p>}
-        <ul>
-          <label htmlFor="milestone">Add Milestone:</label>
-          {fields.map((field, index) => {
-            return (
-              <li className={styles.section} key={field.id}>
-                <input
-                  placeholder="Milestone"
-                  {...register(`Milestones.${index}.title` as const)}
-                />
-                <button onClick={() => remove(index)}>Remove</button>
-              </li>
-            );
-          })}
-        </ul>
-        <button
-          type="button"
-          onClick={() => {
-            append({ title: '' });
-          }}
-        >
-          Add More Milestone
-        </button>
-        <label htmlFor="status"></label>
-        <button type="submit">Add</button>
-      </form>
-    </div>
+    <>
+      <RoundButton
+        button="x"
+        onClick={handleShowModal}
+        color="#e0e1dd"
+        textColor="#191919"
+      />
+
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="title">Project Name:</label>
+          <input
+            className={styles.input}
+            {...register('title', {
+              required: 'required',
+              minLength: {
+                value: 3,
+                message: 'Please enter your project name',
+              },
+            })}
+          />
+          {errors.title && <p>This is required</p>}
+          <ul>
+            <label htmlFor="milestone">Add Milestone:</label>
+            {fields.map((field, index) => {
+              return (
+                <li className={styles.section} key={field.id}>
+                  <input
+                    className={styles.input}
+                    placeholder="Milestone"
+                    {...register(`Milestones.${index}.title` as const)}
+                  />
+                  <button onClick={() => remove(index)}>Remove</button>
+                </li>
+              );
+            })}
+          </ul>
+          <CustomButton
+            button="Add More Milestone"
+            color="#000"
+            textColor="#fff"
+            onClick={() => {
+              append({ title: '' });
+            }}
+          />
+
+          <label htmlFor="status"></label>
+          <CustomButton
+            button="Add New Project"
+            color="#415a77"
+            textColor="#fff"
+            onClick={() => {
+              append({ title: '' });
+            }}
+          />
+        </form>
+      </div>
+    </>
   );
 };
 

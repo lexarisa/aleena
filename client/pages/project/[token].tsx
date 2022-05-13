@@ -52,7 +52,7 @@ const project = ({
       </div>
       {showForm && (
         <Modal>
-          <CreateForm />
+          <CreateForm setShowForm={setShowForm} />
         </Modal>
       )}
     </>
@@ -64,16 +64,11 @@ export default project;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
-  console.log('yeeeees');
-
   const token = await cryptr.decrypt(`${context.query.token}`);
 
-  console.log(token);
   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
   const data = await res.json();
-
-  console.log('thiiiis', data.projects);
 
   return { props: { data: data }, notFound: false };
 };

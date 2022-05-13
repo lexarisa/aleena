@@ -1,5 +1,7 @@
-.container {
-}
-
-.label {
+.input {
+  background-color: var(--color-white);
+  border: 0;
+  outline: none;
+  color: var(--color-black);
+  padding: var(--unit3) var(--unit3);
 }
