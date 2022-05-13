@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
@@ -6,6 +6,7 @@ import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
 import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
+
 
 interface BoardInterface {
   columnTitle: String;
@@ -15,15 +16,18 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
+
+  useEffect(() => {
+     
+  })
+
+
   const [showTask, setShowTask] = useState(false);
   const [currentTask, setCurrentTask] = useState<ITask>(emptyTask);
   const [showButton, setShowButton] = useState(true);
   const [showInput, setShowInput] = useState(false);
   const [taskTitle, setTaskTitle] = useState('');
   const router = useRouter();
-
-  console.log(router);
-  // console.log('TASKS', tasks);
 
   const taskProps = {
     showTask: showTask, // bool
@@ -80,7 +84,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
 
         <div>
           {tasks.map((task: ITask, index) => {
-            console.log(task);
+            // console.log(task);
             return (
               <div
                 key={index}

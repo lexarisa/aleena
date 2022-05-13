@@ -8,11 +8,7 @@ const MilestoneAdd = ({project_id}: any) => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
 
   const handleCreateMilestone = async () => {
-<<<<<<< HEAD
     if (milestoneTitle === '') return;
-=======
-
->>>>>>> development
     const newMilestone: INewMilestone = {
       title: milestoneTitle,
       project_id: 1, //! hardcoded

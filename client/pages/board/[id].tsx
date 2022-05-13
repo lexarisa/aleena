@@ -22,8 +22,9 @@ const BoardPage = ({
 export default BoardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('context.query', context.query);
+  
   const { id } = context.query;
+
   const res = await fetch(`http://localhost:3001/milestone/${id}`); //need milestone id
 
   const data = await res.json();
