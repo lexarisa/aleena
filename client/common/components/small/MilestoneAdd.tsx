@@ -7,9 +7,10 @@ const MilestoneAdd = () => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
 
   const handleCreateMilestone = async () => {
+    if (milestoneTitle === '') return;
     const newMilestone: INewMilestone = {
       title: milestoneTitle,
-      project_id: 10, //! hardcoded
+      project_id: 1, //! hardcoded
     };
     createMilestone(newMilestone).then((data) => console.log(data));
     setMilestoneTitle('');

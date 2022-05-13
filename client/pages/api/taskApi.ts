@@ -56,7 +56,10 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
     body: JSON.stringify(newPR),
   };
 
-  const sendPR = await fetch(`${process.env.BASEURL}/github/PR`, options);
+  const sendPR = await fetch(
+    `${process.env.NEXT_PUBLIC_BASEURL}/github/PR`,
+    options
+  );
 
   return await sendPR.json();
 };

@@ -11,9 +11,7 @@ export class TaskController {
     try {
       const newTask = req.body;
       console.log(newTask);
-
       const task = await service.createTask(newTask);
-
       res.send(task);
     } catch (error) {
       console.error(error);
@@ -41,7 +39,7 @@ export class TaskController {
   async hookTask(req: Request, res: Response): Promise<void> {
     try {
       const headers = {
-        'Cache-Control': 'no-cache',
+        'Cache-Control': 'no-cache, no-transform',
         'Content-Type': 'text/event-stream',
         'Access-Control-Allow-Origin': '*',
         Connection: 'keep-alive',
@@ -72,11 +70,7 @@ export class TaskController {
 
       const updateTaskData = req.body;
 
-<<<<<<< HEAD
-      const task = await service.updateTask(+task_id, updateTaskData);
-=======
       const task = await service.updateTaskDetail(+task_id, updateTaskData);
->>>>>>> development
 
       res.send(task);
     } catch (error) {

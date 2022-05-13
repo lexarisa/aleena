@@ -1,18 +1,25 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
+import { Subject } from 'rxjs';
+
+const newMilestoneSSE = new Subject();
 
 const service: DataService = new DataService();
 
 export class MilestoneController {
   constructor(private service: DataService) {}
 
-  async createMilestone(req: Request, res: Response): Promise<void> {
-    try {
-      const title = req.body;
+  //-----SSE-----//
 
-      const { project_id } = req.params;
+  async createMilestone(req: Request, res: Response): Promise<void> {
+    //POST
+    try {
+      const { title, project_id } = req.body;
 
       const milestone = await service.createMilestone(title, +project_id);
+      // connect with other computers
+      const sse = { milestone: milestone };
+      newMilestoneSSE.next(sse);
 
       res.send(milestone);
     } catch (error) {
@@ -21,6 +28,41 @@ export class MilestoneController {
       res.status(500);
     }
   }
+  async updateMilestone(req: Request, res: Response): Promise<void> {
+    //POST
+    try {
+      const { title, milestone_id } = req.body;
+
+      const milestone = await service.updateMilestone(title, +milestone_id);
+      // connect with other computers
+      const sse = { milestone: milestone };
+      newMilestoneSSE.next(sse);
+
+      res.send(milestone);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+  async deleteMilestone(req: Request, res: Response): Promise<void> {
+    //POST
+    try {
+      const { milestone_id } = req.body;
+
+      const milestone = await service.deleteMilestone(+milestone_id);
+      // connect with other computers
+      // const sse = { milestone: milestone };
+      // newMilestoneSSE.next(sse);
+
+      res.send(milestone);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+  //-----------//
 
   // TODO 10 TASKS PER STATUS PER MILESTONE
   async getAllTasksInMilestone(req: Request, res: Response): Promise<void> {
@@ -49,6 +91,31 @@ export class MilestoneController {
     } catch (error) {
       console.error(error);
 
+      res.status(500);
+    }
+  }
+
+  async milestoneSSE(req: Request, res: Response): Promise<void> {
+    //     /GET
+    try {
+      const headers = {
+        'Cache-Control': 'no-cache, no-transform',
+        'Content-Type': 'text/event-stream',
+        'Access-Control-Allow-Origin': '*',
+        Connection: 'keep-alive',
+      };
+      res.set(headers);
+      res.flushHeaders();
+
+      const stream = newMilestoneSSE.subscribe((data: any) => {
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+
+      req.on('close', () => {
+        stream.unsubscribe();
+      });
+    } catch (error) {
+      console.error(error);
       res.status(500);
     }
   }

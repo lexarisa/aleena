@@ -11,7 +11,7 @@ const Dashboard = ({
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDashboard data={data}/>
+        <MainDashboard data={data} />
       </TabContainer>
     </DashboardLayout>
   );
@@ -26,6 +26,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await res.json();
 
-  console.log(data[1].tasks[0])
-  return { props: { data: data}, notFound: false };
+  // console.log(data[1].tasks[0])
+  return { props: { data: data }, notFound: false };
 };
