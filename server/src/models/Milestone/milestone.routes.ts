@@ -6,6 +6,7 @@ const router: Router = Router();
 const controller = new MilestoneController();
 
 router.post('/milestone', controller.createMilestone);
+
 router.get('/milestone/:milestoneId', controller.getAllTasksInMilestone);
 
 router.get('/milestone/dash/:project_id', controller.getDashMilestones);

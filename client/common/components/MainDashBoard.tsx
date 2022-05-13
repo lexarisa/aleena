@@ -10,7 +10,7 @@ const MainDashboard = ({ data }: any) => {
       <MileStoneCard title={data[1].title} issue={data[0]} />
       <MileStoneCard title={data[2].title} issue={data[0]} />
       <MileStoneCard title={data[3].title} issue={data[0]} />
-      <MilestoneAdd />
+      {/* <MilestoneAdd /> */}
     </div>
   );
 };
