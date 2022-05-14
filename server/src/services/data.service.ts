@@ -65,8 +65,8 @@ export class DataService {
     return findUserProjectsQuery(id);
   }
 
-  createProject(project: any) {
-    return createProjectQuery(project);
+  createProject(newProject: any) {
+    return createProjectQuery(newProject);
   }
 
   deleteProject(id: number) {

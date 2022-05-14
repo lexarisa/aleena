@@ -20,8 +20,8 @@ const CreateForm = ({ setShowForm }: ICreateFormProps) => {
     name: 'Milestones',
   });
 
-  const onSubmit = async (data: IProject) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await createProject(data);
   };
 
   const handleShowModal = () => {

@@ -22,6 +22,7 @@ export class ProjectController {
 
   async createProject(req: Request, res: Response): Promise<void> {
     try {
+      console.log(req.body);
       const project = await service.createProject(req.body);
 
       res.send(project);
