@@ -1,9 +1,14 @@
 import React from 'react';
-import styles from '../../styles/projectPage.module.css';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import ITask from '../../common/types/ITask';
-import Link from 'next/link';
 import Cryptr from 'cryptr';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Link from 'next/link';
+import { wrapper } from '../../store/index.store';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from '../../styles/projectPage.module.css';
+import ITask from '../../common/types/ITask';
+import { fetchProjects } from '../../store/slices/project.slices';
+
+
 
 const project = ({
   data,
@@ -26,7 +31,7 @@ const project = ({
         </div>
         <div>
           {data &&
-            data.projects.map((el: any) => (
+            data.map((el: any) => (
               <div key={String(el.project.id)}>
                 <Link
                   href={{
@@ -50,19 +55,39 @@ const project = ({
 
 export default project;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(store => 
+  async (context) => {
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
+  
   console.log('yeeeees');
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
   console.log(token);
-  const res = await fetch(`${process.env.BASEURL}/project/${token}`);
 
-  const data = await res.json();
+  // @ts-ignore
+  const data = await store.dispatch(fetchProjects(token))
 
-  console.log('thiiiis', data.projects);
+  return { props: { data: data.payload }, notFound: false };
+})
 
-  return { props: { data: data }, notFound: false };
-};
+
+
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
+
+//   console.log('yeeeees');
+
+//   const token = await cryptr.decrypt(`${context.query.token}`);
+
+//   console.log(token);
+//   const res = await fetch(`${process.env.BASEURL}/project/${token}`);
+
+//   const data = await res.json();
+
+//   console.log('thiiiis', data.projects);
+
+//   return { props: { data: data }, notFound: false };
+// };

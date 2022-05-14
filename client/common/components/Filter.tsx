@@ -1,6 +1,6 @@
 import styles from '../../styles/Card.module.css';
 
-const FilterComponent = ({milestones, tags,}) => {
+const FilterComponent = () => {
 
     const status: String[] = ['Status','To Do','In Progress','Review','Done','Backlog'];
 
@@ -20,7 +20,7 @@ const FilterComponent = ({milestones, tags,}) => {
                    return(<option key={index}>{priort}</option>)
                 })}
             </select>
-            <select>
+            {/* <select>
                 {milestones.map((priort, index) => {
                    return(<option key={index}>{priort}</option>)
                 })}
@@ -29,13 +29,14 @@ const FilterComponent = ({milestones, tags,}) => {
                 {priority.map((priort, index) => {
                    return(<option key={index}>{priort}</option>)
                 })}
-            </select>
+            </select> */}
 
         </>
     )
 
 }
 
+// {milestones, tags,}
 export default FilterComponent;
 
 // {milestones, tags, assignees, 

@@ -1,8 +1,9 @@
 import type { NextPage } from 'next';
+
 import DashboardLayout from '../common/components/DashboardLayout';
 import TabContainer from '../common/components/TabContainer';
 import MainDashboard from '../common/components/MainDashBoard';
-import Login from '../common/components/Login';
+import { wrapper } from '../store/index.store';
 
 const Home: NextPage = () => {
   return (
@@ -15,5 +16,7 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+
 
 export default Home;
