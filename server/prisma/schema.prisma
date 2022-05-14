@@ -101,7 +101,6 @@ model Documentation {
   created_at DateTime @default(now())
   title String
   milestone_id Int
-  title String
   milestone Milestone @relation(fields: [milestone_id], references: [id])
   articles Article[]
 }

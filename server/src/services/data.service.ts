@@ -30,11 +30,6 @@ import {
   updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
-<<<<<<< HEAD
-
-import { createMilestoneQuery, findDashMilestonesQuery,  updateMilestoneQuery,  deleteMilestoneQuery, } from '../models/Milestone/milestone.queries';
-import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
-=======
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
 
 import {
@@ -44,7 +39,6 @@ import {
   deleteMilestoneQuery,
 } from '../models/Milestone/milestone.queries';
 
->>>>>>> development
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -64,9 +58,19 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-  getDashboard(project_id: number, user_id: number, page: number, status: string) {
-    return findDashboardQuery(project_id, user_id, page, status);
+  async getDashboard(project_id: number, user_id: number, page: number): Promise<any[]> {
+
+    const allStatus = ['To Do','In Progress','Review','Done','Backlog'];
+
+    return await Promise.all(
+      allStatus.map(
+        async (status: string): Promise<any> => {
+
+        return await findDashboardQuery(project_id, user_id, page, status);
+    }));
+    
   }
+
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
   }

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import BoardSection from './BoardSection';
 import ITask from '../types/ITask';
 import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
+import FilterComponent from './Filter';
 
 
 const Board = ({ data }: any) => {
@@ -39,6 +41,11 @@ const Board = ({ data }: any) => {
   ];
   return (
     <div className={styles.scrollContainer}>
+
+      {/* <FilterComponent 
+      milestones={milestones} 
+      tags={tags} /> */}
+
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = tasks
           ? sseTask.filter((task: ITask) => {
@@ -56,3 +63,14 @@ const Board = ({ data }: any) => {
 };
 
 export default Board;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  
+  const { id } = context.query;
+
+  const res = await fetch(`http://localhost:3001/milestone/${id}`); //need milestone id
+
+  const data = await res.json();
+
+  return { props: { data, id: context.query }, notFound: false };
+};
