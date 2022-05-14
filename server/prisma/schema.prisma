@@ -24,7 +24,7 @@ model User {
   tasks User_Tasks[]
   comments Comment[]
   projects User_Projects[]
-  documentationDetail DocumentationDetail[]
+  articles Article[]
 }
 
 model Project {
@@ -100,16 +100,18 @@ model Documentation {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
   milestone_id Int
+  title String
   milestone Milestone @relation(fields: [milestone_id], references: [id])
-  documentationDetails DocumentationDetail[]
+  articles Article[]
 }
 
-model DocumentationDetail {
+model Article {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
   bookMarked Boolean? @default(false)
   user_id Int
+  title String 
   user User @relation(fields: [user_id], references: [id])
   documentation_id Int
   documentation Documentation @relation(fields: [documentation_id], references: [id])
