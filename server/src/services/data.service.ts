@@ -39,7 +39,10 @@ import {
   deleteMilestoneQuery,
 } from '../models/Milestone/milestone.queries';
 
-// import { createDocumentationQuery } from '../models/Documentation/documentation.queries';
+import {
+  createDocumentationQuery,
+  getAllDocsInMilestoneQuery,
+} from '../models/Documentation/documentation.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
@@ -139,7 +142,10 @@ export class DataService {
   deleteMilestone(milestone_id: number) {
     return deleteMilestoneQuery(milestone_id);
   }
-  // createDocumentation(title: string, milestone_id: number) {
-  //   return createDocumentationQuery(title, milestone_id);
-  // }
+  createDocumentation(title: string, milestone_id: number) {
+    return createDocumentationQuery(title, milestone_id);
+  }
+  getAllDocsInMilestone(id: number) {
+    return getAllDocsInMilestoneQuery(id);
+  }
 }
