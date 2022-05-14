@@ -5,6 +5,8 @@ import ICreateFormProps from '../types/ICreateFormProps';
 import { FormValues } from '../types/FormValues';
 import CustomButton from './small/CustomButton';
 import RoundButton from './small/RoundButton';
+import { createProject } from '../../pages/api/projectApi';
+import IProject from '../types/IProject';
 
 const CreateForm = ({ setShowForm }: ICreateFormProps) => {
   const {
@@ -18,7 +20,9 @@ const CreateForm = ({ setShowForm }: ICreateFormProps) => {
     name: 'Milestones',
   });
 
-  const onSubmit = (data: FormValues) => console.log(data);
+  const onSubmit = async (data: IProject) => {
+    console.log(data);
+  };
 
   const handleShowModal = () => {
     setShowForm(false);
@@ -75,9 +79,7 @@ const CreateForm = ({ setShowForm }: ICreateFormProps) => {
             button="Add New Project"
             color="#415a77"
             textColor="#fff"
-            onClick={() => {
-              append({ title: '' });
-            }}
+            onClick={handleSubmit(onSubmit)}
           />
         </form>
       </div>

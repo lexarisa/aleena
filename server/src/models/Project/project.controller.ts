@@ -4,10 +4,9 @@ import { DataService } from '../../services/data.service';
 const service: DataService = new DataService();
 
 export class ProjectController {
-
   constructor(private service: DataService) {}
 
-  async selectProject(req: Request, res: Response): Promise<void> {
+  async getProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
 
@@ -21,23 +20,9 @@ export class ProjectController {
     }
   }
 
-  async createProject (req: Request, res: Response): Promise<void> {
+  async createProject(req: Request, res: Response): Promise<void> {
     try {
-      const project = await service.createProject(req.body)
-
-      res.send(project);
-    } catch (error) {
-      console.error(error);
-
-      res.status(500);
-    }
-  };
-  
-  
-  async deleteProject(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.body;
-      const project = await service.deleteProject(+id)
+      const project = await service.createProject(req.body);
 
       res.send(project);
     } catch (error) {
@@ -47,4 +32,16 @@ export class ProjectController {
     }
   }
 
-};
+  async deleteProject(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.body;
+      const project = await service.deleteProject(+id);
+
+      res.send(project);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+}

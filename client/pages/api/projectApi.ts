@@ -13,7 +13,7 @@ export const selectProject = async (id: number) => {
 };
 
 export const createProject = async (data: IProject) => {
-  const response = await fetch(`${process.env.BASEURL}/project`, {
+  const response = await fetch(`http://localhost/3001/project`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

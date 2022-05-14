@@ -1,17 +1,28 @@
 // import { IProject } from
 import { prisma } from '../../../prisma/prisma-client';
 
-export const createProjectQuery = async (newProject: any) => {
-  const project = await prisma.user.create({
+export const createProjectQuery = async (user_id: number, newProject: any) => {
+  console.log('yes');
+
+  const project = await prisma.project.create({
     data: newProject,
   });
 
   if (!project) throw new Error();
 
-  return project;
+  const projectUser = await prisma.user_Projects.create({
+    data: {
+      user_id: user_id,
+      project_id: project.id,
+    },
+  });
+
+  if (!projectUser) throw new Error();
+
+  return projectUser;
 };
 
-export const findProjectQuery = async (id: number) => {
+export const getProjectQuery = async (id: number) => {
   const project = await prisma.project.findUnique({
     where: {
       id,

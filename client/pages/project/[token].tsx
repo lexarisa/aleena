@@ -23,10 +23,8 @@ const project = ({
           <div>
             <h1>Welcome to Alena, {data.username}</h1>
           </div>
-          <div className={styles.selectCard}>
-            <div className={styles.addButton} onClick={handleShowForm}>
-              +
-            </div>
+          <div className={styles.selectCard} onClick={handleShowForm}>
+            <div className={styles.addButton}>+</div>
             <p>Create a new project</p>
           </div>
           <div>

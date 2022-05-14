@@ -3,7 +3,7 @@ import { INewUser } from './../interfaces/user';
 // import { Service } from 'typedi';
 
 import {
-  findProjectQuery,
+  getProjectQuery,
   createProjectQuery,
   deleteProjectQuery,
 } from '../models/Project/project.queries';
@@ -30,21 +30,15 @@ import {
   updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
-<<<<<<< HEAD
-import { createMilestoneQuery, findDashMilestonesQuery } from '../models/Milestone/milestone.queries';
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
-=======
+
 import {
   createMilestoneQuery,
-<<<<<<< HEAD
   updateMilestoneQuery,
   deleteMilestoneQuery,
-=======
->>>>>>> development
   findDashMilestonesQuery,
 } from '../models/Milestone/milestone.queries';
-import { createFeedQuery } from '../models/Feed/feed.queries';
->>>>>>> development
+
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -61,7 +55,7 @@ export class DataService {
   }
 
   getProject(id: number) {
-    return findProjectQuery(id);
+    return getProjectQuery(id);
   }
 
   getDashboard(project_id: number, user_id: number, page: number) {
@@ -104,8 +98,8 @@ export class DataService {
   }
 
   async findAndUpdatePR(pull_id: number, status: string) {
-    const pull = await findPRQuery(pull_id); 
-    console.log('pull', pull)
+    const pull = await findPRQuery(pull_id);
+    console.log('pull', pull);
     if (pull !== null) {
       return updatePRQuery(pull_id, status);
     } else {
