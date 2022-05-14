@@ -43,8 +43,8 @@ model User_Projects {
   id Int @id @default(autoincrement())
   user_id Int
   project_id Int
-  user User @relation(fields: [user_id], references: [id])
-  project Project @relation(fields: [project_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
 }
 
 model User_Tasks {
@@ -52,8 +52,8 @@ model User_Tasks {
   user_id Int
   task_id Int
   subscribed Boolean?
-  user User @relation(fields: [user_id], references: [id])
-  task Task @relation(fields: [task_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 }
 model Milestone {
   id Int @id @default(autoincrement())
@@ -62,7 +62,7 @@ model Milestone {
   title String
   status String?
   project_id Int
-  project Project @relation(fields: [project_id], references: [id])
+  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
   tasks Task[]
   documents Documentation[]
 }
@@ -78,8 +78,8 @@ model Task {
   user_id Int 
   project_id Int
   milestone_id Int
+  milestone Milestone @relation(fields: [milestone_id], references: [id], onDelete: Cascade)
   comments Comment[]
-  milestone Milestone @relation(fields: [milestone_id], references: [id])
   users User_Tasks[]
   tags Tag[]
   githubs Github[]
@@ -92,16 +92,17 @@ model Comment {
   description String
   user_id Int
   task_id Int
-  user User @relation(fields:[user_id], references: [id])
-  task Task @relation(fields: [task_id], references: [id])
+  user User @relation(fields:[user_id], references: [id], onDelete: Cascade)
+  task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 }
 
 model Documentation {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
+  title String
   milestone_id Int
-  milestone Milestone @relation(fields: [milestone_id], references: [id])
   documentationDetails DocumentationDetail[]
+  milestone Milestone @relation(fields: [milestone_id], references: [id], onDelete: Cascade)
 }
 
 model DocumentationDetail {
@@ -110,23 +111,26 @@ model DocumentationDetail {
   updated_at DateTime? @updatedAt
   bookMarked Boolean? @default(false)
   user_id Int
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   documentation_id Int
-  documentation Documentation @relation(fields: [documentation_id], references: [id])
+  documentation Documentation @relation(fields: [documentation_id], references: [id], onDelete: Cascade)
 }
 
 model Github {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
+  number Int
   task_id Int
   pull_id Int @unique
-  task Task @relation(fields: [task_id], references: [id])
+  sender String
+  sender_id Int
+  repo_url String
   title String
   status String
-  number Int
   pull_url String
   comment String?
+  task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 }
 
 model Tag {
@@ -136,13 +140,16 @@ model Tag {
   color String
   label String
   task_id Int
-  task Task @relation(fields: [task_id], references: [id])
+  task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 }
 
 model Feed {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
   pull_id Int @unique
+  sender String
+  sender_id Int
+  repo_url String
   title String
   status String
   number Int

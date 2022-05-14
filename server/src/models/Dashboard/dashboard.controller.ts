@@ -15,13 +15,15 @@ export class DashboardController {
 
       const dashboard: any = [];
 
+      const see = await service.getDashboard(+project_id, +user_id, +page, allStatus[0]);
       allStatus.forEach(async (status: string) => {
         const dash = await service.getDashboard(+project_id, +user_id, +page, status);
+        console.log(dash)
         dashboard.push(dash);
       })
 
-      console.log(dashboard);
-      
+      console.log(see);
+
       res.send(dashboard);
     } catch (error) {
       console.error(error);
