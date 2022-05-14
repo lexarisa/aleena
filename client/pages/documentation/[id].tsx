@@ -25,7 +25,8 @@ export default DocumentationPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log('context.query', context.query);
   const { id } = context.query;
-  const res = await fetch(`http://localhost:3001/documentation/${id}`); //need milestone id
+  console.log('id');
+  const res = await fetch(`http://localhost:3001/documentation/${id}`);
 
   const data = await res.json();
 

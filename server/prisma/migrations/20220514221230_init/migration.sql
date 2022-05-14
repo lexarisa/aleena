@@ -69,6 +69,7 @@ CREATE TABLE "Task" (
     "user_id" INTEGER NOT NULL,
     "project_id" INTEGER NOT NULL,
     "milestone_id" INTEGER NOT NULL,
+    "priority" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -103,6 +104,10 @@ CREATE TABLE "Article" (
     "bookMarked" BOOLEAN DEFAULT false,
     "user_id" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
+<<<<<<< HEAD:server/prisma/migrations/20220514104336_init/migration.sql
+=======
+    "content" TEXT,
+>>>>>>> development:server/prisma/migrations/20220514221230_init/migration.sql
     "documentation_id" INTEGER NOT NULL,
 
     CONSTRAINT "Article_pkey" PRIMARY KEY ("id")

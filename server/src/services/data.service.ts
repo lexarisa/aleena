@@ -39,6 +39,23 @@ import {
   deleteMilestoneQuery,
 } from '../models/Milestone/milestone.queries';
 
+<<<<<<< HEAD
+=======
+import {
+  createDocumentationQuery,
+  updateDocumentationQuery,
+  deleteDocumentationQuery,
+  getAllDocsInMilestoneQuery,
+} from '../models/Documentation/documentation.queries';
+
+import {
+  getAllArticlesInDocumentQuery,
+  createArticleQuery,
+  updateArticleQuery,
+  deleteArticleQuery,
+} from '../models/Articles/articles.queries';
+
+>>>>>>> development
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -58,6 +75,7 @@ export class DataService {
     return findProjectQuery(id);
   }
 
+<<<<<<< HEAD
   async getDashboard(project_id: number, user_id: number, page: number): Promise<any[]> {
 
     const allStatus = ['To Do','In Progress','Review','Done','Backlog'];
@@ -69,6 +87,15 @@ export class DataService {
         return await findDashboardQuery(project_id, user_id, page, status);
     }));
     
+=======
+  getDashboard(
+    project_id: number,
+    user_id: number,
+    page: number,
+    status: string
+  ) {
+    return findDashboardQuery(project_id, user_id, page, status);
+>>>>>>> development
   }
 
   getUserProjects(id: number) {
@@ -109,7 +136,6 @@ export class DataService {
 
   async findAndUpdatePR(pull_id: number, status: string) {
     const pull = await findPRQuery(pull_id);
-    console.log('pull', pull);
     if (pull !== null) {
       return updatePRQuery(pull_id, status);
     } else {
@@ -141,5 +167,29 @@ export class DataService {
   }
   deleteMilestone(milestone_id: number) {
     return deleteMilestoneQuery(milestone_id);
+  }
+  createDocumentation(title: string, milestone_id: number) {
+    return createDocumentationQuery(title, milestone_id);
+  }
+  updateDocumentation(title: string, id: number) {
+    return updateDocumentationQuery(title, id);
+  }
+  deleteDocumentation(id: number) {
+    return deleteDocumentationQuery(id);
+  }
+  getAllDocsInMilestone(milestone_id: number) {
+    return getAllDocsInMilestoneQuery(milestone_id);
+  }
+  createArticle(title: string, content: string, document_id: number) {
+    return createArticleQuery(document_id, title, content);
+  }
+  updateArticle(title: string, content: string, id: number) {
+    return updateArticleQuery(id, title, content);
+  }
+  deleteArticle(id: number) {
+    return deleteArticleQuery(id);
+  }
+  getAllArticlesInDocument(document_id: number) {
+    return getAllArticlesInDocumentQuery(document_id);
   }
 }
