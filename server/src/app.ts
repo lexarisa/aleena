@@ -22,6 +22,5 @@ app.use(userRouter);
 app.use(feedRouter);
 app.use(projectRouter);
 app.use(milestoneRouter);
-app.use(projectRouter);
 
 export default app;
