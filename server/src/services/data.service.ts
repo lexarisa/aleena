@@ -30,6 +30,11 @@ import {
   updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
+<<<<<<< HEAD
+
+import { createMilestoneQuery, findDashMilestonesQuery,  updateMilestoneQuery,  deleteMilestoneQuery, } from '../models/Milestone/milestone.queries';
+import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
+=======
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
 
 import {
@@ -39,6 +44,7 @@ import {
   deleteMilestoneQuery,
 } from '../models/Milestone/milestone.queries';
 
+>>>>>>> development
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -58,15 +64,15 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-  getDashboard(project_id: number, user_id: number, page: number) {
-    return findDashboardQuery(project_id, user_id, page);
+  getDashboard(project_id: number, user_id: number, page: number, status: string) {
+    return findDashboardQuery(project_id, user_id, page, status);
   }
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
   }
 
-  createProject(project: any) {
-    return createProjectQuery(project);
+  createProject(user_id: number, project: any) {
+    return createProjectQuery(user_id, project);
   }
 
   deleteProject(id: number) {

@@ -6,6 +6,7 @@ export const createNewTask = async (task: ITask) => {
     body: JSON.stringify(task),
     headers: { 'Content-Type': 'application/json' },
   });
+  
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

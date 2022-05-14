@@ -12,7 +12,7 @@ function Feed() {
   const feedEvent = () => {
     const source = new EventSource('http://localhost:3001/feed');
 
-    source.addEventListener('feed', (feed) => {
+    source.addEventListener('message', (feed) => {
 
       setEvents((event: any[]): any => {
         const data = JSON.parse(feed.data)
@@ -20,6 +20,7 @@ function Feed() {
         return [...oldFeed, data]
       });
 
+      source.close();
     });
   }
 

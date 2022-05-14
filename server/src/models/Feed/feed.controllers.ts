@@ -16,13 +16,14 @@ export class FeedController {
       });
       res.flushHeaders();
   
-      newHookFeed.subscribe((data: any) => {
+      const stream = newHookFeed.subscribe((data: any) => {
         console.log(data)
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
   
       req.on('close', () => {
         console.log('client closed connection');
+        stream.unsubscribe();
       });
     } catch (error) {
       console.log(error);
