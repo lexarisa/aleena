@@ -65,9 +65,11 @@ export default project;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
-  const token = await cryptr.decrypt(`${context.query.token}`);
+  // const token = await cryptr.decrypt(`${context.query.token}`);
 
-  const res = await fetch(`${process.env.BASEURL}/project/${token}`);
+  const token = context.query.token;
+  const res = await fetch(`${process.env.BASEURL}/project/${token}
+  `);
 
   const data = await res.json();
 
