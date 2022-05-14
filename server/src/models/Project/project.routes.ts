@@ -7,7 +7,7 @@ const controller = new ProjectController();
 
 router.get('/projects/:id', controller.getProject);
 
-router.post('/projects/:user_id', controller.createProject);
+router.post('/project', controller.createProject);
 router.delete('/projects/:id', controller.deleteProject);
 
 export default router;

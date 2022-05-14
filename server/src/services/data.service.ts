@@ -70,8 +70,8 @@ export class DataService {
     return findUserProjectsQuery(id);
   }
 
-  createProject(user_id: number, project: any) {
-    return createProjectQuery(user_id, project);
+  createProject(user_id: number, newProject: any) {
+    return createProjectQuery(user_id, newProject);
   }
 
   deleteProject(id: number) {
