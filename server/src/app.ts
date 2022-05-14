@@ -10,7 +10,6 @@ import userRouter from './models/User/user.routes';
 import feedRouter from './models/Feed/feed.routes';
 import projectRouter from './models/Project/project.routes';
 import milestoneRouter from './models/Milestone/milestone.routes';
-import projectRouter from './models/Project/project.routes';
 
 const app: Application = express();
 

@@ -12,7 +12,7 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
     data: {
       user_id: user_id,
       project_id: project.id,
-      id: 333,
+      id: Math.floor(Math.random() * 100),
     },
   });
 
