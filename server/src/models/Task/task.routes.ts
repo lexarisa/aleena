@@ -12,10 +12,10 @@ router.get('/task/:task_id', controller.findTask);
 
 router.post('/task', controller.createTask);
 
-
 router.patch('/task/:task_id', controller.updateTaskDetail);
 
-
 router.get('/payload/task', cleanData, controller.createTask);
-router.post('/payload/task', cleanData, controller.createTask);
+
+router.get('/tasks/sse', controller.sseTask);
+
 export default router;

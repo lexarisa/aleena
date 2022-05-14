@@ -9,7 +9,7 @@ export class ProjectController {
   async getProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-
+      console.log('here');
       const project = await service.getProject(+id);
 
       res.send(project);

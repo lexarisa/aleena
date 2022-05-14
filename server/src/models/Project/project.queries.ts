@@ -39,7 +39,7 @@ export const createProjectQuery = async (newProject: any) => {
   return project;
 };
 
-export const getProjectQuery = async (id: number) => {
+export const findProjectQuery = async (id: number) => {
   const project = await prisma.project.findUnique({
     where: {
       id,

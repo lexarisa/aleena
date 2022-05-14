@@ -1,39 +1,32 @@
-import React from 'react';
-
-//components
+import React, { useEffect, useState } from 'react';
 import BoardSection from './BoardSection';
-//interfaces
 import ITask from '../types/ITask';
-
-//styling
 import styles from '../../styles/Board.module.css';
-
-//mock tasks
 import tasks from '../../mockTasks';
 import { useRouter } from 'next/router';
 
-// interface BoardProps {
-//   data: ;
-// }
+const Board = ({ data }: any) => {
+  useEffect(() => {
+    // sse
+    streamTask();
+  });
 
-const Board = ({ data }: BoardProps) => {
-  const router = useRouter();
+  const [sseTask, setSseTask] = useState(data[0].tasks);
 
-  // console.log('data on the board', data);
+  const streamTask = () => {
+    const task = new EventSource('http://localhost:3001/tasks/sse');
 
-  // fetch all the tasks
+    task.addEventListener('message', (tsk) => {
+      const newTask = JSON.parse(tsk.data);
 
-  //call the API
-  //if error -> return <p>error</p>
-  //if loading -> return <p>loading...</p>
+      setSseTask((tasks: any) => {
+        const old = tasks.filter((oldtask: any) => oldtask.id !== newTask.id);
 
-  // SSE
-  // const source = new EventSource('http://localhost:3001/updateTasks');
-  // source.addEventListener('message', (message) => {
-  //   console.log('Data from server:', message);
-  //   // returns task with new status
-  //   // update state of all tasks
-  // });
+        return [...old, newTask];
+      });
+      task.close();
+    });
+  };
 
   const sections: String[] = [
     'To Do',
@@ -46,7 +39,7 @@ const Board = ({ data }: BoardProps) => {
     <div className={styles.scrollContainer}>
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = tasks
-          ? data[0].tasks.filter((task: ITask) => {
+          ? sseTask.filter((task: ITask) => {
               return task.status === section;
             })
           : [];

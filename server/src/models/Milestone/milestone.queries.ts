@@ -66,23 +66,14 @@ export const updateMilestoneQuery = async (
 };
 
 export const deleteMilestoneQuery = async (milestone_id: number) => {
-  const milestoneTasks = await prisma.task.deleteMany({
-    where: {
-      milestone_id: milestone_id,
-    },
-  });
-  const milestoneDocument = await prisma.documentation.delete({
-    where: {
-      id: milestone_id,
-    },
-  });
+  console.log('milestone_id in query ', milestone_id);
   const milestone = await prisma.milestone.delete({
     where: {
       id: milestone_id,
     },
   });
   //
-  if (!milestoneTasks) throw new Error();
+  // if (!milestoneTasks) throw new Error();
   if (!milestone) throw new Error();
 
   return milestone;

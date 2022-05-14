@@ -1,30 +1,33 @@
 import React from 'react';
-import Board from '../../common/components/Board';
+// import Board from '../../common/components/Board';
+import { MainDocumentation } from '../../common/components/MainDocumentation';
 import DashboardLayout from '../../common/components/DashboardLayout';
 import TabContainer from '../../common/components/TabContainer';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-const BoardPage = ({
+const DocumentationPage = ({
   data,
+  id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log('data as props', data);
+
   return (
     <DashboardLayout>
       <TabContainer>
-        <Board data={data} />
+        <MainDocumentation data={data} id={id} />
       </TabContainer>
     </DashboardLayout>
   );
 };
 
-export default BoardPage;
+export default DocumentationPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  
+  console.log('context.query', context.query);
   const { id } = context.query;
-
-  const res = await fetch(`http://localhost:3001/milestone/${id}`); //need milestone id
+  const res = await fetch(`http://localhost:3001/documentation/${id}`); //need milestone id
 
   const data = await res.json();
 
-  return { props: { data }, notFound: false };
+  return { props: { data, id: context.query }, notFound: false };
 };

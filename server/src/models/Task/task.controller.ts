@@ -1,19 +1,25 @@
 import { NextFunction, Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
 import { newHookTask } from '../../middlewares/checkPR.middleware';
-import { nextTick } from 'process';
-import { NextNotification } from 'rxjs';
+import { Subject } from 'rxjs';
 
 const service: DataService = new DataService();
 
-export class TaskController {
-  constructor(private service: DataService) {}
+export const sseTask = new Subject();
 
+export class TaskController {
+
+  constructor(private service: DataService) {}
+  
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
       const task = await service.createTask(newTask);
-      res.send(task);
+
+      console.log('XXXXXX')
+      sseTask.next(task);
+
+      res.send(true);
     } catch (error) {
       console.error(error);
 
@@ -57,12 +63,13 @@ export class TaskController {
 
       res.flushHeaders();
 
-      newHookTask.subscribe((data: any) => {
+      const stream = newHookTask.subscribe((data: any) => {
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
 
       req.on('close', () => {
         console.log('client closed connection');
+        stream.unsubscribe();
       });
     } catch (error) {
       console.log(error);
@@ -78,6 +85,8 @@ export class TaskController {
 
       const task = await service.updateTaskDetail(+task_id, updateTaskData);
 
+      sseTask.next(task);
+      
       res.send(task);
     } catch (error) {
       console.error(error);
@@ -85,4 +94,32 @@ export class TaskController {
       res.status(500);
     }
   }
+
+  async sseTask(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('hit the sseTask')
+      res.set({
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/event-stream',
+        'Access-Control-Allow-Origin': '*',
+        'X-Accel-Buffering': 'no',
+        Connection: 'keep-alive',
+      });
+      res.flushHeaders();
+  
+      const stream = sseTask.subscribe((data: any) => {
+        console.log('DIOOOOS',data)
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+  
+      req.on('close', () => {
+        console.log('client closed connection');
+        stream.unsubscribe();
+      });
+    } catch (error) {
+      console.log(error);
+
+      res.status(500);
+    }
+  };
 }

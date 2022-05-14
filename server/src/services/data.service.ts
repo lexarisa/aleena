@@ -3,7 +3,7 @@ import { INewUser } from './../interfaces/user';
 // import { Service } from 'typedi';
 
 import {
-  getProjectQuery,
+  findProjectQuery,
   createProjectQuery,
   deleteProjectQuery,
 } from '../models/Project/project.queries';
@@ -34,9 +34,9 @@ import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
 
 import {
   createMilestoneQuery,
+  findDashMilestonesQuery,
   updateMilestoneQuery,
   deleteMilestoneQuery,
-  findDashMilestonesQuery,
 } from '../models/Milestone/milestone.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
@@ -55,18 +55,23 @@ export class DataService {
   }
 
   getProject(id: number) {
-    return getProjectQuery(id);
+    return findProjectQuery(id);
   }
 
-  getDashboard(project_id: number, user_id: number, page: number) {
-    return findDashboardQuery(project_id, user_id, page);
+  getDashboard(
+    project_id: number,
+    user_id: number,
+    page: number,
+    status: string
+  ) {
+    return findDashboardQuery(project_id, user_id, page, status);
   }
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
   }
 
-  createProject(newProject: any) {
-    return createProjectQuery(newProject);
+  createProject(user_id: number, project: any) {
+    return createProjectQuery(user_id, project);
   }
 
   deleteProject(id: number) {
