@@ -33,3 +33,24 @@ export const createDocumentationQuery = async (
   if (!newDoc) return null;
   return newDoc;
 };
+export const updateDocumentationQuery = async (title: string, id: number) => {
+  const updatedDoc = await prisma.documentation.update({
+    where: {
+      id: id,
+    },
+    data: {
+      title: title,
+    },
+  });
+  if (!updatedDoc) return null;
+  return updatedDoc;
+};
+export const deleteDocumentationQuery = async (id: number) => {
+  const deletedDoc = await prisma.documentation.delete({
+    where: {
+      id: id,
+    },
+  });
+  if (!deletedDoc) return null;
+  return deletedDoc;
+};

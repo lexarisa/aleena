@@ -41,6 +41,8 @@ import {
 
 import {
   createDocumentationQuery,
+  updateDocumentationQuery,
+  deleteDocumentationQuery,
   getAllDocsInMilestoneQuery,
 } from '../models/Documentation/documentation.queries';
 
@@ -145,7 +147,13 @@ export class DataService {
   createDocumentation(title: string, milestone_id: number) {
     return createDocumentationQuery(title, milestone_id);
   }
-  getAllDocsInMilestone(id: number) {
-    return getAllDocsInMilestoneQuery(id);
+  updateDocumentation(title: string, id: number) {
+    return updateDocumentationQuery(title, id);
+  }
+  deleteDocumentation(id: number) {
+    return deleteDocumentationQuery(id);
+  }
+  getAllDocsInMilestone(milestone_id: number) {
+    return getAllDocsInMilestoneQuery(milestone_id);
   }
 }
