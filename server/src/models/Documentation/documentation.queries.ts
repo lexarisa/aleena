@@ -54,3 +54,20 @@ export const deleteDocumentationQuery = async (id: number) => {
   if (!deletedDoc) return null;
   return deletedDoc;
 };
+export const getAllArticlesInMilestone = async (milestone_id: number) => {
+  const allArticles = await prisma.milestone.findMany({
+    where: {
+      id: milestone_id,
+    },
+    select: {
+      documents: {
+        select: {
+          title: true,
+          articles: true,
+        },
+      },
+    },
+  });
+  if (!allArticles) return null;
+  return allArticles;
+};

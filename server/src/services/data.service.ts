@@ -46,6 +46,13 @@ import {
   getAllDocsInMilestoneQuery,
 } from '../models/Documentation/documentation.queries';
 
+import {
+  getAllArticlesInDocumentQuery,
+  createArticleQuery,
+  updateArticleQuery,
+  deleteArticleQuery,
+} from '../models/Articles/articles.queries';
+
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -111,7 +118,6 @@ export class DataService {
 
   async findAndUpdatePR(pull_id: number, status: string) {
     const pull = await findPRQuery(pull_id);
-    console.log('pull', pull);
     if (pull !== null) {
       return updatePRQuery(pull_id, status);
     } else {
@@ -155,5 +161,17 @@ export class DataService {
   }
   getAllDocsInMilestone(milestone_id: number) {
     return getAllDocsInMilestoneQuery(milestone_id);
+  }
+  createArticle(title: string, content: string, document_id: number) {
+    return createArticleQuery(document_id, title, content);
+  }
+  updateArticle(title: string, content: string, id: number) {
+    return updateArticleQuery(id, title, content);
+  }
+  deleteArticle(id: number) {
+    return deleteArticleQuery(id);
+  }
+  getAllArticlesInDocument(document_id: number) {
+    return getAllArticlesInDocumentQuery(document_id);
   }
 }
