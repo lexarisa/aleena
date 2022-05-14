@@ -36,7 +36,7 @@ export const deleteMilestone = async (milestone_id: number) => {
 export const updateMilestone = async (title: string, milestone_id: number) => {
   const response = await fetch(`http://localhost:3001/milestone`, {
     // const response = await fetch(`${process.env.BASEURL}/milestone`, {
-    method: 'DELETE',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
