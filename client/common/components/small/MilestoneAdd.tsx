@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import styles from '../../../styles/MileStoneCard.module.css';
 import { INewMilestone } from '../../types/INewMilistone';
 import { createMilestone } from '../../../pages/api/milestoneApi';
+import { useRouter } from 'next/router';
 
-const MilestoneAdd = ({project_id}: any) => {
-
+const MilestoneAdd = ({ project_id }: any) => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
+  const router = useRouter();
+  console.log(router);
 
   const handleCreateMilestone = async () => {
     if (milestoneTitle === '') return;
     const newMilestone: INewMilestone = {
       title: milestoneTitle,
-      project_id: 1, //! hardcoded
+      project_id: Number(router.query.id),
     };
 
-    createMilestone(newMilestone).then((data) => console.log(data));
+    createMilestone(newMilestone);
 
     setMilestoneTitle('');
   };

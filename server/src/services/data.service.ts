@@ -30,9 +30,21 @@ import {
   updateTaskDetailQuery,
 } from '../models/Task/task.queries';
 
+<<<<<<< HEAD
 
 import { createMilestoneQuery, findDashMilestonesQuery,  updateMilestoneQuery,  deleteMilestoneQuery, } from '../models/Milestone/milestone.queries';
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
+=======
+import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
+
+import {
+  createMilestoneQuery,
+  findDashMilestonesQuery,
+  updateMilestoneQuery,
+  deleteMilestoneQuery,
+} from '../models/Milestone/milestone.queries';
+
+>>>>>>> development
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -92,8 +104,8 @@ export class DataService {
   }
 
   async findAndUpdatePR(pull_id: number, status: string) {
-    const pull = await findPRQuery(pull_id); 
-    console.log('pull', pull)
+    const pull = await findPRQuery(pull_id);
+    console.log('pull', pull);
     if (pull !== null) {
       return updatePRQuery(pull_id, status);
     } else {

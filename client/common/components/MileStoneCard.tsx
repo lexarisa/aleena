@@ -5,6 +5,7 @@ import Card from './Card';
 
 interface MileStoneCardProp {
   title: String;
+  id: Number;
 }
 
 const MileStoneCard = ({ title, task }: any) => {
