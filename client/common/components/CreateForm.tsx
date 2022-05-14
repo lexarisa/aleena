@@ -7,8 +7,11 @@ import CustomButton from './small/CustomButton';
 import RoundButton from './small/RoundButton';
 import { createProject } from '../../pages/api/projectApi';
 import IProject from '../types/IProject';
+import { useRouter } from 'next/router';
+import Cryptr from 'cryptr';
 
-const CreateForm = ({ setShowForm }: ICreateFormProps) => {
+const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -20,8 +23,10 @@ const CreateForm = ({ setShowForm }: ICreateFormProps) => {
     name: 'Milestones',
   });
 
-  const onSubmit = async (data) => {
-    await createProject(data);
+  const onSubmit = async (data: any) => {
+    const newProjectData = { ...data, user_id: token };
+    await createProject(newProjectData).catch((err) => console.log(err));
+    setShowForm(false);
   };
 
   const handleShowModal = () => {

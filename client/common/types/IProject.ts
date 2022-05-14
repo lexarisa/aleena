@@ -2,7 +2,7 @@ import IUser from './IUser';
 import IMilestone from './IMilestone';
 
 export default interface IProject {
-  id: Number;
+  id?: Number;
   created_at: Date;
   updated_at?: Date;
   title: String;
@@ -10,5 +10,6 @@ export default interface IProject {
   status?: String;
   deadline?: Date;
   user?: IUser[];
+  user_id: Number;
   milestones?: IMilestone[];
 }

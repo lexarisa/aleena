@@ -7,9 +7,9 @@ import Login from '../common/components/Login';
 //TODO check page flow
 const Home: NextPage = () => {
   return (
-    <>
+    <div>
       <Login />
-    </>
+    </div>
   );
 };
 

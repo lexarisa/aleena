@@ -9,6 +9,7 @@ import Modal from '../../common/components/Modal';
 
 const project = ({
   data,
+  token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [showForm, setShowForm] = useState(false);
 
@@ -48,11 +49,13 @@ const project = ({
           </div>
         </div>
       </div>
-      {showForm && (
-        <Modal>
-          <CreateForm setShowForm={setShowForm} />
-        </Modal>
-      )}
+      <div>
+        {showForm && (
+          <Modal>
+            <CreateForm setShowForm={setShowForm} token={token} />
+          </Modal>
+        )}
+      </div>
     </>
   );
 };
@@ -68,5 +71,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await res.json();
 
-  return { props: { data: data }, notFound: false };
+  return { props: { data: data, token }, notFound: false };
 };
