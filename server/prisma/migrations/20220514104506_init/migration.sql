@@ -89,21 +89,23 @@ CREATE TABLE "Comment" (
 CREATE TABLE "Documentation" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "title" TEXT NOT NULL,
     "milestone_id" INTEGER NOT NULL,
 
     CONSTRAINT "Documentation_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "DocumentationDetail" (
+CREATE TABLE "Article" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
     "bookMarked" BOOLEAN DEFAULT false,
     "user_id" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
     "documentation_id" INTEGER NOT NULL,
 
-    CONSTRAINT "DocumentationDetail_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Article_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -194,13 +196,13 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_user_id_fkey" FOREIGN KEY ("user_i
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "Task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Documentation" ADD CONSTRAINT "Documentation_milestone_id_fkey" FOREIGN KEY ("milestone_id") REFERENCES "Milestone"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Documentation" ADD CONSTRAINT "Documentation_milestone_id_fkey" FOREIGN KEY ("milestone_id") REFERENCES "Milestone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DocumentationDetail" ADD CONSTRAINT "DocumentationDetail_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Article" ADD CONSTRAINT "Article_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DocumentationDetail" ADD CONSTRAINT "DocumentationDetail_documentation_id_fkey" FOREIGN KEY ("documentation_id") REFERENCES "Documentation"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Article" ADD CONSTRAINT "Article_documentation_id_fkey" FOREIGN KEY ("documentation_id") REFERENCES "Documentation"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Github" ADD CONSTRAINT "Github_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "Task"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -19,3 +19,17 @@ export const getAllDocsInMilestoneQuery = async (milestoneId: number) => {
   if (!allDocs) return null;
   return allDocs;
 };
+
+export const createDocumentationQuery = async (
+  title: string,
+  milestone_id: number
+) => {
+  const newDoc = await prisma.documentation.create({
+    data: {
+      title: title,
+      milestone_id: milestone_id,
+    },
+  });
+  if (!newDoc) return null;
+  return newDoc;
+};
