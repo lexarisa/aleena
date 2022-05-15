@@ -14,7 +14,9 @@ const DocumentCard = ({ title }: any) => {
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
       </div>
-      <div></div>
+      <div>
+        <Article />
+      </div>
       {/* <div className={styles.tags}> */}
       {/* {issue ?  issue.map(
         <Article title={task.title} />
