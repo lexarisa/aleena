@@ -9,9 +9,14 @@ import { createProject } from '../../pages/api/projectApi';
 import IProject from '../types/IProject';
 import { useRouter } from 'next/router';
 import Cryptr from 'cryptr';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, useAppDispatch } from '../../redux/store';
+import { createProjectApi } from '../../redux/features/projectSlice';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   const router = useRouter();
+  const dispatch: AppDispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -25,6 +30,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
 
   const onSubmit = async (data: any) => {
     const newProjectData = { ...data, user_id: token };
+
     await createProject(newProjectData).catch((err) => console.log(err));
     setShowForm(false);
   };

@@ -6,7 +6,6 @@ const router: Router = Router();
 const controller = new ProjectController();
 
 router.get('/projects/:id', controller.getProject);
-
 router.post('/project', controller.createProject);
 router.delete('/projects/:id', controller.deleteProject);
 

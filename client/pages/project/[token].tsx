@@ -6,16 +6,24 @@ import Link from 'next/link';
 import Cryptr from 'cryptr';
 import CreateForm from '../../common/components/CreateForm';
 import Modal from '../../common/components/Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProjectApi, setProjects } from '../../redux/features/projectSlice';
 
 const project = ({
   data,
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [showForm, setShowForm] = useState(false);
+  const dispatch = useDispatch();
+  const { project } = useSelector((state) => state.project);
+
+  console.log('test', project);
 
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
+
+  dispatch(setProjects(data.projects));
 
   return (
     <>

@@ -1,24 +1,23 @@
-// };
-import IProject from '../../common/types/IProject';
-
-export const selectProject = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`);
+export const getTags = async () => {
+  const response = await fetch(`${process.env.BASEURL}/tags`);
 
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
     throw new Error(message);
   }
-  const project = await response.json();
-  return project;
+
+  const tags = await response.json();
+  return tags;
 };
 
-export const createProject = async (data: IProject) => {
-  const response = await fetch(`http://localhost:3001/project`, {
+export const addTag = async (tag) => {
+  //TODO add type
+  const response = await fetch(`${process.env.BASEURL}/tag`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(tag),
   });
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
@@ -27,8 +26,8 @@ export const createProject = async (data: IProject) => {
   return response.json();
 };
 
-export const deleteProject = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+export const deleteTag = async (id: number) => {
+  const response = await fetch(`${process.env.BASEURL}/tag/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
@@ -38,13 +37,11 @@ export const deleteProject = async (id: number) => {
   return response.json();
 };
 
-export const updateProjectDetail = async (
-  id: Number,
-  projectData: IProject
-) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+export const updateTag = async (id: Number, newTag: any) => {
+  //TODO add type
+  const response = await fetch(`${process.env.BASEURL}/tag/${id}`, {
     method: 'PATCH',
-    body: JSON.stringify(projectData),
+    body: JSON.stringify(newTag),
     headers: { 'Content-Type': 'application/json' },
   });
   if (!response.ok) {

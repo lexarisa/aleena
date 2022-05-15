@@ -1,24 +1,23 @@
-// };
-import IProject from '../../common/types/IProject';
-
-export const selectProject = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`);
+export const getComments = async () => {
+  const response = await fetch(`${process.env.BASEURL}/comments`);
 
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
     throw new Error(message);
   }
-  const project = await response.json();
-  return project;
+
+  const comments = await response.json();
+  return comments;
 };
 
-export const createProject = async (data: IProject) => {
-  const response = await fetch(`http://localhost:3001/project`, {
+export const addComment = async (comment) => {
+  //TODO add type
+  const response = await fetch(`${process.env.BASEURL}/comments`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(comment),
   });
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
@@ -27,8 +26,8 @@ export const createProject = async (data: IProject) => {
   return response.json();
 };
 
-export const deleteProject = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+export const deleteComment = async (id: number) => {
+  const response = await fetch(`${process.env.BASEURL}/comment/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
@@ -38,13 +37,11 @@ export const deleteProject = async (id: number) => {
   return response.json();
 };
 
-export const updateProjectDetail = async (
-  id: Number,
-  projectData: IProject
-) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+export const updateComment = async (id: Number, commentDetail: any) => {
+  //TODO add type
+  const response = await fetch(`${process.env.BASEURL}/comment/${id}`, {
     method: 'PATCH',
-    body: JSON.stringify(projectData),
+    body: JSON.stringify(commentDetail),
     headers: { 'Content-Type': 'application/json' },
   });
   if (!response.ok) {
