@@ -2,10 +2,8 @@
 import { prisma } from '../../../prisma/prisma-client';
 
 export const createProjectQuery = async (user_id: number, newProject: any) => {
-  console.log('yes')
-
   const project = await prisma.project.create({
-    data: newProject
+    data: newProject,
   });
 
   if (!project) throw new Error();
@@ -13,14 +11,31 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
   const projectUser = await prisma.user_Projects.create({
     data: {
       user_id: user_id,
-      project_id: project.id
-    }
-  })
+      project_id: project.id,
+      id: Math.floor(Math.random() * 100),
+    },
+  });
 
   if (!projectUser) throw new Error();
 
   return projectUser;
 };
+
+// export const createProjectQuery = async (newProject: any) => {
+//   console.log('newwww', newProject);
+//   const project = await prisma.project.create({
+//     data: {
+//       title: newProject.title,
+//       description: newProject.description,
+//       status: newProject.status,
+//       user: {
+//         create: [{ user: { connect: { id: newProject.id } } }],
+//       },
+//     },
+//   });
+//   if (!project) throw new Error();
+//   return project;
+// };
 
 export const findProjectQuery = async (id: number) => {
   const project = await prisma.project.findUnique({

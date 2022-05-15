@@ -72,20 +72,36 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-  getDashboard(
+  async getDashboard(
     project_id: number,
     user_id: number,
-    page: number,
-    status: string
-  ) {
-    return findDashboardQuery(project_id, user_id, page, status);
+    page: number
+  ): Promise<any[]> {
+    const allStatus = ['To Do', 'In Progress', 'Review', 'Done', 'Backlog'];
+
+    return await Promise.all(
+      allStatus.map(async (status: string): Promise<any> => {
+        return await findDashboardQuery(project_id, user_id, page, status);
+      })
+    );
   }
+
+  // getDashboard(
+  //   project_id: number,
+  //   user_id: number,
+  //   page: number,
+  //   status: string
+  // ) {
+  //   return findDashboardQuery(project_id, user_id, page, status);
+
+  // }
+
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
   }
 
-  createProject(user_id: number, project: any) {
-    return createProjectQuery(user_id, project);
+  createProject(user_id: number, newProject: any) {
+    return createProjectQuery(user_id, newProject);
   }
 
   deleteProject(id: number) {

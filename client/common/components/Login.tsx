@@ -37,7 +37,7 @@ const Login = () => {
               onClick={handleSignIn}
               color="#415a77"
               textColor="#fff"
-              />
+            />
             <CustomButton
               button="Sign Up"
               onClick={handleSignUp}
