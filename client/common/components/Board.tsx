@@ -5,32 +5,21 @@ import ITask from '../types/ITask';
 import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
+import { useAppDispatch } from '../../store/index.store';
+import { sseTasks } from '../../store/slices/Tasks/tasks.api';
 
 
 const Board = ({ data }: any) => {
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
      // sse
-    streamTask();
+    dispatch(sseTasks());
   });
 
-  const [ sseTask, setSseTask ] = useState(data[0].tasks)
+  const [ sseTask, setSseTask ] = useState()
 
-  const streamTask = () => {
-    const task = new EventSource('http://localhost:3001/tasks/sse');
-
-    task.addEventListener('message', (tsk) => {
-      const newTask = JSON.parse(tsk.data);
-   
-
-      setSseTask((tasks: any) => {
-        const old = tasks.filter((oldtask: any) => oldtask.id !== newTask.id)
-    
-        return [...old, newTask];
-      })
-      task.close();
-    });
-  }
 
   const sections: String[] = [
     'To Do',

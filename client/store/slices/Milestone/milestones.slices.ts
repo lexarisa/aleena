@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// const res = await fetch(`http://localhost:3001/milestone/${id}`);
+// await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);
+
+
 export const MilestoneSlice = createSlice({
     name: 'milestone',
 

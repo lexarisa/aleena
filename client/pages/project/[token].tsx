@@ -3,11 +3,9 @@ import Cryptr from 'cryptr';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { wrapper } from '../../store/index.store';
-import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/projectPage.module.css';
 import ITask from '../../common/types/ITask';
-import { fetchProjects } from '../../store/slices/project.slices';
-
+import { fetchProjects } from '../../store/slices/Projects/project.api';
 
 
 const project = ({
@@ -66,8 +64,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   console.log(token);
 
+  console.log(store.getState())
   // @ts-ignore
   const data = await store.dispatch(fetchProjects(token))
+
+  console.log(store.getState())
 
   return { props: { data: data.payload }, notFound: false };
 })
