@@ -11,6 +11,7 @@ import feedRouter from './models/Feed/feed.routes';
 import projectRouter from './models/Project/project.routes';
 import milestoneRouter from './models/Milestone/milestone.routes';
 import documentRouter from './models/Documentation/documentation.routes';
+import articleRouter from './models/Articles/articles.routes';
 
 const app: Application = express();
 
@@ -24,5 +25,6 @@ app.use(feedRouter);
 app.use(projectRouter);
 app.use(milestoneRouter);
 app.use(documentRouter);
+app.use(articleRouter);
 
 export default app;

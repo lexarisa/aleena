@@ -4,6 +4,7 @@ import { ArticleController } from './articles.controllers';
 const router: Router = Router();
 const controller = new ArticleController();
 
+// get article
 router.post('/article', controller.createArticle);
 router.patch('/article', controller.updateArticle); //update
 router.delete('/article', controller.deleteArticle); //delete

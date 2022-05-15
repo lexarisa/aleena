@@ -174,4 +174,5 @@ export class DataService {
   getAllArticlesInDocument(document_id: number) {
     return getAllArticlesInDocumentQuery(document_id);
   }
+  //get all articles in milestone
 }

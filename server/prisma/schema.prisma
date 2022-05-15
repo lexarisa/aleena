@@ -115,7 +115,7 @@ model Article {
   title String 
   content String?
   user User @relation(fields: [user_id], references: [id])
-  documentation_id Int
+  documentation_id Int 
   documentation Documentation @relation(fields: [documentation_id], references: [id], onDelete: Cascade)
 }
 
