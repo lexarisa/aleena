@@ -22,7 +22,7 @@ const aleenaStore = () => configureStore({
 
 
 export type AppStore = ReturnType<typeof aleenaStore>;
-export type AppState = AppStore['getState'];
+export type AppState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unknown, Action>
 

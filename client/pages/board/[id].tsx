@@ -8,7 +8,7 @@ const BoardPage = ({
   data,
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log('data as props', data);
+  // console.log('data as props', data);
 
   return (
     <DashboardLayout>

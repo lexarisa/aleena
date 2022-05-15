@@ -5,15 +5,23 @@ import ITask from '../types/ITask';
 import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
+import { useAppDispatch, useAppSelector } from './../../store/hooks/redux-hooks';
+import { fetchTasks } from '../../store/slices/Tasks/tasks.api';
 
 
+const Board = ({ data, id }: any) => {
 
-const Board = ({ data }: any) => {
 
+  const dispatch = useAppDispatch();
+
+  const allTasks =  useAppSelector(state => state.task.allTasks)
 
   useEffect(() => {
     // sse
     streamTask();
+    console.log(id)
+    // @ts-ignore
+    dispatch(fetchTasks(id.id))
   });
 
   const [sseTask, setSseTask] = useState(data);
@@ -48,8 +56,8 @@ const Board = ({ data }: any) => {
       tags={tags} /> */}
 
       {sections.map((section, index) => {
-        let filteredTasks: ITask[] = sseTask
-          ? sseTask.filter((task: ITask) => {
+        let filteredTasks: ITask[] = allTasks
+          ? allTasks.filter((task: ITask) => {
               return task.status === section;
             })
           : [];

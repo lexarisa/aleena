@@ -50,7 +50,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         user_id: 93489785, 
         priority: 'none',
         project_id: 1,
-        milestone_id: Number(router.query.id),
+        milestone_id: 1,
         status: columnTitle,
       };
 
