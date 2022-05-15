@@ -7,8 +7,8 @@ const controller = new MilestoneController();
 
 router.get('/milestone/sse', controller.milestoneSSE); // connect to client
 router.post('/milestone', controller.createMilestone);
-router.patch('/milestone', controller.updateMilestone); //update
-router.delete('/milestone', controller.deleteMilestone); //delete
+router.patch('/milestone', controller.updateMilestone);
+router.delete('/milestone', controller.deleteMilestone);
 
 router.get('/milestone/:milestoneId', controller.getAllTasksInMilestone);
 router.get('/milestone/dash/:project_id', controller.getDashMilestones);
