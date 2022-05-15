@@ -52,8 +52,8 @@ const MainDashboard = ({ data }: any) => {
         <div key={item.id}>
           <Link
             href={{
-              pathname: '/board/[id]',
-              query: { id: item.id },
+              pathname: '/board/[milestone_id]',
+              query: { milestone_id: item.id, project_id: router.query.id },
             }}
           >
             <a key={item.id}>

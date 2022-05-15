@@ -24,6 +24,8 @@ const ActiveLink = ({ children, href }: ActiveLinkProps) => {
 };
 
 const TabContainer = ({ children }: TabContainerProps) => {
+  const router = useRouter();
+  console.log(router);
   return (
     <div className={styles.container}>
       <div className={styles.tabHead}>

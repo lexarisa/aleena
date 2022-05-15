@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@prisma/client": "^3.14.0"
+    "@prisma/client": "^3.14.0",
+    "react-hook-form": "^7.31.1"
   }
 }

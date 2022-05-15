@@ -1,26 +1,94 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import styles from '../../styles/CreateForm.module.css';
+import ICreateFormProps from '../types/ICreateFormProps';
+import { FormValues } from '../types/FormValues';
+import CustomButton from './small/CustomButton';
+import RoundButton from './small/RoundButton';
+import { createProject } from '../../pages/api/projectApi';
+import IProject from '../types/IProject';
+import { useRouter } from 'next/router';
+import Cryptr from 'cryptr';
 
-const CreateForm = () => {
-  const [projectTitle, setProjectTitle] = useState('');
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setProjectTitle(e.currentTarget.value);
+const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({ defaultValues: { status: 'To Do' } });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'Milestones',
+  });
+
+  const onSubmit = async (data: any) => {
+    const newProjectData = { ...data, user_id: token };
+    await createProject(newProjectData).catch((err) => console.log(err));
+    setShowForm(false);
+  };
+
+  const handleShowModal = () => {
+    setShowForm(false);
   };
   return (
-    <div className={styles.container}>
-      <form>
-        <label className={styles.label}>Title</label>
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="Add a project title"
-          name="title"
-          onChange={handleChange}
-          value={projectTitle}
-        />
-        <label className={styles.select}>Add Milestones</label>
-      </form>
-    </div>
+    <>
+      <RoundButton
+        button="x"
+        onClick={handleShowModal}
+        color="#e0e1dd"
+        textColor="#191919"
+      />
+
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="title">Project Name:</label>
+          <input
+            className={styles.input}
+            {...register('title', {
+              required: 'required',
+              minLength: {
+                value: 3,
+                message: 'Please enter your project name',
+              },
+            })}
+          />
+          {errors.title && <p>This is required</p>}
+          <ul>
+            <label htmlFor="milestone">Add Milestone:</label>
+            {fields.map((field, index) => {
+              return (
+                <li className={styles.section} key={field.id}>
+                  <input
+                    className={styles.input}
+                    placeholder="Milestone"
+                    {...register(`Milestones.${index}.title` as const)}
+                  />
+                  <button onClick={() => remove(index)}>Remove</button>
+                </li>
+              );
+            })}
+          </ul>
+          <CustomButton
+            button="Add More Milestone"
+            color="#000"
+            textColor="#fff"
+            onClick={() => {
+              append({ title: '' });
+            }}
+          />
+
+          <label htmlFor="status"></label>
+          <CustomButton
+            button="Add New Project"
+            color="#415a77"
+            textColor="#fff"
+            onClick={handleSubmit(onSubmit)}
+          />
+        </form>
+      </div>
+    </>
   );
 };
 

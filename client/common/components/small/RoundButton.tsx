@@ -1,7 +1,7 @@
-import styles from '../../../styles/CustomButton.module.css';
+import styles from '../../../styles/RoundButton.module.css';
 import ICustomButtonProp from '../../types/ICustomButtonProps';
 
-const CustomButton = ({
+const RoundButton = ({
   button,
   onClick,
   color,
@@ -10,7 +10,7 @@ const CustomButton = ({
   return (
     <button
       onClick={onClick}
-      className={styles.container}
+      className={styles.button}
       style={{ backgroundColor: color, color: textColor }}
     >
       {button}
@@ -18,4 +18,4 @@ const CustomButton = ({
   );
 };
 
-export default CustomButton;
+export default RoundButton;

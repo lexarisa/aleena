@@ -39,8 +39,6 @@ import {
   deleteMilestoneQuery,
 } from '../models/Milestone/milestone.queries';
 
-<<<<<<< HEAD
-=======
 import {
   createDocumentationQuery,
   updateDocumentationQuery,
@@ -55,7 +53,6 @@ import {
   deleteArticleQuery,
 } from '../models/Articles/articles.queries';
 
->>>>>>> development
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
 export class DataService {
@@ -75,35 +72,36 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-<<<<<<< HEAD
-  async getDashboard(project_id: number, user_id: number, page: number): Promise<any[]> {
-
-    const allStatus = ['To Do','In Progress','Review','Done','Backlog'];
-
-    return await Promise.all(
-      allStatus.map(
-        async (status: string): Promise<any> => {
-
-        return await findDashboardQuery(project_id, user_id, page, status);
-    }));
-    
-=======
-  getDashboard(
+  async getDashboard(
     project_id: number,
     user_id: number,
-    page: number,
-    status: string
-  ) {
-    return findDashboardQuery(project_id, user_id, page, status);
->>>>>>> development
+    page: number
+  ): Promise<any[]> {
+    const allStatus = ['To Do', 'In Progress', 'Review', 'Done', 'Backlog'];
+
+    return await Promise.all(
+      allStatus.map(async (status: string): Promise<any> => {
+        return await findDashboardQuery(project_id, user_id, page, status);
+      })
+    );
   }
+
+  // getDashboard(
+  //   project_id: number,
+  //   user_id: number,
+  //   page: number,
+  //   status: string
+  // ) {
+  //   return findDashboardQuery(project_id, user_id, page, status);
+
+  // }
 
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
   }
 
-  createProject(user_id: number, project: any) {
-    return createProjectQuery(user_id, project);
+  createProject(user_id: number, newProject: any) {
+    return createProjectQuery(user_id, newProject);
   }
 
   deleteProject(id: number) {
