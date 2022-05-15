@@ -12,6 +12,9 @@ import {
   findUserQuery,
   createUserQuery,
   findUserProjectsQuery,
+  getAllBookmarksQuery,
+  createBookmarkQuery,
+  deleteBookmarkQuery,
 } from '../models/User/user.queries';
 
 import { findDashboardQuery } from '../models/Dashboard/dashboard.queries';
@@ -48,6 +51,7 @@ import {
 
 import {
   getAllArticlesInDocumentQuery,
+  getArticleQuery,
   createArticleQuery,
   updateArticleQuery,
   deleteArticleQuery,
@@ -98,6 +102,15 @@ export class DataService {
 
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
+  }
+  getUserBookmarks(id: number) {
+    return getAllBookmarksQuery(id);
+  }
+  createBookmarks(id: number, article_id: number) {
+    return createBookmarkQuery(id, article_id);
+  }
+  deleteBookmarks(id: number, article_id: number) {
+    return deleteBookmarkQuery(id, article_id);
   }
 
   createProject(user_id: number, newProject: any) {
@@ -177,6 +190,9 @@ export class DataService {
   }
   getAllDocsInMilestone(milestone_id: number) {
     return getAllDocsInMilestoneQuery(milestone_id);
+  }
+  getArticle(id: number) {
+    return getArticleQuery(+id);
   }
   createArticle(title: string, content: string, document_id: number) {
     return createArticleQuery(document_id, title, content);

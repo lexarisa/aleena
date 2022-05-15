@@ -17,6 +17,16 @@ export class ArticleController {
       res.status(500);
     }
   }
+  async getArticle(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.body;
+      const article = await service.getArticle(id);
+      res.send(article);
+    } catch (error) {
+      console.error(error);
+      res.status(500);
+    }
+  }
   async updateArticle(req: Request, res: Response): Promise<void> {
     try {
       const { id, title, content } = req.body;
@@ -40,8 +50,10 @@ export class ArticleController {
 
   async getAllArticlesInDocument(req: Request, res: Response): Promise<void> {
     try {
-      const { id } = req.params;
-      const allArticles = await service.getAllArticlesInDocument(+id);
+      const { documentation_id } = req.params;
+      const allArticles = await service.getAllArticlesInDocument(
+        +documentation_id
+      );
       res.send(allArticles);
     } catch (error) {
       console.error(error);

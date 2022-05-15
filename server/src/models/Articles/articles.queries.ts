@@ -15,21 +15,31 @@ export const getAllArticlesInDocumentQuery = async (
   if (!allArticles) return null;
   return allArticles;
 };
+export const getArticleQuery = async (id: number) => {
+  const article = await prisma.article.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  if (!article) return null;
+  return article;
+};
 
 export const createArticleQuery = async (
   documentation_id: number,
   title: string,
   content: string
 ) => {
-  const newDoc = await prisma.documentation.create({
+  const newArticle = await prisma.article.create({
     data: {
+      documentation_id: documentation_id,
       title: title,
       content: content,
-      milestone_id: documentation_id,
     },
   });
-  if (!newDoc) return null;
-  return newDoc;
+  if (!newArticle) return null;
+  return newArticle;
 };
 
 export const updateArticleQuery = async (
