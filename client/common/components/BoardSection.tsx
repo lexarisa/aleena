@@ -46,13 +46,8 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
     } else {
       const newTask: ITask = {
         title: taskTitle,
-<<<<<<< HEAD
         user_id: 1,
         project_id: Number(router.query.project_id),
-=======
-        user_id: 1, 
-        project_id: 1,
->>>>>>> development
         milestone_id: Number(router.query.id),
         status: columnTitle,
       };
