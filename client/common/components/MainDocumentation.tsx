@@ -10,7 +10,7 @@ export const MainDocumentation = ({ data }: any) => {
         <div key={item.id}>
           <Link
             href={{
-              pathname: '/documentation/[id]',
+              pathname: '/article/[id]',
               query: { id: item.id },
             }}
           >
