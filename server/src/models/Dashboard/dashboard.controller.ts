@@ -18,6 +18,7 @@ export class DashboardController {
       res.send(dashboard);
     } catch (error) {
       console.error(error);
+      
       res.status(500);
     }
   };

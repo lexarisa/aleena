@@ -20,12 +20,13 @@ export class MilestoneController {
     try {
       const { title, project_id } = req.body;
 
+      console.log('hit the controller', title);
       const milestone = await service.createMilestone(title, +project_id);
       // connect with other computers
       const sse = { event: 'create', data: milestone };
       newMilestoneSSE.next(sse);
       console.log('XXXXXXX');
-      res.send(true);
+      res.send(milestone);
     } catch (error) {
       console.error(error);
 
