@@ -66,11 +66,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   console.log(store.getState())
   // @ts-ignore
-  const data = await store.dispatch(fetchProjects(token))
+  // const data = await store.dispatch(fetchProjects(token))
 
-  console.log(store.getState())
+  // console.log(store.getState())
 
-  return { props: { data: data.payload }, notFound: false };
+  return { props: { data: null }, notFound: false };
 })
 
 

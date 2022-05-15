@@ -13,7 +13,7 @@ const BoardPage = ({
   return (
     <DashboardLayout>
       <TabContainer>
-        <Board data={data} id={id} />
+        <Board data={data[0].tasks} id={id} />
       </TabContainer>
     </DashboardLayout>
   );

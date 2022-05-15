@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppState } from '../../index.store';
-import { sseTasks } from './tasks.api';
+// import { sseTasks } from './tasks.api';
 
 
 export const TaskSlice = createSlice({
@@ -41,9 +41,9 @@ export const TaskSlice = createSlice({
     },
     extraReducers: {
        // @ts-ignore
-        [sseTasks.fulfilled]: (state, action) => {
-            return setSseTasks(action.payload);
-        }
+        // [sseTasks.fulfilled]: (state, action) => {
+        //     state.allTasks = action.payload;
+        // }
     }
 })
 
