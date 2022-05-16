@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
-// import { Service } from 'typedi';
 
 import {
   findProjectQuery,
@@ -47,6 +46,7 @@ import {
   updateDocumentationQuery,
   deleteDocumentationQuery,
   getAllDocsInMilestoneQuery,
+  getDocumentationQuery,
 } from '../models/Documentation/documentation.queries';
 
 import {
@@ -89,16 +89,6 @@ export class DataService {
       })
     );
   }
-
-  // getDashboard(
-  //   project_id: number,
-  //   user_id: number,
-  //   page: number,
-  //   status: string
-  // ) {
-  //   return findDashboardQuery(project_id, user_id, page, status);
-
-  // }
 
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
@@ -179,6 +169,9 @@ export class DataService {
   deleteMilestone(milestone_id: number) {
     return deleteMilestoneQuery(milestone_id);
   }
+  getDocumentation(id: number) {
+    return getDocumentationQuery(id);
+  }
   createDocumentation(title: string, milestone_id: number) {
     return createDocumentationQuery(title, milestone_id);
   }
@@ -194,10 +187,10 @@ export class DataService {
   getArticle(id: number) {
     return getArticleQuery(+id);
   }
-  createArticle(title: string, content: string, document_id: number) {
+  createArticle(document_id: number, title: string, content: string) {
     return createArticleQuery(document_id, title, content);
   }
-  updateArticle(title: string, content: string, id: number) {
+  updateArticle(id: number, title: string, content: string) {
     return updateArticleQuery(id, title, content);
   }
   deleteArticle(id: number) {

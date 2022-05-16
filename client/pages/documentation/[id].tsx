@@ -29,7 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`http://localhost:3001/documentation/${id}`);
 
   const data = await res.json();
-  console.log('docdata', data);
 
   return { props: { data, id: context.query }, notFound: false };
 };

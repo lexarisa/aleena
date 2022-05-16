@@ -1,9 +1,9 @@
-import { INewArticle } from '../../common/types/INewArticle';
+import { INewDocumentation } from '../../common/types/INewDocumentation';
 
-export const createArticle = async (data: INewArticle) => {
-  console.log(data, 'data in createArticleAPI');
-  const response = await fetch(`http://localhost:3001/article`, {
-    // const response = await fetch(`${process.env.BASEURL}/article`, {
+export const createDocumentation = async (data: INewDocumentation) => {
+  console.log(data, 'data in createDocAPI');
+  const response = await fetch(`http://localhost:3001/documentation`, {
+    // const response = await fetch(`${process.env.BASEURL}/doc`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,15 +17,15 @@ export const createArticle = async (data: INewArticle) => {
   }
 };
 
-export const deleteArticle = async (article_id: number) => {
-  console.log('article_id in api', article_id);
-  const response = await fetch(`http://localhost:3001/article`, {
+export const deleteDocumentation = async (id: number) => {
+  console.log(id, 'data in deleteDocAPI');
+  const response = await fetch(`http://localhost:3001/documentation`, {
     // const response = await fetch(`${process.env.BASEURL}/article`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ id: article_id }), //article_id
+    body: JSON.stringify({ id: id }),
   });
   console.log('response', response);
 
@@ -34,20 +34,19 @@ export const deleteArticle = async (article_id: number) => {
     throw new Error(message);
   }
 };
-export const updateArticle = async (
-  article_id: number,
+export const updateDocumentation = async (
+  documentation_id: number,
   title: string,
   content: string
 ) => {
-  console.log('article_id in api', article_id);
-  const response = await fetch(`http://localhost:3001/article`, {
-    // const response = await fetch(`${process.env.BASEURL}/article`, {
+  const response = await fetch(`http://localhost:3001/documentation`, {
+    // const response = await fetch(`${process.env.BASEURL}/documentation`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      id: article_id,
+      documentation_id: documentation_id,
       title: title,
       content: content,
     }),

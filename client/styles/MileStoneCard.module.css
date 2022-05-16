@@ -28,3 +28,17 @@
   padding: var(--unit3) var(--unit);
   font-size: var(--size-xl);
 }
+.addButton {
+  background-color: var(--color-lightBg);
+  border: 0;
+  padding: var(--unit2);
+  border-radius: 10px;
+  margin-top: var(--unit2);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.addButton:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
