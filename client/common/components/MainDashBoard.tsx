@@ -14,6 +14,7 @@ const MainDashboard = ({ data }: any) => {
     milestoneEvent();
   }, []);
 
+  console.log(data);
   const milestoneEvent = () => {
     const source = new EventSource('http://localhost:3001/milestone/sse');
     source.addEventListener('message', (message) => {

@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 const MilestoneAdd = ({ project_id }: any) => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
   const router = useRouter();
-  console.log(router);
 
   const handleCreateMilestone = async () => {
     if (milestoneTitle === '') return;
@@ -17,7 +16,6 @@ const MilestoneAdd = ({ project_id }: any) => {
     };
 
     createMilestone(newMilestone);
-
     setMilestoneTitle('');
   };
 

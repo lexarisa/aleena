@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../styles/TabContainer.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type TabContainerProps = {
   children: React.ReactNode;
@@ -30,7 +31,11 @@ const TabContainer = ({ children }: TabContainerProps) => {
     <div className={styles.container}>
       <div className={styles.tabHead}>
         <div className={styles.tab}>
-          <Link href="/dashboard">
+          <Link
+            href={{
+              pathname: '/dashboard',
+            }}
+          >
             <a className={styles.active}>Dashboard</a>
           </Link>
           <Link href="/board">
@@ -39,8 +44,25 @@ const TabContainer = ({ children }: TabContainerProps) => {
           <Link href="/documentation">
             <a className={styles.active}>Documentation</a>
           </Link>
+          <div className={styles.users}>
+            <div className={styles.avatar}>
+              <Image
+                src="https://github.com/thaiscosta.png"
+                width={25}
+                height={25}
+              />
+            </div>
+            <div className={styles.avatar}>
+              <Image
+                src="https://github.com/thaiscosta.png"
+                width={25}
+                height={25}
+              />
+            </div>
+          </div>
         </div>
       </div>
+
       <div className={styles.tabContent}>{children}</div>
     </div>
   );

@@ -20,22 +20,6 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
   return project;
 };
 
-// export const createProjectQuery = async (newProject: any) => {
-//   console.log('newwww', newProject);
-//   const project = await prisma.project.create({
-//     data: {
-//       title: newProject.title,
-//       description: newProject.description,
-//       status: newProject.status,
-//       user: {
-//         create: [{ user: { connect: { id: newProject.id } } }],
-//       },
-//     },
-//   });
-//   if (!project) throw new Error();
-//   return project;
-// };
-
 export const findProjectQuery = async (id: number) => {
   const project = await prisma.project.findUnique({
     where: {

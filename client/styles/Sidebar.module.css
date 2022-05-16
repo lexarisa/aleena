@@ -6,10 +6,11 @@
 }
 
 .userImage {
-  margin: var(--unit5);
   display: flex;
+
   justify-content: center;
-  align-content: center;
+  align-items: center;
+  margin-top: var(--unit9);
 }
 
 .links {

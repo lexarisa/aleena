@@ -12,6 +12,11 @@
   display: flex;
   gap: var(--unit11);
   padding: var(--unit7) 0;
+  flex-direction: row;
+}
+
+.tabHead {
+  justify-content: space-around;
 }
 
 .active {
@@ -22,4 +27,16 @@
 
 .tabContent {
   overflow-x: scroll;
+}
+
+.avatar {
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.users {
+  display: flex;
+  flex-direction: row;
+  gap: var(--unit3);
 }

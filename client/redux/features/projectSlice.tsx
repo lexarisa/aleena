@@ -12,17 +12,6 @@ import {
 } from '../../pages/api/projectApi';
 import IProject from '../../common/types/IProject';
 
-const createMockProject = (title) => ({
-  // id: nanoid(),
-  // title,
-  // status: 'To Do',
-  // description: '',
-  // created_at: Date.now(),
-  // assignedTo: [],
-  project: [],
-  loading: false,
-  error: '',
-});
 // const initialState = [createMockProject('Alena')];
 export const getProjectApi = createAsyncThunk(
   'project/getProject',
