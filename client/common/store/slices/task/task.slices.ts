@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../index.store';
+import { RootState } from '../../index.store';
 
 export const TaskSlice = createSlice({
     name: 'task',
@@ -43,6 +43,6 @@ export const TaskSlice = createSlice({
 
 export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask  } = TaskSlice.actions;
 
-export const selectTask = (state: AppState) => state.task;
+export const selectTask = (state: RootState) => state.task;
 
 export default TaskSlice.reducer;

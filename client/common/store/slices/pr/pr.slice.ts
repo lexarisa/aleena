@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../index.store';
+import { RootState } from '../../index.store';
 
 export const PRSlice = createSlice({
     name: 'feed',
@@ -20,6 +20,6 @@ export const PRSlice = createSlice({
 
 export const { setPR } = PRSlice.actions;
 
-export const selectPR = (state: AppState) => state.pr;
+export const selectPR = (state: RootState) => state.pr;
 
 export default PRSlice.reducer;
