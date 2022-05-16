@@ -8,12 +8,12 @@ const service: DataService = new DataService();
 export const sseTask = new Subject();
 
 export class TaskController {
-
   constructor(private service: DataService) {}
-  
+
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
+      console.log('task data in task controller', newTask);
       const task = await service.createTask(newTask);
 
       console.log('XXXXXX')
@@ -99,7 +99,7 @@ export class TaskController {
 
   async sseTask(req: Request, res: Response): Promise<void> {
     try {
-      console.log('hit the sseTask')
+      console.log('hit the sseTask');
       res.set({
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
@@ -108,12 +108,12 @@ export class TaskController {
         Connection: 'keep-alive',
       });
       res.flushHeaders();
-  
+
       const stream = sseTask.subscribe((data: any) => {
-        console.log('DIOOOOS',data)
+        console.log('DIOOOOS', data);
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
-  
+
       req.on('close', () => {
         console.log('client closed connection');
         stream.unsubscribe();

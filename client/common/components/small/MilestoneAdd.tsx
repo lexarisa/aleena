@@ -4,7 +4,7 @@ import { INewMilestone } from '../../types/INewMilistone';
 import { createMilestone } from '../../../pages/api/milestoneApi';
 import { useRouter } from 'next/router';
 
-const MilestoneAdd = ({ project_id }: any) => {
+const MilestoneAdd = () => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
   const router = useRouter();
 

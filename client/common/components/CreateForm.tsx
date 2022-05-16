@@ -71,7 +71,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
             })}
           </ul>
           <CustomButton
-            button="Add More Milestone"
+            button="Add More Milestones"
             color="#000"
             textColor="#fff"
             onClick={() => {

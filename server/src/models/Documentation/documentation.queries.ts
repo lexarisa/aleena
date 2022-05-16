@@ -11,6 +11,14 @@ export const getAllDocsInMilestoneQuery = async (milestoneId: number) => {
           id: true,
           milestone_id: true,
           title: true,
+          articles: {
+            select: {
+              title: true,
+              id: true,
+              content: true,
+              user_id: true,
+            },
+          },
         },
       },
     },
@@ -18,6 +26,28 @@ export const getAllDocsInMilestoneQuery = async (milestoneId: number) => {
 
   if (!allDocs) return null;
   return allDocs;
+};
+export const getDocumentationQuery = async (id: number) => {
+  const newDoc = await prisma.documentation.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      milestone_id: true,
+      title: true,
+      articles: {
+        select: {
+          title: true,
+          id: true,
+          content: true,
+          user_id: true,
+        },
+      },
+    },
+  });
+  if (!newDoc) return null;
+  return newDoc;
 };
 
 export const createDocumentationQuery = async (
@@ -28,6 +58,7 @@ export const createDocumentationQuery = async (
     data: {
       title: title,
       milestone_id: milestone_id,
+      articles: {},
     },
   });
   if (!newDoc) return null;
