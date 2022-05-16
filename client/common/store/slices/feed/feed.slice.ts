@@ -9,7 +9,7 @@ export const FeedSlice = createSlice({
     },
     
     reducers: {
-
+        
         setFeed: (state, action: PayloadAction<any>) => {
             state.feed = action.payload;
         },

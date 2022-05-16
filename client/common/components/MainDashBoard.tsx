@@ -20,14 +20,8 @@ const MainDashboard = () => {
     milestoneEvent();
   }, []);
 
-  const handleClickHere = (el: any) => {
-    console.log('whyyy?', el)
-    console.log('whyyy?2', reduxMilestones)
-    console.log('whyyy?3', reduxCurrentMilestones)
-    dispatch(setCurrentMilestone(el))
-    console.log('whyyy?4', el)
-    console.log('whyyy?5', reduxMilestones)
-    console.log('whyyy?6', reduxCurrentMilestones)
+  const handleClickHere = (milestone: any) => {
+    dispatch(setCurrentMilestone(milestone))
   }
 
   const milestoneEvent = () => {
@@ -60,6 +54,7 @@ const MainDashboard = () => {
               query: { milestone_id: item.id, project_id: router.query.id },
             }} >
             <a onClick={async () => await handleClickHere(item)}  key={item.id}>
+            {/* <a key={item.id}> */}
               <MileStoneCard title={item.title} status={item.status}  />
             </a>
           </Link>
