@@ -51,13 +51,5 @@ const Login = () => {
   );
 };
 
-// export const getStaticProps = () => {
-//   return {
-//     props: {
-//       client_id: process.env.GITHUB_CLIENT_ID,
-//       client_secret: process.env.GITHUB_CLIENT_SECRET,
-//     }
-//   }
-// }
 
 export default Login;

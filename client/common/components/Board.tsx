@@ -1,31 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import BoardSection from './BoardSection';
 import ITask from '../types/ITask';
 import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { deleteTask, updateTasks, createTask } from '../store/slices/task/task.slices';
+import { useRouter } from 'next/router';
+import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
 
-const Board = ({ data }: any) => {
+const Board = () => {
+
+
+  const dispatch = useAppDispatch();
+  const reduxAllTasks = useAppSelector(state => state.task.allTasks);
+  const reduxMile = useAppSelector(state => state.milestone.allMilestones);
+  const reduxCurrentMile = useAppSelector(state => state.milestone.currentMilestone);
+
+  console.log(reduxMile)
+  console.log(reduxCurrentMile)
+
   useEffect(() => {
     // sse
     streamTask();
   });
 
-  const [sseTask, setSseTask] = useState(data[0].tasks);
+  // const [sseTask, setSseTask] = useState([]);
 
   const streamTask = () => {
     const task = new EventSource('http://localhost:3001/tasks/sse');
 
-    task.addEventListener('message', (tsk) => {
-      const newTask = JSON.parse(tsk.data);
-
-      setSseTask((tasks: any) => {
-        const old = tasks.filter((oldtask: any) => oldtask.id !== newTask.id);
-
-        return [...old, newTask];
-      });
-      task.close();
+    task.addEventListener('message', (tsk: any) => {
+        const event = JSON.parse(tsk.data).event;
+        const task = JSON.parse(tsk.data).data;
+  
+        if (event === 'create') {
+          dispatch(createTask(task));
+        }
+  
+        if (event === 'delete') {
+          dispatch(deleteTask(task));
+        }
+  
+        if (event === 'update') {
+          dispatch(updateTasks(task));
+        }
     });
   };
 
@@ -44,7 +63,7 @@ const Board = ({ data }: any) => {
 
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = tasks
-          ? sseTask.filter((task: ITask) => {
+          ? reduxAllTasks.filter((task: ITask) => {
               return task.status === section;
             })
           : [];
@@ -59,13 +78,3 @@ const Board = ({ data }: any) => {
 };
 
 export default Board;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
-
-  const res = await fetch(`http://localhost:3001/milestone/${id}`); //need milestone id
-
-  const data = await res.json();
-
-  return { props: { data, id: context.query }, notFound: false };
-};

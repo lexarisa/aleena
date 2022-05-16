@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../../styles/TabContainer.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
+
 
 type TabContainerProps = {
   children: React.ReactNode;
@@ -24,8 +27,15 @@ const ActiveLink = ({ children, href }: ActiveLinkProps) => {
 };
 
 const TabContainer = ({ children }: TabContainerProps) => {
+
   const router = useRouter();
-  console.log(router);
+  const milestone = useAppSelector(state => state.milestone.currentMilestone)
+
+  console.log(milestone)
+  useEffect(() => {
+    
+  })
+
   return (
     <div className={styles.container}>
       <div className={styles.tabHead}>
@@ -39,6 +49,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
           <Link href="/documentation">
             <a className={styles.active}>Documentation</a>
           </Link>
+           <h1 className={styles.active}>{milestone ? milestone.title : null}</h1>
         </div>
       </div>
       <div className={styles.tabContent}>{children}</div>

@@ -16,8 +16,9 @@ export class TaskController {
       console.log('task data in task controller', newTask);
       const task = await service.createTask(newTask);
 
-      console.log('XXXXXX');
-      sseTask.next(task);
+      console.log('XXXXXX')
+      const sse = { event: 'create', data: task };
+      sseTask.next(sse);
 
       res.send(true);
     } catch (error) {
@@ -85,8 +86,9 @@ export class TaskController {
 
       const task = await service.updateTaskDetail(+task_id, updateTaskData);
 
-      sseTask.next(task);
-
+      const sse = { event: 'update', data: task };
+      sseTask.next(sse);
+      
       res.send(task);
     } catch (error) {
       console.error(error);
@@ -118,6 +120,25 @@ export class TaskController {
       });
     } catch (error) {
       console.log(error);
+
+      res.status(500);
+    }
+  };
+
+  async deleteTask(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('made it here')
+      const { task_id } = req.params;
+
+      const task = await service.deleteTask(+task_id);
+
+
+      const sse = { event: 'delete', data: task };
+      sseTask.next(sse);
+
+      res.send(task);
+    } catch (error) {
+      console.error(error);
 
       res.status(500);
     }
