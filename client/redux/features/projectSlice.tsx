@@ -33,7 +33,12 @@ export const getProjectApi = createAsyncThunk(
 export const createProjectApi = createAsyncThunk(
   'project/createProject',
   async (data: IProject) => {
-    return createProject(data);
+    console.log('data to post', data);
+    return fetch('http://localhost:3001/project', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((res) => res.json());
   }
 );
 

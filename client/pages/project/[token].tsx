@@ -17,8 +17,6 @@ const project = ({
   const dispatch = useDispatch();
   const { project } = useSelector((state) => state.project);
 
-  console.log('test', project);
-
   const handleShowForm = () => {
     setShowForm(!showForm);
   };

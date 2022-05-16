@@ -55,14 +55,11 @@ export const commentSlice = createSlice({
       .addCase(deleteCommentApi.fulfilled, (state, action) => {
         state.comment = action.payload;
       })
-      .addCase(updateCommentApi.pending, (state, action) => {
+      .addCase(addCommentApi.pending, (state, action) => {
         state.comment = false;
       })
       .addCase(addCommentApi.fulfilled, (state, action) => {
         state.comment = action.payload;
-      })
-      .addCase(addCommentApi.pending, (state, action) => {
-        state.comment = false;
       });
   },
 });

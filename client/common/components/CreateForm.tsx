@@ -31,8 +31,15 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   const onSubmit = async (data: any) => {
     const newProjectData = { ...data, user_id: token };
 
-    await createProject(newProjectData).catch((err) => console.log(err));
-    setShowForm(false);
+    console.log('running');
+    // dispatch(createProjectApi(newProjectData));
+
+    try {
+      await createProject(newProjectData);
+      setShowForm(false);
+    } catch (error) {
+      console.log('error on submitting', error);
+    }
   };
 
   const handleShowModal = () => {
