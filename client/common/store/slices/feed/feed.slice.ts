@@ -13,12 +13,18 @@ export const FeedSlice = createSlice({
         setFeed: (state, action: PayloadAction<any>) => {
             state.feed = action.payload;
         },
+
+        updateFeed: (state, action: PayloadAction<any>) => {
+            state.feed = state.feed.filter((fd: any) => fd.id != action.payload.id)
+            state.feed = [...state.feed, action.payload]
+        },
+        
     },
     extraReducers: {
     }
 })
 
-export const { setFeed } = FeedSlice.actions;
+export const { setFeed, updateFeed } = FeedSlice.actions;
 
 export const selectFeed = (state: AppState) => state.feed;
 

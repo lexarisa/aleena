@@ -6,7 +6,7 @@ export const MilestoneSlice = createSlice({
 
     initialState: {
         allMilestones: [] as any,
-        currentMilestone: null,
+        currentMilestone: 0,
     },
     
     reducers: {
@@ -31,7 +31,7 @@ export const MilestoneSlice = createSlice({
         },
 
         setCurrentMilestone: (state, action) => {
-            state.currentMilestone = action.payload
+            state.currentMilestone = action.payload;
         },
     },
     extraReducers: {

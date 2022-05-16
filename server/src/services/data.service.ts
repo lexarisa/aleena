@@ -28,6 +28,7 @@ import {
   findPRsInTask,
   updateTaskStatusQuery,
   updateTaskDetailQuery,
+  deleteTaskQuery,
 } from '../models/Task/task.queries';
 
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
@@ -118,6 +119,10 @@ export class DataService {
 
   updateTaskDetail(id: number, updateTaskData: any) {
     return updateTaskDetailQuery(id, updateTaskData);
+  }
+
+  deleteTask(task_id: number) {
+    return deleteTaskQuery(task_id);
   }
 
   createPR(newPR: any) {

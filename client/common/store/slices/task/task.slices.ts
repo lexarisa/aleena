@@ -7,7 +7,7 @@ export const TaskSlice = createSlice({
     initialState: {
         allTasks: [] as any,
         allTasksMilestone: [] as any,
-        currentTask: null,
+        currentTask: '',
     },
     
     reducers: {
@@ -28,7 +28,9 @@ export const TaskSlice = createSlice({
         },
 
         deleteTask: (state, action) => {
-            state.allTasks = state.allTasks.filter((task: any) => task.id !== action.payload.id)
+            state.allTasks = state.allTasks.filter((task: any) => {
+                return task.id !== action.payload.id
+            })
         },
 
         setCurrentTask: (state, action) => {
@@ -39,7 +41,7 @@ export const TaskSlice = createSlice({
     }
 })
 
-export const { setTasks, updateTasks, deleteTask  } = TaskSlice.actions;
+export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask  } = TaskSlice.actions;
 
 export const selectTask = (state: AppState) => state.task;
 

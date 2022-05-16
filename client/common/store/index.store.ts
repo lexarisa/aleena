@@ -1,23 +1,25 @@
-import { configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, PreloadedState } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import { Action } from 'redux';
 
 
-import taskReducer from './slices/task/task.slices';
-import milestoneReducer from './slices/milestone/milestone.slice';
-import projectReducer from './slices/projects/project.slice';
-import documentationReducer from './slices/documentation/documentation.slice';
-import feedReducer from './slices/feed/feed.slice';
 import prReducer from './slices/pr/pr.slice';
+import userReducer from './slices/user/user.slice';
+import taskReducer from './slices/task/task.slices';
+import feedReducer from './slices/feed/feed.slice';
+import projectReducer from './slices/projects/project.slice';
+import milestoneReducer from './slices/milestone/milestone.slice';
+import documentationReducer from './slices/documentation/documentation.slice';
 
 
 const aleenaStore = () => configureStore({
     reducer: {
-        task: taskReducer,
-        milestone: milestoneReducer,
-        project: projectReducer,
-        feed: feedReducer,
         pr: prReducer,
+        user: userReducer,
+        task: taskReducer,
+        feed: feedReducer,
+        project: projectReducer,
+        milestone: milestoneReducer,
         documentation: documentationReducer,
     },
     devTools: true

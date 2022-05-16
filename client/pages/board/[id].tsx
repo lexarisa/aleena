@@ -12,6 +12,7 @@ const BoardPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
   const dispatch = useAppDispatch()
+  
   useEffect(() => {
     dispatch(setTasks(data[0].tasks))
   })
@@ -35,28 +36,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     return res.json();
   })
 
-  console.log(res);
-
-  console.log(store.getState())
-  // @ts-ignore
-  // const data = await store.dispatch(setTasks(res))
-
-  // const reduxTasks = store.getState().task.allTasks
-
   return { props: { data: res }, notFound: false };
 
 })
 
-
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-  
-//   const { id } = context.query;
-
-//   const res = await fetch(`http://localhost:3001/milestone/${id}`); //need milestone id
-
-//   const data = await res.json();
-
-
-//   return { props: { data }, notFound: false };
-// };

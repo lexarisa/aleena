@@ -5,14 +5,21 @@ import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
-import { setTasks } from '../store/slices/task/task.slices';
+import { deleteTask, updateTasks, createTask } from '../store/slices/task/task.slices';
+import { useRouter } from 'next/router';
+import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
+import { wrapper } from '../store/index.store';
 
 const Board = () => {
 
+
   const dispatch = useAppDispatch();
   const reduxAllTasks = useAppSelector(state => state.task.allTasks);
+  const reduxMile = useAppSelector(state => state.milestone.allMilestones);
+  const reduxCurrentMile = useAppSelector(state => state.milestone.currentMilestone);
 
-  console.log(reduxAllTasks)
+  console.log(reduxMile)
+  console.log(reduxCurrentMile)
 
   useEffect(() => {
     // sse
@@ -24,14 +31,21 @@ const Board = () => {
   const streamTask = () => {
     const task = new EventSource('http://localhost:3001/tasks/sse');
 
-    task.addEventListener('message', (tsk) => {
-      const newTask = JSON.parse(tsk.data);
-      
-      const old = reduxAllTasks.filter((oldtask: any) => oldtask.id !== newTask.id);
-
-      dispatch(setTasks([...old, newTask]))
-
-      task.close();
+    task.addEventListener('message', (tsk: any) => {
+        const event = JSON.parse(tsk.data).event;
+        const task = JSON.parse(tsk.data).data;
+  
+        if (event === 'create') {
+          dispatch(createTask(task));
+        }
+  
+        if (event === 'delete') {
+          dispatch(deleteTask(task));
+        }
+  
+        if (event === 'update') {
+          dispatch(updateTasks(task));
+        }
     });
   };
 
@@ -64,4 +78,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default wrapper.withRedux(Board);

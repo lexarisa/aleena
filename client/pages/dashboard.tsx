@@ -11,7 +11,7 @@ import { useAppDispatch } from '../common/store/hooks/redux-hooks';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
 const Dashboard = ({
-  data, project_id
+  data
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const dispatch = useAppDispatch()
@@ -38,6 +38,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);
 
   const data = await res.json();
+
+  console.log('hey ?????', data)
 
   return { props: { data: data }, notFound: false };
 };
