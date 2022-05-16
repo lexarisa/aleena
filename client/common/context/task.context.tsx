@@ -14,7 +14,6 @@ type TasksContextProviderProps = {
 
 export const TaskProvider = ({ children }: TasksContextProviderProps) => {
   const [tasks, setTasks] = useState<any[]>([])
-
   const createTask = (newTask: any) => {
     setTasks([...tasks, newTask]);
   };

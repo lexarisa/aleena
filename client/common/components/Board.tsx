@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import BoardSection from './BoardSection';
 import ITask from '../types/ITask';
 import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { setTasks } from '../store/slices/task/task.slices';
 
-const Board = ({ data }: any) => {
+const Board = () => {
+
+  const dispatch = useAppDispatch();
+  const reduxAllTasks = useAppSelector(state => state.task.allTasks);
+
+  console.log(reduxAllTasks)
+
   useEffect(() => {
     // sse
     streamTask();
   });
 
-  const [sseTask, setSseTask] = useState(data[0].tasks);
+  // const [sseTask, setSseTask] = useState([]);
 
   const streamTask = () => {
     const task = new EventSource('http://localhost:3001/tasks/sse');
 
     task.addEventListener('message', (tsk) => {
       const newTask = JSON.parse(tsk.data);
+      
+      const old = reduxAllTasks.filter((oldtask: any) => oldtask.id !== newTask.id);
 
-      setSseTask((tasks: any) => {
-        const old = tasks.filter((oldtask: any) => oldtask.id !== newTask.id);
+      dispatch(setTasks([...old, newTask]))
 
-        return [...old, newTask];
-      });
       task.close();
     });
   };
@@ -44,7 +50,7 @@ const Board = ({ data }: any) => {
 
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = tasks
-          ? sseTask.filter((task: ITask) => {
+          ? reduxAllTasks.filter((task: ITask) => {
               return task.status === section;
             })
           : [];
@@ -59,13 +65,3 @@ const Board = ({ data }: any) => {
 };
 
 export default Board;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
-
-  const res = await fetch(`http://localhost:3001/milestone/${id}`); //need milestone id
-
-  const data = await res.json();
-
-  return { props: { data, id: context.query }, notFound: false };
-};
