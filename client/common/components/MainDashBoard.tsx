@@ -5,10 +5,15 @@ import MilestoneAdd from './small/MilestoneAdd'; //issue={data[1].tasks[0]}
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IMilestone } from '../types/IMilestone';
+import { createMilestone, deleteMilestone, updateMilestone } from '../store/slices/milestone/milestone.slice';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
-const MainDashboard = ({ data }: any) => {
-  const [milestones, setMilestones] = useState(data);
+const MainDashboard = () => {
+  // const [milestones, setMilestones] = useState();
   const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const reduxMilestones = useAppSelector(state => state.milestone.allMilestones)
 
   useEffect(() => {
     milestoneEvent();
@@ -21,34 +26,23 @@ const MainDashboard = ({ data }: any) => {
       const newMilestone = JSON.parse(message.data).data;
 
       if (event === 'create') {
-        setMilestones((prevMilestones: any) => {
-          return [...prevMilestones, newMilestone];
-        });
+        console.log('formatttt',newMilestone)
+        dispatch(createMilestone(newMilestone));
       }
+
       if (event === 'delete') {
-        setMilestones((prevMilestones: any) => {
-          return prevMilestones.filter(
-            (milestone: IMilestone) => milestone.id !== newMilestone.id
-          );
-        });
+        dispatch(deleteMilestone(newMilestone));
       }
+
       if (event === 'update') {
-        setMilestones((prevMilestones: any) => {
-          return prevMilestones.map((milestone: IMilestone) => {
-            if (milestone.id === newMilestone.id) {
-              return (milestone = newMilestone);
-            } else {
-              return milestone;
-            }
-          });
-        });
+        dispatch(updateMilestone(newMilestone));
       }
     });
   };
 
   return (
     <div className={styles.container}>
-      {milestones.map((item: any) => (
+      {reduxMilestones.map((item: any) => (
         <div key={item.id}>
           <Link
             href={{
