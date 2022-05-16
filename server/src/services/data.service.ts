@@ -5,12 +5,12 @@ import {
   findProjectQuery,
   createProjectQuery,
   deleteProjectQuery,
+  findUserProjectsQuery,
 } from '../models/Project/project.queries';
 
 import {
   findUserQuery,
   createUserQuery,
-  findUserProjectsQuery,
   getAllBookmarksQuery,
   createBookmarkQuery,
   deleteBookmarkQuery,

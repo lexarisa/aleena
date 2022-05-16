@@ -17,8 +17,8 @@ const Board = () => {
   const reduxMile = useAppSelector(state => state.milestone.allMilestones);
   const reduxCurrentMile = useAppSelector(state => state.milestone.currentMilestone);
 
-  console.log(reduxMile)
-  console.log(reduxCurrentMile)
+  console.log('q', reduxAllTasks)
+
 
   useEffect(() => {
     // sse
@@ -28,14 +28,14 @@ const Board = () => {
   // const [sseTask, setSseTask] = useState([]);
 
   const streamTask = () => {
-    const task = new EventSource('http://localhost:3001/tasks/sse');
+    const sseTask = new EventSource('http://localhost:3001/tasks/sse');
 
-    task.addEventListener('message', (tsk: any) => {
+    sseTask.addEventListener('message', (tsk: any) => {
         const event = JSON.parse(tsk.data).event;
         const task = JSON.parse(tsk.data).data;
   
         if (event === 'create') {
-          dispatch(createTask(task));
+          dispatch(updateTasks(task));
         }
   
         if (event === 'delete') {
@@ -45,6 +45,8 @@ const Board = () => {
         if (event === 'update') {
           dispatch(updateTasks(task));
         }
+
+      sseTask.close();
     });
   };
 
@@ -62,7 +64,7 @@ const Board = () => {
       tags={tags} /> */}
 
       {sections.map((section, index) => {
-        let filteredTasks: ITask[] = tasks
+        let filteredTasks: ITask[] = reduxAllTasks
           ? reduxAllTasks.filter((task: ITask) => {
               return task.status === section;
             })

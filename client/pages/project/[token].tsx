@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import styles from '../../styles/projectPage.module.css';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import ITask from '../../common/types/ITask';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Cryptr from 'cryptr';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+
+import ITask from '../../common/types/ITask';
 import CreateForm from '../../common/components/CreateForm';
 import Modal from '../../common/components/Modal';
+import styles from '../../styles/projectPage.module.css';
+
 import { useAppDispatch, useAppSelector } from '../../common/store/hooks/redux-hooks';
 import { setUser } from '../../common/store/slices/user/user.slice';
+import { createProject, setProjects } from '../../common/store/slices/projects/project.slice';
 
 const project = ({
   data,
@@ -15,8 +18,35 @@ const project = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
   const [showForm, setShowForm] = useState(false);
+  
   const dispatch = useAppDispatch();
-  const user = useAppSelector(state => state.user.id)
+  
+  dispatch(setProjects(data.projects));
+  dispatch(setUser(token));
+  
+  const user = useAppSelector(state => state.user.id);
+  const allProjects = useAppSelector(state => state.project.allProjects)
+
+  useEffect(() => {
+    streamProject();
+  })
+
+  const streamProject = () => {
+    const sseProject = new EventSource('http://localhost:3001/project/sse');
+
+    sseProject.addEventListener('message', (project) => {
+
+      const data = JSON.parse(project.data)
+
+      console.log('chegou aqui', data)
+
+      dispatch(createProject(data))
+
+      console.log('chegou aqui tbm', allProjects)
+
+      sseProject.close();
+    });
+  }
 
   const handleShowForm = () => {
     setShowForm(!showForm);
@@ -35,8 +65,8 @@ const project = ({
             <p>Create a new project</p>
           </div>
           <div>
-            {data &&
-              data.projects.map((el: any) => (
+            {allProjects &&
+              allProjects.map((el: any) => (
                 <div key={String(el.project.id)}>
                   <Link 
                     href={{
@@ -73,7 +103,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
-  const res = await fetch(`${process.env.BASEURL}/project/${token}`);
+  const res = await fetch(`${process.env.BASEURL}/UserProjects/${token}`);
 
   const data = await res.json();
   console.log(data)

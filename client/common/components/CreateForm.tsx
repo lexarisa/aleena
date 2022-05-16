@@ -8,9 +8,12 @@ import RoundButton from './small/RoundButton';
 import { createProject } from '../../pages/api/projectApi';
 import IProject from '../types/IProject';
 import { useRouter } from 'next/router';
-import Cryptr from 'cryptr';
+import { useAppSelector } from '../store/hooks/redux-hooks';
+
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
+
+  const user = useAppSelector(state => state.user.id)
   const router = useRouter();
   const {
     register,
@@ -18,12 +21,17 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
     control,
     formState: { errors },
   } = useForm<FormValues>({ defaultValues: { status: 'To Do' } });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'Milestones',
   });
 
   const onSubmit = async (data: any) => {
+
+    console.log('user here', user)
+    console.log('user here', data)
+
     const newProjectData = { ...data, user_id: token };
     await createProject(newProjectData).catch((err) => console.log(err));
     setShowForm(false);

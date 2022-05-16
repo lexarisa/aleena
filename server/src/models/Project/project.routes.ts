@@ -5,9 +5,15 @@ const router: Router = Router();
 // @ts-ignore missing correct dependency injection
 const controller = new ProjectController();
 
+router.post('/project', controller.createProject);
+
+router.get('/UserProjects/:user_id', controller.userProjects);
+
 router.get('/projects/:id', controller.getProject);
 
-router.post('/project', controller.createProject);
+router.get('/project/sse', controller.sseProject);
+
 router.delete('/projects/:id', controller.deleteProject);
+
 
 export default router;
