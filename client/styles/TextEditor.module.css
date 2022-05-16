@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  width: 45rem;
+  min-height: 35rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -10,35 +12,21 @@
   color: var(--color-white);
 }
 
-.header {
+/* .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-}
+} */
 
-.headerTitle {
+/* .headerTitle {
   font-size: var(--size-xl);
-}
-.input {
+} */
+/* .input {
   background-color: transparent;
   border: 0;
   outline: none;
   color: var(--color-white);
   padding: var(--unit3) var(--unit);
   font-size: var(--size-xl);
-}
-.addButton {
-  background-color: var(--color-lightBg);
-  border: 0;
-  padding: var(--unit2);
-  border-radius: 10px;
-  margin-top: var(--unit2);
-  color: var(--color-white);
-  font-weight: 600;
-}
-
-.addButton:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
+} */
