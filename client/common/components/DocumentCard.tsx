@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/MileStoneCard.module.css';
 import Article from './Article';
+import Modal from './Modal';
 
 interface DocumentCardProp {
   title: String;
@@ -15,13 +16,10 @@ const DocumentCard = ({ title }: any) => {
         <h1 className={styles.headerTitle}>{title}</h1>
       </div>
       <div>
-        <Article />
+        {/* <Modal>
+          <Article />
+        </Modal> */}
       </div>
-      {/* <div className={styles.tags}> */}
-      {/* {issue ?  issue.map(
-        <Article title={task.title} />
-       <Article title={task.title} />: null */}
-      {/* </div> */}
     </div>
   );
 };

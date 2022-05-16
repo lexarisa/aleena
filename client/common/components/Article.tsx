@@ -1,97 +1,57 @@
-// import ReactQuill, { Quill, Mixin, Toolbar } from 'react-quill';
-// import React from 'react';
+import 'react-quill/dist/quill.bubble.css';
 
-// const Article = () => {
-//   return (
-//     <div>
-//       <p>hello</p>
-//     </div>
-//   );
-// };
-// export default Article;
+import dynamic from 'next/dynamic';
 
-import React from 'react';
-import { useState } from 'react';
-// import ReactQuill from 'react-quill';
-const ReactQuill = require('react-quill');
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 
-interface Props {
-  placeholder: string;
-}
-
-const CustomToolbar: React.FC<{ onClickRaw: () => void }> = ({
-  onClickRaw,
-}) => (
-  <div id="toolbar">
-    <select className="ql-header">
-      <option value="1"></option>
-      <option value="2"></option>
-      <option selected></option>
-    </select>
-    <button className="ql-bold"></button>
-    <button className="ql-italic"></button>
-    <select className="ql-color">
-      <option value="red"></option>
-      <option value="green"></option>
-      <option value="blue"></option>
-      <option value="orange"></option>
-      <option value="violet"></option>
-      <option value="#d0d1d2"></option>
-      <option selected></option>
-    </select>
-    <button onClick={onClickRaw}>Raw</button>
-  </div>
-);
-
-const Article: React.FC<Props> = ({ placeholder }) => {
-  const [editor_html, setEditorHTML] = useState<string>('');
-  const [raw_html, setRawHTML] = useState<string>('');
-  const [show_raw, setShowRaw] = useState<boolean>(false);
-  const handleClickShowRaw = (): void => {
-    setShowRaw(!show_raw);
-    if (show_raw) setEditorHTML(raw_html);
-    else setRawHTML(editor_html);
-  };
-  return (
-    <div className={show_raw ? 'showRaw' : ''}>
-      <div className={'text-editor'}>
-        <CustomToolbar onClickRaw={handleClickShowRaw} />
-        <ReactQuill
-          onChange={(html): void => setEditorHTML(html)}
-          placeholder={placeholder}
-          modules={{
-            toolbar: {
-              container: '#toolbar',
-              handlers: {},
-            },
-          }}
-          formats={[
-            'header',
-            'font',
-            'size',
-            'bold',
-            'italic',
-            'underline',
-            'strike',
-            'blockquote',
-            'list',
-            'bullet',
-            'indent',
-            'link',
-            'image',
-            'color',
-          ]}
-          value={editor_html}
-          theme={'snow'}
-        />
-        <textarea
-          className={'raw-editor'}
-          onChange={(e): void => setRawHTML(e.target.value)}
-          value={raw_html}
-        />
-      </div>
-    </div>
-  );
+const modules = {
+  toolbar: [
+    [{ header: '1' }, { header: '2' }, { font: [] }],
+    [{ size: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+    ['link', 'image', 'video'],
+    ['clean'],
+  ],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false,
+  },
 };
+/*
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
+const formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'image',
+  'video',
+];
 
-export default Article;
+export default function Article() {
+  return (
+    <>
+      {/* <h1>{data}</h1> */}
+      <QuillNoSSRWrapper modules={modules} formats={formats} theme="bubble" />
+    </>
+  );
+}

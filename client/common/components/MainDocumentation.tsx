@@ -8,16 +8,16 @@ export const MainDocumentation = ({ data }: any) => {
     <div className={styles.container}>
       {documentation.map((item: any) => (
         <div key={item.id}>
-          <Link
+          {/* <Link
             href={{
               pathname: '/article/[id]',
               query: { id: item.id },
             }}
-          >
-            <a key={item.id}>
-              <DocumentCard title={item.title} />
-            </a>
-          </Link>
+          > */}
+          <div key={item.id}>
+            <DocumentCard title={item.title} />
+          </div>
+          {/* </Link> */}
         </div>
       ))}
       {/* <MilestoneAdd /> */}
