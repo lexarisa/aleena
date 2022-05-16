@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { deleteTask, updateTasks, createTask } from '../store/slices/task/task.slices';
 import { useRouter } from 'next/router';
 import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
-import { wrapper } from '../store/index.store';
 
 const Board = () => {
 
@@ -78,4 +77,4 @@ const Board = () => {
   );
 };
 
-export default wrapper.withRedux(Board);
+export default Board;

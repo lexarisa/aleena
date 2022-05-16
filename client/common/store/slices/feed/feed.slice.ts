@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../index.store';
+import { RootState } from '../../index.store';
 
 export const FeedSlice = createSlice({
     name: 'feed',
@@ -26,6 +26,6 @@ export const FeedSlice = createSlice({
 
 export const { setFeed, updateFeed } = FeedSlice.actions;
 
-export const selectFeed = (state: AppState) => state.feed;
+export const selectFeed = (state: RootState) => state.feed;
 
 export default FeedSlice.reducer;

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../index.store';
+import { RootState } from '../../index.store';
 
 export const DocumentationSlice = createSlice({
     name: 'documentation',
@@ -35,6 +35,6 @@ export const DocumentationSlice = createSlice({
 
 export const { setDocuments, updateDocuments, createDocument, deleteDocument} = DocumentationSlice.actions;
 
-export const selectDocumentation = (state: AppState) => state.documentation;
+export const selectDocumentation = (state: RootState) => state.documentation;
 
 export default DocumentationSlice.reducer;

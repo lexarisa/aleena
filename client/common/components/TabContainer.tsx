@@ -31,7 +31,9 @@ const TabContainer = ({ children }: TabContainerProps) => {
   const router = useRouter();
   const milestone = useAppSelector(state => state.milestone.currentMilestone)
 
+  console.log(milestone)
   useEffect(() => {
+    
   })
 
   return (
@@ -47,7 +49,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
           <Link href="/documentation">
             <a className={styles.active}>Documentation</a>
           </Link>
-           {/* <a className={styles.active}>{milestone ? milestone.title : null}</a> */}
+           <h1 className={styles.active}>{milestone ? milestone.title : null}</h1>
         </div>
       </div>
       <div className={styles.tabContent}>{children}</div>

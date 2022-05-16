@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../index.store';
+import { RootState } from '../../index.store';
 
 export const MilestoneSlice = createSlice({
     name: 'milestone',
 
     initialState: {
         allMilestones: [] as any,
-        currentMilestone: [] as any,
+        currentMilestone: null,
     },
     
     reducers: {
@@ -31,7 +31,7 @@ export const MilestoneSlice = createSlice({
         },
 
         setCurrentMilestone: (state, action) => {
-            state.currentMilestone = [...state.currentMilestone, action.payload];
+            state.currentMilestone = action.payload;
         },
     },
     extraReducers: {
@@ -40,6 +40,6 @@ export const MilestoneSlice = createSlice({
 
 export const { setMilestones, updateMilestone, createMilestone, deleteMilestone, setCurrentMilestone } = MilestoneSlice.actions;
 
-export const selectMilestone = (state: AppState) => state.milestone;
+export const selectMilestone = (state: RootState) => state.milestone;
 
 export default MilestoneSlice.reducer;

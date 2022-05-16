@@ -3,7 +3,6 @@ import Board from '../../common/components/Board';
 import DashboardLayout from '../../common/components/DashboardLayout';
 import TabContainer from '../../common/components/TabContainer';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { wrapper } from '../../common/store/index.store';
 import { setTasks } from '../../common/store/slices/task/task.slices';
 import { useAppDispatch } from '../../common/store/hooks/redux-hooks';
 
@@ -28,8 +27,7 @@ const BoardPage = ({
 
 export default BoardPage;
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(store => 
-  async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
   const res = await fetch(`http://localhost:3001/milestone/${id}`).then(res => {
@@ -38,5 +36,5 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   return { props: { data: res }, notFound: false };
 
-})
+}
 
