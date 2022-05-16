@@ -12,6 +12,7 @@ import Cryptr from 'cryptr';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { createProjectApi } from '../../redux/features/projectSlice';
+import { BsTrash, BsPlus } from 'react-icons/bs';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   const router = useRouter();
@@ -44,18 +45,16 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   };
   return (
     <>
-      <RoundButton
-        button="x"
-        onClick={handleShowModal}
-        color="#e0e1dd"
-        textColor="#191919"
-      />
+      <h1>Create Your Project</h1>
 
       <div className={styles.container}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="title">Project Name:</label>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <label htmlFor="title" className={styles.label}>
+            Project Name:
+          </label>
           <input
-            className={styles.input}
+            placeholder="Add a project name..."
+            className={styles.textarea}
             {...register('title', {
               required: 'required',
               minLength: {
@@ -64,38 +63,59 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
               },
             })}
           />
-          {errors.title && <p>This is required</p>}
+          {errors.title && <p className={styles.error}>This is required</p>}
           <ul>
-            <label htmlFor="milestone">Add Milestone:</label>
+            <label htmlFor="milestone" className={styles.label}>
+              Add Milestone:
+            </label>
+            {fields.length === 0 && (
+              <input
+                placeholder="Add a new milestone..."
+                onClick={() => {
+                  append({ title: '' });
+                }}
+                className={styles.textarea}
+              />
+            )}
             {fields.map((field, index) => {
               return (
                 <li className={styles.section} key={field.id}>
                   <input
-                    className={styles.input}
-                    placeholder="Milestone"
+                    className={styles.textarea}
+                    placeholder="Add a milestone..."
                     {...register(`Milestones.${index}.title` as const)}
                   />
-                  <button onClick={() => remove(index)}>Remove</button>
+                  <button
+                    onClick={() => {
+                      append({ title: '' });
+                    }}
+                    className={styles.remove}
+                  >
+                    <BsPlus />
+                  </button>
+                  <button
+                    onClick={() => remove(index)}
+                    className={styles.remove}
+                  >
+                    <BsTrash />
+                  </button>
                 </li>
               );
             })}
           </ul>
-          <CustomButton
-            button="Add More Milestone"
-            color="#000"
-            textColor="#fff"
-            onClick={() => {
-              append({ title: '' });
-            }}
-          />
+          <div className={styles.addButton}>
+            <CustomButton
+              button="Add a New Project"
+              color="#415a77"
+              textColor="#fff"
+              onClick={handleSubmit(onSubmit)}
+            />
+            <p className={styles.cancel} onClick={handleShowModal}>
+              Cancel
+            </p>
+          </div>
 
           <label htmlFor="status"></label>
-          <CustomButton
-            button="Add New Project"
-            color="#415a77"
-            textColor="#fff"
-            onClick={handleSubmit(onSubmit)}
-          />
         </form>
       </div>
     </>

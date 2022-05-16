@@ -6,6 +6,7 @@ import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
 import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
+import { IoIosAdd, IoIosClose } from 'react-icons/io';
 
 interface BoardInterface {
   columnTitle: String;
@@ -101,10 +102,9 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
                 }
               : { borderRadius: '10px' }
           }
-          // style={showButton ? { display: 'flex' } : { display: 'none' }}
           className={styles.button}
         >
-          {showInput ? 'x' : '+ add'}
+          {showInput ? <IoIosClose /> : <IoIosAdd />}
         </button>
         <div
           className={styles.createTask}

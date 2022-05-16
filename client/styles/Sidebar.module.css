@@ -7,7 +7,6 @@
 
 .userImage {
   display: flex;
-
   justify-content: center;
   align-items: center;
   margin-top: var(--unit9);
