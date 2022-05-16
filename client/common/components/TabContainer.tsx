@@ -8,25 +8,9 @@ type TabContainerProps = {
   children: React.ReactNode;
 };
 
-type ActiveLinkProps = {
-  children: React.ReactNode;
-  href: string; // 👈️ type children
-};
-
-const ActiveLink = ({ children, href }: ActiveLinkProps) => {
-  const router = useRouter();
-  return (
-    <Link href={href}>
-      <a className={`styles.${router.pathname === href ? 'active' : 'links'}`}>
-        {children}
-      </a>
-    </Link>
-  );
-};
-
 const TabContainer = ({ children }: TabContainerProps) => {
   const router = useRouter();
-  console.log(router);
+
   return (
     <div className={styles.container}>
       <div className={styles.tabHead}>
@@ -34,31 +18,40 @@ const TabContainer = ({ children }: TabContainerProps) => {
           <Link
             href={{
               pathname: '/dashboard',
+              query: { id: router.query.id },
             }}
           >
             <a className={styles.active}>Dashboard</a>
           </Link>
-          <Link href="/board">
+          <Link
+            href={{
+              pathname: '/board',
+              query: {
+                milestone_id: router.query.id,
+                project_id: router.query.id,
+              },
+            }}
+          >
             <a className={styles.active}>Board</a>
           </Link>
           <Link href="/documentation">
             <a className={styles.active}>Documentation</a>
           </Link>
-          <div className={styles.users}>
-            <div className={styles.avatar}>
-              <Image
-                src="https://github.com/thaiscosta.png"
-                width={25}
-                height={25}
-              />
-            </div>
-            <div className={styles.avatar}>
-              <Image
-                src="https://github.com/thaiscosta.png"
-                width={25}
-                height={25}
-              />
-            </div>
+        </div>
+        <div className={styles.users}>
+          <div className={styles.avatar}>
+            <Image
+              src="https://github.com/thaiscosta.png"
+              width={50}
+              height={50}
+            />
+          </div>
+          <div className={styles.avatar}>
+            <Image
+              src="https://github.com/thaiscosta.png"
+              width={50}
+              height={50}
+            />
           </div>
         </div>
       </div>

@@ -16,7 +16,10 @@
 }
 
 .tabHead {
-  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .active {
@@ -31,12 +34,14 @@
 
 .avatar {
   display: flex;
-  border-radius: 20px;
+  border-radius: 25px;
   overflow: hidden;
+  height: 50px;
+  width: 50px;
 }
 
 .users {
   display: flex;
   flex-direction: row;
-  gap: var(--unit3);
+  gap: var(--unit4);
 }

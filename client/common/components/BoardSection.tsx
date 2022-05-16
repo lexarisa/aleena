@@ -93,10 +93,18 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         </div>
         <button
           onClick={() => handleShowInput()}
+          style={
+            showInput
+              ? {
+                  borderBottomLeftRadius: '0',
+                  borderBottomRightRadius: '0',
+                }
+              : { borderRadius: '10px' }
+          }
           // style={showButton ? { display: 'flex' } : { display: 'none' }}
           className={styles.button}
         >
-          + add
+          {showInput ? 'x' : '+ add'}
         </button>
         <div
           className={styles.createTask}
