@@ -33,12 +33,7 @@ export const getProjectApi = createAsyncThunk(
 export const createProjectApi = createAsyncThunk(
   'project/createProject',
   async (data: IProject) => {
-    console.log('data to post', data);
-    return fetch('http://localhost:3001/project', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }).then((res) => res.json());
+    return createProject(data);
   }
 );
 
@@ -58,10 +53,11 @@ export const updateProjectApi = createAsyncThunk(
 
 export const projectSlice = createSlice({
   name: 'project',
-  initialState: { project: [], loading: false, error: null },
+  initialState: { projects: [], loading: false, error: null },
   reducers: {
     setProjects(state, action) {
-      state.project = action.payload;
+      console.log('urzeeee');
+      state.projects = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -71,17 +67,17 @@ export const projectSlice = createSlice({
       })
       .addCase(getProjectApi.fulfilled, (state, action) => {
         state.loading = false;
-        state.project = action.payload;
+        state.projects = action.payload;
       })
       .addCase(createProjectApi.pending, (state, action) => {
         state.loading = true;
       })
       .addCase(createProjectApi.fulfilled, (state, action) => {
         state.loading = false;
-        state.project = action.payload;
+        state.projects = action.payload;
       })
       .addCase(deleteProjectApi.fulfilled, (state, action) => {
-        state.project = action.payload;
+        state.projects = action.payload;
       });
   },
 });

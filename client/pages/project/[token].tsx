@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../../styles/projectPage.module.css';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import ITask from '../../common/types/ITask';
@@ -15,43 +15,61 @@ const project = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [showForm, setShowForm] = useState(false);
   const dispatch = useDispatch();
-  const { project } = useSelector((state) => state.project);
+  const { projects } = useSelector((state) => state.project);
+
+  useEffect(() => {
+    streamProject();
+  });
+  dispatch(setProjects(data.projects));
+
+  const streamProject = () => {
+    const projectSse = new EventSource('http://localhost:3001/projects/sse');
+
+    projectSse.addEventListener('message', (prj) => {
+      const newProject = JSON.parse(prj.data);
+
+      const old = projects.filter(
+        (oldProject: any) => oldProject.project.id !== newProject.id
+      );
+
+      console.log([...old, newProject]);
+      dispatch(setProjects([...old, newProject]));
+
+      projectSse.close();
+    });
+  };
 
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
 
-  dispatch(setProjects(data.projects));
-
   return (
     <>
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
-          <div>
-            <h1>Welcome to Alena, {data.username}</h1>
-          </div>
+          <h1>Welcome to Alena, {data.username}</h1>
           <div className={styles.selectCard} onClick={handleShowForm}>
-            <div className={styles.addButton}>+</div>
+            <span className={styles.addButton}>+</span>
+
             <p>Create a new project</p>
           </div>
-          <div>
-            {data &&
-              data.projects.map((el: any) => (
-                <div key={String(el.project.id)}>
-                  <Link
-                    href={{
-                      pathname: '/dashboard',
-                      query: { id: el.project.id },
-                    }}
-                  >
-                    <div className={styles.selectCard}>
-                      <h2>{el.project.title}</h2>
-                      <p>{el.project.description}</p>
-                      <p>{el.project.status}</p>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+          <div className={styles.projectSection}>
+            {projects.map((el: any) => (
+              <div key={String(el.project.id)}>
+                <Link
+                  href={{
+                    pathname: '/dashboard',
+                    query: { id: el.project.id },
+                  }}
+                >
+                  <div className={styles.selectCard}>
+                    <h2>{el.project.title}</h2>
+                    <p>{el.project.description}</p>
+                    <p>{el.project.status}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </div>

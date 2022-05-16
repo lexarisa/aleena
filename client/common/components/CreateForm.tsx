@@ -10,7 +10,7 @@ import IProject from '../types/IProject';
 import { useRouter } from 'next/router';
 import Cryptr from 'cryptr';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, useAppDispatch } from '../../redux/store';
+import { AppDispatch } from '../../redux/store';
 import { createProjectApi } from '../../redux/features/projectSlice';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
@@ -31,11 +31,8 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   const onSubmit = async (data: any) => {
     const newProjectData = { ...data, user_id: token };
 
-    console.log('running');
-    // dispatch(createProjectApi(newProjectData));
-
     try {
-      await createProject(newProjectData);
+      dispatch(createProjectApi(newProjectData));
       setShowForm(false);
     } catch (error) {
       console.log('error on submitting', error);

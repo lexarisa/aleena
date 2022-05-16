@@ -10,6 +10,18 @@ import { userSlice } from './features/userSlice';
 import { tagsSlice } from './features/tagsSlice';
 import { commentSlice } from './features/commentSlice';
 
+// const createStore = (preloadedState: any) => {
+//   return configureStore({
+//     reducer: {
+//       project: projectSlice.reducer,
+//       user: userSlice.reducer,
+//       tags: tagsSlice.reducer,
+//       comment: commentSlice.reducer,
+//     },
+//     devTools: true,
+//     preloadedState
+//   })
+// }
 export const store = configureStore({
   reducer: {
     project: projectSlice.reducer,

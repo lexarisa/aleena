@@ -12,13 +12,12 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
     data: {
       user_id: user_id,
       project_id: project.id,
-      id: Math.floor(Math.random() * 100),
     },
   });
 
   if (!projectUser) throw new Error();
 
-  return projectUser;
+  return project;
 };
 
 // export const createProjectQuery = async (newProject: any) => {
