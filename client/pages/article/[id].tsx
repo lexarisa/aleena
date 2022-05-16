@@ -1,6 +1,6 @@
 import React from 'react';
 // import Board from '../../common/components/Board';
-import { Article } from '../../common/components/Article';
+import Article from '../../common/components/Article';
 import DashboardLayout from '../../common/components/DashboardLayout';
 import TabContainer from '../../common/components/TabContainer';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';

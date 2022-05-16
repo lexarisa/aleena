@@ -1,4 +1,6 @@
+import styles from '../../styles/TextEditor.module.css';
 import 'react-quill/dist/quill.bubble.css';
+// import 'highlight.js/styles/darcula.css';
 
 import dynamic from 'next/dynamic';
 
@@ -11,15 +13,16 @@ const modules = {
   toolbar: [
     [{ header: '1' }, { header: '2' }, { font: [] }],
     [{ size: [] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
     [
       { list: 'ordered' },
       { list: 'bullet' },
       { indent: '-1' },
       { indent: '+1' },
     ],
-    ['link', 'image', 'video'],
+    ['link', 'image'],
     ['clean'],
+    [{ script: 'sub' }, { script: 'super' }],
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
@@ -32,6 +35,7 @@ const modules = {
  */
 const formats = [
   'header',
+  'code-block',
   'font',
   'size',
   'bold',
@@ -44,14 +48,15 @@ const formats = [
   'indent',
   'link',
   'image',
-  'video',
 ];
 
-export default function Article() {
+export default function Article({ data }: any) {
   return (
     <>
-      {/* <h1>{data}</h1> */}
-      <QuillNoSSRWrapper modules={modules} formats={formats} theme="bubble" />
+      <h1>{data.title}</h1>
+      <div className={styles.container}>
+        <QuillNoSSRWrapper modules={modules} formats={formats} theme="bubble" />
+      </div>
     </>
   );
 }
