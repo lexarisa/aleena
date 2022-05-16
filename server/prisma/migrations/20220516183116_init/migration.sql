@@ -69,7 +69,7 @@ CREATE TABLE "Task" (
     "user_id" INTEGER NOT NULL,
     "project_id" INTEGER NOT NULL,
     "milestone_id" INTEGER NOT NULL,
-    "priority" TEXT NOT NULL,
+    "priority" TEXT,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -101,13 +101,9 @@ CREATE TABLE "Article" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
-    "bookMarked" BOOLEAN DEFAULT false,
-    "user_id" INTEGER NOT NULL,
+    "user_id" INTEGER,
     "title" TEXT NOT NULL,
-<<<<<<< HEAD:server/prisma/migrations/20220514104336_init/migration.sql
-=======
     "content" TEXT,
->>>>>>> development:server/prisma/migrations/20220514221230_init/migration.sql
     "documentation_id" INTEGER NOT NULL,
 
     CONSTRAINT "Article_pkey" PRIMARY KEY ("id")
@@ -201,10 +197,10 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_user_id_fkey" FOREIGN KEY ("user_i
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "Task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Documentation" ADD CONSTRAINT "Documentation_milestone_id_fkey" FOREIGN KEY ("milestone_id") REFERENCES "Milestone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Documentation" ADD CONSTRAINT "Documentation_milestone_id_fkey" FOREIGN KEY ("milestone_id") REFERENCES "Milestone"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Article" ADD CONSTRAINT "Article_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Article" ADD CONSTRAINT "Article_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Article" ADD CONSTRAINT "Article_documentation_id_fkey" FOREIGN KEY ("documentation_id") REFERENCES "Documentation"("id") ON DELETE CASCADE ON UPDATE CASCADE;

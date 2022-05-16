@@ -15,7 +15,6 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
-
   const [showTask, setShowTask] = useState(false);
   const [currentTask, setCurrentTask] = useState<ITask>(emptyTask);
   const [showButton, setShowButton] = useState(true);
