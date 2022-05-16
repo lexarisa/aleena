@@ -12,7 +12,6 @@ export const MainDocumentation = ({ data }: any) => {
           <div key={item.id}>
             <DocumentCard title={item.title} articles={item.articles} />
           </div>
-          {/* </Link> */}
         </div>
       ))}
     </div>
