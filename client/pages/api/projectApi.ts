@@ -57,6 +57,7 @@ export const updateProjectDetail = async (
 };
 
 export const addUserToProject = async (data) => {
+  console.log('data toadd', data);
   const response = await fetch(`http://localhost:3001/projects`, {
     method: 'POST',
     headers: {

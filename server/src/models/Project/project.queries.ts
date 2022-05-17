@@ -87,3 +87,28 @@ export const deleteProjectQuery = async (id: number) => {
 
   return project;
 };
+
+export const addUserToProjectQuery = async (
+  username: string,
+  project_id: number
+) => {
+  const userBeingAdded = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  console.log(userBeingAdded);
+  const projectAssigned = await prisma.user_Projects.create({
+    //@ts-ignore :D
+    data: {
+      user_id: userBeingAdded?.id,
+      project_id: project_id,
+    },
+  });
+
+  console.log(projectAssigned);
+  return projectAssigned;
+
+  // if (!projectAssigned) return projectAssigned;
+};

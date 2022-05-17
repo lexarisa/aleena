@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeedItem from './../components/FeedItem';
-import styles from '../../styles/Card.module.css';
+import styles from '../../styles/Feed.module.css';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { updateFeed } from '../store/slices/feed/feed.slice';
 
@@ -8,7 +8,7 @@ function Feed() {
   const dispatch = useAppDispatch();
   const reduxFeedEvents = useAppSelector((state) => state.feed.feed);
   // const [events, setEvents] = useState([]);
- 
+
   useEffect(() => {
     feedEvent();
   });

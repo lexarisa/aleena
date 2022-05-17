@@ -14,7 +14,7 @@ export const createUserQuery = async (newUser: INewUser) => {
 export const findUserQuery = async (id: number) => {
   const user = await prisma.user.findUnique({
     where: {
-      id: 76721322,
+      id,
     },
   });
 
@@ -22,7 +22,6 @@ export const findUserQuery = async (id: number) => {
 
   return user;
 };
-
 
 export const getAllBookmarksQuery = async (id: number) => {
   const bookmarkedArticles = await prisma.user.findUnique({
@@ -68,4 +67,23 @@ export const deleteBookmarkQuery = async (id: number, article_id: number) => {
   });
   if (!unBookmarkedArticle) return null;
   return unBookmarkedArticle;
+};
+
+export const findAllUsersInProjectQuery = async (project_id: number) => {
+  const allUsers = await prisma.user_Projects.findMany({
+    where: {
+      project_id,
+    },
+    select: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          email: true,
+        },
+      },
+    },
+  });
+  if (!allUsers) return null;
+  return allUsers;
 };

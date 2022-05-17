@@ -100,4 +100,15 @@ export class ProjectController {
       res.status(500);
     }
   }
+
+  async addUserToProject(req: Request, res: Response): Promise<void> {
+    try {
+      const { username, project_id } = req.body;
+      const addUser = await service.addUserToProject(username, project_id);
+      res.send(addUser);
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+    }
+  }
 }

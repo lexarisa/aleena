@@ -39,6 +39,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
     dispatch(setCurrentTask(null));
   };
 
+  console.log('redux', reduxTask);
+
   const handleUpdateTask = async () => {
     const dataToUpdate = {
       user_id: user,

@@ -1,12 +1,8 @@
 .container {
-  height: 100vw;
-  min-width: 15rem;
-
   flex-direction: column;
   justify-content: flex-start;
   display: flex;
   background-color: var(--color-lightBg);
-  padding: var(--unit3);
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
     rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
@@ -41,9 +37,81 @@
 }
 
 .title {
-  font-size: var(--size-l);
+  font-size: var(--size-s);
 }
 
 .sideBarMid {
   padding: 0 var(--unit3);
+}
+
+.dropDown {
+}
+
+.collapsible {
+  border-bottom: 1px solid var(--color-lightBg);
+}
+/* .collapsibleContent {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+  margin: 0;
+  margin-bottom: 0;
+} */
+
+.collapsibleExpanded {
+  max-height: 100vh;
+  opacity: 1;
+}
+
+.sideBarLower {
+  display: flex;
+  align-items: center;
+}
+.logout {
+  border: none;
+  outline: 0;
+  font-size: var(--size-s);
+  padding: var(--unit3);
+  background-color: transparent;
+  border-radius: 5px;
+  width: 100%;
+  margin: var(--unit2);
+}
+
+.logout:hover {
+  background-color: var(--color-lightBg);
+  cursor: pointer;
+}
+
+.input {
+  padding: var(--unit3);
+  margin-top: var(--unit2);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  background-color: var(--color-lightBg);
+  color: var(--color-black);
+  width: 100%;
+}
+
+.avatar {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+}
+
+.teammate {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: var(--unit3);
+  padding: var(--unit2);
+}
+
+.text {
+  font-size: var(--size-s);
 }
