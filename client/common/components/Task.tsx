@@ -6,11 +6,9 @@ import { updateTaskDetail, deleteTaskApi } from '../../pages/api/taskApi';
 import Modal from './Modal';
 import RoundButton from './small/RoundButton';
 import CustomButton from './small/CustomButton';
-import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { deleteTask, setCurrentTask } from '../store/slices/task/task.slices';
 import Image from 'next/image';
-import CustomButton from './small/CustomButton';
 
 const options = [
   { value: 'To Do' },
@@ -30,8 +28,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.id);
   const reduxTask = useAppSelector((state) => state.task.currentTask);
-
-  const [githubLink, setGithubLink] = useState('');
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
   const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
   const [description, setDescription] = useState(reduxTask.description);
@@ -99,15 +95,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
               value={selectedTag}
               onChange={(e) => setSelectedTag(e.target.value)}
             >
-<<<<<<< HEAD
-              {tags.map((tag) => (
-                <option
-                  key={tag.label}
-                  value={tag.label}
-                  className={styles.options}
-                >
-                  {tag.label}
-=======
               {priority.map((priority) => (
                 <option
                   key={priority.labels}
@@ -115,7 +102,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
                   className={styles.options}
                 >
                   {priority.labels}
->>>>>>> development
                 </option>
               ))}
             </select>

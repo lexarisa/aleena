@@ -1,8 +1,15 @@
 .container {
   height: 100vw;
   min-width: 15rem;
+
   flex-direction: column;
-  margin: var(--unit9) var(--unit3);
+  justify-content: flex-start;
+  display: flex;
+  background-color: var(--color-lightBg);
+  padding: var(--unit3);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
 .userImage {
@@ -14,4 +21,29 @@
 
 .links {
   color: var(--color-white);
+}
+
+.userImage {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  color: var(--color-white);
+  font-size: var(--size-s);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: var(--size-l);
+}
+
+.sideBarMid {
+  padding: 0 var(--unit3);
 }
