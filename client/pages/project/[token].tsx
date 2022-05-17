@@ -27,9 +27,13 @@ const project = ({
   console.log(reduxAllProjects)
 
   useEffect(() => {
-    streamProject();
     fetchProjects();
   }, [])
+
+  useEffect(() => {
+    streamProject();
+  })
+
 
   const fetchProjects = async () => {
     const res = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/UserProjects/${token}`)
@@ -73,9 +77,9 @@ const project = ({
     setShowForm(!showForm);
   };
 
-  // const handleProjectSelect = (pj: any) => {
-  //   dispatch(setCurrentProject(pj))
-  // };
+  const handleProjectSelect = (pj: any) => {
+    dispatch(setCurrentProject(pj))
+  };
 
   return (
     <>
@@ -97,7 +101,7 @@ const project = ({
                     query: { id: project.id },
                   }}
                 >
-                  <div className={styles.selectCard}>
+                  <div onClick={() => handleProjectSelect(project)} className={styles.selectCard}>
                     <h2>{project.title}</h2>
                     <p>{project.description}</p>
                     <p>{project.status}</p>

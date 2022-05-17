@@ -45,6 +45,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
     dispatch(setCurrentTask(null))
   };
 
+  console.log('to create a task we need pj id',reduxCurrentProject)
   const handleUpdateTask = async () => {
     const dataToUpdate = {
       user_id: Number(user),
