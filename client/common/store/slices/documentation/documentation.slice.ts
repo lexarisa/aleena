@@ -11,9 +11,6 @@ export const DocumentationSlice = createSlice({
 
   reducers: {
     setDocuments: (state, action: PayloadAction<any>) => {
-      //   const articlePayload = action.payload.map((doc) => {
-      //     doc.articles ? doc : { ...doc, articles: [] };
-      //   });
       state.documents = action.payload;
     },
 

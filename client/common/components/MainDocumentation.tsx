@@ -38,29 +38,13 @@ export const MainDocumentation = ({ data }: any) => {
         const docWithArticles = newDoc.articles
           ? newDoc
           : { ...newDoc, articles: [] };
-        // setDocumentation((prevDocs: any) => {
-        //   return [...prevDocs, { ...newDoc, articles: docArticles }]; //
-        // });
+
         dispatch(createDocument(docWithArticles));
       }
       if (event === 'delete') {
-        // setDocumentation((prevDocs: any) => {
-        //   return prevDocs.filter(
-        //     (document: IDocumentation) => document.id !== newDoc.id
-        //   );
-        // });
         dispatch(deleteDocument(newDoc));
       }
       if (event === 'update') {
-        // setDocumentation((prevDocs: any) => {
-        //   return prevDocs.map((document: IDocumentation) => {
-        //     if (document.id === newDoc.id) {
-        //       return (document = newDoc);
-        //     } else {
-        //       return document;
-        //     }
-        //   });
-        // });
         dispatch(updateArticleDocument(newDoc));
       }
     });
@@ -70,35 +54,12 @@ export const MainDocumentation = ({ data }: any) => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
-        // setDocumentation((prevDocs: any) => {
-        //   return prevDocs.map((document: IDocumentation) => {
-        //     if (document.id === newDoc.id) {
-        //       return (document = newDoc);
-        //     } else {
-        //       return document;
-        //     }
-        //   });
-        // });
         dispatch(updateArticleDocument(newDoc));
       }
       if (event === 'delete') {
-        // setDocumentation((prevDocs: any) => {
-        //   return prevDocs.filter(
-        //     (document: IDocumentation) => document.id !== newDoc.id
-        //   );
-        // });
         dispatch(deleteDocument(newDoc));
       }
       if (event === 'update') {
-        // setDocumentation((prevDocs: any) => {
-        //   return prevDocs.map((document: IDocumentation) => {
-        //     if (document.id === newDoc.id) {
-        //       return (document = newDoc);
-        //     } else {
-        //       return document;
-        //     }
-        //   });
-        // });
         dispatch(updateArticleDocument(newDoc));
       }
     });
