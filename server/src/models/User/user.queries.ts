@@ -23,33 +23,7 @@ export const findUserQuery = async (id: number) => {
   return user;
 };
 
-export const findUserProjectsQuery = async (id: number) => {
-  const projects = await prisma.user.findUnique({
-    //do we want only one?
-    where: {
-      id,
-    },
-    include: {
-      projects: {
-        select: {
-          project: {
-            select: {
-              id: true,
-              title: true,
-              description: true,
-              status: true,
-              deadline: true,
-            },
-          },
-        },
-      },
-    },
-  });
 
-  if (!projects) return null;
-
-  return projects;
-};
 export const getAllBookmarksQuery = async (id: number) => {
   const bookmarkedArticles = await prisma.user.findUnique({
     where: {

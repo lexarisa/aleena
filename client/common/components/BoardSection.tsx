@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentTask } from '../store/slices/task/task.slices';
+import { IoIosAdd, IoIosClose } from 'react-icons/io';
 
 interface BoardInterface {
   columnTitle: String;
@@ -48,8 +49,8 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
       return;
     } else {
       const newTask: ITask = {
-        title: taskTitle,
-        user_id: user,
+        title: taskTitle, 
+        user_id: Number(user),
         project_id: Number(router.query.project_id),
         priority: 'none',
         milestone_id: Number(router.query.id),

@@ -16,7 +16,7 @@ export const DocumentationSlice = createSlice({
 
         updateDocuments: (state, action: PayloadAction<any>) => {
             const oldDocuments = state.documents.filter((document: any) => {
-                document.id !== action.payload.id
+                return document.id !== action.payload.id
             });
             state.documents = [...oldDocuments, action.payload];
         },

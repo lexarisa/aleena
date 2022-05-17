@@ -3,10 +3,24 @@ import { DataService } from '../../services/data.service';
 import { Subject } from 'rxjs';
 
 const service: DataService = new DataService();
-const newSse = new Subject();
+const newSseProject = new Subject();
 
 export class ProjectController {
   constructor(private service: DataService) {}
+
+  async userProjects(req: Request, res: Response): Promise<void> {
+    try {
+      const { user_id } = req.params;
+
+      const projects = await service.getUserProjects(+user_id);
+
+      res.send(projects);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
 
   async getProject(req: Request, res: Response): Promise<void> {
     try {
@@ -25,12 +39,17 @@ export class ProjectController {
   async createProject(req: Request, res: Response): Promise<void> {
     try {
       const { user_id } = req.body;
-      const id = user_id;
-      const { title, description, status } = req.body;
-      const newProject = { title, description, status };
-      const project = await service.createProject(+id, newProject);
 
-      newSse.next(project);
+      const { title, description, status } = req.body;
+
+      const newProject = { title, description, status };
+
+      const project = await service.createProject(+user_id, newProject);
+
+      const sse = { event: 'create', data: project };
+      newSseProject.next(sse);
+
+      newSseProject.next(project);
       res.send(project);
     } catch (error) {
       console.error(error);
@@ -42,7 +61,11 @@ export class ProjectController {
   async deleteProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.body;
+
       const project = await service.deleteProject(+id);
+
+      const sse = { event: 'delete', data: project };
+      newSseProject.next(sse);
 
       res.send(project);
     } catch (error) {
@@ -54,7 +77,6 @@ export class ProjectController {
 
   async sseProject(req: Request, res: Response): Promise<void> {
     try {
-      console.log('hit the feed');
       res.set({
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
@@ -64,8 +86,7 @@ export class ProjectController {
       });
       res.flushHeaders();
 
-      const stream = newSse.subscribe((data: any) => {
-        console.log(data);
+      const stream = newSseProject.subscribe((data: any) => {
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
 

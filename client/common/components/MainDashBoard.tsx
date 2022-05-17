@@ -27,7 +27,7 @@ const MainDashboard = () => {
 
   useEffect(() => {
     milestoneEvent();
-  }, []);
+  });
 
   const handleClickHere = (milestone: any) => {
     dispatch(setCurrentMilestone(milestone));
@@ -35,12 +35,14 @@ const MainDashboard = () => {
 
   const milestoneEvent = () => {
     const source = new EventSource('http://localhost:3001/milestone/sse');
+
     source.addEventListener('message', (message) => {
       const event = JSON.parse(message.data).event;
       const newMilestone = JSON.parse(message.data).data;
 
       if (event === 'create') {
-        dispatch(createMilestone(newMilestone));
+        console.log('urzeMilestone', newMilestone)
+        dispatch(updateMilestone(newMilestone));
       }
 
       if (event === 'delete') {
@@ -50,7 +52,10 @@ const MainDashboard = () => {
       if (event === 'update') {
         dispatch(updateMilestone(newMilestone));
       }
+
+      source.close();
     });
+
   };
 
   return (

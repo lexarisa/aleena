@@ -3,9 +3,8 @@ import type { AppProps } from 'next/app';
 import { store, persistor } from '../common/store/index.store';
 // import { wrapper } from '../common/store/index.store';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { PersistGate } from 'redux-persist/integration/react'
 
-// let persistor = persistStore(store)
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import styles from '../../styles/TabContainer.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
+import Image from 'next/image';
 
 type TabContainerProps = {
   children: React.ReactNode;
@@ -67,6 +67,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
 
       <div className={styles.tabContent}>{children}</div>
     </div>
+
   );
 };
 

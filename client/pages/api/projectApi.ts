@@ -13,25 +13,21 @@ export const selectProject = async (id: number) => {
 };
 
 export const createProject = async (data: IProject) => {
-  try {
-    const response = await fetch(`http://localhost:3001/project/`, {
-      method: 'POST',
+  console.log('dataaa', data);
+  const response = await fetch(`http://localhost:3001/project`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    console.log('res', response);
-    if (!response.ok) {
-      const message = `An error has occurred: ${response.status}`;
-      throw new Error(message);
-    }
-    console.log(response.json());
-    return response.json();
-  } catch (error) {
-    console.error('error fetching', error);
+  if (!response.ok) {
+    const message = `An error has occurred: ${response.status}`;
+    throw new Error(message);
   }
+
+  return await response.json();
 };
 
 export const deleteProject = async (id: number) => {

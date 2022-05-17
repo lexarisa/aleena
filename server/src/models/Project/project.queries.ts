@@ -20,6 +20,34 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
   return project;
 };
 
+export const findUserProjectsQuery = async (id: number) => {
+  const projects = await prisma.user.findUnique({
+    //do we want only one?
+    where: {
+      id,
+    },
+    include: {
+      projects: {
+        select: {
+          project: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              status: true,
+              deadline: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!projects) return null;
+
+  return projects;
+};
+
 export const findProjectQuery = async (id: number) => {
   const project = await prisma.project.findUnique({
     where: {

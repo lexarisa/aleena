@@ -16,7 +16,7 @@ export const TagSlice = createSlice({
 
         updateTags: (state, action: PayloadAction<any>) => {
             const oldTags = state.tags.filter((tag: any) => {
-                tag.id !== action.payload.id
+                return tag.id !== action.payload.id
             });
             state.tags = [...oldTags, action.payload];
         },

@@ -5,8 +5,14 @@ const router: Router = Router();
 // @ts-ignore missing correct dependency injection
 const controller = new ProjectController();
 
-// router.get('/projects/:id', controller.getProject);
 router.post('/project', controller.createProject);
+
+router.get('/UserProjects/:user_id', controller.userProjects);
+
+router.get('/projects/:id', controller.getProject);
+
+router.get('/project/sse', controller.sseProject);
+
 router.delete('/projects/:id', controller.deleteProject);
 router.get('/projects/sse', controller.sseProject);
 

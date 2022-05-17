@@ -16,7 +16,7 @@ export const CommentSlice = createSlice({
 
         updateComments: (state, action: PayloadAction<any>) => {
             const oldComments = state.comments.filter((comment: any) => {
-                comment.id !== action.payload.id
+                return comment.id !== action.payload.id
             });
             state.comments = [...oldComments, action.payload];
         },
