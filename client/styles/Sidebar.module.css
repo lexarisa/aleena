@@ -1,6 +1,6 @@
 .container {
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   display: flex;
   background-color: var(--color-lightBg);
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
@@ -41,7 +41,7 @@
   color: var(--color-black2);
 }
 
-.sideBarMid {
+.sideBarUp {
   padding: 0 var(--unit3);
 }
 
@@ -57,6 +57,7 @@
 }
 
 .collapsible {
+  margin-top: var(--unit2);
   border-bottom: 1px solid var(--color-lightBg);
 }
 /* .collapsibleContent {
@@ -76,16 +77,19 @@
 .sideBarLower {
   display: flex;
   align-items: center;
+  border-top: 1px solid var(--color-lightBg);
 }
+
 .logout {
   border: none;
   outline: 0;
   font-size: var(--size-s);
   padding: var(--unit3);
+  color: var(--darkGrey);
   background-color: transparent;
   border-radius: 5px;
   width: 100%;
-  margin: var(--unit2);
+  margin: var(--unit3);
 }
 
 .logout:hover {
@@ -108,7 +112,6 @@
 .avatar {
   border-radius: 20px;
   overflow: hidden;
-
   width: 50px;
   align-items: center;
   justify-content: center;

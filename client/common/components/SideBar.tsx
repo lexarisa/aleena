@@ -53,8 +53,7 @@ const SideBar = () => {
             <p className={styles.username}>username</p>
           </div>
         </div>
-      </div>
-      <div className={styles.sideBarMid}>
+
         <section className={styles.collapsible}>
           <header>
             <div className={styles.header}>

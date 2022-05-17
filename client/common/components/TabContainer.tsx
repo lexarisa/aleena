@@ -43,9 +43,6 @@ const TabContainer = ({ children }: TabContainerProps) => {
           <Link href="/documentation">
             <a className={styles.active}>Documentation</a>
           </Link>
-          <h1 className={styles.active}>
-            {milestone ? milestone.title : null}
-          </h1>
         </div>
         <div className={styles.users}>
           <div className={styles.avatar}>
@@ -67,7 +64,6 @@ const TabContainer = ({ children }: TabContainerProps) => {
 
       <div className={styles.tabContent}>{children}</div>
     </div>
-
   );
 };
 
