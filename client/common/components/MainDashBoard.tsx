@@ -5,16 +5,34 @@ import MilestoneAdd from './small/MilestoneAdd'; //issue={data[1].tasks[0]}
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IMilestone } from '../types/IMilestone';
+import {
+  createMilestone,
+  deleteMilestone,
+  setCurrentMilestone,
+  updateMilestone,
+} from '../store/slices/milestone/milestone.slice';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
-const MainDashboard = ({ data }: any) => {
-  const [milestones, setMilestones] = useState(data);
+const MainDashboard = () => {
+  // const [milestones, setMilestones] = useState();
   const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const reduxMilestones = useAppSelector(
+    (state) => state.milestone.allMilestones
+  );
+  const reduxCurrentMilestones = useAppSelector(
+    (state) => state.milestone.currentMilestone
+  );
 
   useEffect(() => {
     milestoneEvent();
   }, []);
 
-  console.log(data);
+  const handleClickHere = (milestone: any) => {
+    dispatch(setCurrentMilestone(milestone));
+  };
+
   const milestoneEvent = () => {
     const source = new EventSource('http://localhost:3001/milestone/sse');
     source.addEventListener('message', (message) => {
@@ -22,34 +40,22 @@ const MainDashboard = ({ data }: any) => {
       const newMilestone = JSON.parse(message.data).data;
 
       if (event === 'create') {
-        setMilestones((prevMilestones: any) => {
-          return [...prevMilestones, newMilestone];
-        });
+        dispatch(createMilestone(newMilestone));
       }
+
       if (event === 'delete') {
-        setMilestones((prevMilestones: any) => {
-          return prevMilestones.filter(
-            (milestone: IMilestone) => milestone.id !== newMilestone.id
-          );
-        });
+        dispatch(deleteMilestone(newMilestone));
       }
+
       if (event === 'update') {
-        setMilestones((prevMilestones: any) => {
-          return prevMilestones.map((milestone: IMilestone) => {
-            if (milestone.id === newMilestone.id) {
-              return (milestone = newMilestone);
-            } else {
-              return milestone;
-            }
-          });
-        });
+        dispatch(updateMilestone(newMilestone));
       }
     });
   };
 
   return (
     <div className={styles.container}>
-      {milestones.map((item: any) => (
+      {reduxMilestones.map((item: any) => (
         <div key={item.id}>
           <Link
             href={{
@@ -57,7 +63,8 @@ const MainDashboard = ({ data }: any) => {
               query: { milestone_id: item.id, project_id: router.query.id },
             }}
           >
-            <a key={item.id}>
+            <a onClick={async () => await handleClickHere(item)} key={item.id}>
+              {/* <a key={item.id}> */}
               <MileStoneCard title={item.title} status={item.status} />
             </a>
           </Link>

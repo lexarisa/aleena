@@ -7,6 +7,8 @@ import { createNewTask } from '../../pages/api/taskApi';
 import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { setCurrentTask } from '../store/slices/task/task.slices';
 
 interface BoardInterface {
   columnTitle: String;
@@ -16,10 +18,11 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
-  useEffect(() => {});
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.id);
+  const selectedTask = useAppSelector((state) => state.task.currentTask);
 
   const [showTask, setShowTask] = useState(false);
-  const [currentTask, setCurrentTask] = useState<ITask>(emptyTask);
   const [showButton, setShowButton] = useState(true);
   const [showInput, setShowInput] = useState(false);
   const [taskTitle, setTaskTitle] = useState('');
@@ -27,14 +30,12 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
 
   const taskProps = {
     showTask: showTask, // bool
-    task: currentTask,
-    setCurrentTask: setCurrentTask,
     setShowTask: setShowTask,
   };
 
   const handleClick = (task: ITask) => {
     setShowTask(!showTask);
-    setCurrentTask(task);
+    dispatch(setCurrentTask(task));
   };
 
   const handleShowInput = () => {
@@ -48,8 +49,9 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
     } else {
       const newTask: ITask = {
         title: taskTitle,
-        user_id: 1,
+        user_id: user,
         project_id: Number(router.query.project_id),
+        priority: 'none',
         milestone_id: Number(router.query.id),
         status: columnTitle,
       };

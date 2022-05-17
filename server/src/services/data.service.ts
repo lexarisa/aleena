@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
-// import { Service } from 'typedi';
 
 import {
   findProjectQuery,
@@ -12,6 +11,9 @@ import {
   findUserQuery,
   createUserQuery,
   findUserProjectsQuery,
+  getAllBookmarksQuery,
+  createBookmarkQuery,
+  deleteBookmarkQuery,
 } from '../models/User/user.queries';
 
 import { findDashboardQuery } from '../models/Dashboard/dashboard.queries';
@@ -28,6 +30,7 @@ import {
   findPRsInTask,
   updateTaskStatusQuery,
   updateTaskDetailQuery,
+  deleteTaskQuery,
 } from '../models/Task/task.queries';
 
 import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
@@ -38,6 +41,22 @@ import {
   updateMilestoneQuery,
   deleteMilestoneQuery,
 } from '../models/Milestone/milestone.queries';
+
+import {
+  createDocumentationQuery,
+  updateDocumentationQuery,
+  deleteDocumentationQuery,
+  getAllDocsInMilestoneQuery,
+  getDocumentationQuery,
+} from '../models/Documentation/documentation.queries';
+
+import {
+  getAllArticlesInDocumentQuery,
+  getArticleQuery,
+  createArticleQuery,
+  updateArticleQuery,
+  deleteArticleQuery,
+} from '../models/Articles/articles.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
 
@@ -58,16 +77,31 @@ export class DataService {
     return findProjectQuery(id);
   }
 
-  getDashboard(
+  async getDashboard(
     project_id: number,
     user_id: number,
-    page: number,
-    status: string
-  ) {
-    return findDashboardQuery(project_id, user_id, page, status);
+    page: number
+  ): Promise<any[]> {
+    const allStatus = ['To Do', 'In Progress', 'Review', 'Done', 'Backlog'];
+
+    return await Promise.all(
+      allStatus.map(async (status: string): Promise<any> => {
+        return await findDashboardQuery(project_id, user_id, page, status);
+      })
+    );
   }
+
   getUserProjects(id: number) {
     return findUserProjectsQuery(id);
+  }
+  getUserBookmarks(id: number) {
+    return getAllBookmarksQuery(id);
+  }
+  createBookmarks(id: number, article_id: number) {
+    return createBookmarkQuery(id, article_id);
+  }
+  deleteBookmarks(id: number, article_id: number) {
+    return deleteBookmarkQuery(id, article_id);
   }
 
   createProject(user_id: number, newProject: any) {
@@ -90,6 +124,10 @@ export class DataService {
     return updateTaskDetailQuery(id, updateTaskData);
   }
 
+  deleteTask(task_id: number) {
+    return deleteTaskQuery(task_id);
+  }
+
   createPR(newPR: any) {
     return createPRQuery(newPR);
   }
@@ -104,7 +142,6 @@ export class DataService {
 
   async findAndUpdatePR(pull_id: number, status: string) {
     const pull = await findPRQuery(pull_id);
-    console.log('pull', pull);
     if (pull !== null) {
       return updatePRQuery(pull_id, status);
     } else {
@@ -137,4 +174,35 @@ export class DataService {
   deleteMilestone(milestone_id: number) {
     return deleteMilestoneQuery(milestone_id);
   }
+  getDocumentation(id: number) {
+    return getDocumentationQuery(id);
+  }
+  createDocumentation(title: string, milestone_id: number) {
+    return createDocumentationQuery(title, milestone_id);
+  }
+  updateDocumentation(title: string, id: number) {
+    return updateDocumentationQuery(title, id);
+  }
+  deleteDocumentation(id: number) {
+    return deleteDocumentationQuery(id);
+  }
+  getAllDocsInMilestone(milestone_id: number) {
+    return getAllDocsInMilestoneQuery(milestone_id);
+  }
+  getArticle(id: number) {
+    return getArticleQuery(+id);
+  }
+  createArticle(document_id: number, title: string, content: string) {
+    return createArticleQuery(document_id, title, content);
+  }
+  updateArticle(id: number, title: string, content: string) {
+    return updateArticleQuery(id, title, content);
+  }
+  deleteArticle(id: number) {
+    return deleteArticleQuery(id);
+  }
+  getAllArticlesInDocument(document_id: number) {
+    return getAllArticlesInDocumentQuery(document_id);
+  }
+  //get all articles in milestone
 }

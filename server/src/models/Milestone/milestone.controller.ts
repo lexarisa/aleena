@@ -11,32 +11,24 @@ export class MilestoneController {
 
   //-----SSE-----//
 
-  async createMilestone(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
+  async createMilestone(req: Request, res: Response): Promise<void> {
     //POST
     try {
       const { title, project_id } = req.body;
 
+      console.log('hit the controller', title);
       const milestone = await service.createMilestone(title, +project_id);
       // connect with other computers
       const sse = { event: 'create', data: milestone };
       newMilestoneSSE.next(sse);
-      console.log('XXXXXXX');
-      res.send(true);
+      res.send(milestone);
     } catch (error) {
       console.error(error);
 
       res.status(500);
     }
   }
-  async updateMilestone(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
+  async updateMilestone(req: Request, res: Response): Promise<void> {
     //POST
     try {
       const { title, milestone_id } = req.body;

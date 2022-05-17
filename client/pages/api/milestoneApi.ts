@@ -1,6 +1,7 @@
 import { INewMilestone } from '../../common/types/INewMilistone';
 
 export const createMilestone = async (data: INewMilestone) => {
+  console.log(data, 'data in createAPI');
   const response = await fetch(`http://localhost:3001/milestone`, {
     // const response = await fetch(`${process.env.BASEURL}/milestone`, {
     method: 'POST',

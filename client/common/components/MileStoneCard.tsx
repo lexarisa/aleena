@@ -2,13 +2,14 @@ import React from 'react';
 import styles from '../../styles/MileStoneCard.module.css';
 import Image from 'next/image';
 import Card from './Card';
+import { useAppSelector } from '../store/hooks/redux-hooks';
 
 interface MileStoneCardProp {
   title: String;
   id: Number;
 }
 
-const MileStoneCard = ({ title, task }: any) => {
+const MileStoneCard = ({ title, status }: any) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

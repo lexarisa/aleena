@@ -2,11 +2,13 @@ import { useState } from 'react';
 import styles from '../../styles/Task.module.css';
 import ITaskProps from '../types/ITaskProps';
 import Tag from '../components/small/Tag';
-import { updateTaskDetail } from '../../pages/api/taskApi';
+import { updateTaskDetail, deleteTaskApi } from '../../pages/api/taskApi';
 import Modal from './Modal';
 import RoundButton from './small/RoundButton';
 import CustomButton from './small/CustomButton';
 import Image from 'next/image';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { deleteTask, setCurrentTask } from '../store/slices/task/task.slices';
 
 const options = [
   { value: 'To Do' },
@@ -16,35 +18,43 @@ const options = [
   { value: 'Backlog' },
 ];
 
-const tags = [
-  { label: 'High Priority', color: 'red' },
-  { label: 'Low Priority', color: 'yellow' },
+const priority = [
+  { labels: 'High', color: 'red' },
+  { labels: 'Medium', color: 'yellow' },
+  { labels: 'Low', color: 'white' },
+  { labels: 'none', color: 'transparent' },
 ];
-const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
-  const source = new EventSource('http://localhost:3001/updateTasks');
-  source.addEventListener('message', (message) => {
-    console.log('Data from server:', message);
-  });
+const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.id);
+  const reduxTask = useAppSelector((state) => state.task.currentTask);
 
-  const [selectedStatus, setSelectedStatus] = useState(options[0].value);
-  const [selectedTag, setSelectedTag] = useState(tags[0].label);
-  const [description, setDescription] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
+  const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
+  const [description, setDescription] = useState(reduxTask.description);
+  const [pr, setPR] = useState('');
   const [githubLink, setGithubLink] = useState('');
 
   const handleShowTask = () => {
     setShowTask(false);
+    dispatch(setCurrentTask(null));
   };
 
   const handleUpdateTask = async () => {
     const dataToUpdate = {
-      user_id: 1,
+      user_id: user,
       project_id: 1,
       status: selectedStatus,
       // tags: [selectedTag],
       description: description,
     };
 
-    await updateTaskDetail(task.id as Number, dataToUpdate);
+    await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
+    setShowTask(false);
+  };
+
+  const handleDeleteTask = async () => {
+    const deleted = await deleteTaskApi(reduxTask.id as Number);
     setShowTask(false);
   };
   //TODO make reusable button
@@ -161,3 +171,57 @@ const Task: React.FC<ITaskProps> = ({ setShowTask, task }) => {
 };
 
 export default Task;
+
+//  <div className={styles.label}>
+{
+  /* <h2>Task Details</h2>
+<h3>{reduxTask.title}</h3>
+<h3>{reduxTask.status}</h3>
+<h3>{reduxTask.description}</h3>
+<h3>{JSON.stringify(reduxTask)}</h3>
+</div>
+
+<RoundButton
+  button="x"
+  onClick={handleShowTask}
+  color="#333"
+  textColor="#fff"
+/>
+
+<h1>{task.title}</h1>
+<div className={styles.headerSection}>
+  <div>
+    <label className={styles.label}>Status</label>
+  </div>
+  <div>
+    <select
+      value={selectedStatus}
+      onChange={(e) => setSelectedStatus(e.target.value)}
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.value}
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div>
+    <label className={styles.label}>Priority</label>
+  </div>
+  <div>
+    <select
+      value={selectedTag}
+      onChange={(e) => setSelectedTag(e.target.value)}
+    >
+      {priority.map((priority) => (
+        <option
+          key={priority.labels}
+          value={priority.labels}
+          className={styles.options}
+        >
+          {priority.labels}
+        </option>
+      ))}
+    </select> */
+}

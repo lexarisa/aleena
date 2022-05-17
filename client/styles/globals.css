@@ -19,7 +19,9 @@ a {
 li {
   list-style: none;
 }
-
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  color: var(--color-white);
+}
 /* .boardContainer {
   min-height: 100vh;
   max-width: 100vw;

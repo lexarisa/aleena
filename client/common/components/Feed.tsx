@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import FeedItem from './../components/FeedItem';
 import styles from '../../styles/Card.module.css';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { updateFeed } from '../store/slices/feed/feed.slice';
 
 function Feed() {
-  const [events, setEvents] = useState([]);
+  const dispatch = useAppDispatch();
+  const reduxFeedEvents = useAppSelector((state) => state.feed.feed);
+  // const [events, setEvents] = useState([]);
 
   useEffect(() => {
     feedEvent();
@@ -13,11 +17,9 @@ function Feed() {
     const source = new EventSource('http://localhost:3001/feed');
 
     source.addEventListener('message', (feed) => {
-      setEvents((event: any[]): any => {
-        const data = JSON.parse(feed.data);
-        const oldFeed = event.filter((pr: any) => pr.pull_id !== data.pull_id);
-        return [...oldFeed, data];
-      });
+      const data = JSON.parse(feed.data);
+
+      dispatch(updateFeed(data));
 
       source.close();
     });
@@ -26,10 +28,14 @@ function Feed() {
   return (
     <>
       <div className={styles.container}>
-        <h1>FEEDsdfasdf</h1>
-        {events.map((e) => {
-          return <FeedItem event={e} />;
-        })}
+        <h1>FEED</h1>
+        {reduxFeedEvents ? (
+          reduxFeedEvents.map((e: any) => {
+            return <FeedItem event={e} />;
+          })
+        ) : (
+          <h3>No feed yet</h3>
+        )}
       </div>
     </>
   );
