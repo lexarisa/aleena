@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
     "cors": "^2.8.5",
     "cryptr": "^6.0.3",
     "highlight.js": "^11.5.1",

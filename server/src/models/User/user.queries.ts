@@ -23,7 +23,6 @@ export const findUserQuery = async (id: number) => {
   return user;
 };
 
-
 export const getAllBookmarksQuery = async (id: number) => {
   const bookmarkedArticles = await prisma.user.findUnique({
     where: {
@@ -37,10 +36,14 @@ export const getAllBookmarksQuery = async (id: number) => {
   return bookmarkedArticles;
 };
 
-export const createBookmarkQuery = async (id: number, article_id: number) => {
+export const createBookmarkQuery = async (
+  article_id: number,
+  user_id: number
+) => {
+  console.log('hit bookmark query');
   const bookmarkedArticle = await prisma.user.update({
     where: {
-      id: id,
+      id: 2,
     },
     data: {
       articles: {
@@ -53,10 +56,13 @@ export const createBookmarkQuery = async (id: number, article_id: number) => {
   if (!bookmarkedArticle) return null;
   return bookmarkedArticle;
 };
-export const deleteBookmarkQuery = async (id: number, article_id: number) => {
+export const deleteBookmarkQuery = async (
+  article_id: number,
+  user_id: number
+) => {
   const unBookmarkedArticle = await prisma.user.update({
     where: {
-      id: id,
+      id: user_id,
     },
     data: {
       articles: {
