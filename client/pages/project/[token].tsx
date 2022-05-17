@@ -13,11 +13,7 @@ import {
   useAppSelector,
 } from '../../common/store/hooks/redux-hooks';
 import { setUser } from '../../common/store/slices/user/user.slice';
-import {
-  updateProjects,
-  setProjects,
-  deleteProject,
-} from '../../common/store/slices/projects/project.slice';
+import { updateProjects, setProjects, deleteProject, setCurrentProject } from '../../common/store/slices/projects/project.slice';
 import { store } from '../../common/store/index.store';
 
 const project = ({
@@ -25,16 +21,38 @@ const project = ({
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // const user = useAppSelector(state => state.user.id);
-  // const reduxAllProjects = useAppSelector(state => state.project.allProjects)
+  const reduxAllProjects = useAppSelector(state => state.project.allProjects)
 
   const [showForm, setShowForm] = useState(false);
+  
+  const dispatch = useAppDispatch();
+  console.log(reduxAllProjects)
 
-  // const dispatch = useAppDispatch();
-
-  // console.log(reduxAllProjects)
   useEffect(() => {
-    // streamProject();
-  });
+    fetchProjects();
+  }, [])
+
+  useEffect(() => {
+    streamProject();
+  })
+
+
+  const fetchProjects = async () => {
+    const res = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/UserProjects/${token}`)
+
+    const data = await res.json();
+
+    const projects = data.projects;
+
+    const formatProjects = formatData(projects, 'project')
+    
+    console.log('why user?', formatProjects)
+
+    dispatch(setProjects(formatProjects));
+
+    dispatch(setUser(token))
+
+  }
 
   const streamProject = () => {
     const sseProject = new EventSource('http://localhost:3001/project/sse');
@@ -59,47 +77,49 @@ const project = ({
     setShowForm(!showForm);
   };
 
+  const handleProjectSelect = (pj: any) => {
+    dispatch(setCurrentProject(pj));
+  };
+
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.cardWrapper}>
-          <h1>Welcome to Aleena, {data.username}</h1>
-          <div className={styles.selectCard} onClick={handleShowForm}>
-            <span className={styles.addButton}>+</span>
-
-            <p>Create a new project</p>
-          </div>
+    <div className={styles.container}>
+      <div className={styles.cardWrapper}>
+        <h1>Welcome to Alena, {reduxAllProjects.username}</h1>
+        <div className={styles.selectCard} onClick={handleShowForm}>
+          <span className={styles.addButton}>+</span>
+          <p>Create a new project</p>
           <div className={styles.projectSection}>
-            {data &&
-              data.map((el: any) => (
-                <div key={String(el.project.id)}>
-                  <Link
-                    href={{
-                      pathname: '/dashboard',
-                      query: { id: el.project.id },
-                    }}
-                  >
-                    <div className={styles.selectCard}>
-                      <h2>{el.project.title}</h2>
-                      <p>{el.project.description}</p>
-                      <p>{el.project.status}</p>
-                    </div>
-                  </Link>
+          {reduxAllProjects &&
+            reduxAllProjects.map((project: any) => (
+              <div key={String(project.id)}>
+                <Link
+                  href={{
+                    pathname: '/dashboard',
+                    query: { id: project.id },
+                  }}
+                >
+                  <div onClick={() => handleProjectSelect(project)} className={styles.selectCard}>
+                    <h2>{project.title}</h2>
+                    <p>{project.description}</p>
+                    <p>{project.status}</p>
+                  </div>
+                </Link>
                 </div>
-              ))}
-          </div>
+            ))}
         </div>
       </div>
       <div>
-        {showForm && (
+    </div>
+    {showForm && (
           <Modal>
             <CreateForm setShowForm={setShowForm} token={token} />
           </Modal>
-        )}
-      </div>
+    )}</div>
+    </div> 
     </>
-  );
-};
+      )
+}
 
 export default project;
 
@@ -108,17 +128,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
-  const res = await fetch(`${process.env.BASEURL}/UserProjects/${token}`);
 
-  const data = await res.json();
-
-  const projects = data.projects;
-
-  console.log('why user?', projects);
-
-  // store.dispatch(setProjects(projects));
-
-  // store.dispatch(setUser(token));
-
-  return { props: { data: projects, token }, notFound: false };
+  return { props: { token }, notFound: false };
 };
+
+export const formatData = (data: any, title: string) => {
+
+  const format: any[] = []
+
+  data.forEach((element: any) => {
+    format.push(element[title])
+  });
+
+  return format
+}

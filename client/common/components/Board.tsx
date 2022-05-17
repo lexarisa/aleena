@@ -11,7 +11,6 @@ import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
 
 const Board = () => {
 
-
   const dispatch = useAppDispatch();
   const reduxAllTasks = useAppSelector(state => state.task.allTasks);
   const reduxMile = useAppSelector(state => state.milestone.allMilestones);
@@ -20,14 +19,12 @@ const Board = () => {
   console.log('q', reduxAllTasks)
 
   const reduxAllProjects = useAppSelector(state => state.project.allProjects)
-
   console.log('LEVELS DOWN ', reduxAllProjects)
+
   useEffect(() => {
     // sse
     streamTask();
   });
-
-  // const [sseTask, setSseTask] = useState([]);
 
   const streamTask = () => {
     const sseTask = new EventSource('http://localhost:3001/tasks/sse');
@@ -37,6 +34,7 @@ const Board = () => {
         const task = JSON.parse(tsk.data).data;
   
         if (event === 'create') {
+          console.log('ok then ..', task)
           dispatch(updateTasks(task));
         }
   
@@ -66,8 +64,9 @@ const Board = () => {
       tags={tags} /> */}
 
       {sections.map((section, index) => {
-        let filteredTasks: ITask[] = reduxAllTasks
+        let filteredTasks: ITask[] = reduxAllTasks.length
           ? reduxAllTasks.filter((task: ITask) => {
+            console.log(task)
               return task.status === section;
             })
           : [];

@@ -26,27 +26,32 @@ const priority = [
 ];
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.id);
-  const reduxTask = useAppSelector((state) => state.task.currentTask);
+
+  const user: any = useAppSelector(state => state.user.id)
+  const reduxTask: any  = useAppSelector(state => state.task.currentTask)
+  const reduxCurrentProject: any  = useAppSelector(state => state.project.currentProject)
+
+  console.log('reduxTask', reduxTask)
+
+  const [githubLink, setGithubLink] = useState('');
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
   const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
   const [description, setDescription] = useState(reduxTask.description);
   const [pr, setPR] = useState('');
-  const [githubLink, setGithubLink] = useState('');
+
 
   const handleShowTask = () => {
     setShowTask(false);
     dispatch(setCurrentTask(null));
   };
 
-  console.log('redux', reduxTask);
-
+  console.log('to create a task we need pj id',reduxCurrentProject)
   const handleUpdateTask = async () => {
     const dataToUpdate = {
-      user_id: user,
-      project_id: 1,
+      user_id: Number(user),
+      project_id: Number(reduxCurrentProject.id),
       status: selectedStatus,
-      tags: [selectedTag],
+      priority: selectedTag,
       description: description,
     };
 
@@ -71,7 +76,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         />
       </div>
       <div className={styles.detail}>
-        <h1>{task.title}</h1>
+        <h1>{reduxTask.title}</h1>
         <div className={styles.headerSection}>
           <div>
             <label className={styles.label}>Status</label>
@@ -137,14 +142,14 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
           <div>
             <input type="datetime-local" className={styles.textarea} />
           </div>
-          <div>{task.users}</div>
+          <div>{reduxTask.users}</div>
         </div>
         <div className={styles.descriptionWrapper}>
           <div>
-            <p className={styles.description}> {task.description}</p>
+            <p className={styles.description}> {reduxTask.description}</p>
           </div>
         </div>
-        <div>{task.comments}</div>
+        <div>{reduxTask.comments}</div>
         <CustomButton
           button="Save"
           textColor="#fff"
