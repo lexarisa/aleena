@@ -45,8 +45,8 @@ export class DocumentationController {
 
   async getAllDocsInMilestone(req: Request, res: Response): Promise<void> {
     try {
-      const { milestoneId } = req.params;
-      const allDocs = await service.getAllDocsInMilestone(+milestoneId);
+      const { milestone_id } = req.params;
+      const allDocs = await service.getAllDocsInMilestone(+milestone_id);
       res.send(allDocs);
     } catch (error) {
       console.error(error);
@@ -54,6 +54,21 @@ export class DocumentationController {
       res.status(500);
     }
   }
+  async getAllDocumentsInProject(req: Request, res: Response): Promise<void> {
+    try {
+      const { project_id } = req.params;
+      console.log();
+      console.log('project id in doc controller', project_id);
+
+      const allDocs = await service.getAllDocumentsInProject(+project_id);
+      res.send(allDocs);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+
   async documentationSSE(req: Request, res: Response): Promise<void> {
     // GET
     try {

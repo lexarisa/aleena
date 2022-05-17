@@ -11,16 +11,13 @@ import {
 } from '../store/slices/documentation/documentation.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
-export const MainDocumentation = () => {
+export const Resources = () => {
   const dispatch = useAppDispatch();
 
-  //TODO add check to see in what context we are working under
-  // const reduxDocumentation = useAppSelector(
-  //   (state) => state.documentation.documents
-  // );
   const reduxProjectDocumentation = useAppSelector(
     (state) => state.documentation.projectDocuments
   );
+  console.log('from the store', reduxProjectDocumentation);
   useEffect(() => {
     documentationEvent();
   }, []);
@@ -37,6 +34,7 @@ export const MainDocumentation = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('received sse');
         const docWithArticles = newDoc.articles
           ? newDoc
           : { ...newDoc, articles: [] };
@@ -56,6 +54,7 @@ export const MainDocumentation = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('sse in all docs article');
         dispatch(updateArticleDocument(newDoc));
       }
       if (event === 'delete') {
@@ -69,11 +68,8 @@ export const MainDocumentation = () => {
 
   return (
     <div className={styles.container}>
-      {console.log('reduxDocs', reduxProjectDocumentation)}
-      {reduxProjectDocumentation.map(
-        (
-          item: any //! need to know if i'm querying for project or milestone
-        ) => (
+      {reduxProjectDocumentation &&
+        reduxProjectDocumentation.map((item: any) => (
           <div key={item.id}>
             <div key={item.id}>
               <DocumentCard
@@ -83,8 +79,7 @@ export const MainDocumentation = () => {
               />
             </div>
           </div>
-        )
-      )}
+        ))}
       <DocumentationAdd />
     </div>
   );

@@ -40,7 +40,15 @@ const TabContainer = ({ children }: TabContainerProps) => {
           >
             <a className={styles.active}>Board</a>
           </Link>
-          <Link href="/documentation">
+          <Link
+            href={{
+              pathname: '/documentation',
+              query: {
+                // milestone_id: router.query.id,
+                project_id: router.query.id,
+              },
+            }}
+          >
             <a className={styles.active}>Documentation</a>
           </Link>
         </div>
