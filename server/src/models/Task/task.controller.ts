@@ -16,7 +16,7 @@ export class TaskController {
       console.log('task data in task controller', newTask);
       const task = await service.createTask(newTask);
 
-      console.log('XXXXXX')
+      console.log('XXXXXX');
       const sse = { event: 'create', data: task };
       sseTask.next(sse);
 
@@ -51,7 +51,6 @@ export class TaskController {
   ): Promise<void> {
     try {
       // if(newHookTask.observed currentObservers === null)
-      console.log('hit task', req.body);
 
       const headers = {
         'Cache-Control': 'no-cache',
@@ -88,7 +87,7 @@ export class TaskController {
 
       const sse = { event: 'update', data: task };
       sseTask.next(sse);
-      
+
       res.send(task);
     } catch (error) {
       console.error(error);
@@ -123,15 +122,14 @@ export class TaskController {
 
       res.status(500);
     }
-  };
+  }
 
   async deleteTask(req: Request, res: Response): Promise<void> {
     try {
-      console.log('made it here')
+      console.log('made it here');
       const { task_id } = req.params;
 
       const task = await service.deleteTask(+task_id);
-
 
       const sse = { event: 'delete', data: task };
       sseTask.next(sse);

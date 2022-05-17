@@ -14,6 +14,7 @@ router.get('/projects/:id', controller.getProject);
 router.get('/project/sse', controller.sseProject);
 
 router.delete('/projects/:id', controller.deleteProject);
-
+router.get('/projects/sse', controller.sseProject);
+router.post('/projects', controller.addUserToProject);
 
 export default router;

@@ -41,4 +41,15 @@ export class UserController {
       console.error(error);
     }
   }
+
+  async findAllUsersInProject(req: Request, res: Response): Promise<void> {
+    try {
+      const { project_id } = req.params;
+      const users = await service.findAllUsersInProject(+project_id);
+      res.send(users);
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+    }
+  }
 }

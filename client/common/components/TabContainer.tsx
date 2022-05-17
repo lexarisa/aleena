@@ -10,22 +10,6 @@ type TabContainerProps = {
   children: React.ReactNode;
 };
 
-type ActiveLinkProps = {
-  children: React.ReactNode;
-  href: string; // 👈️ type children
-};
-
-const ActiveLink = ({ children, href }: ActiveLinkProps) => {
-  const router = useRouter();
-  return (
-    <Link href={href}>
-      <a className={`styles.${router.pathname === href ? 'active' : 'links'}`}>
-        {children}
-      </a>
-    </Link>
-  );
-};
-
 const TabContainer = ({ children }: TabContainerProps) => {
   const router = useRouter();
   const milestone = useAppSelector((state) => state.milestone.currentMilestone);
@@ -67,9 +51,6 @@ const TabContainer = ({ children }: TabContainerProps) => {
           >
             <a className={styles.active}>Documentation</a>
           </Link>
-          <h1 className={styles.active}>
-            {milestone ? milestone.title : null}
-          </h1>
         </div>
         <div className={styles.users}>
           <div className={styles.avatar}>
@@ -88,6 +69,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
           </div>
         </div>
       </div>
+
       <div className={styles.tabContent}>{children}</div>
     </div>
   );

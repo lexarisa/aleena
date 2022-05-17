@@ -11,8 +11,8 @@
 }
 
 .main {
-  height: 50rem;
-  max-width: 50rem;
+  height: 45rem;
+  max-width: 45rem;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -20,7 +20,7 @@
   justify-content: flex-start;
   align-items: center;
   z-index: 2;
-  background-color: var(--color-black2);
+  background-color: var(--color-black);
   color: var(--color-white);
 }
 

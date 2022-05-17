@@ -8,34 +8,32 @@ import RoundButton from './small/RoundButton';
 import { createProject } from '../../pages/api/projectApi';
 import IProject from '../types/IProject';
 import { useRouter } from 'next/router';
-import { useAppSelector } from '../store/hooks/redux-hooks';
+import Cryptr from 'cryptr';
+import { useDispatch, useSelector } from 'react-redux';
 import { BsTrash, BsPlus } from 'react-icons/bs';
 
-
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
-
-  const user = useAppSelector(state => state.user.id)
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<FormValues>({ defaultValues: { status: 'To Do' } });
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'Milestones',
   });
 
   const onSubmit = async (data: any) => {
-
-    console.log('user here', user)
-    console.log('user here', data)
-
     const newProjectData = { ...data, user_id: token };
-    await createProject(newProjectData).catch((err) => console.log(err));
-    setShowForm(false);
+
+    try {
+      setShowForm(false);
+    } catch (error) {
+      console.log('error on submitting', error);
+    }
   };
 
   const handleShowModal = () => {

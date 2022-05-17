@@ -2,25 +2,26 @@ import React, { useEffect } from 'react';
 import TabContainer from '../common/components/TabContainer';
 import DashboardLayout from '../common/components/DashboardLayout';
 import MainDashboard from '../common/components/MainDashBoard';
-import MilestoneAdd  from './../common/components/small/MilestoneAdd'
+import MilestoneAdd from './../common/components/small/MilestoneAdd';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Crypt from 'cryptr';
-import Feed from '../common/components/Feed';
 import { setMilestones } from '../common/store/slices/milestone/milestone.slice';
 import { store } from '../common/store/index.store';
-import { useAppDispatch, useAppSelector } from '../common/store/hooks/redux-hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../common/store/hooks/redux-hooks';
 import Router from 'next/router';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
-const Dashboard = ({
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-
-    return (
+const Dashboard = ({}: InferGetServerSidePropsType<
+  typeof getServerSideProps
+>) => {
+  return (
     <DashboardLayout>
       <TabContainer>
-        <MainDashboard/>
+        <MainDashboard />
       </TabContainer>
-      <Feed />
     </DashboardLayout>
   );
 };
@@ -28,7 +29,7 @@ const Dashboard = ({
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('what?')
+  console.log('what?');
 
   const id = context.query.id;
 
@@ -36,9 +37,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await res.json();
 
-  console.log('hey ?????', data)
+  console.log('hey ?????', data);
 
-  store.dispatch(setMilestones(data))
+  store.dispatch(setMilestones(data));
 
   return { props: { data: data }, notFound: false };
 };

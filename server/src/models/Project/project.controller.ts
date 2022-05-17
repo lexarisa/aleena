@@ -25,7 +25,7 @@ export class ProjectController {
   async getProject(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-     
+
       const project = await service.getProject(+id);
 
       res.send(project);
@@ -39,7 +39,7 @@ export class ProjectController {
   async createProject(req: Request, res: Response): Promise<void> {
     try {
       const { user_id } = req.body;
-      
+
       const { title, description, status } = req.body;
 
       const newProject = { title, description, status };
@@ -47,8 +47,9 @@ export class ProjectController {
       const project = await service.createProject(+user_id, newProject);
 
       const sse = { event: 'create', data: project };
-      newSseProject.next(sse)
+      newSseProject.next(sse);
 
+      newSseProject.next(project);
       res.send(project);
     } catch (error) {
       console.error(error);
@@ -64,7 +65,7 @@ export class ProjectController {
       const project = await service.deleteProject(+id);
 
       const sse = { event: 'delete', data: project };
-      newSseProject.next(sse)
+      newSseProject.next(sse);
 
       res.send(project);
     } catch (error) {
@@ -76,7 +77,6 @@ export class ProjectController {
 
   async sseProject(req: Request, res: Response): Promise<void> {
     try {
-
       res.set({
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
@@ -85,12 +85,11 @@ export class ProjectController {
         Connection: 'keep-alive',
       });
       res.flushHeaders();
-  
+
       const stream = newSseProject.subscribe((data: any) => {
-       
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
-  
+
       req.on('close', () => {
         console.log('client closed connection');
         stream.unsubscribe();
@@ -100,8 +99,16 @@ export class ProjectController {
 
       res.status(500);
     }
-  };
+  }
 
-  
-
+  async addUserToProject(req: Request, res: Response): Promise<void> {
+    try {
+      const { username, project_id } = req.body;
+      const addUser = await service.addUserToProject(username, project_id);
+      res.send(addUser);
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+    }
+  }
 }
