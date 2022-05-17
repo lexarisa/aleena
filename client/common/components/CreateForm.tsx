@@ -14,8 +14,9 @@ import { BsTrash, BsPlus } from 'react-icons/bs';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
 
-  const user = useAppSelector(state => state.user.id)
   const router = useRouter();
+  const user = useAppSelector(state => state.user.id)
+  
   const {
     register,
     handleSubmit,

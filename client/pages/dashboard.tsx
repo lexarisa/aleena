@@ -14,12 +14,24 @@ import { updateMilestone } from './api/milestoneApi';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
 const Dashboard = ({
-  data,
+  id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const dispatch = useAppDispatch()
 
-    dispatch(updateMilestones(data))
+    useEffect(() => {
+      fetchMilestones();
+    }, [])
+
+    const fetchMilestones = async () => {
+      const res = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/milestone/dash/${id}`);
+
+      const data = await res.json();
+
+      console.log('hey ?????', data)
+
+      dispatch(setMilestones(data))
+    }
 
     return (
     <DashboardLayout>
@@ -38,13 +50,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const id = context.query.id;
 
-  const res = await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);
-
-  const data = await res.json();
-
-  console.log('hey ?????', data)
-
-  store.dispatch(setMilestones(data))
-
-  return { props: { data: data }, notFound: false };
+  return { props: { id: id }, notFound: false };
 };

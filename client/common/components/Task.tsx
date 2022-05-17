@@ -27,8 +27,10 @@ const priority = [
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector(state => state.user.id)
-  const reduxTask = useAppSelector(state => state.task.currentTask)
+
+  const user: any = useAppSelector(state => state.user.id)
+  const reduxTask: any  = useAppSelector(state => state.task.currentTask)
+  const reduxCurrentProject: any  = useAppSelector(state => state.project.currentProject)
 
   console.log('reduxTask', reduxTask)
 
@@ -45,10 +47,10 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
   const handleUpdateTask = async () => {
     const dataToUpdate = {
-      user_id: user,
-      project_id: 1,
+      user_id: Number(user),
+      project_id: Number(reduxCurrentProject.id),
       status: selectedStatus,
-      tags: [selectedTag],
+      priority: selectedTag,
       description: description,
     };
 
