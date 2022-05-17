@@ -1,11 +1,17 @@
+// import hljs from 'highlight.js';
+
+// import 'highlight.js/styles/darcula.css';
 import styles from '../../styles/TextEditor.module.css';
 import 'react-quill/dist/quill.bubble.css';
-// import 'highlight.js/styles/darcula.css';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import RoundButton from './small/RoundButton';
 import { updateArticle, deleteArticle } from '../../pages/api/article.api';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
+// hljs.configure({
+//   languages: ['javascript', 'ruby', 'python', 'rust'],
+// });
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
@@ -29,6 +35,7 @@ const modules = {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false,
   },
+  // syntax: (text) => hljs.highlightAuto(text).value,
 };
 /*
  * Quill editor formats
@@ -52,7 +59,13 @@ const formats = [
 ];
 
 export default function Article({ data }: any) {
-  //TODO change to setStateAction
+  const dispatch = useAppDispatch();
+  const reduxCurrentArticle = useAppSelector(
+    (state) => state.article.currentArticle
+  );
+
+  // console.log('article data', data);
+  // console.log('currentArticle', reduxCurrentArticle);
   const [content, setContent] = useState(data.content);
 
   const handleChange = (newText: any) => {
@@ -61,7 +74,8 @@ export default function Article({ data }: any) {
   const handleSave = () => {
     // setShowArticle(false);
     console.log('DATA ID IN ARTICLE', data.id);
-    updateArticle(data.id, data.title, content);
+    updateArticle(reduxCurrentArticle.id, reduxCurrentArticle.title, content);
+    console.log('content', content);
   };
 
   const handleDelete = () => {

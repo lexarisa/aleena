@@ -6,6 +6,8 @@ import Modal from './Modal';
 import RoundButton from './small/RoundButton';
 import ArticleAdd from './small/ArticleAdd';
 import { deleteDocumentation } from '../../pages/api/documentation.api';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { setCurrentArticle } from '../store/slices/article/article.slice';
 
 interface DocumentCardProp {
   title: String;
@@ -14,18 +16,23 @@ interface DocumentCardProp {
 }
 
 const DocumentCard = ({ title, articles, id }: any) => {
+  const dispatch = useAppDispatch();
+  const reduxArticles = useAppSelector((state) => state.article.articles);
+  const reduxCurrentArticle = useAppSelector(
+    (state) => state.article.currentArticle
+  );
+
   const [showArticle, setShowArticle] = useState(false);
-  const [currentArticle, setCurrentArticle] = useState({});
+  // const [currentArticle, setCurrentArticle] = useState({});
 
   const handleShowArticle = () => {
     setShowArticle(false);
   };
   const handleClick = (article: any) => {
-    setCurrentArticle(article);
+    dispatch(setCurrentArticle(article));
     setShowArticle(true);
   };
   const handleDeleteDocument = (id: number) => {
-    console.log('will delete doc', id);
     deleteDocumentation(id);
   };
 
@@ -41,17 +48,17 @@ const DocumentCard = ({ title, articles, id }: any) => {
         />
       </div>
       <div>
-        {articles.map((article: any, index: number) => {
-          return (
-            <div key={index} onClick={() => handleClick(article)}>
-              <ArticleCard data={article} />
-            </div>
-          );
-        })}
+        {articles &&
+          articles.map((article: any, index: number) => {
+            return (
+              <div key={index} onClick={() => handleClick(article)}>
+                <ArticleCard data={article} />
+              </div>
+            );
+          })}
       </div>
-      <div className={styles.addButton}>
-        <ArticleAdd />
-      </div>
+      <ArticleAdd documentation_id={id} />
+
       <div>
         {showArticle && (
           <Modal>
@@ -61,7 +68,7 @@ const DocumentCard = ({ title, articles, id }: any) => {
               color="#333"
               textColor="#fff"
             />
-            <Article data={currentArticle} />
+            <Article data={reduxCurrentArticle} />
           </Modal>
         )}
       </div>
