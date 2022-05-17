@@ -8,6 +8,7 @@ import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentTask } from '../store/slices/task/task.slices';
+import { IoIosAdd, IoIosClose } from 'react-icons/io';
 
 interface BoardInterface {
   columnTitle: String;
@@ -49,7 +50,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
     } else {
       const newTask: ITask = {
         title: taskTitle, 
-        user_id: user,
+        user_id: Number(user),
         project_id: Number(router.query.project_id),
         priority: 'none',
         milestone_id: Number(router.query.id),
@@ -96,10 +97,17 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         </div>
         <button
           onClick={() => handleShowInput()}
-          // style={showButton ? { display: 'flex' } : { display: 'none' }}
+          style={
+            showInput
+              ? {
+                  borderBottomLeftRadius: '0',
+                  borderBottomRightRadius: '0',
+                }
+              : { borderRadius: '10px' }
+          }
           className={styles.button}
         >
-          + add
+          {showInput ? <IoIosClose /> : <IoIosAdd />}
         </button>
         <div
           className={styles.createTask}
@@ -119,7 +127,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
             Add
           </button>
         </div>
-        {showTask && <Task {...taskProps}/>}
+        {showTask && <Task {...taskProps} />}
       </div>
     </>
   );

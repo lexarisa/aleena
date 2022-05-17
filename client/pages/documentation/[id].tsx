@@ -23,7 +23,7 @@ const DocumentationPage = ({
 export default DocumentationPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('context.query', context.query);
+  console.log('context.query', context.query.id);
   const { id } = context.query;
   console.log('id');
   const res = await fetch(`http://localhost:3001/documentation/${id}`);
