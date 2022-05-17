@@ -60,8 +60,8 @@ const TabContainer = ({ children }: TabContainerProps) => {
             href={{
               pathname: '/documentation',
               query: {
-                // milestone_id: router.query.id,
                 project_id: router.query.id,
+                // milestone_id: router.query.id,
               },
             }}
           >

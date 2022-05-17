@@ -17,8 +17,6 @@ const DocumentationPage = ({
   useEffect(() => {
     fetchMilestoneDocuments();
     fetchProjectDocuments();
-    // dispatch(setDocuments(dataMilestone[0].documents));
-    // dispatch(setProjectDocuments(dataProject[0].documents));
   }, []);
   const fetchMilestoneDocuments = async () => {
     const resMilestone = await fetch(
@@ -58,6 +56,7 @@ export default DocumentationPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // const { id } = context.query;
 
+  // from what i understand i do not need this since i'm fetching from store
   return {
     props: { id: context.query },
     notFound: false,
