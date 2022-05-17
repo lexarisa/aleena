@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
-  images: { domains: ['github.com'] },
+  images: {
+    domains: [
+      'localhost',
+      'avatars.githubusercontent.com',
+      'githubusercontent.com',
+      'github.com',
+    ],
+  },
   env: {
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-    BASEURL:  process.env.BASEURL
-  }
+    BASEURL: process.env.BASEURL,
+  },
 };
-
-module.exports = nextConfig;

@@ -6,6 +6,7 @@ import {
   createProjectQuery,
   deleteProjectQuery,
   findUserProjectsQuery,
+  addUserToProjectQuery,
 } from '../models/Project/project.queries';
 
 import {
@@ -14,6 +15,7 @@ import {
   getAllBookmarksQuery,
   createBookmarkQuery,
   deleteBookmarkQuery,
+  findAllUsersInProjectQuery,
 } from '../models/User/user.queries';
 
 import { findDashboardQuery } from '../models/Dashboard/dashboard.queries';
@@ -48,6 +50,7 @@ import {
   deleteDocumentationQuery,
   getAllDocsInMilestoneQuery,
   getDocumentationQuery,
+  getAllDocumentsInProjectQuery,
 } from '../models/Documentation/documentation.queries';
 
 import {
@@ -71,6 +74,9 @@ export class DataService {
 
   createUser(user: INewUser) {
     return createUserQuery(user);
+  }
+  findAllUsersInProject(project_id: number) {
+    return findAllUsersInProjectQuery(project_id);
   }
 
   getProject(id: number) {
@@ -204,5 +210,12 @@ export class DataService {
   getAllArticlesInDocument(document_id: number) {
     return getAllArticlesInDocumentQuery(document_id);
   }
+  addUserToProject(username: string, project_id: number) {
+    return addUserToProjectQuery(username, project_id);
+  }
+
   //get all articles in milestone
+  getAllDocumentsInProject(project_id: number) {
+    return getAllDocumentsInProjectQuery(project_id);
+  }
 }

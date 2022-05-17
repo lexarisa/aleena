@@ -47,7 +47,6 @@ const MainDashboard = () => {
 
       source.close();
     });
-
   };
 
   return (

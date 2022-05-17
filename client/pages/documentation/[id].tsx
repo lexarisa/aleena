@@ -1,20 +1,53 @@
-import React from 'react';
-// import Board from '../../common/components/Board';
+import React, { useEffect } from 'react';
 import { MainDocumentation } from '../../common/components/MainDocumentation';
 import DashboardLayout from '../../common/components/DashboardLayout';
 import TabContainer from '../../common/components/TabContainer';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useAppDispatch } from '../../common/store/hooks/redux-hooks';
+import {
+  setDocuments,
+  setProjectDocuments,
+} from '../../common/store/slices/documentation/documentation.slice';
 
 const DocumentationPage = ({
-  data,
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log('data as props', data);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    fetchMilestoneDocuments();
+    fetchProjectDocuments();
+    // dispatch(setDocuments(dataMilestone[0].documents));
+    // dispatch(setProjectDocuments(dataProject[0].documents));
+  }, []);
+  const fetchMilestoneDocuments = async () => {
+    const resMilestone = await fetch(
+      `http://localhost:3001/documentation/${id}`
+    );
+    const dataMilestone = await resMilestone.json();
+    dispatch(setDocuments(dataMilestone[0].documents));
+  };
+  const fetchProjectDocuments = async () => {
+    const resProject = await fetch(`http://localhost:3001/documentation/${id}`);
+    const initialRes = await resProject.json();
+    const milestones = initialRes.milestones;
+    const filteredMilestones = milestones.filter((m: any) => {
+      return m.documents.length !== 0;
+    });
+
+    const dataProject = filteredMilestones
+      .map((d: any) => {
+        return d.documents;
+      })
+      .flat();
+
+    dispatch(setProjectDocuments(dataProject));
+  };
 
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDocumentation data={data} id={id} />
+        <MainDocumentation />
       </TabContainer>
     </DashboardLayout>
   );
@@ -23,12 +56,10 @@ const DocumentationPage = ({
 export default DocumentationPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('context.query', context.query.id);
-  const { id } = context.query;
-  console.log('id');
-  const res = await fetch(`http://localhost:3001/documentation/${id}`);
+  // const { id } = context.query;
 
-  const data = await res.json();
-
-  return { props: { data, id: context.query }, notFound: false };
+  return {
+    props: { id: context.query },
+    notFound: false,
+  };
 };

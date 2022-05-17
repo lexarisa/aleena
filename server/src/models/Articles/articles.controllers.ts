@@ -37,10 +37,11 @@ export class ArticleController {
     try {
       const { id, title, content } = req.body;
       const article = await service.updateArticle(id, title, content);
-      //!TODO get documentation_id
-      // const doc = await service.getDocumentation(documentation_id);
-      //send that doc as sse instead of article
-      const sse = { event: 'update', data: article };
+      //@ts-ignore
+      const { documentation_id } = article;
+
+      const doc = await service.getDocumentation(documentation_id);
+      const sse = { event: 'update', data: doc };
       newArticleSSE.next(sse);
       res.send(article);
     } catch (error) {
@@ -51,9 +52,13 @@ export class ArticleController {
   async deleteArticle(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.body;
-      console.log('deleting in controllers', id);
+
       const article = await service.deleteArticle(+id);
-      const sse = { event: 'delete', data: article };
+      //@ts-ignore
+      const { documentation_id } = article;
+
+      const doc = await service.getDocumentation(documentation_id);
+      const sse = { event: 'delete', data: doc };
       newArticleSSE.next(sse);
       res.send(article);
     } catch (error) {
@@ -65,6 +70,7 @@ export class ArticleController {
   async getAllArticlesInDocument(req: Request, res: Response): Promise<void> {
     try {
       const { documentation_id } = req.params;
+
       const allArticles = await service.getAllArticlesInDocument(
         +documentation_id
       );
@@ -75,8 +81,8 @@ export class ArticleController {
       res.status(500);
     }
   }
+
   async articleSSE(req: Request, res: Response): Promise<void> {
-    console.log('hit article sse');
     // GET
     try {
       const headers = {

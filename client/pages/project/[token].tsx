@@ -8,7 +8,10 @@ import CreateForm from '../../common/components/CreateForm';
 import Modal from '../../common/components/Modal';
 import styles from '../../styles/projectPage.module.css';
 
-import { useAppDispatch, useAppSelector } from '../../common/store/hooks/redux-hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../common/store/hooks/redux-hooks';
 import { setUser } from '../../common/store/slices/user/user.slice';
 import { updateProjects, setProjects, deleteProject, setCurrentProject } from '../../common/store/slices/projects/project.slice';
 import { store } from '../../common/store/index.store';
@@ -17,7 +20,6 @@ const project = ({
   data,
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  
   // const user = useAppSelector(state => state.user.id);
   const reduxAllProjects = useAppSelector(state => state.project.allProjects)
 
@@ -56,29 +58,27 @@ const project = ({
     const sseProject = new EventSource('http://localhost:3001/project/sse');
 
     sseProject.addEventListener('message', (project) => {
-
       const event = JSON.parse(project.data).event;
-        const newProject = JSON.parse(project.data).data;
-  
-        if (event === 'create') {
-          console.log('thais thais', newProject)
-          dispatch(updateProjects(newProject));
-        }
-  
-        if (event === 'delete') {
-          dispatch(deleteProject(newProject));
-        }
+      const newProject = JSON.parse(project.data).data;
+
+      if (event === 'create') {
+        dispatch(updateProjects(newProject));
+      }
+
+      if (event === 'delete') {
+        dispatch(deleteProject(newProject));
+      }
 
       sseProject.close();
     });
-  }
+  };
 
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
 
   const handleProjectSelect = (pj: any) => {
-    dispatch(setCurrentProject(pj))
+    dispatch(setCurrentProject(pj));
   };
 
   return (
@@ -88,10 +88,8 @@ const project = ({
         <h1>Welcome to Alena, {reduxAllProjects.username}</h1>
         <div className={styles.selectCard} onClick={handleShowForm}>
           <span className={styles.addButton}>+</span>
-
           <p>Create a new project</p>
-        </div>
-        <div className={styles.projectSection}>
+          <div className={styles.projectSection}>
           {reduxAllProjects &&
             reduxAllProjects.map((project: any) => (
               <div key={String(project.id)}>
@@ -107,21 +105,21 @@ const project = ({
                     <p>{project.status}</p>
                   </div>
                 </Link>
-              </div>
+                </div>
             ))}
         </div>
       </div>
+      <div>
     </div>
-    <div>
-      {showForm && (
-        <Modal>
-          <CreateForm setShowForm={setShowForm} token={token} />
-        </Modal>
-      )}
-    </div>
-  </>
-  );
-};
+    {showForm && (
+          <Modal>
+            <CreateForm setShowForm={setShowForm} token={token} />
+          </Modal>
+    )}</div>
+    </div> 
+    </>
+      )
+}
 
 export default project;
 

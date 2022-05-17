@@ -16,7 +16,6 @@ const MilestoneAdd = () => {
     };
 
     createMilestone(newMilestone);
-
     setMilestoneTitle('');
   };
 
