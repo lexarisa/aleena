@@ -6,9 +6,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 
 
-
-// let persistor = persistStore(store)
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>

@@ -12,7 +12,9 @@ export const ProjectSlice = createSlice({
     reducers: {
 
         setProjects: (state, action: PayloadAction<any>) => {
+            console.log('wait', action.payload)
             state.allProjects = action.payload;
+            console.log('wait', state.allProjects)
         },
 
         updateProjects: (state, action: PayloadAction<any>) => {

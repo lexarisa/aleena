@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
-import { Subject } from 'rxjs';
 
 const service: DataService = new DataService();
-const newSseProject = new Subject();
+
 
 export class UserController {
   constructor() {}

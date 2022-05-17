@@ -10,24 +10,25 @@ import styles from '../../styles/projectPage.module.css';
 
 import { useAppDispatch, useAppSelector } from '../../common/store/hooks/redux-hooks';
 import { setUser } from '../../common/store/slices/user/user.slice';
-import { createProject, setProjects } from '../../common/store/slices/projects/project.slice';
+import { updateProjects, setProjects, deleteProject } from '../../common/store/slices/projects/project.slice';
 import { store } from '../../common/store/index.store';
 
 const project = ({
   data,
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  
+  // const user = useAppSelector(state => state.user.id);
+  // const reduxAllProjects = useAppSelector(state => state.project.allProjects)
 
   const [showForm, setShowForm] = useState(false);
   
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const user = useAppSelector(state => state.user.id);
-  const allProjects = useAppSelector(state => state.project.allProjects)
 
-  console.log(allProjects)
+  // console.log(reduxAllProjects)
   useEffect(() => {
-    streamProject();
+    // streamProject();
   })
 
   const streamProject = () => {
@@ -35,11 +36,16 @@ const project = ({
 
     sseProject.addEventListener('message', (project) => {
 
-      const data = JSON.parse(project.data)
-
-      dispatch(createProject(data))
-
-      console.log('chegou aqui tbm', allProjects)
+      const event = JSON.parse(project.data).event;
+        const newProject = JSON.parse(project.data).data;
+  
+        if (event === 'create') {
+          dispatch(updateProjects(newProject));
+        }
+  
+        if (event === 'delete') {
+          dispatch(deleteProject(newProject));
+        }
 
       sseProject.close();
     });
@@ -47,49 +53,47 @@ const project = ({
 
   const handleShowForm = () => {
     setShowForm(!showForm);
-    dispatch(setUser(token));
   };
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.cardWrapper}>
-          <div>
-            <h1>Welcome to Alena, {data.username}</h1>
-          </div>
-          <div className={styles.selectCard} onClick={handleShowForm}>
-            <div className={styles.addButton}>+</div>
-            <p>Create a new project</p>
-          </div>
-          <div>
-            {allProjects &&
-              allProjects.map((el: any) => (
-                <div key={String(el.project.id)}>
-                  <Link 
-                    href={{
-                      pathname: '/dashboard',
-                      query: { id: el.project.id },
-                    }}
-                  >
-                    <div className={styles.selectCard}>
-                      <h2>{el.project.title}</h2>
-                      <p>{el.project.description}</p>
-                      <p>{el.project.status}</p>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-          </div>
+    <div className={styles.container}>
+      <div className={styles.cardWrapper}>
+        <h1>Welcome to Alena, {data.username}</h1>
+        <div className={styles.selectCard} onClick={handleShowForm}>
+          <span className={styles.addButton}>+</span>
+
+          <p>Create a new project</p>
+        </div>
+        <div className={styles.projectSection}>
+          {data &&
+            data.map((el: any) => (
+              <div key={String(el.project.id)}>
+                <Link
+                  href={{
+                    pathname: '/dashboard',
+                    query: { id: el.project.id },
+                  }}
+                >
+                  <div className={styles.selectCard}>
+                    <h2>{el.project.title}</h2>
+                    <p>{el.project.description}</p>
+                    <p>{el.project.status}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
         </div>
       </div>
-      <div>
-        {showForm && (
-          <Modal>
-            <CreateForm setShowForm={setShowForm} token={token} />
-          </Modal>
-        )}
-      </div>
-    </>
+    </div>
+    <div>
+      {showForm && (
+        <Modal>
+          <CreateForm setShowForm={setShowForm} token={token} />
+        </Modal>
+      )}
+    </div>
+  </>
   );
 };
 
@@ -100,14 +104,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const token = await cryptr.decrypt(`${context.query.token}`);
 
-  const res = await fetch(`${process.env.BASEURL}/UserProjects/${token}`);
+  const res = await fetch(`${process.env.BASEURL}/UserProjects/${token}`)
 
   const data = await res.json();
 
+  const projects = data.projects;
+  
+  console.log('why user?', projects)
 
-  store.dispatch(setProjects(data.projects));
+  store.dispatch(setProjects(projects));
 
   store.dispatch(setUser(token));
 
-  return { props: { data: data, token }, notFound: false };
+  return { props: { data: projects, token }, notFound: false };
 };

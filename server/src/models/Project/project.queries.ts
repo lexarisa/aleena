@@ -17,7 +17,7 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
 
   if (!projectUser) throw new Error();
 
-  return projectUser;
+  return project;
 };
 
 export const findUserProjectsQuery = async (id: number) => {

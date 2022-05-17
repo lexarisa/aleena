@@ -32,7 +32,7 @@ const MainDashboard = () => {
       const newMilestone = JSON.parse(message.data).data;
 
       if (event === 'create') {
-        console.log(newMilestone)
+        console.log('urzeMilestone', newMilestone)
         dispatch(updateMilestone(newMilestone));
       }
 

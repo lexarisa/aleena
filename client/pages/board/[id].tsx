@@ -10,8 +10,6 @@ import { store } from '../../common/store/index.store';
 const BoardPage = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  
-  const tasky = useAppSelector(state => state.task.allTasks)
 
   return (
     <DashboardLayout>

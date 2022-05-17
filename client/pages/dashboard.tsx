@@ -8,6 +8,8 @@ import Crypt from 'cryptr';
 import Feed from '../common/components/Feed';
 import { setMilestones } from '../common/store/slices/milestone/milestone.slice';
 import { store } from '../common/store/index.store';
+import { useAppDispatch, useAppSelector } from '../common/store/hooks/redux-hooks';
+import Router from 'next/router';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
 const Dashboard = ({
@@ -27,6 +29,7 @@ export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log('what?')
+
   const id = context.query.id;
 
   const res = await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);

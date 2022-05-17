@@ -14,8 +14,6 @@ export class ProjectController {
 
       const projects = await service.getUserProjects(+user_id);
 
-      newSseProject.next(projects)
-
       res.send(projects);
     } catch (error) {
       console.error(error);
@@ -48,7 +46,8 @@ export class ProjectController {
 
       const project = await service.createProject(+user_id, newProject);
 
-      newSseProject.next(project)
+      const sse = { event: 'create', data: project };
+      newSseProject.next(sse)
 
       res.send(project);
     } catch (error) {
@@ -64,7 +63,8 @@ export class ProjectController {
 
       const project = await service.deleteProject(+id);
 
-      newSseProject.next(project)
+      const sse = { event: 'delete', data: project };
+      newSseProject.next(sse)
 
       res.send(project);
     } catch (error) {

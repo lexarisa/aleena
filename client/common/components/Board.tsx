@@ -19,7 +19,9 @@ const Board = () => {
 
   console.log('q', reduxAllTasks)
 
+  const reduxAllProjects = useAppSelector(state => state.project.allProjects)
 
+  console.log('LEVELS DOWN ', reduxAllProjects)
   useEffect(() => {
     // sse
     streamTask();
