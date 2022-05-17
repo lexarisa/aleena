@@ -89,3 +89,16 @@ li {
   --unit10: calc(var(--unit) * 10);
   --unit11: calc(var(--unit) * 11);
 }
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+input[type='date']:invalid::-webkit-datetime-edit {
+  color: #999;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}

@@ -18,7 +18,7 @@ export const TaskSlice = createSlice({
 
         updateTasks: (state, action: PayloadAction<any>) => {
             const oldTasks = state.allTasks.filter((task: any) => {
-                task.id !== action.payload.id
+                return task.id !== action.payload.id
             });
             state.allTasks = [...oldTasks, action.payload];
         },
@@ -43,6 +43,6 @@ export const TaskSlice = createSlice({
 
 export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask  } = TaskSlice.actions;
 
-export const selectTask = (state: RootState) => state.task;
+export const selectAllTasks = (state: RootState) => state.task.allTasks;
 
 export default TaskSlice.reducer;

@@ -7,18 +7,13 @@ import IDocumentation from '../types/IDocumentation';
 import {
   createDocument,
   deleteDocument,
-  updateDocument,
-  setDocuments,
-  setProjectDocuments,
   updateArticleDocument,
 } from '../store/slices/documentation/documentation.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
-export const MainDocumentation = () => {
+export const Resources = () => {
   const dispatch = useAppDispatch();
-  const reduxDocumentation = useAppSelector(
-    (state) => state.documentation.documents
-  );
+
   const reduxProjectDocumentation = useAppSelector(
     (state) => state.documentation.projectDocuments
   );
@@ -38,6 +33,7 @@ export const MainDocumentation = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('received sse');
         const docWithArticles = newDoc.articles
           ? newDoc
           : { ...newDoc, articles: [] };
@@ -67,25 +63,26 @@ export const MainDocumentation = () => {
       }
     });
   };
-
+  const filteredMilestones = reduxProjectDocumentation.filter((m) => {
+    return m.documents.length !== 0;
+  });
+  const allDocs = filteredMilestones.map((d) => {
+    return d.documents;
+  });
+  const allFlatDocs = allDocs.flat();
   return (
     <div className={styles.container}>
-      {console.log('reduxDocs', reduxDocumentation)}
-      {reduxDocumentation.map(
-        (
-          item: any //! need to know if i'm querying for project or milestone
-        ) => (
+      {allFlatDocs.map((item: any) => (
+        <div key={item.id}>
           <div key={item.id}>
-            <div key={item.id}>
-              <DocumentCard
-                title={item.title}
-                articles={item.articles}
-                id={item.id}
-              />
-            </div>
+            <DocumentCard
+              title={item.title}
+              articles={item.articles}
+              id={item.id}
+            />
           </div>
-        )
-      )}
+        </div>
+      ))}
       <DocumentationAdd />
     </div>
   );

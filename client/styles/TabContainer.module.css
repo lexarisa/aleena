@@ -12,6 +12,14 @@
   display: flex;
   gap: var(--unit11);
   padding: var(--unit7) 0;
+  flex-direction: row;
+}
+
+.tabHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .active {
@@ -23,3 +31,36 @@
 .tabContent {
   overflow-x: scroll;
 }
+
+.avatar {
+  display: flex;
+  border-radius: 25px;
+  overflow: hidden;
+  height: 50px;
+  width: 50px;
+}
+
+.users {
+  display: flex;
+  flex-direction: row;
+  gap: var(--unit4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

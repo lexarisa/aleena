@@ -81,6 +81,7 @@ export class ArticleController {
       res.status(500);
     }
   }
+
   async articleSSE(req: Request, res: Response): Promise<void> {
     // GET
     try {

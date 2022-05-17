@@ -59,3 +59,26 @@ export const updateArticle = async (
     throw new Error(message);
   }
 };
+export const bookmarkArticle = async (article_id: any, user_id: number) => {
+  console.log(
+    'article',
+    article_id,
+    'user',
+    user_id,
+    'data in bookmarkArticleAPI'
+  );
+  const response = await fetch(`http://localhost:3001/user/bookmarks`, {
+    // const response = await fetch(`${process.env.BASEURL}/article`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ article_id: article_id, user_id: user_id }),
+  });
+  console.log('response in create bookjmark', response);
+
+  if (!response.ok) {
+    const message = `An error has occurred: 404`;
+    throw new Error(message);
+  }
+};

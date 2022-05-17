@@ -4,6 +4,10 @@ const router: Router = Router();
 const controller = new DocumentationController();
 
 router.get('/documentation/sse', controller.documentationSSE);
+router.get(
+  '/documentation/project/:projectId',
+  controller.getAllDocumentsInProject
+);
 router.get('/documentation/:milestoneId', controller.getAllDocsInMilestone);
 router.post('/documentation', controller.createDocumentation);
 router.patch('/documentation', controller.updateDocumentation);

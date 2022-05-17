@@ -8,9 +8,13 @@ import RoundButton from './small/RoundButton';
 import { createProject } from '../../pages/api/projectApi';
 import IProject from '../types/IProject';
 import { useRouter } from 'next/router';
-import Cryptr from 'cryptr';
+import { useAppSelector } from '../store/hooks/redux-hooks';
+import { BsTrash, BsPlus } from 'react-icons/bs';
+
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
+
+  const user = useAppSelector(state => state.user.id)
   const router = useRouter();
   const {
     register,
@@ -18,12 +22,17 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
     control,
     formState: { errors },
   } = useForm<FormValues>({ defaultValues: { status: 'To Do' } });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'Milestones',
   });
 
   const onSubmit = async (data: any) => {
+
+    console.log('user here', user)
+    console.log('user here', data)
+
     const newProjectData = { ...data, user_id: token };
     await createProject(newProjectData).catch((err) => console.log(err));
     setShowForm(false);
@@ -34,18 +43,16 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   };
   return (
     <>
-      <RoundButton
-        button="x"
-        onClick={handleShowModal}
-        color="#e0e1dd"
-        textColor="#191919"
-      />
+      <h1>Create Your Project</h1>
 
       <div className={styles.container}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="title">Project Name:</label>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <label htmlFor="title" className={styles.label}>
+            Project Name:
+          </label>
           <input
-            className={styles.input}
+            placeholder="Add a project name..."
+            className={styles.textarea}
             {...register('title', {
               required: 'required',
               minLength: {
@@ -54,38 +61,59 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
               },
             })}
           />
-          {errors.title && <p>This is required</p>}
+          {errors.title && <p className={styles.error}>This is required</p>}
           <ul>
-            <label htmlFor="milestone">Add Milestone:</label>
+            <label htmlFor="milestone" className={styles.label}>
+              Add Milestone:
+            </label>
+            {fields.length === 0 && (
+              <input
+                placeholder="Add a new milestone..."
+                onClick={() => {
+                  append({ title: '' });
+                }}
+                className={styles.textarea}
+              />
+            )}
             {fields.map((field, index) => {
               return (
                 <li className={styles.section} key={field.id}>
                   <input
-                    className={styles.input}
-                    placeholder="Milestone"
+                    className={styles.textarea}
+                    placeholder="Add a milestone..."
                     {...register(`Milestones.${index}.title` as const)}
                   />
-                  <button onClick={() => remove(index)}>Remove</button>
+                  <button
+                    onClick={() => {
+                      append({ title: '' });
+                    }}
+                    className={styles.remove}
+                  >
+                    <BsPlus />
+                  </button>
+                  <button
+                    onClick={() => remove(index)}
+                    className={styles.remove}
+                  >
+                    <BsTrash />
+                  </button>
                 </li>
               );
             })}
           </ul>
-          <CustomButton
-            button="Add More Milestones"
-            color="#000"
-            textColor="#fff"
-            onClick={() => {
-              append({ title: '' });
-            }}
-          />
+          <div className={styles.addButton}>
+            <CustomButton
+              button="Add a New Project"
+              color="#415a77"
+              textColor="#fff"
+              onClick={handleSubmit(onSubmit)}
+            />
+            <p className={styles.cancel} onClick={handleShowModal}>
+              Cancel
+            </p>
+          </div>
 
           <label htmlFor="status"></label>
-          <CustomButton
-            button="Add New Project"
-            color="#415a77"
-            textColor="#fff"
-            onClick={handleSubmit(onSubmit)}
-          />
         </form>
       </div>
     </>

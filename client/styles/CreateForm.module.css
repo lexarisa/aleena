@@ -5,3 +5,91 @@
   color: var(--color-black);
   padding: var(--unit3) var(--unit3);
 }
+
+.textarea {
+  padding: var(--unit3) var(--unit4);
+  margin: var(--unit3);
+  border: 0;
+  outline: none;
+  font-family: inherit;
+  background-color: transparent;
+  color: var(--color-white);
+  width: 100%;
+}
+
+.textarea:hover {
+  background-color: var(--color-lightBg);
+  transform: scale(1.01);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.textarea:focus {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  background-color: var(--color-lightBg);
+  border-radius: 5px;
+}
+
+.label {
+  font-size: var(--size-s);
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  padding: var(--unit5);
+}
+
+.error {
+  color: var(--color-error);
+  font-size: var(--size-s);
+}
+
+.section {
+  display: flex;
+  align-items: center;
+}
+
+.remove {
+  display: flex;
+  align-items: center;
+  outline: 0;
+  border: none;
+  background-color: var(--color-lightBg);
+  color: var(--color-white);
+  font-size: var(--size-m);
+  padding: var(--unit2);
+  margin-right: var(--unit);
+  border-radius: 10px;
+}
+
+.remove:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.addButton {
+  margin-top: var(--unit5);
+}
+
+.cancel {
+  font-size: var(--size-xs);
+  text-align: center;
+  color: var(--color-darkGrey);
+}
+
+.cancel:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+

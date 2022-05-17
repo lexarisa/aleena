@@ -5,12 +5,12 @@ import {
   findProjectQuery,
   createProjectQuery,
   deleteProjectQuery,
+  findUserProjectsQuery,
 } from '../models/Project/project.queries';
 
 import {
   findUserQuery,
   createUserQuery,
-  findUserProjectsQuery,
   getAllBookmarksQuery,
   createBookmarkQuery,
   deleteBookmarkQuery,
@@ -48,6 +48,7 @@ import {
   deleteDocumentationQuery,
   getAllDocsInMilestoneQuery,
   getDocumentationQuery,
+  getAllDocumentsInProjectQuery,
 } from '../models/Documentation/documentation.queries';
 
 import {
@@ -204,5 +205,7 @@ export class DataService {
   getAllArticlesInDocument(document_id: number) {
     return getAllArticlesInDocumentQuery(document_id);
   }
-  //get all articles in milestone
+  getAllDocumentsInProject(project_id: number) {
+    return getAllDocumentsInProjectQuery(project_id);
+  }
 }

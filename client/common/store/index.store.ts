@@ -13,7 +13,6 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { createWrapper } from 'next-redux-wrapper';
 import { Action, Dispatch } from 'redux';
-
 import prReducer from './slices/pr/pr.slice';
 import tagReducer from './slices/tag/tag.slice';
 import userReducer from './slices/user/user.slice';

@@ -27,6 +27,37 @@ export const getAllDocsInMilestoneQuery = async (milestoneId: number) => {
   if (!allDocs) return null;
   return allDocs;
 };
+export const getAllDocumentsInProjectQuery = async (project_id: number) => {
+  const allArticles = await prisma.project.findUnique({
+    where: {
+      id: project_id,
+    },
+    select: {
+      milestones: {
+        select: {
+          documents: {
+            select: {
+              milestone_id: true,
+              title: true,
+              id: true,
+              articles: {
+                select: {
+                  title: true,
+                  id: true,
+                  content: true,
+                  user_id: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!allArticles) return null;
+  return allArticles;
+};
+
 export const getDocumentationQuery = async (id: number) => {
   const newDoc = await prisma.documentation.findUnique({
     where: {

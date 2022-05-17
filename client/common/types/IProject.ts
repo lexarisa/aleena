@@ -3,7 +3,7 @@ import IMilestone from './IMilestone';
 
 export default interface IProject {
   id?: Number;
-  created_at: Date;
+  created_at?: Date;
   updated_at?: Date;
   title: String;
   description?: String;

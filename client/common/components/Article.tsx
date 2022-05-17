@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import RoundButton from './small/RoundButton';
 import { updateArticle, deleteArticle } from '../../pages/api/article.api';
+import { bookmarkArticle } from '../../pages/api/article.api';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
 // hljs.configure({
@@ -63,6 +64,7 @@ export default function Article({ data }: any) {
   const reduxCurrentArticle = useAppSelector(
     (state) => state.article.currentArticle
   );
+  const reduxCurrentUser = useAppSelector((state) => state.user.id);
 
   // console.log('article data', data);
   // console.log('currentArticle', reduxCurrentArticle);
@@ -84,6 +86,9 @@ export default function Article({ data }: any) {
   };
   const handleBookmark = () => {
     console.log('ive been bookmarked but i have no functionality whatsoever');
+    console.log('article id', data.id);
+    console.log('user', reduxCurrentUser);
+    bookmarkArticle(data.id, reduxCurrentUser); // article , user
   };
   return (
     <>

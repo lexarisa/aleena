@@ -5,6 +5,8 @@ export const ArticleSlice = createSlice({
   name: 'article',
 
   initialState: {
+    // allArticles: [] as any,
+    // allArticlesMilestone: [] as any,
     articles: [] as any,
     currentArticle: {} as any,
   },

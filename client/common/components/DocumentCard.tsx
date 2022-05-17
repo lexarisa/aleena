@@ -17,18 +17,18 @@ interface DocumentCardProp {
 
 const DocumentCard = ({ title, articles, id }: any) => {
   const dispatch = useAppDispatch();
-  const reduxArticles = useAppSelector((state) => state.article.articles);
+  // const reduxArticles = useAppSelector((state) => state.article.articles);
   const reduxCurrentArticle = useAppSelector(
     (state) => state.article.currentArticle
   );
 
   const [showArticle, setShowArticle] = useState(false);
-  // const [currentArticle, setCurrentArticle] = useState({});
 
   const handleShowArticle = () => {
     setShowArticle(false);
   };
   const handleClick = (article: any) => {
+    console.log('im clicked wow');
     dispatch(setCurrentArticle(article));
     setShowArticle(true);
   };

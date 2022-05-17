@@ -54,6 +54,20 @@ export class DocumentationController {
       res.status(500);
     }
   }
+  async getAllDocumentsInProject(req: Request, res: Response): Promise<void> {
+    try {
+      const { projectId } = req.params;
+      const project_id = projectId;
+
+      const allDocs = await service.getAllDocumentsInProject(+project_id);
+      res.send(allDocs);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+
   async documentationSSE(req: Request, res: Response): Promise<void> {
     // GET
     try {

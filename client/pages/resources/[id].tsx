@@ -1,45 +1,44 @@
 import React, { useEffect } from 'react';
-import { MainDocumentation } from '../../common/components/MainDocumentation';
+import { Resources } from '../../common/components/Resources';
 import DashboardLayout from '../../common/components/DashboardLayout';
 import TabContainer from '../../common/components/TabContainer';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useAppDispatch } from '../../common/store/hooks/redux-hooks';
 import {
-  setDocuments,
+  // setDocuments,
   setProjectDocuments,
 } from '../../common/store/slices/documentation/documentation.slice';
 
-const DocumentationPage = ({
-  dataMilestone,
-}: // dataProject,
-// data,
-// id,
-InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ResourcesPage = ({
+  dataProject,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setDocuments(dataMilestone[0].documents));
-    // dispatch(setProjectDocuments(dataProject[0].documents));
+    console.log(dataProject.milestones);
+    dispatch(setProjectDocuments(dataProject.milestones));
   });
 
   return (
     <DashboardLayout>
       <TabContainer>
-        <MainDocumentation />
+        <Resources />
       </TabContainer>
     </DashboardLayout>
   );
 };
 
-export default DocumentationPage;
+export default ResourcesPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
-  const resMilestone = await fetch(`http://localhost:3001/documentation/${id}`); // for milestone
-  const dataMilestone = await resMilestone.json();
+  const resProject = await fetch(
+    `http://localhost:3001/documentation/project/1`
+  ); // for project
+  const dataProject = await resProject.json();
 
   return {
-    props: { dataMilestone, id: context.query },
+    props: { dataProject, id: context.query },
     notFound: false,
   };
 };
