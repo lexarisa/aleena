@@ -7,18 +7,17 @@ import IDocumentation from '../types/IDocumentation';
 import {
   createDocument,
   deleteDocument,
-  updateDocument,
-  setDocuments,
-  setProjectDocuments,
   updateArticleDocument,
 } from '../store/slices/documentation/documentation.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
 export const MainDocumentation = () => {
   const dispatch = useAppDispatch();
-  const reduxDocumentation = useAppSelector(
-    (state) => state.documentation.documents
-  );
+
+  //TODO add check to see in what context we are working under
+  // const reduxDocumentation = useAppSelector(
+  //   (state) => state.documentation.documents
+  // );
   const reduxProjectDocumentation = useAppSelector(
     (state) => state.documentation.projectDocuments
   );
@@ -70,8 +69,8 @@ export const MainDocumentation = () => {
 
   return (
     <div className={styles.container}>
-      {console.log('reduxDocs', reduxDocumentation)}
-      {reduxDocumentation.map(
+      {console.log('reduxDocs', reduxProjectDocumentation)}
+      {reduxProjectDocumentation.map(
         (
           item: any //! need to know if i'm querying for project or milestone
         ) => (

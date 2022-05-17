@@ -17,6 +17,7 @@ export const Resources = () => {
   const reduxProjectDocumentation = useAppSelector(
     (state) => state.documentation.projectDocuments
   );
+  console.log('from the store', reduxProjectDocumentation);
   useEffect(() => {
     documentationEvent();
   }, []);
@@ -53,6 +54,7 @@ export const Resources = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('sse in all docs article');
         dispatch(updateArticleDocument(newDoc));
       }
       if (event === 'delete') {
@@ -63,26 +65,21 @@ export const Resources = () => {
       }
     });
   };
-  const filteredMilestones = reduxProjectDocumentation.filter((m) => {
-    return m.documents.length !== 0;
-  });
-  const allDocs = filteredMilestones.map((d) => {
-    return d.documents;
-  });
-  const allFlatDocs = allDocs.flat();
+
   return (
     <div className={styles.container}>
-      {allFlatDocs.map((item: any) => (
-        <div key={item.id}>
+      {reduxProjectDocumentation &&
+        reduxProjectDocumentation.map((item: any) => (
           <div key={item.id}>
-            <DocumentCard
-              title={item.title}
-              articles={item.articles}
-              id={item.id}
-            />
+            <div key={item.id}>
+              <DocumentCard
+                title={item.title}
+                articles={item.articles}
+                id={item.id}
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
       <DocumentationAdd />
     </div>
   );

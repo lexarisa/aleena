@@ -10,17 +10,39 @@ import {
 } from '../../common/store/slices/documentation/documentation.slice';
 
 const DocumentationPage = ({
-  dataMilestone,
-}: // dataProject,
-// data,
-// id,
-InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  id,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setDocuments(dataMilestone[0].documents));
+    fetchMilestoneDocuments();
+    fetchProjectDocuments();
+    // dispatch(setDocuments(dataMilestone[0].documents));
     // dispatch(setProjectDocuments(dataProject[0].documents));
-  });
+  }, []);
+  const fetchMilestoneDocuments = async () => {
+    const resMilestone = await fetch(
+      `http://localhost:3001/documentation/${id}`
+    );
+    const dataMilestone = await resMilestone.json();
+    dispatch(setDocuments(dataMilestone[0].documents));
+  };
+  const fetchProjectDocuments = async () => {
+    const resProject = await fetch(`http://localhost:3001/documentation/${id}`);
+    const initialRes = await resProject.json();
+    const milestones = initialRes.milestones;
+    const filteredMilestones = milestones.filter((m: any) => {
+      return m.documents.length !== 0;
+    });
+
+    const dataProject = filteredMilestones
+      .map((d: any) => {
+        return d.documents;
+      })
+      .flat();
+
+    dispatch(setProjectDocuments(dataProject));
+  };
 
   return (
     <DashboardLayout>
@@ -34,12 +56,10 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
 export default DocumentationPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
-  const resMilestone = await fetch(`http://localhost:3001/documentation/${id}`); // for milestone
-  const dataMilestone = await resMilestone.json();
+  // const { id } = context.query;
 
   return {
-    props: { dataMilestone, id: context.query },
+    props: { id: context.query },
     notFound: false,
   };
 };

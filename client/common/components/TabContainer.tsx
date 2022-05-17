@@ -56,8 +56,16 @@ const TabContainer = ({ children }: TabContainerProps) => {
           >
             <a className={styles.active}>Board</a>
           </Link>
-          <Link href={{ pathname: '/resources' }}>
-            <a className={styles.active}>Resources</a>
+          <Link
+            href={{
+              pathname: '/documentation',
+              query: {
+                // milestone_id: router.query.id,
+                project_id: router.query.id,
+              },
+            }}
+          >
+            <a className={styles.active}>Documentation</a>
           </Link>
           <h1 className={styles.active}>
             {milestone ? milestone.title : null}

@@ -15,8 +15,8 @@ const ResourcesPage = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(dataProject.milestones);
-    dispatch(setProjectDocuments(dataProject.milestones));
+    // console.log(dataProject);
+    dispatch(setProjectDocuments(dataProject));
   });
 
   return (
@@ -31,12 +31,26 @@ const ResourcesPage = ({
 export default ResourcesPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
+  // const { id } = context.query;
   const resProject = await fetch(
     `http://localhost:3001/documentation/project/1`
   ); // for project
-  const dataProject = await resProject.json();
+  const initialRes = await resProject.json();
+  const milestones = initialRes.milestones;
+  // console.log(Array.isArray(initialRes));
 
+  const filteredMilestones = milestones.filter((m: any) => {
+    return m.documents.length !== 0;
+  });
+
+  const dataProject = filteredMilestones
+    .map((d: any) => {
+      return d.documents;
+    })
+    .flat();
+  // console.log('data', dataProject);
+
+  console.log('context.query all', context);
   return {
     props: { dataProject, id: context.query },
     notFound: false,
