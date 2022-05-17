@@ -3,7 +3,10 @@ import { MainDocumentation } from '../../common/components/MainDocumentation';
 import DashboardLayout from '../../common/components/DashboardLayout';
 import TabContainer from '../../common/components/TabContainer';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useAppDispatch } from '../../common/store/hooks/redux-hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../common/store/hooks/redux-hooks';
 import {
   setDocuments,
   setProjectDocuments,
@@ -11,22 +14,43 @@ import {
 
 const DocumentationPage = ({
   id,
+  pathname,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const currentProject = useAppSelector(
+    (state) => state.project.currentProject
+  );
+  // console.log('currentProject', currentProject.id);
+  console.log('query', id);
+  console.log('pathname in id', pathname);
+
   const dispatch = useAppDispatch();
+  //get project id
+  //@ts-ignore
+  // const project_id = currentProject.id;
+  const project_id = 32;
+
+  // const milestone_id =pathname.includes('milestone'); //! HARDCODED
+  const milestone_id = 1;
 
   useEffect(() => {
     fetchMilestoneDocuments();
     fetchProjectDocuments();
   }, []);
+
   const fetchMilestoneDocuments = async () => {
     const resMilestone = await fetch(
-      `http://localhost:3001/documentation/${id}`
+      `http://localhost:3001/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();
     dispatch(setDocuments(dataMilestone[0].documents));
   };
+
   const fetchProjectDocuments = async () => {
-    const resProject = await fetch(`http://localhost:3001/documentation/${id}`);
+    console.log('before sending', project_id);
+    const resProject = await fetch(
+      `http://localhost:3001/documentation/project/${+project_id}`
+    );
+
     const initialRes = await resProject.json();
     const milestones = initialRes.milestones;
     const filteredMilestones = milestones.filter((m: any) => {
@@ -54,11 +78,10 @@ const DocumentationPage = ({
 export default DocumentationPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const { id } = context.query;
-
+  const { id } = context.query;
   // from what i understand i do not need this since i'm fetching from store
   return {
-    props: { id: context.query },
+    props: { id: context.query, pathname: context.resolvedUrl },
     notFound: false,
   };
 };

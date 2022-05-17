@@ -6,13 +6,13 @@ import { useRouter } from 'next/router';
 
 const DocumentationAdd = () => {
   const [documentationTitle, setDocumentationTitle] = useState('');
-  const router = useRouter();
+  const router = useRouter(); //!
 
   const handleCreateDocumentation = async () => {
     if (documentationTitle === '') return;
     const newDocumentation: INewDocumentation = {
       title: documentationTitle,
-      milestone_id: Number(router.query.id),
+      milestone_id: Number(router.query.id), //!
     };
 
     createDocumentation(newDocumentation);

@@ -41,7 +41,7 @@ const DocumentCard = ({ title, articles, id }: any) => {
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
         <RoundButton
-          button="delete"
+          button="x"
           onClick={() => handleDeleteDocument(id)}
           color="#333"
           textColor="#fff"

@@ -14,10 +14,9 @@ import { BsTrash, BsPlus } from 'react-icons/bs';
 import { useAppSelector } from '../store/hooks/redux-hooks';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
-
   const router = useRouter();
-  const user = useAppSelector(state => state.user.id)
-  
+  const user = useAppSelector((state) => state.user.id);
+
   const {
     register,
     handleSubmit,
@@ -30,9 +29,10 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   });
 
   const onSubmit = async (data: any) => {
-    const newProjectData = { ...data, user_id: token };
-
     try {
+      const newProjectData = { ...data, user_id: token };
+
+      createProject(newProjectData);
       setShowForm(false);
     } catch (error) {
       console.log('error on submitting', error);
