@@ -17,7 +17,7 @@ export const MilestoneSlice = createSlice({
 
         updateMilestone: (state, action: PayloadAction<any>) => {
             const oldMilestones = state.allMilestones.filter((milestone: any) => {
-                milestone.id !== action.payload.id
+                return milestone.id !== action.payload.id
             });
             state.allMilestones = [...oldMilestones, action.payload];
         },

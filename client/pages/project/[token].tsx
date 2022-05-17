@@ -11,6 +11,7 @@ import styles from '../../styles/projectPage.module.css';
 import { useAppDispatch, useAppSelector } from '../../common/store/hooks/redux-hooks';
 import { setUser } from '../../common/store/slices/user/user.slice';
 import { createProject, setProjects } from '../../common/store/slices/projects/project.slice';
+import { store } from '../../common/store/index.store';
 
 const project = ({
   data,
@@ -20,13 +21,11 @@ const project = ({
   const [showForm, setShowForm] = useState(false);
   
   const dispatch = useAppDispatch();
-  
-  dispatch(setProjects(data.projects));
-  dispatch(setUser(token));
-  
+
   const user = useAppSelector(state => state.user.id);
   const allProjects = useAppSelector(state => state.project.allProjects)
 
+  console.log(allProjects)
   useEffect(() => {
     streamProject();
   })
@@ -37,8 +36,6 @@ const project = ({
     sseProject.addEventListener('message', (project) => {
 
       const data = JSON.parse(project.data)
-
-      console.log('chegou aqui', data)
 
       dispatch(createProject(data))
 
@@ -106,7 +103,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.BASEURL}/UserProjects/${token}`);
 
   const data = await res.json();
-  console.log(data)
+
+
+  store.dispatch(setProjects(data.projects));
+
+  store.dispatch(setUser(token));
 
   return { props: { data: data, token }, notFound: false };
 };

@@ -7,18 +7,11 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Crypt from 'cryptr';
 import Feed from '../common/components/Feed';
 import { setMilestones } from '../common/store/slices/milestone/milestone.slice';
-import { useAppDispatch } from '../common/store/hooks/redux-hooks';
+import { store } from '../common/store/index.store';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
 const Dashboard = ({
-  data
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-
-    const dispatch = useAppDispatch()
-
-    useEffect(()=> {
-      dispatch(setMilestones(data))
-    })
 
     return (
     <DashboardLayout>
@@ -33,6 +26,7 @@ const Dashboard = ({
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log('what?')
   const id = context.query.id;
 
   const res = await fetch(`${process.env.BASEURL}/milestone/dash/${id}`);
@@ -40,6 +34,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await res.json();
 
   console.log('hey ?????', data)
+
+  store.dispatch(setMilestones(data))
 
   return { props: { data: data }, notFound: false };
 };

@@ -17,7 +17,7 @@ export const ProjectSlice = createSlice({
 
         updateProjects: (state, action: PayloadAction<any>) => {
             const oldProjects = state.allProjects.filter((project: any) => {
-                project.id !== action.payload.id
+                return project.id !== action.payload.id
             });
             state.allProjects = [...oldProjects, action.payload];
         },
