@@ -5,27 +5,28 @@ import MilestoneAdd from './small/MilestoneAdd'; //issue={data[1].tasks[0]}
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IMilestone } from '../types/IMilestone';
-import { createMilestone, deleteMilestone, setCurrentMilestone, updateMilestone } from '../store/slices/milestone/milestone.slice';
+import { createMilestone, deleteMilestone, setCurrentMilestone, updateMilestones } from '../store/slices/milestone/milestone.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
 const MainDashboard = () => {
-  // const [milestones, setMilestones] = useState();
+
   const router = useRouter();
 
   const dispatch = useAppDispatch();
-  const reduxMilestones = useAppSelector(state => state.milestone.allMilestones)
-  const reduxCurrentMilestones = useAppSelector(state => state.milestone.currentMilestone)
+
+  const reduxMilestones = useAppSelector(state => state.milestone.allMilestones);
+  const reduxCurrentMilestones = useAppSelector(state => state.milestone.currentMilestone);
 
   useEffect(() => {
     milestoneEvent();
   });
 
-  const handleClickHere = (milestone: any) => {
+  const handleSelectMile = (milestone: any) => {
     dispatch(setCurrentMilestone(milestone))
   }
 
   const milestoneEvent = () => {
-    const source = new EventSource('http://localhost:3001/milestone/sse');
+    const source = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/milestone/sse');
 
     source.addEventListener('message', (message) => {
       const event = JSON.parse(message.data).event;
@@ -33,7 +34,7 @@ const MainDashboard = () => {
 
       if (event === 'create') {
         console.log('urzeMilestone', newMilestone)
-        dispatch(updateMilestone(newMilestone));
+        dispatch(updateMilestones(newMilestone));
       }
 
       if (event === 'delete') {
@@ -41,12 +42,11 @@ const MainDashboard = () => {
       }
 
       if (event === 'update') {
-        dispatch(updateMilestone(newMilestone));
+        dispatch(updateMilestones(newMilestone));
       }
 
       source.close();
     });
-
   };
 
   return (
@@ -58,7 +58,7 @@ const MainDashboard = () => {
               pathname: '/board/[milestone_id]',
               query: { milestone_id: item.id, project_id: router.query.id },
             }} >
-            <a onClick={async () => await handleClickHere(item)}  key={item.id}>
+            <a onClick={() => handleSelectMile(item)} key={item.id}>
             {/* <a key={item.id}> */}
               <MileStoneCard title={item.title} status={item.status}  />
             </a>

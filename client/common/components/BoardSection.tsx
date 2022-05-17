@@ -6,9 +6,9 @@ import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
 import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
+import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentTask } from '../store/slices/task/task.slices';
-import { IoIosAdd, IoIosClose } from 'react-icons/io';
 
 interface BoardInterface {
   columnTitle: String;
@@ -18,8 +18,8 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
-
   const dispatch = useAppDispatch();
+
   const user = useAppSelector(state => state.user.id);
   const selectedTask = useAppSelector(state => state.task.currentTask);
 
@@ -49,7 +49,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
       return;
     } else {
       const newTask: ITask = {
-        title: taskTitle, 
+        title: taskTitle,
         user_id: Number(user),
         project_id: Number(router.query.project_id),
         priority: 'none',
@@ -57,6 +57,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         status: columnTitle,
       };
 
+      console.log('hey hooo lets go', newTask)
       await createNewTask(newTask).catch((error) => console.log(error));
       setTaskTitle('');
       setShowInput(false);
@@ -83,7 +84,7 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
 
         <div>
           {tasks.map((task: ITask, index) => {
-            // console.log(task);
+            console.log('and now what>>>>', task);
             return (
               <div
                 key={index}

@@ -8,11 +8,27 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../common/store/hooks/redux-hooks';
-import { store } from '../../common/store/index.store';
+import { formatData } from '../project/[token]';
 
 const BoardPage = ({
-  data,
+  id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    const res = await fetch(`http://localhost:3001/milestone/${id}`);
+
+    const data = await res.json();
+
+    const formatTasks = formatData(data, 'tasks');
+
+    dispatch(setTasks(formatTasks));
+  };
+
   return (
     <DashboardLayout>
       <TabContainer>
@@ -25,15 +41,7 @@ const BoardPage = ({
 export default BoardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query; //! get it from the store
+  const { id } = context.query;
 
-  const res = await fetch(`http://localhost:3001/milestone/${id}`).then(
-    (res) => {
-      return res.json();
-    }
-  );
-
-  store.dispatch(setTasks(res[0].tasks));
-
-  return { props: { data: res }, notFound: false };
+  return { props: { id: id }, notFound: false };
 };

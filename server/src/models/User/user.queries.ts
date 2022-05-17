@@ -75,3 +75,23 @@ export const deleteBookmarkQuery = async (
   if (!unBookmarkedArticle) return null;
   return unBookmarkedArticle;
 };
+
+export const findAllUsersInProjectQuery = async (project_id: number) => {
+  const allUsers = await prisma.user_Projects.findMany({
+    where: {
+      project_id,
+    },
+    select: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          email: true,
+          profile_pic: true,
+        },
+      },
+    },
+  });
+  if (!allUsers) return null;
+  return allUsers;
+};

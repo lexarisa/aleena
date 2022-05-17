@@ -15,6 +15,7 @@ export const getAllArticlesInDocumentQuery = async (
   if (!allArticles) return null;
   return allArticles;
 };
+
 export const getArticleQuery = async (id: number) => {
   const article = await prisma.article.findUnique({
     where: {
@@ -60,6 +61,7 @@ export const updateArticleQuery = async (
   if (!updatedArticle) return null;
   return updatedArticle;
 };
+
 export const deleteArticleQuery = async (id: number) => {
   const deletedArticle = await prisma.article.delete({
     where: {

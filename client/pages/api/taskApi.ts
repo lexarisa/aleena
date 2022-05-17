@@ -7,6 +7,7 @@ export const createNewTask = async (task: ITask) => {
     headers: { 'Content-Type': 'application/json' },
   });
   
+  
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -66,11 +67,13 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
 };
 
 export const updateTaskDetail = async (id: Number, taskData: ITask) => {
+  
   const response = await fetch(`http://localhost:3001/task/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(taskData),
     headers: { 'Content-Type': 'application/json' },
   });
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

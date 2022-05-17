@@ -11,7 +11,7 @@ export const createProjectQuery = async (user_id: number, newProject: any) => {
   const projectUser = await prisma.user_Projects.create({
     data: {
       user_id: user_id,
-      project_id: project.id
+      project_id: project.id,
     },
   });
 
@@ -47,22 +47,6 @@ export const findUserProjectsQuery = async (id: number) => {
 
   return projects;
 };
-
-// export const createProjectQuery = async (newProject: any) => {
-//   console.log('newwww', newProject);
-//   const project = await prisma.project.create({
-//     data: {
-//       title: newProject.title,
-//       description: newProject.description,
-//       status: newProject.status,
-//       user: {
-//         create: [{ user: { connect: { id: newProject.id } } }],
-//       },
-//     },
-//   });
-//   if (!project) throw new Error();
-//   return project;
-// };
 
 export const findProjectQuery = async (id: number) => {
   const project = await prisma.project.findUnique({
@@ -102,4 +86,27 @@ export const deleteProjectQuery = async (id: number) => {
   if (project === null) return null;
 
   return project;
+};
+
+export const addUserToProjectQuery = async (
+  username: string,
+  project_id: number
+) => {
+  const userBeingAdded = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  const projectAssigned = await prisma.user_Projects.create({
+    //@ts-ignore :D
+    data: {
+      user_id: userBeingAdded?.id,
+      project_id: project_id,
+    },
+  });
+
+  return projectAssigned;
+
+  // if (!projectAssigned) return projectAssigned;
 };

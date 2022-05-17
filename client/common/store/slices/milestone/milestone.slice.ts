@@ -15,7 +15,7 @@ export const MilestoneSlice = createSlice({
             state.allMilestones = action.payload;
         },
 
-        updateMilestone: (state, action: PayloadAction<any>) => {
+        updateMilestones: (state, action: PayloadAction<any>) => {
             const oldMilestones = state.allMilestones.filter((milestone: any) => {
                 return milestone.id !== action.payload.id
             });
@@ -38,7 +38,7 @@ export const MilestoneSlice = createSlice({
     }
 })
 
-export const { setMilestones, updateMilestone, createMilestone, deleteMilestone, setCurrentMilestone } = MilestoneSlice.actions;
+export const { setMilestones, updateMilestones, createMilestone, deleteMilestone, setCurrentMilestone } = MilestoneSlice.actions;
 
 export const selectMilestone = (state: RootState) => state.milestone;
 
