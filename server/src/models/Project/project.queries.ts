@@ -98,7 +98,6 @@ export const addUserToProjectQuery = async (
     },
   });
 
-  console.log(userBeingAdded);
   const projectAssigned = await prisma.user_Projects.create({
     //@ts-ignore :D
     data: {
@@ -107,7 +106,6 @@ export const addUserToProjectQuery = async (
     },
   });
 
-  console.log(projectAssigned);
   return projectAssigned;
 
   // if (!projectAssigned) return projectAssigned;

@@ -1,11 +1,12 @@
 .container {
-  min-height: 95vh;
+  min-height: 100vh;
   padding: 0 var(--unit5);
   display: grid;
   align-content: flex-start;
-  margin: var(--unit4);
+
   border-radius: var(--unit2);
   padding: var(--unit4) var(--unit9);
+  background-color: var(--color-white2);
 }
 
 .tab {
@@ -24,8 +25,8 @@
 
 .active {
   font-size: var(--size-l);
-  font-weight: 400;
-  color: var(--color-white);
+  font-weight: 500;
+  color: var(--color-black2);
 }
 
 .tabContent {
@@ -45,22 +46,3 @@
   flex-direction: row;
   gap: var(--unit4);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

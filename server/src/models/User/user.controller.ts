@@ -44,8 +44,8 @@ export class UserController {
 
   async findAllUsersInProject(req: Request, res: Response): Promise<void> {
     try {
-      const { project_id } = req.body;
-      const users = await service.findAllUsersInProject(project_id);
+      const { project_id } = req.params;
+      const users = await service.findAllUsersInProject(+project_id);
       res.send(users);
     } catch (error) {
       console.log(error);

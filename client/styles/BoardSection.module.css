@@ -1,7 +1,7 @@
 .boardTitle {
   font-size: var(--size-m);
   text-align: center;
-  color: var(--color-white);
+  color: var(--color-black2);
 }
 
 .taskCard {
@@ -16,15 +16,15 @@
   background-color: transparent;
   border: 0;
   outline: none;
-  color: var(--color-white);
+  color: var(--color-black2);
   padding: var(--unit3) var(--unit);
 }
 
 .createTask {
-  background-color: var(--color-black);
+  background-color: var(--color-lightBg);
   border: 0;
   outline: 0;
-  color: var(--color-white);
+  color: var(--color-darkGrey);
   padding: var(--unit5) var(--unit4);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -38,8 +38,9 @@
   border-radius: 10px;
   outline: 0;
   border: none;
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--color-lightBg);
+  color: var(--color-black);
+  font-weight: 600;
   transition: 0.3s all ease;
   font-size: var(--size-s);
   font-weight: 600;
@@ -52,12 +53,12 @@
 }
 
 .addButton {
-  background-color: var(--color-lightBg);
+  background-color: var(--color-primary);
   border: 0;
   padding: var(--unit2);
   border-radius: 10px;
   margin-top: var(--unit2);
-  color: var(--color-white);
+  color: var(--color-white2);
   font-weight: 600;
 }
 

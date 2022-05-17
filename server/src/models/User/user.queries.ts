@@ -80,6 +80,7 @@ export const findAllUsersInProjectQuery = async (project_id: number) => {
           id: true,
           username: true,
           email: true,
+          profile_pic: true,
         },
       },
     },

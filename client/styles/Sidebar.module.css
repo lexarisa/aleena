@@ -25,7 +25,7 @@
 }
 
 .username {
-  color: var(--color-white);
+  color: var(--color-black2);
   font-size: var(--size-s);
 }
 
@@ -38,6 +38,7 @@
 
 .title {
   font-size: var(--size-s);
+  color: var(--color-black2);
 }
 
 .sideBarMid {
@@ -45,6 +46,14 @@
 }
 
 .dropDown {
+  transition: all 0.4s ease;
+  border-radius: 10px;
+  padding: var(--unit);
+}
+.dropDown:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  background-color: var(--color-lightBg);
 }
 
 .collapsible {
@@ -99,19 +108,30 @@
 .avatar {
   border-radius: 20px;
   overflow: hidden;
-  height: 40px;
-  width: 40px;
+
+  width: 50px;
+  align-items: center;
+  justify-content: center;
 }
 
 .teammate {
+  margin-top: var(--unit2);
   display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: var(--unit3);
   padding: var(--unit2);
+  max-height: 8rem;
+  overflow-y: scroll;
 }
 
 .text {
   font-size: var(--size-s);
+}
+
+.userDetail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

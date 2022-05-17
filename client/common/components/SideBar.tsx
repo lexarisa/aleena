@@ -1,19 +1,29 @@
 import Image from 'next/image';
 import { addUserToProject } from '../../pages/api/projectApi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { getAllUsersInProject } from '../../pages/api/user.api';
+import avatarPng from '../../../public/avatarPng.png';
 
 //styling
 import styles from '../../styles/Sidebar.module.css';
 const SideBar = () => {
   const [showCollapsible, setShowCollapsible] = useState(false);
   const [searchUser, setSearchUser] = useState('');
+  const [allUsersInProject, setAllUsersInProject] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    getAllUsersInProject(Number(router.query.id))
+      .then((res) => setAllUsersInProject(res))
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleShowCollapsible = () => {
     setShowCollapsible(!showCollapsible);
   };
 
+  console.log(allUsersInProject);
   const handleAddUserToProject = async (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       try {
@@ -34,7 +44,7 @@ const SideBar = () => {
       <div className={styles.sideBarUp}>
         <div className={styles.userImage}>
           <Image
-            src="https://github.com/thaiscosta.png"
+            src={'https://github.com/thaiscosta.png'}
             width={80}
             height={80}
             alt="User profile image"
@@ -62,19 +72,27 @@ const SideBar = () => {
                 onChange={(e) => setSearchUser(e.target.value)}
                 onKeyDown={handleAddUserToProject}
               />
-              <ul>
-                <div className={styles.teammate}>
-                  <div className={styles.avatar}>
-                    <Image
-                      src="https://github.com/thaiscosta.png"
-                      width={40}
-                      height={40}
-                      alt="User profile image"
-                    />
-                  </div>
-                  <span className={styles.text}>User 1</span>
-                </div>
-              </ul>
+
+              <div className={styles.teammate}>
+                {allUsersInProject.length > 0 &&
+                  allUsersInProject.map((user) => {
+                    return (
+                      <div className={styles.userDetail} key={user.user.id}>
+                        <div className={styles.avatar}>
+                          <Image
+                            src={avatarPng}
+                            width={50}
+                            height={30}
+                            alt="User profile image"
+                          />
+                        </div>
+                        <span className={styles.text}>
+                          {user.user.username}
+                        </span>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         </section>
