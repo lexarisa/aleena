@@ -57,6 +57,7 @@ export class DocumentationController {
   async getAllDocumentsInProject(req: Request, res: Response): Promise<void> {
     try {
       const { project_id } = req.params;
+      console.log();
       console.log('project id in doc controller', project_id);
 
       const allDocs = await service.getAllDocumentsInProject(+project_id);

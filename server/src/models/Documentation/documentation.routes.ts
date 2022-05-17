@@ -5,10 +5,10 @@ const controller = new DocumentationController();
 
 router.get('/documentation/sse', controller.documentationSSE);
 router.get(
-  '/documentation/project/:projectId',
+  '/documentation/project/:project_id',
   controller.getAllDocumentsInProject
 );
-router.get('/documentation/:milestone_d', controller.getAllDocsInMilestone);
+router.get('/documentation/:milestone_Id', controller.getAllDocsInMilestone);
 router.post('/documentation', controller.createDocumentation);
 router.patch('/documentation', controller.updateDocumentation);
 router.delete('/documentation', controller.deleteDocumentation);
