@@ -8,15 +8,56 @@ function SideBar() {
       <div className={styles.userImage}>
         <Image
           src="https://github.com/thaiscosta.png"
-          width={100}
-          height={100}
+          width={80}
+          height={80}
           alt="User profile image"
         />
+        <p>username</p>
       </div>
-      <div className={styles.sideBar}>
-        <ul className={styles.links}>
-          <li>Home</li>
-        </ul>
+      <section className={styles.collapsible}>
+        <header>
+          <div>
+            <h2>Teammates</h2>
+            <span>+</span>
+          </div>
+        </header>
+        <div className={styles.collapsible}>
+          <ul>
+            <li>User1</li>
+            <li>User2</li>
+          </ul>
+        </div>
+      </section>
+      <section className={styles.collapsible}>
+        <header>
+          <div>
+            <h2>Project</h2>
+            <span>+</span>
+          </div>
+        </header>
+        <div className={styles.collapsible}>
+          <ul>
+            <li>Prj1</li>
+            <li>Prj2</li>
+          </ul>
+        </div>
+      </section>
+      <section className={styles.collapsible}>
+        <header>
+          <div>
+            <h2>Bookmarked</h2>
+            <span>+</span>
+          </div>
+        </header>
+        <div className={styles.collapsible}>
+          <ul>
+            <li>Doc1</li>
+            <li>Doc2</li>
+          </ul>
+        </div>
+      </section>
+      <div>
+        <button>Logout</button>
       </div>
     </div>
   );
