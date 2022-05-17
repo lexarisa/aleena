@@ -5,7 +5,7 @@ import MilestoneAdd from './small/MilestoneAdd'; //issue={data[1].tasks[0]}
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IMilestone } from '../types/IMilestone';
-import { createMilestone, deleteMilestone, setCurrentMilestone, updateMilestone } from '../store/slices/milestone/milestone.slice';
+import { createMilestone, deleteMilestone, setCurrentMilestone, updateMilestones } from '../store/slices/milestone/milestone.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
 const MainDashboard = () => {
@@ -33,7 +33,7 @@ const MainDashboard = () => {
 
       if (event === 'create') {
         console.log('urzeMilestone', newMilestone)
-        dispatch(updateMilestone(newMilestone));
+        dispatch(updateMilestones(newMilestone));
       }
 
       if (event === 'delete') {
@@ -41,7 +41,7 @@ const MainDashboard = () => {
       }
 
       if (event === 'update') {
-        dispatch(updateMilestone(newMilestone));
+        dispatch(updateMilestones(newMilestone));
       }
 
       source.close();

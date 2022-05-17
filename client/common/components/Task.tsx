@@ -30,6 +30,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const user = useAppSelector(state => state.user.id)
   const reduxTask = useAppSelector(state => state.task.currentTask)
 
+  console.log('reduxTask', reduxTask)
+
   const [githubLink, setGithubLink] = useState('');
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
   const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
@@ -72,7 +74,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         />
       </div>
       <div className={styles.detail}>
-        <h1>{task.title}</h1>
+        <h1>{reduxTask.title}</h1>
         <div className={styles.headerSection}>
           <div>
             <label className={styles.label}>Status</label>
@@ -138,14 +140,14 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
           <div>
             <input type="datetime-local" className={styles.textarea} />
           </div>
-          <div>{task.users}</div>
+          <div>{reduxTask.users}</div>
         </div>
         <div className={styles.descriptionWrapper}>
           <div>
-            <p className={styles.description}> {task.description}</p>
+            <p className={styles.description}> {reduxTask.description}</p>
           </div>
         </div>
-        <div>{task.comments}</div>
+        <div>{reduxTask.comments}</div>
         <CustomButton
           button="Save"
           textColor="#fff"

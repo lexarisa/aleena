@@ -6,14 +6,20 @@ import MilestoneAdd  from './../common/components/small/MilestoneAdd'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Crypt from 'cryptr';
 import Feed from '../common/components/Feed';
-import { setMilestones } from '../common/store/slices/milestone/milestone.slice';
+import { setMilestones, updateMilestones } from '../common/store/slices/milestone/milestone.slice';
 import { store } from '../common/store/index.store';
 import { useAppDispatch, useAppSelector } from '../common/store/hooks/redux-hooks';
 import Router from 'next/router';
+import { updateMilestone } from './api/milestoneApi';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
 const Dashboard = ({
+  data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const dispatch = useAppDispatch()
+
+    dispatch(updateMilestones(data))
 
     return (
     <DashboardLayout>

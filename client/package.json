@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
     "cors": "^2.8.5",
     "cryptr": "^6.0.3",
     "highlight.js": "^11.5.1",
-    "next": "12.1.6",
+    "next": "^12.1.6",
     "next-auth": "^4.3.4",
     "next-redux-wrapper": "^7.0.5",
     "path": "^0.12.7",
