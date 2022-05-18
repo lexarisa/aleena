@@ -14,10 +14,9 @@ import { BsTrash, BsPlus } from 'react-icons/bs';
 import { useAppSelector } from '../store/hooks/redux-hooks';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
-
   const router = useRouter();
-  const user = useAppSelector(state => state.user.id)
-  
+  const user = useAppSelector((state) => state.user.id);
+
   const {
     register,
     handleSubmit,

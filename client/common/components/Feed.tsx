@@ -47,7 +47,7 @@ const Feed = () => {
         <h1 className={styles.header}>Feed</h1>
         {reduxFeedEvents.length ? (
           reduxFeedEvents.map((e: any) => {
-            return <FeedItem feed={e} />;
+            return <FeedItem key={e.id} feed={e} />;
           })
         ) : (
           <h3>No feed yet</h3>

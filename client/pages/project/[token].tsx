@@ -93,15 +93,15 @@ const project = ({
         <div className={styles.cardWrapper}>
           <h1>Welcome to Aleena {reduxAllProjects.username}</h1>
 
-          <button className={styles.selectCard} onClick={handleShowForm}>
+          <button className={styles.addButton} onClick={handleShowForm}>
             New Project
             <AiOutlinePlus className={styles.icon} />
           </button>
         </div>
-        <div>
+        <div className={styles.projects}>
           {reduxAllProjects &&
             reduxAllProjects.map((project: any) => (
-              <div key={String(project.id)}>
+              <div key={String(project.id)} className={styles.project}>
                 <Link
                   href={{
                     pathname: '/dashboard',
@@ -110,11 +110,11 @@ const project = ({
                 >
                   <div
                     onClick={() => handleProjectSelect(project)}
-                    className={styles.selectCard}
+                    className={styles.projectDetail}
                   >
                     <h2>{project.title}</h2>
                     <p>{project.description}</p>
-                    <p>{project.status}</p>
+                    {/* <p>{project.status}</p> */}
                   </div>
                 </Link>
               </div>

@@ -1,21 +1,21 @@
 .container {
   display: flex;
-
-  justify-content: center;
+  flex-direction: column;
   align-content: center;
-
-  background-color: var(--color-white);
+  padding: var(--unit8);
 }
 
 .cardWrapper {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--unit5);
+  width: 100%;
 }
 
-.selectCard {
+.addButton {
   border-radius: 5px;
-  padding: var(--unit2) var(--unit3);
+  padding: var(--unit3) var(--unit4);
   display: flex;
   outline: 0;
   border: none;
@@ -27,23 +27,36 @@
   font-weight: 500;
 }
 
-.selectCard:hover {
+.addButton:hover {
   cursor: pointer;
   transform: scale(1.01);
   opacity: 0.9;
 }
 
-.projectSection {
-  display: flex;
-  flex-direction: column;
-  gap: var(--unit5);
-  height: 60vh;
-  width: 100%;
-  overflow-y: scroll;
-  padding: var(--unit);
-}
-
 .icon {
   font-size: var(--size-xl);
   font-weight: 800;
+}
+
+.projects {
+  display: flex;
+  flex-direction: row;
+}
+.project {
+  display: flex;
+  background-color: var(--color-primary);
+  padding: var(--unit5);
+  border-radius: 10px;
+  color: var(--color-white);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='500' height='400' preserveAspectRatio='none' viewBox='0 0 500 400'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1055%26quot%3b)' fill='none'%3e%3crect width='500' height='400' x='0' y='0' fill='rgba(65%2c 90%2c 119%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c221.702C40.121%2c213.988%2c74.827%2c190.833%2c104.793%2c163.062C131.147%2c138.639%2c141.615%2c103.904%2c160.256%2c73.187C181.909%2c37.506%2c225.462%2c9.582%2c223.224%2c-32.095C220.995%2c-73.605%2c180.216%2c-101.561%2c149.375%2c-129.434C121.596%2c-154.539%2c91.167%2c-178.484%2c54.261%2c-184.795C19.238%2c-190.784%2c-13.85%2c-173.285%2c-47.912%2c-163.173C-81.862%2c-153.095%2c-119.24%2c-149.944%2c-145%2c-125.643C-171.882%2c-100.284%2c-180.597%2c-62.816%2c-191.67%2c-27.558C-204.729%2c14.025%2c-225.606%2c55.984%2c-215.342%2c98.343C-204.352%2c143.697%2c-174.833%2c185.84%2c-134.34%2c209.037C-94.505%2c231.856%2c-45.082%2c230.37%2c0%2c221.702' fill='%23304257'%3e%3c/path%3e%3cpath d='M500 573.437C532.226 575.794 564.26 558.351 587.0360000000001 535.431 607.944 514.39 603.4110000000001 479.65 618.546 454.138 636.439 423.977 681.921 408.743 682.988 373.69 684.0260000000001 339.597 645.218 319.29 623.45 293.03 601.1179999999999 266.09000000000003 586.997 227.908 553.568 217.565 520.091 207.207 484.092 223.942 453.116 240.329 425.997 254.675 408.60699999999997 280.252 389.578 304.318 371.419 327.284 353.424 349.75 344.53999999999996 377.648 334.413 409.449 319.649 445.726 335.129 475.294 350.62 504.884 392.077 506.18899999999996 420.777 523.273 448.19 539.591 468.183 571.11 500 573.437' fill='%23537297'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1055'%3e%3crect width='500' height='400' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  min-width: 20rem;
+  flex-direction: row;
+  margin-top: var(--unit3);
+  flex-wrap: wrap;
+  margin-right: var(--unit5);
+}
+
+.project:hover {
+  cursor: pointer;
+  transform: scale(1.01);
 }
