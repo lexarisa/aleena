@@ -5,21 +5,26 @@ import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
-import { deleteTask, updateTasks, createTask } from '../store/slices/task/task.slices';
+import {
+  deleteTask,
+  updateTasks,
+  createTask,
+} from '../store/slices/task/task.slices';
 import { useRouter } from 'next/router';
 import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
 
 const Board = () => {
-
   const dispatch = useAppDispatch();
-  const reduxAllTasks = useAppSelector(state => state.task.allTasks);
-  const reduxMile = useAppSelector(state => state.milestone.allMilestones);
-  const reduxCurrentMile = useAppSelector(state => state.milestone.currentMilestone);
+  const reduxAllTasks = useAppSelector((state) => state.task.allTasks);
+  const reduxMile = useAppSelector((state) => state.milestone.allMilestones);
+  const reduxCurrentMile = useAppSelector(
+    (state) => state.milestone.currentMilestone
+  );
 
-  console.log('q', reduxAllTasks)
+  console.log('q', reduxAllTasks);
 
-  const reduxAllProjects = useAppSelector(state => state.project.allProjects)
-  console.log('LEVELS DOWN ', reduxAllProjects)
+  const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
+  console.log('LEVELS DOWN ', reduxAllProjects);
 
   useEffect(() => {
     // sse
@@ -27,34 +32,36 @@ const Board = () => {
   });
 
   const streamTask = () => {
-    const sseTask = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/tasks/sse');
+    const sseTask = new EventSource(
+      'https://ae99-45-130-134-153.eu.ngrok.io/tasks/sse'
+    );
 
     sseTask.addEventListener('message', (tsk: any) => {
-      console.log('AAAAAAAHHHH >>>>',tsk)
-        const event = JSON.parse(tsk.data).event;
-        const task = JSON.parse(tsk.data).data;
-  
-        if (event === 'create') {
-          // @ts-ignore
-          if (task.milestoneid === reduxCurrentMile.id) {
-            dispatch(updateTasks(task));
-          }
-        }
-  
-        if (event === 'delete') {
-          // @ts-ignore
-          if (task.milestoneid === reduxCurrentMile.id) {
-            dispatch(deleteTask(task));
-          }
-        }
+      console.log('AAAAAAAHHHH >>>>', tsk);
+      const event = JSON.parse(tsk.data).event;
+      const task = JSON.parse(tsk.data).data;
 
-        if (event === 'update') {
-          console.log('AND NOOOOOW ..', task)
-          // @ts-ignore
-          if (task.milestoneid === reduxCurrentMile.id) {
-            dispatch(updateTasks(task));
-          };
+      if (event === 'create') {
+        // @ts-ignore
+        if (task.milestoneid === reduxCurrentMile.id) {
+          dispatch(updateTasks(task));
         }
+      }
+
+      if (event === 'delete') {
+        // @ts-ignore
+        if (task.milestoneid === reduxCurrentMile.id) {
+          dispatch(deleteTask(task));
+        }
+      }
+
+      if (event === 'update') {
+        console.log('AND NOOOOOW ..', task);
+        // @ts-ignore
+        if (task.milestoneid === reduxCurrentMile.id) {
+          dispatch(updateTasks(task));
+        }
+      }
 
       sseTask.close();
     });
@@ -76,7 +83,7 @@ const Board = () => {
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = reduxAllTasks.length
           ? reduxAllTasks.filter((task: ITask) => {
-            console.log(task)
+              console.log(task);
               return task.status === section;
             })
           : [];

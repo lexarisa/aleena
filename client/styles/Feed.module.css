@@ -1,3 +1,13 @@
 .container {
   border-left: 1px solid var(--color-lightBg);
+
+  padding: 0 var(--unit4);
+  overflow-y: scroll;
+}
+
+.header {
+  font-size: var(--size-xl);
+  color: var(--color-black2);
+  margin-top: var(--unit8);
+  margin-left: var(--unit);
 }

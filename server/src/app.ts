@@ -11,7 +11,7 @@ import projectRouter from './models/Project/project.routes';
 import milestoneRouter from './models/Milestone/milestone.routes';
 import documentRouter from './models/Documentation/documentation.routes';
 import articleRouter from './models/Articles/articles.routes';
-
+import commentRouter from './models/Comment/comment.routes';
 const app: Application = express();
 
 app.use(cors());
@@ -26,5 +26,6 @@ app.use(projectRouter);
 app.use(milestoneRouter);
 app.use(documentRouter);
 app.use(articleRouter);
+app.use(commentRouter);
 
 export default app;

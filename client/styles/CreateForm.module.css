@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+}
 .input {
   background-color: var(--color-white);
   border: 0;
@@ -25,8 +31,7 @@
 }
 
 .textarea:focus {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   background-color: var(--color-lightBg);
   border-radius: 5px;
 }
@@ -34,6 +39,7 @@
 .label {
   font-size: var(--size-s);
   font-weight: 500;
+  color: var(--color-white);
 }
 
 .form {
@@ -86,10 +92,13 @@
   text-decoration: underline;
 }
 
+.header {
+  color: var(--color-white);
+  font-size: var(--size-xl);
+  margin-top: var(--unit9);
+}
 
-
-
-
-
-
-
+.addButton {
+  display: flex;
+  gap: var(--unit4);
+}

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import styles from '../../../styles/MileStoneCard.module.css';
-import { INewMilestone } from '../../types/INewMilistone';
+import styles from '../../../styles/MilestoneAdd.module.css';
+import { INewMilestone } from '../../types/INewMilestone';
 import { createMilestone } from '../../../pages/api/milestoneApi';
 import { useRouter } from 'next/router';
 
+import CustomButton from './CustomButton';
+import { IoAddCircleOutline } from 'react-icons/io5';
+
 const MilestoneAdd = () => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
+  const [showInput, setShowInput] = useState(false);
   const router = useRouter();
 
   const handleCreateMilestone = async () => {
@@ -31,16 +35,32 @@ const MilestoneAdd = () => {
 
   return (
     <div className={styles.container}>
-      <input
-        className={styles.input}
-        type="text"
-        name="milestone"
-        id="milestone"
-        value={milestoneTitle}
-        placeholder="Add new milestone"
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
+      {showInput ? (
+        <div className={styles.buttonContainer}>
+          <div className={styles.collapsible}>
+            <input
+              className={styles.input}
+              type="text"
+              name="milestone"
+              id="milestone"
+              value={milestoneTitle}
+              placeholder="Add new milestone"
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+            />
+            <button className={styles.add} onClick={handleCreateMilestone}>
+              <IoAddCircleOutline className={styles.addButton} />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <CustomButton
+          button="+ Add a New Milestone"
+          color="#415a77"
+          textColor="#fff"
+          onClick={() => setShowInput(true)}
+        />
+      )}
     </div>
   );
 };
