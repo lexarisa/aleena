@@ -46,6 +46,10 @@ export const createBookmarkQuery = async (
       article_id: article_id,
       user_id: user_id,
     },
+    select: {
+      id: true,
+      article: true,
+    },
   });
   if (!bookmarkedArticle) return null;
   return bookmarkedArticle;

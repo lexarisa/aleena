@@ -66,7 +66,7 @@ const DocumentationPage = ({
   const fetchUserBookmarks = async () => {
     console.log('before sending user_id', user_id);
     const resBookmarks = await fetch(
-      `http://localhost:3001/user/bookmarks/${user_id}`
+      `https://ae99-45-130-134-153.eu.ngrok.io/user/bookmarks/${user_id}`
     );
     const bookmarks = await resBookmarks.json();
     console.log('bookmarks in id', bookmarks);
