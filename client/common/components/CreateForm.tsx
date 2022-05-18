@@ -9,12 +9,15 @@ import { createProject } from '../../pages/api/projectApi';
 import IProject from '../types/IProject';
 import { useRouter } from 'next/router';
 import Cryptr from 'cryptr';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BsTrash, BsPlus } from 'react-icons/bs';
+import { useAppSelector } from '../store/hooks/redux-hooks';
 
 const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
-  const router = useRouter();
 
+  const router = useRouter();
+  const user = useAppSelector(state => state.user.id)
+  
   const {
     register,
     handleSubmit,

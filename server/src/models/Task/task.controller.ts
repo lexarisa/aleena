@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
-import { newHookTask } from '../../middlewares/checkPR.middleware';
 import { Subject } from 'rxjs';
+import { newHookTask } from './../../middlewares/checkPR.middleware';
 
 const service: DataService = new DataService();
 
@@ -51,7 +51,7 @@ export class TaskController {
   ): Promise<void> {
     try {
       // if(newHookTask.observed currentObservers === null)
-
+      console.log('hit the feed HOOOOK TASK')
       const headers = {
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
@@ -64,7 +64,7 @@ export class TaskController {
       res.flushHeaders();
 
       const stream = newHookTask.subscribe((data: any) => {
-        res.write(`data: ${JSON.stringify(data)} \n\n`);
+        res.write(`data ${JSON.stringify(data)} \n\n`);
       });
 
       req.on('close', () => {
@@ -113,9 +113,15 @@ export class TaskController {
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       });
 
+      const streamHook = newHookTask.subscribe((data: any) => {
+        console.log('YEEES', data);
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+
       req.on('close', () => {
         console.log('client closed connection');
         stream.unsubscribe();
+        streamHook.unsubscribe();
       });
     } catch (error) {
       console.log(error);

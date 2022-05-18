@@ -21,6 +21,7 @@ export const getAllTasksInMilestoneQuery = async (milestoneId: number) => {
               color: true,
             },
           },
+          githubs: true,
         },
       },
     },

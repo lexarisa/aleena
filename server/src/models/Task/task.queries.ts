@@ -4,6 +4,9 @@ import { prisma } from '../../../prisma/prisma-client';
 export const createTaskQuery = async (newTask: any) => {
   const task = await prisma.task.create({
     data: newTask,
+    include: {
+      githubs: true
+    }
   });
 
   if (!task) throw new Error();
@@ -32,7 +35,7 @@ export const findTaskQuery = async (id: number) => {
 export const findPRsInTask = async (id: number) => {
   const status = await prisma.task.findUnique({
     where: {
-      id,
+      id: id,
     },
     select: {
       githubs: {

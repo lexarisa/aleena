@@ -13,7 +13,7 @@ export const TaskSlice = createSlice({
     reducers: {
 
         setTasks: (state, action: PayloadAction<any>) => {
-            state.allTasks = action.payload;
+            state.allTasks = action.payload[0];
         },
 
         updateTasks: (state, action: PayloadAction<any>) => {

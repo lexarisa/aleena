@@ -36,7 +36,10 @@ import {
   deleteTaskQuery,
 } from '../models/Task/task.queries';
 
-import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
+import {
+  createOrUpdateFeedQuery,
+  findLatestFeedsQuery,
+} from '../models/Feed/feed.queries';
 
 import {
   createMilestoneQuery,
@@ -235,5 +238,8 @@ export class DataService {
 
   deleteComment(comment_id: number) {
     return deleteCommentQuery(comment_id);
+  }
+  getLatestFeeds() {
+    return findLatestFeedsQuery();
   }
 }

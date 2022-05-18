@@ -1,6 +1,7 @@
 export const cleanPullRequest = (event: any) => {
   if (
     event.action === 'open' ||
+    event.action === 'opened' ||
     event.action === 'reopened' ||
     event.action === 'closed'
   ) {

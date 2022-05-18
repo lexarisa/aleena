@@ -13,3 +13,27 @@ export const createOrUpdateFeedQuery = async (feedUnit: any) => {
 
   return feedItem;
 };
+
+export const findLatestFeedsQuery = async () => {
+  const latestFeeds = await prisma.feed.findMany({
+    take: 20,
+    orderBy: {
+      created_at: 'desc'
+        
+    },
+    select: {
+      id: true,
+      sender: true,
+      repo_url: true,
+      title: true,
+      status: true,
+      number: true,
+      pull_url: true,
+      comment: true,
+    }
+  })
+
+  if (!latestFeeds) throw new Error();
+
+  return latestFeeds;
+}
