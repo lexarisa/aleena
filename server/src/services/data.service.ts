@@ -63,7 +63,11 @@ import {
 } from '../models/Articles/articles.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
-import { addCommentQuery } from 'src/models/Comment/comment.queries';
+import {
+  addCommentQuery,
+  getAllCommentsQuery,
+  deleteCommentQuery,
+} from '../models/Comment/comment.queries';
 
 export class DataService {
   constructor(private prisma?: PrismaClient) {
@@ -222,6 +226,14 @@ export class DataService {
   }
 
   addComment(comment: IComment) {
+    console.log('service', comment);
     return addCommentQuery(comment);
+  }
+  getAllComments(task_id: number) {
+    return getAllCommentsQuery(task_id);
+  }
+
+  deleteComment(comment_id: number) {
+    return deleteCommentQuery(comment_id);
   }
 }

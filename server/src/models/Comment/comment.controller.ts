@@ -7,8 +7,15 @@ export class CommentController {
 
   async addComment(req: Request, res: Response): Promise<void> {
     try {
-      const { comment } = req.body;
-      const newComment = await service.addComment(comment);
+      const { id, description, user_id, task_id } = req.body;
+
+      const newComment = await service.addComment({
+        id,
+        description,
+        user_id,
+        task_id,
+      });
+
       res.status(201).send(newComment);
     } catch (error) {
       console.log(error);
