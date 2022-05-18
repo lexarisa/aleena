@@ -15,11 +15,13 @@ export const createNewTask = async (task: ITask) => {
 };
 
 export const getSingleTask = async (id: string) => {
-  const response = await fetch(`${process.env.BASEURL}/${id}`);
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/${id}`);
+
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
     throw new Error(message);
   }
+  
   return response.json();
 };
 
@@ -61,7 +63,7 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
   };
 
   const sendPR = await fetch(
-    `${process.env.BASEURL}/github/PR`,
+    `https://ae99-45-130-134-153.eu.ngrok.io/github/PR`,
     options
   );
 

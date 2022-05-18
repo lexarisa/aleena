@@ -20,6 +20,7 @@ export const MainDocumentation = () => {
   // console.log('pathname', router.pathname);
   let reduxDocumentation = [];
   const inMilestone = router.query.milestone_id;
+
   inMilestone
     ? (reduxDocumentation = useAppSelector(
         (state) => state.documentation.documents
@@ -31,12 +32,13 @@ export const MainDocumentation = () => {
   // console.log('userBookmarks', userBookmarks);
   useEffect(() => {
     documentationEvent();
-  }, []);
+  });
 
   const documentationEvent = () => {
     const sourceDoc = new EventSource(
       'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
     );
+
     const sourceArticle = new EventSource(
       'https://ae99-45-130-134-153.eu.ngrok.io/article/sse'
     );
@@ -53,12 +55,16 @@ export const MainDocumentation = () => {
 
         dispatch(createDocument(docWithArticles));
       }
+
       if (event === 'delete') {
         dispatch(deleteDocument(newDoc));
       }
+
       if (event === 'update') {
         dispatch(updateArticleDocument(newDoc));
       }
+
+      sourceDoc.close();
     });
 
     sourceArticle.addEventListener('message', (message) => {
@@ -69,12 +75,16 @@ export const MainDocumentation = () => {
         console.log('article was created');
         dispatch(updateArticleDocument(newDoc));
       }
+
       if (event === 'delete') {
         dispatch(deleteDocument(newDoc));
       }
+
       if (event === 'update') {
         dispatch(updateArticleDocument(newDoc));
       }
+
+      sourceArticle.close();
     });
   };
 

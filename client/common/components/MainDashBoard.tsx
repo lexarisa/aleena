@@ -49,7 +49,6 @@ const MainDashboard = () => {
 
       if (event === 'create') {
         console.log('urzeMilestone', newMilestone);
-
         //@ts-ignore
         if (newMilestone.project_id === reduxCurrentProject.id) {
           dispatch(updateMilestones(newMilestone));

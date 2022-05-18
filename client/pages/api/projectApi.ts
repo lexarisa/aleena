@@ -2,7 +2,7 @@
 import IProject from '../../common/types/IProject';
 
 export const selectProject = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`);
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/project/${id}`);
 
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
@@ -31,7 +31,7 @@ export const createProject = async (data: IProject) => {
 };
 
 export const deleteProject = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/project/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
@@ -45,7 +45,7 @@ export const updateProjectDetail = async (
   id: Number,
   projectData: IProject
 ) => {
-  const response = await fetch(`${process.env.BASEURL}/project/${id}`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/project/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(projectData),
     headers: { 'Content-Type': 'application/json' },

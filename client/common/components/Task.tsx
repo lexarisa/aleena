@@ -60,7 +60,9 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
     };
 
     await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
-    await linkPRTask(githubLink, reduxTask.id);
+    if (githubLink !== '') {
+      await linkPRTask(githubLink, reduxTask.id);
+    }
     setShowTask(false);
   };
 

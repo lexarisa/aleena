@@ -18,6 +18,7 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
+
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.user.id);
@@ -83,7 +84,6 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
 
         <div>
           {tasks.map((task: ITask, index) => {
-            console.log('and now what>>>>', task);
             return (
               <div
                 key={index}
