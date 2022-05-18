@@ -15,28 +15,23 @@ import { setBookmarks } from '../../common/store/slices/user/user.slice';
 
 const DocumentationPage = ({
   query,
-  pathname,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const currentProject = useAppSelector(
     (state) => state.project.currentProject
   );
-  const user_id = useAppSelector((state) => {
-    state.user.id;
-  });
-  console.log('query', query);
-  console.log('pathname in id', pathname);
+  const user_id = useAppSelector((state) => state.user.id);
+
   const dispatch = useAppDispatch();
   let queries = Object.values(query);
 
   //@ts-ignore
   const project_id = currentProject.id;
-  console.log(queries);
   let milestone_id = queries.length > 1 ? queries[0] : 1; // 1 as fail-safe
 
   useEffect(() => {
     fetchMilestoneDocuments();
     fetchProjectDocuments();
-    // fetchUserBookmarks();
+    fetchUserBookmarks();
   }, []);
 
   const fetchMilestoneDocuments = async () => {
@@ -70,14 +65,15 @@ const DocumentationPage = ({
 
     dispatch(setProjectDocuments(dataProject));
   };
-  //   const fetchUserBookmarks = async () => {
-  //     console.log('before sending user_id', user_id);
-  //     const resBookmarks = await fetch(
-  //       `http://localhost:3001/user/bookmarks/${user_id}`
-  //     );
-  //     const bookmarks = await resBookmarks.json();
-  //     dispatch(setBookmarks(bookmarks));
-  //   };
+  const fetchUserBookmarks = async () => {
+    console.log('before sending user_id', user_id);
+    const resBookmarks = await fetch(
+      `http://localhost:3001/user/bookmarks/${user_id}`
+    );
+    const bookmarks = await resBookmarks.json();
+    console.log('bookmarks in id', bookmarks);
+    dispatch(setBookmarks(bookmarks.articles));
+  };
 
   return (
     <DashboardLayout>
@@ -94,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // const { id } = context.query;
   // from what i understand i do not need this since i'm fetching from store
   return {
-    props: { query: context.query, pathname: context.resolvedUrl },
+    props: { query: context.query },
     notFound: false,
   };
 };

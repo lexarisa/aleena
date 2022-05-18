@@ -17,42 +17,30 @@ interface DocumentCardProp {
 }
 
 const DocumentCard = ({ title, articles, id }: any) => {
+  const [showArticle, setShowArticle] = useState(false);
+
   const dispatch = useAppDispatch();
-  // const reduxArticles = useAppSelector((state) => state.article.articles);
-  const user = useAppSelector((state) => state.user);
 
   const reduxCurrentArticle = useAppSelector(
     (state) => state.article.currentArticle
   );
 
-  const [showArticle, setShowArticle] = useState(false);
-
   const handleShowArticle = () => {
     setShowArticle(false);
   };
   const handleClick = (article: any) => {
-    console.log('im clicked wow');
     dispatch(setCurrentArticle(article));
     setShowArticle(true);
   };
   const handleDeleteDocument = (id: number) => {
     deleteDocumentation(id);
   };
-  const handleBookmark = (user_id: number) => {
-    dispatch(updateBookmarks(id));
-    // console.log('userId', user.id);
-  };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
-        <RoundButton
-          button="S2"
-          onClick={() => handleBookmark(id)}
-          color="#333"
-          textColor="#fff"
-        />
+
         <RoundButton
           button="x"
           onClick={() => handleDeleteDocument(id)}
@@ -61,14 +49,22 @@ const DocumentCard = ({ title, articles, id }: any) => {
         />
       </div>
       <div>
-        {articles &&
-          articles.map((article: any, index: number) => {
+        {/* {onlyBookmarks &&
+          userBookmarks.map((article: any, index: number) => {
             return (
               <div key={index} onClick={() => handleClick(article)}>
                 <ArticleCard data={article} />
               </div>
             );
-          })}
+          })} */}
+
+        {articles.map((article: any, index: number) => {
+          return (
+            <div key={index} onClick={() => handleClick(article)}>
+              <ArticleCard data={article} />
+            </div>
+          );
+        })}
       </div>
       <ArticleAdd documentation_id={id} />
 

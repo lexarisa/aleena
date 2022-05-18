@@ -40,36 +40,20 @@ export const createBookmarkQuery = async (
   article_id: number,
   user_id: number
 ) => {
-  console.log('hit bookmark query');
-  const bookmarkedArticle = await prisma.user.update({
-    where: {
-      id: 2,
-    },
+  console.log('in create bookmark query a. id and u id', article_id, user_id);
+  const bookmarkedArticle = await prisma.user_Articles.create({
     data: {
-      articles: {
-        connect: {
-          id: article_id,
-        },
-      },
+      article_id: article_id,
+      user_id: user_id,
     },
   });
   if (!bookmarkedArticle) return null;
   return bookmarkedArticle;
 };
-export const deleteBookmarkQuery = async (
-  article_id: number,
-  user_id: number
-) => {
-  const unBookmarkedArticle = await prisma.user.update({
+export const deleteBookmarkQuery = async (user_article_id: number) => {
+  const unBookmarkedArticle = await prisma.user_Articles.delete({
     where: {
-      id: user_id,
-    },
-    data: {
-      articles: {
-        disconnect: {
-          id: article_id,
-        },
-      },
+      id: user_article_id,
     },
   });
   if (!unBookmarkedArticle) return null;

@@ -14,7 +14,6 @@ import {
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 
 const MainDashboard = () => {
-  // const [milestones, setMilestones] = useState();
   const router = useRouter();
 
   const dispatch = useAppDispatch();

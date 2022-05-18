@@ -57,7 +57,6 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         status: columnTitle,
       };
 
-      console.log('hey hooo lets go', newTask);
       await createNewTask(newTask).catch((error) => console.log(error));
       setTaskTitle('');
       setShowInput(false);

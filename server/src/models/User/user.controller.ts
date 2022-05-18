@@ -10,6 +10,7 @@ export class UserController {
     try {
       const { user_id } = req.params;
       const bookmarkedArticles = await service.getUserBookmarks(+user_id);
+
       res.send(bookmarkedArticles);
     } catch (error) {
       console.error(error);
@@ -17,12 +18,12 @@ export class UserController {
   }
   async createBookmark(req: Request, res: Response): Promise<void> {
     try {
-      console.log('req.body in create bookmark', req.body);
       const { article_id, user_id } = req.body;
       const bookmarkedArticle = await service.createBookmarks(
         +article_id,
         +user_id
       );
+      console.log('response in createBookM controller', bookmarkedArticle);
       res.send(bookmarkedArticle);
     } catch (error) {
       console.error(error);
@@ -31,10 +32,9 @@ export class UserController {
   async deleteBookmark(req: Request, res: Response): Promise<void> {
     try {
       // const { user_id } = req.params;
-      const { article_id, user_id } = req.body;
+      const { user_article_id } = req.body;
       const unBookmarkedArticle = await service.deleteBookmarks(
-        +user_id,
-        +article_id
+        +user_article_id
       );
       res.send(unBookmarkedArticle);
     } catch (error) {

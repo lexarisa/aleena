@@ -27,7 +27,8 @@ export const MainDocumentation = () => {
     : (reduxDocumentation = useAppSelector(
         (state) => state.documentation.projectDocuments
       ));
-
+  const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+  console.log('userBookmarks', userBookmarks);
   useEffect(() => {
     documentationEvent();
   }, []);
@@ -44,10 +45,8 @@ export const MainDocumentation = () => {
     sourceDoc.addEventListener('message', (message) => {
       const event = JSON.parse(message.data).event;
       const newDoc = JSON.parse(message.data).data;
-      console.log('listening');
 
       if (event === 'create') {
-        console.log('doc was created');
         const docWithArticles = newDoc.articles
           ? newDoc
           : { ...newDoc, articles: [] };

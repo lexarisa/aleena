@@ -26,7 +26,7 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
           />
         </div>
 
-        {/* <Link
+        <Link
           href={{
             pathname: `/documentation/[project_id]/`,
             query: {
@@ -36,7 +36,7 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
           }}
         >
           <a>Docs</a>
-        </Link> */}
+        </Link>
       </div>
 
       <div></div>

@@ -11,22 +11,10 @@
   background: var(--color-lightBg);
   color: var(--color-white);
 }
-
-/* .header {
+.buttonContainer {
+  background-color: var(--color-black);
+  width: 30rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: center;
-} */
-
-/* .headerTitle {
-  font-size: var(--size-xl);
-} */
-/* .input {
-  background-color: transparent;
-  border: 0;
-  outline: none;
-  color: var(--color-white);
-  padding: var(--unit3) var(--unit);
-  font-size: var(--size-xl);
-} */
+}
