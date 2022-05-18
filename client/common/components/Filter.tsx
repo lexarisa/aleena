@@ -21,7 +21,7 @@ const Filter = () => {
   return (
     <>
       <div
-        className={styles.tab}
+        className={styles.filter}
         onClick={() => setShowCollapsible(!showCollapsible)}
         style={
           showCollapsible

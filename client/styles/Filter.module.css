@@ -1,11 +1,8 @@
 /* // assignee //priority//milestone/status/ //tags */
 
-.tab {
+.filter {
   background-color: var(--color-lightGrey);
   border-radius: 10px;
-  max-width: 6rem;
-  display: flex;
-
   padding-right: var(--unit2);
   justify-content: center;
   position: relative;

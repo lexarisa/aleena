@@ -61,8 +61,9 @@ const MainDashboard = () => {
 
   return (
     <>
-      <Filter />
-      <MilestoneAdd />
+      <div className={styles.tab}>
+        <MilestoneAdd />
+      </div>
       <div className={styles.container}>
         {reduxMilestones.map((item: any) => (
           <div key={item.id}>

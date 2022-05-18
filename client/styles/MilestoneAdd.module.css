@@ -1,3 +1,38 @@
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-lightBg);
+  align-items: center;
+  padding: var(--unit3);
+  border-radius: 10px;
+}
+
+.input {
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  background-color: transparent;
+  font-size: var(--size-s);
+}
+
+.add {
+  border: none;
+  outline: 0;
+  background-color: transparent;
+}
+
+.add:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+.addButton {
+  font-size: var(--size-m);
+}
+
 .collapsible {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
