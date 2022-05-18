@@ -29,6 +29,7 @@
 
 .addButton {
   font-size: var(--size-m);
+  color: var(--color-darkGrey);
 }
 
 .collapsible {

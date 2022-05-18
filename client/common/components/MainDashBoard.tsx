@@ -82,7 +82,6 @@ const MainDashboard = () => {
             </Link>
           </div>
         ))}
-        <MilestoneAdd />
       </div>
     </>
   );

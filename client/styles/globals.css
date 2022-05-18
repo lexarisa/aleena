@@ -53,13 +53,15 @@ li {
   --color-primary: #415a77;
   --color-secondary: #778da9;
   --color-accent: #e63946;
+  --color-accentLight: #f6bbc0;
   --color-black: #191919;
   --color-lightBg: rgba(119, 141, 169, 0.1);
   --color-black2: #333;
-  --color-white: #e0e1dd;
+  --color-white: #f5f5f5;
   --color-white2: #fff;
   --color-darkGrey: #929292;
   --color-lightGrey: #f0f0f0;
+  --color-successLight: #acd3b8;
   --color-success: #428959;
   --color-error: #c73e1d;
   --color-warning: #f18f01;
