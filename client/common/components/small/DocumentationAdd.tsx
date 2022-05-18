@@ -4,7 +4,6 @@ import { INewDocumentation } from '../../types/INewDocumentation';
 import { createDocumentation } from '../../../pages/api/documentation.api';
 import { useRouter } from 'next/router';
 import { useAppSelector } from '../../store/hooks/redux-hooks';
-import { IoMdOptions } from 'react-icons/io';
 
 const DocumentationAdd = (props: any) => {
   const [documentationTitle, setDocumentationTitle] = useState('');
