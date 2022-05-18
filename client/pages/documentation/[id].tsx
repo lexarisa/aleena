@@ -35,20 +35,18 @@ const DocumentationPage = ({
   }, []);
 
   const fetchMilestoneDocuments = async () => {
-    console.log('milestone_id:', milestone_id);
     const resMilestone = await fetch(
       //@ts-ignore
       // `http://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
-      `http://localhost:3001/documentation/${+milestone_id}`
+      `https://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();
     dispatch(setDocuments(dataMilestone[0].documents));
   };
 
   const fetchProjectDocuments = async () => {
-    console.log('before sending project _id', project_id);
     const resProject = await fetch(
-      `http://localhost:3001/documentation/project/${+project_id}`
+      `https://ae99-45-130-134-153.eu.ngrok.io/documentation/project/${+project_id}`
     );
 
     const initialRes = await resProject.json();
