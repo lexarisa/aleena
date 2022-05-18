@@ -110,8 +110,8 @@ export class DataService {
     return deleteBookmarkQuery(id, article_id);
   }
 
-  createProject(user_id: number, newProject: any) {
-    return createProjectQuery(user_id, newProject);
+  createProject(user_id: number, newProject: any, milestones: any) {
+    return createProjectQuery(user_id, newProject, milestones);
   }
 
   deleteProject(id: number) {
