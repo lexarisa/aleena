@@ -46,3 +46,15 @@
   cursor: pointer;
   opacity: 0.8;
 }
+
+.select {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: var(--color-white);
+  padding: var(--unit3) var(--unit);
+  font-size: var(--size-xl);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

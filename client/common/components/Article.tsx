@@ -71,19 +71,19 @@ export default function Article({ data }: any) {
     (state) => state.article.currentArticle
   );
 
-  const userBookmarks = useAppSelector((state) => state.user.bookmarks);
-  const userBookmarksIds = userBookmarks.map((a: any) => a.article_id); // map and create id array
+  // const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+  // const userBookmarksIds = userBookmarks.map((a: any) => a.article_id); // map and create id array
 
   const handleCreateBookmark = () => {
     bookmarkArticle(data.id, reduxCurrentUser); //DB
-    dispatch(createBookmark(data)); //STORE
+    // dispatch(createBookmark(data)); //STORE
     setIsBookmarked(true);
   };
-  const handleDeleteBookmark = () => {
-    //set it in DB
-    dispatch(createBookmark(data)); //STORE
-    setIsBookmarked(false);
-  };
+  // const handleDeleteBookmark = () => {
+  //   //set it in DB
+  //   dispatch(deleteBookmark(data)); //STORE
+  //   setIsBookmarked(false);
+  // };
 
   const [content, setContent] = useState(data.content);
 
@@ -115,6 +115,9 @@ export default function Article({ data }: any) {
   }
   return (
     <>
+      <div onClick={handleCreateBookmark}>
+        <IoStarOutline />
+      </div>
       <div className={styles.container}>
         <h1>{data.title}</h1>
         <QuillNoSSRWrapper

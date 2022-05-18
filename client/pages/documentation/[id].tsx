@@ -38,7 +38,7 @@ const DocumentationPage = ({
     const resMilestone = await fetch(
       //@ts-ignore
       // `http://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
-      `https://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
+      `http://localhost:3001/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();
     dispatch(setDocuments(dataMilestone[0].documents));
@@ -46,7 +46,7 @@ const DocumentationPage = ({
 
   const fetchProjectDocuments = async () => {
     const resProject = await fetch(
-      `https://ae99-45-130-134-153.eu.ngrok.io/documentation/project/${+project_id}`
+      `http://localhost:3001/documentation/project/${+project_id}`
     );
 
     const initialRes = await resProject.json();
@@ -66,7 +66,7 @@ const DocumentationPage = ({
   const fetchUserBookmarks = async () => {
     console.log('before sending user_id', user_id);
     const resBookmarks = await fetch(
-      `https://ae99-45-130-134-153.eu.ngrok.io/user/bookmarks/${user_id}`
+      `http://localhost:3001/user/bookmarks/${user_id}`
     );
     const bookmarks = await resBookmarks.json();
     console.log('bookmarks in id', bookmarks);

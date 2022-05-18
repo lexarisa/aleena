@@ -27,8 +27,8 @@ export const MainDocumentation = () => {
     : (reduxDocumentation = useAppSelector(
         (state) => state.documentation.projectDocuments
       ));
-  const userBookmarks = useAppSelector((state) => state.user.bookmarks);
-  console.log('userBookmarks', userBookmarks);
+  // const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+  // console.log('userBookmarks', userBookmarks);
   useEffect(() => {
     documentationEvent();
   }, []);
