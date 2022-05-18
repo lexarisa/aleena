@@ -8,7 +8,7 @@ router.get(
   '/documentation/project/:project_id',
   controller.getAllDocumentsInProject
 );
-router.get('/documentation/:milestone_Id', controller.getAllDocsInMilestone);
+router.get('/documentation/:milestone_id', controller.getAllDocsInMilestone);
 router.post('/documentation', controller.createDocumentation);
 router.patch('/documentation', controller.updateDocumentation);
 router.delete('/documentation', controller.deleteDocumentation);

@@ -117,7 +117,7 @@ export const addUserToProjectQuery = async (
   });
 
   const projectAssigned = await prisma.user_Projects.create({
-    //@ts-ignore :D
+    // @ts-ignore :D
     data: {
       user_id: userBeingAdded?.id,
       project_id: project_id,

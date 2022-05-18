@@ -23,6 +23,7 @@ export class DocumentationController {
       const { title, id } = req.body;
       const doc = await service.updateDocumentation(title, +id);
       const sse = { event: 'update', data: doc };
+
       newDocumentationSSE.next(sse);
       res.send(doc);
     } catch (error) {
@@ -57,7 +58,7 @@ export class DocumentationController {
   async getAllDocumentsInProject(req: Request, res: Response): Promise<void> {
     try {
       const { project_id } = req.params;
-      console.log();
+      console.log('req params in controller', req.params);
       console.log('project id in doc controller', project_id);
 
       const allDocs = await service.getAllDocumentsInProject(+project_id);

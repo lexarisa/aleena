@@ -8,6 +8,7 @@ import ArticleAdd from './small/ArticleAdd';
 import { deleteDocumentation } from '../../pages/api/documentation.api';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentArticle } from '../store/slices/article/article.slice';
+import { updateBookmarks } from '../store/slices/user/user.slice';
 
 interface DocumentCardProp {
   title: String;
@@ -16,19 +17,18 @@ interface DocumentCardProp {
 }
 
 const DocumentCard = ({ title, articles, id }: any) => {
+  const [showArticle, setShowArticle] = useState(false);
+
   const dispatch = useAppDispatch();
-  // const reduxArticles = useAppSelector((state) => state.article.articles);
+
   const reduxCurrentArticle = useAppSelector(
     (state) => state.article.currentArticle
   );
-
-  const [showArticle, setShowArticle] = useState(false);
 
   const handleShowArticle = () => {
     setShowArticle(false);
   };
   const handleClick = (article: any) => {
-    console.log('im clicked wow');
     dispatch(setCurrentArticle(article));
     setShowArticle(true);
   };
@@ -40,22 +40,31 @@ const DocumentCard = ({ title, articles, id }: any) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
+
         <RoundButton
-          button="delete"
+          button="x"
           onClick={() => handleDeleteDocument(id)}
           color="#333"
           textColor="#fff"
         />
       </div>
       <div>
-        {articles &&
-          articles.map((article: any, index: number) => {
+        {/* {onlyBookmarks &&
+          userBookmarks.map((article: any, index: number) => {
             return (
               <div key={index} onClick={() => handleClick(article)}>
                 <ArticleCard data={article} />
               </div>
             );
-          })}
+          })} */}
+
+        {articles.map((article: any, index: number) => {
+          return (
+            <div key={index} onClick={() => handleClick(article)}>
+              <ArticleCard data={article} />
+            </div>
+          );
+        })}
       </div>
       <ArticleAdd documentation_id={id} />
 

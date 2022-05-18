@@ -121,8 +121,8 @@ export class DataService {
   createBookmarks(id: number, article_id: number) {
     return createBookmarkQuery(id, article_id);
   }
-  deleteBookmarks(id: number, article_id: number) {
-    return deleteBookmarkQuery(id, article_id);
+  deleteBookmarks(user_article_id: number) {
+    return deleteBookmarkQuery(user_article_id);
   }
 
   createProject(user_id: number, newProject: any, milestones: any) {

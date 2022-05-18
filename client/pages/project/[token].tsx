@@ -32,7 +32,9 @@ const project = ({
   const [showForm, setShowForm] = useState(false);
 
   const dispatch = useAppDispatch();
+
   console.log(reduxAllProjects);
+
 
   useEffect(() => {
     fetchProjects();
@@ -55,7 +57,9 @@ const project = ({
 
     dispatch(setProjects(formatProjects));
 
+
     dispatch(setUser(token));
+
   };
 
   const streamProject = () => {
@@ -91,6 +95,8 @@ const project = ({
     <>
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
+
+
           <h1>Welcome to Aleena {reduxAllProjects.username}</h1>
 
           <button className={styles.addButton} onClick={handleShowForm}>
@@ -155,6 +161,7 @@ const project = ({
           <CreateForm setShowForm={setShowForm} token={token} />
         </Modal>
       )}
+
     </>
   );
 };

@@ -10,26 +10,36 @@ import {
   updateArticleDocument,
 } from '../store/slices/documentation/documentation.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { useRouter } from 'next/router';
 
 export const MainDocumentation = () => {
   const dispatch = useAppDispatch();
 
-  //TODO add check to see in what context we are working under
-  // const reduxDocumentation = useAppSelector(
-  //   (state) => state.documentation.documents
-  // );
-  const reduxProjectDocumentation = useAppSelector(
-    (state) => state.documentation.projectDocuments
-  );
+  const router = useRouter();
+  // console.log('query', router.query);
+  // console.log('pathname', router.pathname);
+  let reduxDocumentation = [];
+  const inMilestone = router.query.milestone_id;
+  inMilestone
+    ? (reduxDocumentation = useAppSelector(
+        (state) => state.documentation.documents
+      ))
+    : (reduxDocumentation = useAppSelector(
+        (state) => state.documentation.projectDocuments
+      ));
+  const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+  console.log('userBookmarks', userBookmarks);
   useEffect(() => {
     documentationEvent();
   }, []);
 
   const documentationEvent = () => {
     const sourceDoc = new EventSource(
-      'http://localhost:3001/documentation/sse'
+      'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
     );
-    const sourceArticle = new EventSource('http://localhost:3001/article/sse');
+    const sourceArticle = new EventSource(
+      'https://ae99-45-130-134-153.eu.ngrok.io/article/sse'
+    );
 
     // add article sse here
     sourceDoc.addEventListener('message', (message) => {
@@ -56,6 +66,7 @@ export const MainDocumentation = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('article was created');
         dispatch(updateArticleDocument(newDoc));
       }
       if (event === 'delete') {
@@ -69,23 +80,18 @@ export const MainDocumentation = () => {
 
   return (
     <div className={styles.container}>
-      {console.log('reduxDocs', reduxProjectDocumentation)}
-      {reduxProjectDocumentation.map(
-        (
-          item: any //! need to know if i'm querying for project or milestone
-        ) => (
+      {reduxDocumentation.map((item: any) => (
+        <div key={item.id}>
           <div key={item.id}>
-            <div key={item.id}>
-              <DocumentCard
-                title={item.title}
-                articles={item.articles}
-                id={item.id}
-              />
-            </div>
+            <DocumentCard
+              title={item.title}
+              articles={item.articles}
+              id={item.id}
+            />
           </div>
-        )
-      )}
-      <DocumentationAdd />
+        </div>
+      ))}
+      <DocumentationAdd inMilestone={inMilestone} />
     </div>
   );
 };

@@ -18,24 +18,26 @@ import { updateMilestone } from './api/milestoneApi';
 const Dashboard = ({
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const dispatch = useAppDispatch();
 
-    const dispatch = useAppDispatch()
+  useEffect(() => {
+    fetchMilestones();
+  }, []);
 
-    useEffect(() => {
-      fetchMilestones();
-    }, [])
+  const fetchMilestones = async () => {
+    const res = await fetch(
+      // `https://localhost:3001/milestone/dash/${id}`
+      `https://ae99-45-130-134-153.eu.ngrok.io/milestone/dash/${id}`
+    );
 
-    const fetchMilestones = async () => {
-      const res = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/milestone/dash/${id}`);
+    const data = await res.json();
 
-      const data = await res.json();
+    console.log('hey ?????', data);
 
-      console.log('hey ?????', data)
+    dispatch(setMilestones(data));
+  };
 
-      dispatch(setMilestones(data))
-    }
-
-    return (
+  return (
     <DashboardLayout>
       <TabContainer>
         <MainDashboard />
@@ -50,6 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log('what?');
 
   const id = context.query.id;
+  console.log('context query', context.query);
 
   return { props: { id: id }, notFound: false };
 };
