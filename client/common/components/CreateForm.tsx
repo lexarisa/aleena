@@ -26,7 +26,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   } = useForm<FormValues>({ defaultValues: { status: 'To Do' } });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'Milestones',
+    name: 'milestones',
   });
 
   const onSubmit = async (data: any) => {
@@ -85,7 +85,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
                   <input
                     className={styles.textarea}
                     placeholder="Add a milestone..."
-                    {...register(`Milestones.${index}.title` as const)}
+                    {...register(`milestones.${index}.title` as const)}
                   />
                   <button
                     onClick={() => {

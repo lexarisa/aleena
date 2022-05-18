@@ -93,6 +93,7 @@ export const findDashMilestonesQuery = async (project_id: number) => {
       tasks: {
         take: 2,
       },
+      project_id: true
     },
   });
 

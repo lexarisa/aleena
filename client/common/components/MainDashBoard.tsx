@@ -26,6 +26,9 @@ const MainDashboard = () => {
   const reduxCurrentMilestones = useAppSelector(
     (state) => state.milestone.currentMilestone
   );
+  const reduxCurrentProject = useAppSelector(
+    (state) => state.project.currentProject
+  );
 
   useEffect(() => {
     milestoneEvent();
@@ -46,15 +49,24 @@ const MainDashboard = () => {
 
       if (event === 'create') {
         console.log('urzeMilestone', newMilestone);
-        dispatch(updateMilestones(newMilestone));
+        //@ts-ignore
+        if (newMilestone.project_id === reduxCurrentProject.id) {
+          dispatch(updateMilestones(newMilestone));
+        }
       }
 
       if (event === 'delete') {
-        dispatch(deleteMilestone(newMilestone));
+        //@ts-ignore
+        if (newMilestone.project_id === reduxCurrentProject.id) {
+          dispatch(deleteMilestone(newMilestone));
+        }
       }
 
       if (event === 'update') {
-        dispatch(updateMilestones(newMilestone));
+        //@ts-ignore
+        if (newMilestone.project_id === reduxCurrentProject.id) {
+          dispatch(updateMilestones(newMilestone));
+        }
       }
 
       source.close();
