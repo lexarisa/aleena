@@ -30,22 +30,30 @@ const Board = () => {
     const sseTask = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/tasks/sse');
 
     sseTask.addEventListener('message', (tsk: any) => {
-      console.log(tsk)
+      console.log('AAAAAAAHHHH >>>>',tsk)
         const event = JSON.parse(tsk.data).event;
         const task = JSON.parse(tsk.data).data;
   
         if (event === 'create') {
-          console.log('ok then ..', task)
-          dispatch(updateTasks(task));
+          // @ts-ignore
+          if (task.milestoneid === reduxCurrentMile.id) {
+            dispatch(updateTasks(task));
+          }
         }
   
         if (event === 'delete') {
-          dispatch(deleteTask(task));
+          // @ts-ignore
+          if (task.milestoneid === reduxCurrentMile.id) {
+            dispatch(deleteTask(task));
+          }
         }
-  
+
         if (event === 'update') {
           console.log('AND NOOOOOW ..', task)
-          dispatch(updateTasks(task));
+          // @ts-ignore
+          if (task.milestoneid === reduxCurrentMile.id) {
+            dispatch(updateTasks(task));
+          };
         }
 
       sseTask.close();
