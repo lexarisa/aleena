@@ -8,7 +8,10 @@ import avatarPng from '../../../public/avatarPng.png';
 
 //styling
 import styles from '../../styles/Sidebar.module.css';
+import { useAppSelector } from '../store/hooks/redux-hooks';
 const SideBar = () => {
+
+  const user_details = useAppSelector((state) => state.user.user_details)
   const [showCollapsible, setShowCollapsible] = useState(false);
   const [searchUser, setSearchUser] = useState('');
   const [allUsersInProject, setAllUsersInProject] = useState([]);
@@ -46,13 +49,13 @@ const SideBar = () => {
       <div className={styles.sideBarUp}>
         <div className={styles.userImage}>
           <Image
-            src={'https://github.com/thaiscosta.png'}
+            src={user_details.profile_pic}
             width={80}
             height={80}
             alt="User profile image"
           />
           <div>
-            <p className={styles.username}>username</p>
+            <p className={styles.username}>{user_details.username}</p>
           </div>
         </div>
 
