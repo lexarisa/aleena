@@ -33,13 +33,16 @@ export const deleteArticle = async (user_article_id: number) => {
       body: JSON.stringify({ user_article_id: user_article_id }), //article_id
     }
   );
+
   console.log('response', response);
 
   if (!response.ok) {
     const message = `An error has occurred: 404`;
     throw new Error(message);
   }
+
 };
+
 export const updateArticle = async (
   article_id: number,
   title: string,
@@ -68,6 +71,7 @@ export const updateArticle = async (
     throw new Error(message);
   }
 };
+
 export const bookmarkArticle = async (article_id: any, user_id: number) => {
   console.log(
     'article',
@@ -76,7 +80,7 @@ export const bookmarkArticle = async (article_id: any, user_id: number) => {
     user_id,
     'data in bookmarkArticleAPI'
   );
-  const response = await fetch(`http://localhost:3001/user/bookmarks`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/user/bookmarks`, {
     // const response = await fetch(`${process.env.BASEURL}/article`, {
     method: 'POST',
     headers: {

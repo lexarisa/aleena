@@ -18,9 +18,7 @@ const Feed = () => {
   });
 
   const fetchLatestFeeds = async () => {
-    const res = await fetch(
-      'https://ae99-45-130-134-153.eu.ngrok.io/feed/latest'
-    );
+    const res = await fetch('https://ae99-45-130-134-153.eu.ngrok.io/feed/latest');
 
     const feed = await res.json();
 
@@ -28,9 +26,7 @@ const Feed = () => {
   };
 
   const feedEvent = () => {
-    const source = new EventSource(
-      'https://ae99-45-130-134-153.eu.ngrok.io/feed'
-    );
+    const source = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/feed');
 
     source.addEventListener('message', (feed) => {
       const data = JSON.parse(feed.data);
@@ -46,8 +42,13 @@ const Feed = () => {
       <div className={styles.container}>
         <h1 className={styles.header}>Feed</h1>
         {reduxFeedEvents.length ? (
+<<<<<<< HEAD
           reduxFeedEvents.map((e: any) => {
             return <FeedItem key={e.id} feed={e} />;
+=======
+          reduxFeedEvents.map((e: any, index: number) => {
+            return <FeedItem key={index} feed={e} />;
+>>>>>>> development
           })
         ) : (
           <h3>No feed yet</h3>

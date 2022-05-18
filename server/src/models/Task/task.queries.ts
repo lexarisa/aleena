@@ -6,6 +6,9 @@ export const createTaskQuery = async (newTask: any) => {
     data: newTask,
     include: {
       githubs: true,
+      users: true,
+      comments: true,
+      tags: true,
     }
   });
 

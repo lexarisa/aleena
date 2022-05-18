@@ -52,4 +52,18 @@ export class UserController {
       res.status(500);
     }
   }
+
+  async findUserDetails(req: Request, res: Response): Promise<void> {
+    try {
+      const { user_id } = req.params;
+
+      const user = await service.getUser(+user_id);
+
+      res.send(user);
+    } catch (error) {
+      console.log(error);
+
+      res.status(500);
+    }
+  }
 }

@@ -16,8 +16,6 @@ const TabContainer = ({ children }: TabContainerProps) => {
   const project = useAppSelector((state) => state.project.currentProject);
   console.log(milestone);
 
-  useEffect(() => {});
-
   return (
     <div className={styles.container}>
       <div className={styles.tabHead}>
@@ -25,6 +23,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
           <Link
             href={{
               pathname: '/dashboard',
+              // @ts-ignore
               query: { id: project.id },
             }}
           >
@@ -45,6 +44,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
             href={{
               pathname: '/documentation/[project_id]',
               query: {
+                // @ts-ignore
                 project_id: project.id || router.query.id,
               },
             }}

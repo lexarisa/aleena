@@ -21,7 +21,7 @@ const Board = () => {
     (state) => state.milestone.currentMilestone
   );
 
-  console.log('q', reduxAllTasks);
+  console.log('q', reduxCurrentMile);
 
   const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
   console.log('LEVELS DOWN ', reduxAllProjects);
@@ -39,20 +39,21 @@ const Board = () => {
     );
 
     sseTask.addEventListener('message', (tsk: any) => {
-      console.log('AAAAAAAHHHH >>>>', tsk);
       const event = JSON.parse(tsk.data).event;
       const task = JSON.parse(tsk.data).data;
 
       if (event === 'create') {
         // @ts-ignore
-        if (task.milestoneid === reduxCurrentMile.id) {
+        if (task.milestone_id === reduxCurrentMile.id) {
+          console.log('hiiiit sse task');
           dispatch(updateTasks(task));
         }
       }
 
       if (event === 'delete') {
         // @ts-ignore
-        if (task.milestoneid === reduxCurrentMile.id) {
+        if (task.milestone_id === reduxCurrentMile.id) {
+          console.log('hiiiit sse task');
           dispatch(deleteTask(task));
         }
       }
@@ -60,11 +61,10 @@ const Board = () => {
       if (event === 'update') {
         console.log('AND NOOOOOW ..', task);
         // @ts-ignore
-        if (task.milestoneid === reduxCurrentMile.id) {
+        if (task.milestone_id === reduxCurrentMile.id) {
           dispatch(updateTasks(task));
         }
       }
-
       sseTask.close();
     });
   };
@@ -82,6 +82,7 @@ const Board = () => {
         {/* <FilterComponent 
       milestones={milestones} 
       tags={tags} /> */}
+
         {sections.map((section, index) => {
           let filteredTasks: ITask[] = reduxAllTasks.length
             ? reduxAllTasks.filter((task: ITask) => {

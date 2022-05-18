@@ -62,7 +62,9 @@ const formats = [
 ];
 
 export default function Article({ data }: any) {
+
   const dispatch = useAppDispatch();
+  
   const reduxCurrentArticle = useAppSelector(
     (state) => state.article.currentArticle
   );
