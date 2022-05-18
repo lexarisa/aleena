@@ -1,9 +1,11 @@
-const FeedItem = ({event}:any) => {
+const FeedItem = ({feed}:any) => {
   return (
     <div>
-      <div>#{event.number}</div>
-      <div>{event.title}</div>
-      <div>{event.status}</div>
+      <div>#{feed.number}</div>
+      <div>{feed.title}</div>
+      <div>{feed.status}</div>
+      <div>{feed.sender}</div>
+      <div>{feed.pull_url}</div>
     </div>
   );
 };

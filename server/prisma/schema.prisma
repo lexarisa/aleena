@@ -125,11 +125,12 @@ model Github {
   number Int
   task_id Int
   pull_id Int @unique
-  sender String
-  sender_id Int
+  sender String?
+  sender_id Int?
   repo_url String
   title String
   status String
+  description String?
   pull_url String
   comment String?
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)

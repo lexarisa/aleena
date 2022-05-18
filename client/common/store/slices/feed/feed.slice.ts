@@ -16,7 +16,7 @@ export const FeedSlice = createSlice({
 
         updateFeed: (state, action: PayloadAction<any>) => {
             state.feed = state.feed.filter((fd: any) => fd.id != action.payload.id)
-            state.feed = [...state.feed, action.payload]
+            state.feed = [action.payload, ...state.feed]
         },
         
     },

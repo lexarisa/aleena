@@ -35,7 +35,7 @@ import {
   deleteTaskQuery,
 } from '../models/Task/task.queries';
 
-import { createOrUpdateFeedQuery } from '../models/Feed/feed.queries';
+import { createOrUpdateFeedQuery, findLatestFeedsQuery } from '../models/Feed/feed.queries';
 
 import {
   createMilestoneQuery,
@@ -217,5 +217,9 @@ export class DataService {
   //get all articles in milestone
   getAllDocumentsInProject(project_id: number) {
     return getAllDocumentsInProjectQuery(project_id);
+  }
+
+  getLatestFeeds(){
+    return findLatestFeedsQuery();
   }
 }

@@ -1,12 +1,15 @@
 import { Request, Response } from 'express';
+import { Service } from 'typedi';
 import { newHookFeed } from './../../middlewares/checkPR.middleware';
+import { DataService } from './../../services/data.service';
 
+const service: DataService = new DataService();
 
 export class FeedController {
 
   async hookFeed(req: Request, res: Response): Promise<void> {
     try {
-      console.log('hit the feed')
+      console.log('hit the feed HOOOOK')
       res.set({
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
@@ -31,4 +34,16 @@ export class FeedController {
       res.status(500);
     }
   };
+
+  async latestFeeds(req: Request, res: Response): Promise<void> {
+    try {
+      const latestFeeds = await service.getLatestFeeds();
+
+      res.send(latestFeeds)
+    } catch (error) {
+      console.log(error);
+
+      res.status(500);
+    }
+  }
 }

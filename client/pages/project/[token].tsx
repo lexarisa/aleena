@@ -55,7 +55,7 @@ const project = ({
   }
 
   const streamProject = () => {
-    const sseProject = new EventSource('http://localhost:3001/project/sse');
+    const sseProject = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/project/sse');
 
     sseProject.addEventListener('message', (project) => {
       const event = JSON.parse(project.data).event;
@@ -127,7 +127,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cryptr = new Cryptr(`${process.env.ENC_SECRET}`);
 
   const token = await cryptr.decrypt(`${context.query.token}`);
-
 
   return { props: { token }, notFound: false };
 };

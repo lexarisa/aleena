@@ -14,7 +14,7 @@ export const selectProject = async (id: number) => {
 
 export const createProject = async (data: IProject) => {
   console.log('dataaa', data);
-  const response = await fetch(`http://localhost:3001/project`, {
+  const response = await fetch(` https://ae99-45-130-134-153.eu.ngrok.io/project`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const updateProjectDetail = async (
 };
 
 export const addUserToProject = async (data: any) => {
-  const response = await fetch(`http://localhost:3001/projects`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/projects`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

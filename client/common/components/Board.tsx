@@ -27,9 +27,10 @@ const Board = () => {
   });
 
   const streamTask = () => {
-    const sseTask = new EventSource('http://localhost:3001/tasks/sse');
+    const sseTask = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/tasks/sse');
 
     sseTask.addEventListener('message', (tsk: any) => {
+      console.log(tsk)
         const event = JSON.parse(tsk.data).event;
         const task = JSON.parse(tsk.data).data;
   
@@ -43,6 +44,7 @@ const Board = () => {
         }
   
         if (event === 'update') {
+          console.log('AND NOOOOOW ..', task)
           dispatch(updateTasks(task));
         }
 
