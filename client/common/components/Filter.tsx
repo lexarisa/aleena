@@ -2,6 +2,7 @@ import styles from '../../styles/Filter.module.css';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useState } from 'react';
 import { stat } from 'fs';
+import CustomButton from './small/CustomButton';
 
 const Filter = () => {
   //milestones
@@ -14,14 +15,7 @@ const Filter = () => {
     'Backlog',
   ];
 
-  const priority: String[] = [
-    'Priority',
-    'none',
-    'Low',
-    'Medium',
-    'High',
-    'Urgent',
-  ];
+  const priority: String[] = ['none', 'Low', 'Medium', 'High', 'Urgent'];
 
   const handleClick = (index) => {};
   return (
@@ -48,8 +42,10 @@ const Filter = () => {
         style={showCollapsible ? { display: 'flex' } : { display: 'none' }}
       >
         <div className={styles.column}>
-          <ul>
-            <p className={styles.section}>Status</p>
+          <p className={styles.section}>
+            Status <MdKeyboardArrowDown className={styles.icon2} />
+          </p>
+          <div className={styles.select}>
             {status.map((label, index) => {
               return (
                 <li
@@ -61,23 +57,33 @@ const Filter = () => {
                 </li>
               );
             })}
-          </ul>
+          </div>
         </div>
         <div className={styles.column}>
-          <ul>
-            <p className={styles.section}>Priority</p>
-            {priority.map((pri, index) => {
+          <p className={styles.section}>
+            Priority <MdKeyboardArrowDown className={styles.icon2} />
+          </p>
+          <div className={styles.select}>
+            {priority.map((prt, index) => {
               return (
                 <li
                   key={index}
                   onClick={() => handleClick(index)}
                   className={styles.list}
                 >
-                  {pri}
+                  {prt}
                 </li>
               );
             })}
-          </ul>
+          </div>
+        </div>
+        <div className={styles.filterButton}>
+          <CustomButton
+            button="Filter"
+            color="#e63946"
+            textColor="#fff;"
+            onClick={() => console.log('clicked')}
+          />
         </div>
       </div>
 

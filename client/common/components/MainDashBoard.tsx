@@ -62,6 +62,7 @@ const MainDashboard = () => {
   return (
     <>
       <Filter />
+      <MilestoneAdd />
       <div className={styles.container}>
         {reduxMilestones.map((item: any) => (
           <div key={item.id}>
@@ -80,7 +81,6 @@ const MainDashboard = () => {
             </Link>
           </div>
         ))}
-        <MilestoneAdd />
       </div>
     </>
   );

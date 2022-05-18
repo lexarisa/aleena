@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from '../../../styles/MileStoneCard.module.css';
-import { INewMilestone } from '../../types/INewMilistone';
+import styles from '../../../styles/MileStoneAdd.module.css';
+import { INewMilestone } from '../../types/INewMilestone';
 import { createMilestone } from '../../../pages/api/milestoneApi';
 import { useRouter } from 'next/router';
 
@@ -31,16 +31,21 @@ const MilestoneAdd = () => {
 
   return (
     <div className={styles.container}>
-      <input
-        className={styles.input}
-        type="text"
-        name="milestone"
-        id="milestone"
-        value={milestoneTitle}
-        placeholder="Add new milestone"
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
+      <div>
+        <button>Add New Milestone</button>
+      </div>
+      <div className={styles.collapsible}>
+        <input
+          className={styles.input}
+          type="text"
+          name="milestone"
+          id="milestone"
+          value={milestoneTitle}
+          placeholder="Add new milestone"
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
     </div>
   );
 };

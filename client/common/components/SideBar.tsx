@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useCallback } from 'react';
 import { addUserToProject } from '../../pages/api/projectApi';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -23,7 +24,6 @@ const SideBar = () => {
     setShowCollapsible(!showCollapsible);
   };
 
-  console.log(allUsersInProject);
   const handleAddUserToProject = async (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       try {
@@ -57,7 +57,11 @@ const SideBar = () => {
 
         <section className={styles.collapsible}>
           <header>
-            <div className={styles.header}>
+            <div
+              className={styles.header}
+              id="teammates"
+              onClick={handleShowCollapsible}
+            >
               <h2 className={styles.title}>Teammates</h2>
               <span className={styles.dropDown}>+</span>
             </div>
@@ -98,7 +102,7 @@ const SideBar = () => {
         </section>
         <section className={styles.collapsible}>
           <header>
-            <div className={styles.header}>
+            <div id="project" className={styles.header}>
               <h2 className={styles.title}>Project</h2>
               <span>+</span>
             </div>
@@ -112,7 +116,11 @@ const SideBar = () => {
         </section>
         <section className={styles.collapsible}>
           <header>
-            <div className={styles.header}>
+            <div
+              className={styles.header}
+              id="bookmark"
+              onClick={handleShowCollapsible}
+            >
               <h2 className={styles.title}>Bookmarked</h2>
               <span>+</span>
             </div>
