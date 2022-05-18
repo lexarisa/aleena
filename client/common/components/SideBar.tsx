@@ -27,6 +27,7 @@ const SideBar = () => {
   const handleAddUserToProject = async (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       try {
+        console.log('running');
         const data = {
           username: searchUser,
           project_id: Number(router.query.id),

@@ -27,9 +27,10 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   });
 
   const onSubmit = async (data: any) => {
-    const newProjectData = { ...data, user_id: token };
-
     try {
+      const newProjectData = { ...data, user_id: token };
+
+      createProject(newProjectData);
       setShowForm(false);
     } catch (error) {
       console.log('error on submitting', error);

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
+import { IComment } from './../interfaces/IComment';
 
 import {
   findProjectQuery,
@@ -62,6 +63,7 @@ import {
 } from '../models/Articles/articles.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
+import { addCommentQuery } from 'src/models/Comment/comment.queries';
 
 export class DataService {
   constructor(private prisma?: PrismaClient) {
@@ -217,5 +219,9 @@ export class DataService {
   //get all articles in milestone
   getAllDocumentsInProject(project_id: number) {
     return getAllDocumentsInProjectQuery(project_id);
+  }
+
+  addComment(comment: IComment) {
+    return addCommentQuery(comment);
   }
 }
