@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getAllUsersInProject } from '../../pages/api/user.api';
 import avatarPng from '../../../public/avatarPng.png';
+import { useForm } from 'react-hook-form';
 
 //styling
 import styles from '../../styles/Sidebar.module.css';

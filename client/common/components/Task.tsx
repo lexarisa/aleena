@@ -28,13 +28,15 @@ const priority = [
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
 
-  const user: any = useAppSelector(state => state.user.id)
-  const reduxTask: any  = useAppSelector(state => state.task.currentTask)
-  const reduxCurrentProject: any  = useAppSelector(state => state.project.currentProject)
+  const user: any = useAppSelector((state) => state.user.id);
+  const reduxTask: any = useAppSelector((state) => state.task.currentTask);
+  const reduxCurrentProject: any = useAppSelector(
+    (state) => state.project.currentProject
+  );
 
-  console.log('reduxTask', reduxTask)
+  console.log('reduxTask', reduxTask);
 
-  let initialLinkPR = reduxTask.githubs[0]?.pull_url
+  let initialLinkPR = reduxTask.githubs[0]?.pull_url;
   if (initialLinkPR === undefined) initialLinkPR = '';
 
   const [githubLink, setGithubLink] = useState(initialLinkPR); // TODO !!! IF A TASK HAS MORE THAN ONE PR
@@ -43,13 +45,12 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const [description, setDescription] = useState(reduxTask.description);
   const [pr, setPR] = useState('');
 
-
   const handleShowTask = () => {
     setShowTask(false);
     dispatch(setCurrentTask(null));
   };
 
-  console.log('to create a task we need pj id',reduxCurrentProject)
+  console.log('to create a task we need pj id', reduxCurrentProject);
   const handleUpdateTask = async () => {
     const dataToUpdate = {
       user_id: Number(user),
@@ -180,16 +181,18 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
       <div>
         <div>
-          {reduxTask.githubs.length > 0 ? reduxTask.githubs.map((pr:any) => {
-          return (
-            <>
-              <h3>#{pr.number}</h3>
-              <h3>{pr.title}</h3>
-              <h3>{pr.pull_url}</h3>
-              <h3>{pr.status}</h3>
-            </>
-          )
-        }) : []};
+          {reduxTask.githubs.length > 0
+            ? reduxTask.githubs.map((pr: any) => {
+                return (
+                  <>
+                    <h3>#{pr.number}</h3>
+                    <h3>{pr.title}</h3>
+                    <h3>{pr.pull_url}</h3>
+                    <h3>{pr.status}</h3>
+                  </>
+                );
+              })
+            : []}
         </div>
       </div>
     </Modal>
