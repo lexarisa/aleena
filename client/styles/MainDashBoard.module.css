@@ -4,3 +4,9 @@
   gap: var(--unit6);
   grid-template-columns: repeat(2, 1fr);
 }
+
+.tab {
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--unit4) 0;
+}

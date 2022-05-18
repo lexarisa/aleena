@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { INewUser } from './../interfaces/user';
+import { IComment } from './../interfaces/IComment';
 
 import {
   findProjectQuery,
@@ -70,6 +71,11 @@ import {
 } from '../models/Articles/articles.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
+import {
+  addCommentQuery,
+  getAllCommentsQuery,
+  deleteCommentQuery,
+} from '../models/Comment/comment.queries';
 import { cleanFilter } from './../utils/cleanFilter';
 
 export class DataService {
@@ -228,20 +234,30 @@ export class DataService {
     return getAllDocumentsInProjectQuery(project_id);
   }
 
+  addComment(comment: IComment) {
+    console.log('service', comment);
+    return addCommentQuery(comment);
+  }
+  getAllComments(task_id: number) {
+    return getAllCommentsQuery(task_id);
+  }
+
+  deleteComment(comment_id: number) {
+    return deleteCommentQuery(comment_id);
+  }
   getLatestFeeds() {
     return findLatestFeedsQuery();
   }
 
   async filterTasks(
-    project_id: number, 
-    filterPriority: string[], 
-    filterStatus: string[], 
-    filterMileIds: number[], 
-    filterAssignees: number[], 
+    project_id: number,
+    filterPriority: string[],
+    filterStatus: string[],
+    filterMileIds: number[],
+    filterAssignees: number[],
     filterTags: number[]
   ): Promise<any[]> {
-
-    const allFilteredTasks: any = []
+    const allFilteredTasks: any = [];
     // const conditions = [project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags]
 
     if (filterPriority) {
@@ -250,65 +266,103 @@ export class DataService {
           return await filterTasksPriorityQuery(project_id, priority);
         })
       );
-      
-      const cleanPriority = cleanFilter(priorities, project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags )
-      
-      allFilteredTasks.push(cleanPriority);
 
+      const cleanPriority = cleanFilter(
+        priorities,
+        project_id,
+        filterPriority,
+        filterStatus,
+        filterMileIds,
+        filterAssignees,
+        filterTags
+      );
+
+      allFilteredTasks.push(cleanPriority);
     }
 
     if (filterStatus) {
       const status = await Promise.all(
         filterStatus.map(async (status: string): Promise<any> => {
-          return await filterTasksStatusQuery(project_id, status)
+          return await filterTasksStatusQuery(project_id, status);
         })
       );
 
       // console.log('heeeere', status);
-      const cleanStatus = cleanFilter(status, project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags)
-      
+      const cleanStatus = cleanFilter(
+        status,
+        project_id,
+        filterPriority,
+        filterStatus,
+        filterMileIds,
+        filterAssignees,
+        filterTags
+      );
+
       allFilteredTasks.push(cleanStatus);
     }
 
     if (filterAssignees) {
       const assignees = await Promise.all(
         filterAssignees.map(async (assignee: number): Promise<any> => {
-          return await filterTasksAssigneesQuery(project_id, assignee)
+          return await filterTasksAssigneesQuery(project_id, assignee);
         })
       );
-    
+
       // console.log('heeeere', assignees);
-      const cleanAssignees = cleanFilter(assignees, project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags)
-      
+      const cleanAssignees = cleanFilter(
+        assignees,
+        project_id,
+        filterPriority,
+        filterStatus,
+        filterMileIds,
+        filterAssignees,
+        filterTags
+      );
+
       allFilteredTasks.push(cleanAssignees);
     }
 
     if (filterMileIds) {
       const milestones = await Promise.all(
         filterMileIds.map(async (milestone: number): Promise<any> => {
-          return await filterTasksMilestoneQuery(project_id, milestone)
+          return await filterTasksMilestoneQuery(project_id, milestone);
         })
       );
 
       // console.log('heeeere', milestones);
-      const cleanMilestones = cleanFilter(milestones, project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags)
-      
+      const cleanMilestones = cleanFilter(
+        milestones,
+        project_id,
+        filterPriority,
+        filterStatus,
+        filterMileIds,
+        filterAssignees,
+        filterTags
+      );
+
       allFilteredTasks.push(cleanMilestones);
     }
 
     if (filterTags) {
       const tags = await Promise.all(
         filterTags.map(async (tag: number): Promise<any> => {
-          return await filterTasksTagsQuery(project_id, tag)
+          return await filterTasksTagsQuery(project_id, tag);
         })
       );
       // console.log('heeeere', tags);
-      const cleanTags = cleanFilter(tags, project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags)
-      
+      const cleanTags = cleanFilter(
+        tags,
+        project_id,
+        filterPriority,
+        filterStatus,
+        filterMileIds,
+        filterAssignees,
+        filterTags
+      );
+
       allFilteredTasks.push(cleanTags);
     }
-    
-    return allFilteredTasks
 
+    return allFilteredTasks;
   }
 }

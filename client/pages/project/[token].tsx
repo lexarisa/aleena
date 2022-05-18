@@ -20,6 +20,7 @@ import {
   setCurrentProject,
 } from '../../common/store/slices/projects/project.slice';
 import { store } from '../../common/store/index.store';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const project = ({
   data,
@@ -31,6 +32,9 @@ const project = ({
   const [showForm, setShowForm] = useState(false);
 
   const dispatch = useAppDispatch();
+
+  console.log(reduxAllProjects);
+
 
   useEffect(() => {
     fetchProjects();
@@ -53,7 +57,9 @@ const project = ({
 
     dispatch(setProjects(formatProjects));
 
-    dispatch(setUser(+token));
+
+    dispatch(setUser(token));
+
   };
 
   const streamProject = () => {
@@ -89,9 +95,42 @@ const project = ({
     <>
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
-          <h1>Welcome to Alena, {reduxAllProjects.username}</h1>
-          <div className={styles.selectCard} onClick={handleShowForm}>
-            <span className={styles.addButton}>+</span>
+
+
+          <h1>Welcome to Aleena {reduxAllProjects.username}</h1>
+
+          <button className={styles.selectCard} onClick={handleShowForm}>
+            New Project
+            <AiOutlinePlus className={styles.icon} />
+          </button>
+        </div>
+        <div>
+          {reduxAllProjects &&
+            reduxAllProjects.map((project: any) => (
+              <div key={String(project.id)}>
+                <Link
+                  href={{
+                    pathname: '/dashboard',
+                    query: { id: project.id },
+                  }}
+                >
+                  <div
+                    onClick={() => handleProjectSelect(project)}
+                    className={styles.selectCard}
+                  >
+                    <h2>{project.title}</h2>
+                    <p>{project.description}</p>
+                    <p>{project.status}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+        </div>
+      </div>
+      {/* <div className={styles.selectCard} onClick={handleShowForm}>
+            <span className={styles.addButton}>
+              <AiOutlinePlus className={styles.icon} />
+            </span>
             <p>Create a new project</p>
             <div className={styles.projectSection}>
               {reduxAllProjects &&
@@ -115,15 +154,14 @@ const project = ({
                   </div>
                 ))}
             </div>
-          </div>
-          <div></div>
-          {showForm && (
-            <Modal>
-              <CreateForm setShowForm={setShowForm} token={token} />
-            </Modal>
-          )}
-        </div>
-      </div>
+          </div> */}
+
+      {showForm && (
+        <Modal>
+          <CreateForm setShowForm={setShowForm} token={token} />
+        </Modal>
+      )}
+
     </>
   );
 };

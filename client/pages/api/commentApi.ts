@@ -1,5 +1,7 @@
-export const getComments = async () => {
-  const response = await fetch(`${process.env.BASEURL}/comments`);
+import IComment from '../../common/types/IComment';
+
+export const getAllComments = async (task_id: number) => {
+  const response = await fetch(`${process.env.BASEURL}/comments/${task_id}`);
 
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
@@ -10,9 +12,9 @@ export const getComments = async () => {
   return comments;
 };
 
-export const addComment = async (comment) => {
+export const addComment = async (comment: IComment) => {
   //TODO add type
-  const response = await fetch(`${process.env.BASEURL}/comments`, {
+  const response = await fetch(`${process.env.BASEURL}/comment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,10 +28,13 @@ export const addComment = async (comment) => {
   return response.json();
 };
 
-export const deleteComment = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/comment/${id}`, {
-    method: 'DELETE',
-  });
+export const deleteComment = async (comment_id: number) => {
+  const response = await fetch(
+    `${process.env.BASEURL}/comments/${comment_id}`,
+    {
+      method: 'DELETE',
+    }
+  );
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
     throw new Error(message);
