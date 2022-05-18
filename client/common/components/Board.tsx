@@ -28,7 +28,6 @@ const Board = () => {
 
   const router = useRouter();
 
-
   useEffect(() => {
     // sse
     streamTask();
@@ -40,7 +39,6 @@ const Board = () => {
     );
 
     sseTask.addEventListener('message', (tsk: any) => {
-
       console.log('AAAAAAAHHHH >>>>', tsk);
       const event = JSON.parse(tsk.data).event;
       const task = JSON.parse(tsk.data).data;
@@ -49,7 +47,6 @@ const Board = () => {
         // @ts-ignore
         if (task.milestoneid === reduxCurrentMile.id) {
           dispatch(updateTasks(task));
-
         }
       }
 
@@ -68,7 +65,6 @@ const Board = () => {
         }
       }
 
-
       sseTask.close();
     });
   };
@@ -86,23 +82,21 @@ const Board = () => {
         {/* <FilterComponent 
       milestones={milestones} 
       tags={tags} /> */}
-
-
-      {sections.map((section, index) => {
-        let filteredTasks: ITask[] = reduxAllTasks.length
-          ? reduxAllTasks.filter((task: ITask) => {
-              console.log(task);
-              return task.status === section;
-            })
-          : [];
-        return (
-          <div key={index} className={styles.taskColumn}>
-            <BoardSection columnTitle={section} tasks={filteredTasks} />
-          </div>
-        );
-      })}
-    </div>
-
+        {sections.map((section, index) => {
+          let filteredTasks: ITask[] = reduxAllTasks.length
+            ? reduxAllTasks.filter((task: ITask) => {
+                console.log(task);
+                return task.status === section;
+              })
+            : [];
+          return (
+            <div key={index} className={styles.taskColumn}>
+              <BoardSection columnTitle={section} tasks={filteredTasks} />
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

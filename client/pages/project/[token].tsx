@@ -35,7 +35,6 @@ const project = ({
 
   console.log(reduxAllProjects);
 
-
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -57,9 +56,7 @@ const project = ({
 
     dispatch(setProjects(formatProjects));
 
-
     dispatch(setUser(token));
-
   };
 
   const streamProject = () => {
@@ -95,10 +92,7 @@ const project = ({
     <>
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
-
-
           <h1>Welcome to Aleena {reduxAllProjects.username}</h1>
-
           <button className={styles.addButton} onClick={handleShowForm}>
             New Project
             <AiOutlinePlus className={styles.icon} />
@@ -120,48 +114,17 @@ const project = ({
                   >
                     <h2>{project.title}</h2>
                     <p>{project.description}</p>
-                    {/* <p>{project.status}</p> */}
                   </div>
                 </Link>
               </div>
             ))}
         </div>
       </div>
-      {/* <div className={styles.selectCard} onClick={handleShowForm}>
-            <span className={styles.addButton}>
-              <AiOutlinePlus className={styles.icon} />
-            </span>
-            <p>Create a new project</p>
-            <div className={styles.projectSection}>
-              {reduxAllProjects &&
-                reduxAllProjects.map((project: any) => (
-                  <div key={String(project.id)}>
-                    <Link
-                      href={{
-                        pathname: '/dashboard',
-                        query: { id: project.id },
-                      }}
-                    >
-                      <div
-                        onClick={() => handleProjectSelect(project)}
-                        className={styles.selectCard}
-                      >
-                        <h2>{project.title}</h2>
-                        <p>{project.description}</p>
-                        <p>{project.status}</p>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-            </div>
-          </div> */}
-
       {showForm && (
         <Modal>
           <CreateForm setShowForm={setShowForm} token={token} />
         </Modal>
       )}
-
     </>
   );
 };
