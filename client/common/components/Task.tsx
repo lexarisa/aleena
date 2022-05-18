@@ -42,8 +42,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const [githubLink, setGithubLink] = useState(initialLinkPR); // TODO !!! IF A TASK HAS MORE THAN ONE PR
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
   const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
-  const [description, setDescription] = useState(reduxTask.description);
-  const [pr, setPR] = useState('');
+  const [description, setDescription] = useState(reduxTask.description || '');
 
   const handleShowTask = () => {
     setShowTask(false);

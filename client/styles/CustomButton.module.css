@@ -1,7 +1,7 @@
 .container {
   padding: var(--unit3);
   width: 100%;
-  border-radius: 10px;
+  border-radius: 7px;
   outline: 0;
   border: none;
   background-color: var(--color-black);

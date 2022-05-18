@@ -112,7 +112,7 @@
 .avatar {
   border-radius: 20px;
   overflow: hidden;
-  width: 50px;
+  width: 30px;
   align-items: center;
   justify-content: center;
 }
@@ -131,10 +131,12 @@
 
 .text {
   font-size: var(--size-s);
+  margin-left: var(--unit2);
 }
 
 .userDetail {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 }

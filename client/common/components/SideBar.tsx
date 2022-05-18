@@ -85,15 +85,13 @@ const SideBar = () => {
                       <div className={styles.userDetail} key={user.user.id}>
                         <div className={styles.avatar}>
                           <Image
-                            src={avatarPng}
-                            width={50}
+                            src={user.user.profile_pic}
+                            width={30}
                             height={30}
                             alt="User profile image"
                           />
                         </div>
-                        <span className={styles.text}>
-                          {user.user.username}
-                        </span>
+                        <p className={styles.text}>{user.user.username}</p>
                       </div>
                     );
                   })}

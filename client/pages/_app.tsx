@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Aleena: Productivity Tool For Developers</title>
       </Head>
       <PersistGate loading={null} persistor={persistor}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </PersistGate>
     </Provider>
   );

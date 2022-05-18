@@ -92,7 +92,9 @@ const project = ({
     <>
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
-          <h1>Welcome to Aleena {reduxAllProjects.username}</h1>
+          <h1 className={styles.header}>
+            Welcome to Aleena {reduxAllProjects.username}
+          </h1>
           <button className={styles.addButton} onClick={handleShowForm}>
             New Project
             <AiOutlinePlus className={styles.icon} />

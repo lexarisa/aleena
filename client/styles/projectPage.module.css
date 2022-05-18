@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.header {
+  font-size: 40px;
+  color: var(--color-black2);
+}
 .addButton {
   border-radius: 5px;
   padding: var(--unit3) var(--unit4);
@@ -42,6 +46,10 @@
 .projects {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--unit5);
+  justify-content: center;
+  align-items: center;
 }
 .project {
   display: flex;
