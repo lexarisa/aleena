@@ -1,1 +1,68 @@
 /* // assignee //priority//milestone/status/ //tags */
+
+.tab {
+  background-color: var(--color-lightGrey);
+  border-radius: 10px;
+  max-width: 6rem;
+  display: flex;
+  padding-right: var(--unit2);
+  justify-content: center;
+  position: relative;
+}
+
+.tab:hover {
+  background-color: var(--color-lightBg);
+  cursor: pointer;
+  transition: all 0.9s ease;
+}
+
+.collapsible {
+  position: absolute;
+  height: 16rem;
+  width: 40rem;
+  background-color: var(--color-lightGrey);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  z-index: 2;
+  overflow-y: scroll;
+  display: none;
+  padding: var(--unit2);
+  flex-direction: row;
+  gap: var(--unit7);
+}
+
+.collapsible .active {
+  display: flex;
+  flex-direction: row;
+  gap: var(--unit2);
+}
+
+.icon {
+  position: absolute;
+  top: 15px;
+}
+
+.label {
+  font-size: var(--size-s);
+}
+
+.list {
+  font-size: var(--size-s);
+  margin: var(--unit3) var(--unit2);
+  background-color: var(--color-white2);
+  padding: var(--unit2) var(--unit3);
+  width: 100%;
+  border-radius: 5px;
+}
+
+.list:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.section {
+  margin-left: var(--unit3);
+  font-size: var(--size-s);
+  font-weight: 500;
+}
