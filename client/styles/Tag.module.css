@@ -1,6 +1,7 @@
 .container {
   border-radius: 6px;
-  background-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: #f6bbc0;
   display: flex;
   justify-content: center;
   align-items: center;

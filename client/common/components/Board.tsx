@@ -25,7 +25,9 @@ const Board = () => {
 
   const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
   console.log('LEVELS DOWN ', reduxAllProjects);
+
   const router = useRouter();
+
 
   useEffect(() => {
     // sse
@@ -38,21 +40,34 @@ const Board = () => {
     );
 
     sseTask.addEventListener('message', (tsk: any) => {
+
+      console.log('AAAAAAAHHHH >>>>', tsk);
       const event = JSON.parse(tsk.data).event;
       const task = JSON.parse(tsk.data).data;
 
       if (event === 'create') {
-        console.log('ok then ..', task);
-        dispatch(updateTasks(task));
+        // @ts-ignore
+        if (task.milestoneid === reduxCurrentMile.id) {
+          dispatch(updateTasks(task));
+
+        }
       }
 
       if (event === 'delete') {
-        dispatch(deleteTask(task));
+        // @ts-ignore
+        if (task.milestoneid === reduxCurrentMile.id) {
+          dispatch(deleteTask(task));
+        }
       }
 
       if (event === 'update') {
-        dispatch(updateTasks(task));
+        console.log('AND NOOOOOW ..', task);
+        // @ts-ignore
+        if (task.milestoneid === reduxCurrentMile.id) {
+          dispatch(updateTasks(task));
+        }
       }
+
 
       sseTask.close();
     });
@@ -72,21 +87,22 @@ const Board = () => {
       milestones={milestones} 
       tags={tags} /> */}
 
-        {sections.map((section, index) => {
-          let filteredTasks: ITask[] = reduxAllTasks.length
-            ? reduxAllTasks.filter((task: ITask) => {
-                console.log(task);
-                return task.status === section;
-              })
-            : [];
-          return (
-            <div key={index} className={styles.taskColumn}>
-              <BoardSection columnTitle={section} tasks={filteredTasks} />
-            </div>
-          );
-        })}
-      </div>
-    </>
+
+      {sections.map((section, index) => {
+        let filteredTasks: ITask[] = reduxAllTasks.length
+          ? reduxAllTasks.filter((task: ITask) => {
+              console.log(task);
+              return task.status === section;
+            })
+          : [];
+        return (
+          <div key={index} className={styles.taskColumn}>
+            <BoardSection columnTitle={section} tasks={filteredTasks} />
+          </div>
+        );
+      })}
+    </div>
+
   );
 };
 

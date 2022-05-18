@@ -147,4 +147,22 @@ export class TaskController {
       res.status(500);
     }
   }
+
+  async getFilterTask(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('made it here');
+      const { project_id, filterPriority, filterStatus, filterMileIds, filterAssignees, filterTags } = req.body;
+
+      const filteredTasks = await service.filterTasks(project_id, filterPriority, filterStatus, filterMileIds, filterAssignees, filterTags);
+
+      const sse = { event: 'delete', data: filteredTasks };
+      sseTask.next(sse);
+
+      res.send(filteredTasks);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
 }

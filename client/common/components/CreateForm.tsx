@@ -25,7 +25,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
   } = useForm<FormValues>({ defaultValues: { status: 'To Do' } });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'Milestones',
+    name: 'milestones',
   });
 
   const onSubmit = async (data: any) => {
@@ -43,10 +43,12 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
     setShowForm(false);
   };
   return (
-    <>
-      <h1>Create Your Project</h1>
+    <div className={styles.container}>
+      <div>
+        <h1 className={styles.header}>Create Your Project</h1>
+      </div>
 
-      <div className={styles.container}>
+      <div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <label htmlFor="title" className={styles.label}>
             Project Name:
@@ -82,7 +84,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
                   <input
                     className={styles.textarea}
                     placeholder="Add a milestone..."
-                    {...register(`Milestones.${index}.title` as const)}
+                    {...register(`milestones.${index}.title` as const)}
                   />
                   <button
                     onClick={() => {
@@ -102,22 +104,29 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
               );
             })}
           </ul>
-          <div className={styles.addButton}>
-            <CustomButton
-              button="Add a New Project"
-              color="#415a77"
-              textColor="#fff"
-              onClick={handleSubmit(onSubmit)}
-            />
-            <p className={styles.cancel} onClick={handleShowModal}>
-              Cancel
-            </p>
-          </div>
 
           <label htmlFor="status"></label>
         </form>
       </div>
-    </>
+      <div className={styles.addButton}>
+        <div>
+          <CustomButton
+            button="Cancel"
+            color="#929292"
+            textColor="#333"
+            onClick={handleShowModal}
+          />
+        </div>
+        <div>
+          <CustomButton
+            button="Add a New Project"
+            color="#415a77"
+            textColor="#fff"
+            onClick={handleSubmit(onSubmit)}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
