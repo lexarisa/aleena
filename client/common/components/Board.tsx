@@ -38,21 +38,33 @@ const Board = () => {
     );
 
     sseTask.addEventListener('message', (tsk: any) => {
-      const event = JSON.parse(tsk.data).event;
-      const task = JSON.parse(tsk.data).data;
 
-      if (event === 'create') {
-        console.log('ok then ..', task);
-        dispatch(updateTasks(task));
-      }
+      console.log('AAAAAAAHHHH >>>>',tsk)
+        const event = JSON.parse(tsk.data).event;
+        const task = JSON.parse(tsk.data).data;
+  
+        if (event === 'create') {
+          // @ts-ignore
+          if (task.milestoneid === reduxCurrentMile.id) {
+            dispatch(updateTasks(task));
+          }
+        }
+  
+        if (event === 'delete') {
+          // @ts-ignore
+          if (task.milestoneid === reduxCurrentMile.id) {
+            dispatch(deleteTask(task));
+          }
+        }
 
-      if (event === 'delete') {
-        dispatch(deleteTask(task));
-      }
+        if (event === 'update') {
+          console.log('AND NOOOOOW ..', task)
+          // @ts-ignore
+          if (task.milestoneid === reduxCurrentMile.id) {
+            dispatch(updateTasks(task));
+          };
+        }
 
-      if (event === 'update') {
-        dispatch(updateTasks(task));
-      }
 
       sseTask.close();
     });
