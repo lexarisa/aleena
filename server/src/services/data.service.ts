@@ -63,7 +63,6 @@ import {
 } from '../models/Articles/articles.queries';
 
 import { getAllTasksInMilestoneQuery } from '../models/Milestone/milestone.queries';
-import { addCommentQuery } from 'src/models/Comment/comment.queries';
 
 export class DataService {
   constructor(private prisma?: PrismaClient) {
