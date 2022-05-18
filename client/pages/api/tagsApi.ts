@@ -1,5 +1,5 @@
 export const getTags = async () => {
-  const response = await fetch(`${process.env.BASEURL}/tags`);
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/tags`);
 
   if (!response.ok) {
     const message = `An error has occurred: ${response.status}`;
@@ -10,9 +10,9 @@ export const getTags = async () => {
   return tags;
 };
 
-export const addTag = async (tag) => {
+export const addTag = async (tag: any) => {
   //TODO add type
-  const response = await fetch(`${process.env.BASEURL}/tag`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/tag`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const addTag = async (tag) => {
 };
 
 export const deleteTag = async (id: number) => {
-  const response = await fetch(`${process.env.BASEURL}/tag/${id}`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/tag/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
@@ -39,7 +39,7 @@ export const deleteTag = async (id: number) => {
 
 export const updateTag = async (id: Number, newTag: any) => {
   //TODO add type
-  const response = await fetch(`${process.env.BASEURL}/tag/${id}`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/tag/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(newTag),
     headers: { 'Content-Type': 'application/json' },

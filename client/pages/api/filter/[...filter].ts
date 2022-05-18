@@ -2,7 +2,7 @@
 
 export const filterData = async (user_id, project_id) => {
 
-  const milestones = await fetch(`http://localhost:3001/milestone`, {
+  const milestones = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/milestone`, {
     // const response = await fetch(`${process.env.BASEURL}/milestone`, {
     method: 'GET',
     headers: {
@@ -18,7 +18,7 @@ export const filterData = async (user_id, project_id) => {
 
 const fetchAllMilestones = async (user_id: number, project_id: number) => {
 
-    const milestones = await fetch(`${process.env.BASEURL}/milestone`, {
+    const milestones = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/milestone`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const fetchAllMilestones = async (user_id: number, project_id: number) => {
 
 const fetchAllTags = async (user_id: number, project_id: number) => {
 
-    const tags = await fetch(`${process.env.BASEURL}/tags`, {
+    const tags = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/tags`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const fetchAllTags = async (user_id: number, project_id: number) => {
 
 const fetchAllAssignees = async (user_id: number, project_id: number) => {
 
-    const assignees = await fetch(`${process.env.BASEURL}/assignees`, {
+    const assignees = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/assignees`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const fetchAllAssignees = async (user_id: number, project_id: number) => {
 
 const fetchAllAssignees = async (user_id: number, project_id: number) => {
 
-    const assignees = await fetch(`${process.env.BASEURL}/assignees`, {
+    const assignees = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/assignees`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

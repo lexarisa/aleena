@@ -37,7 +37,6 @@ const MainDashboard = () => {
 
 
   const handleSelectMile = (milestone: any) => {
-
     dispatch(setCurrentMilestone(milestone));
   };
 
@@ -46,7 +45,7 @@ const MainDashboard = () => {
     const source = new EventSource(
       'https://ae99-45-130-134-153.eu.ngrok.io/milestone/sse'
     );
-t
+
 
     source.addEventListener('message', (message) => {
       const event = JSON.parse(message.data).event;
@@ -55,7 +54,6 @@ t
       if (event === 'create') {
 
         console.log('urzeMilestone', newMilestone);
-
         //@ts-ignore
         if (newMilestone.project_id === reduxCurrentProject.id) {
           dispatch(updateMilestones(newMilestone));
@@ -98,7 +96,7 @@ t
             >
               <a onClick={() => handleSelectMile(item)} key={item.id}>
                 {/* <a key={item.id}> */}
-                <MileStoneCard title={item.title} status={item.status} />
+                <MileStoneCard title={item.title} status={item.status} milestone_id={item.id} />
               </a>
             </Link>
           </div>

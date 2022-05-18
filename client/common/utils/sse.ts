@@ -1,5 +1,5 @@
 export const streamTask = () => {
-    const task = new EventSource('http://localhost:3001/tasks/sse');
+    const task = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/tasks/sse');
     return task.addEventListener('message', (task) => {
       console.log('Data from SSE TASK:', task);
         return task.data
@@ -7,7 +7,7 @@ export const streamTask = () => {
 }
 
 export const feedEvent = () => {
-    const source = new EventSource('http://localhost:3001/feed');
+    const source = new EventSource('https://ae99-45-130-134-153.eu.ngrok.io/feed');
 
     source.addEventListener('feed', (feed) => {
 

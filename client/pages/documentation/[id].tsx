@@ -16,6 +16,7 @@ import { setBookmarks } from '../../common/store/slices/user/user.slice';
 const DocumentationPage = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
   const currentProject = useAppSelector(
     (state) => state.project.currentProject
   );
@@ -37,7 +38,6 @@ const DocumentationPage = ({
   const fetchMilestoneDocuments = async () => {
     const resMilestone = await fetch(
       //@ts-ignore
-      // `http://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
       `https://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();
@@ -51,13 +51,13 @@ const DocumentationPage = ({
 
     const initialRes = await resProject.json();
     const milestones = initialRes.milestones;
-    const filteredMilestones = milestones.filter((m: any) => {
-      return m.documents.length !== 0;
+    const filteredMilestones = milestones.filter((mile: any) => {
+      return mile.documents.length !== 0;
     });
 
     const dataProject = filteredMilestones
-      .map((d: any) => {
-        return d.documents;
+      .map((doc: any) => {
+        return doc.documents;
       })
       .flat();
 
@@ -66,7 +66,7 @@ const DocumentationPage = ({
   const fetchUserBookmarks = async () => {
     console.log('before sending user_id', user_id);
     const resBookmarks = await fetch(
-      `http://localhost:3001/user/bookmarks/${user_id}`
+      `https://ae99-45-130-134-153.eu.ngrok.io/user/bookmarks/${user_id}`
     );
     const bookmarks = await resBookmarks.json();
     console.log('bookmarks in id', bookmarks);

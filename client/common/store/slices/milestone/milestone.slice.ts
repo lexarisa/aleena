@@ -31,6 +31,7 @@ export const MilestoneSlice = createSlice({
         },
 
         setCurrentMilestone: (state, action) => {
+            console.log('sliceee', action.payload)
             state.currentMilestone = action.payload;
         },
     },

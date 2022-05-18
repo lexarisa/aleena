@@ -35,7 +35,6 @@ const project = ({
 
   console.log(reduxAllProjects);
 
-
   useEffect(() => {
     fetchProjects();
   }, []);

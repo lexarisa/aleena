@@ -31,6 +31,7 @@ const SideBar = () => {
         const data = {
           username: searchUser,
           project_id: Number(router.query.id),
+
         };
         await addUserToProject(data);
         setSearchUser('');
