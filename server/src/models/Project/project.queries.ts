@@ -1,24 +1,42 @@
 // import { IProject } from
 import { prisma } from '../../../prisma/prisma-client';
 
-export const createProjectQuery = async (user_id: number, newProject: any) => {
-  const project = await prisma.project.create({
-    data: newProject,
-  });
+export const createProjectQuery = async (user_id: number, newProject: any, milesData: any) => {
+  
+    const project = await prisma.project.create({
+      data: newProject,
+    });
 
-  if (!project) throw new Error();
+    if (milesData) {
+      milesData = milesData.map((el: any) => {
+        return {title: el.title, project_id: +project.id}
+      })
 
-  const projectUser = await prisma.user_Projects.create({
-    data: {
-      user_id: user_id,
-      project_id: project.id,
-    },
-  });
+      if (milesData.length > 1) {
+        const milestones = await prisma.milestone.createMany({
+          data: milesData
+        });
+      } else {
+        const milestones = await prisma.milestone.create({
+          data: milesData[0]
+        });
+      }
+    }
 
-  if (!projectUser) throw new Error();
+    const projectUser = await prisma.user_Projects.create({
+      data: {
+        user_id: user_id,
+        project_id: project.id,
+      },
+    });
 
-  return project;
-};
+    if (!projectUser) throw new Error();
+
+    return project
+
+
+  }
+
 
 export const findUserProjectsQuery = async (id: number) => {
   const projects = await prisma.user.findUnique({

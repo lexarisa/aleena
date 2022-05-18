@@ -40,11 +40,13 @@ export class ProjectController {
     try {
       const { user_id } = req.body;
 
-      const { title, description, status } = req.body;
+      const { title, description, status, milestones } = req.body;
 
       const newProject = { title, description, status };
 
-      const project = await service.createProject(+user_id, newProject);
+      const milesData = milestones;
+
+      const project = await service.createProject(+user_id, newProject, milesData);
 
       const sse = { event: 'create', data: project };
       newSseProject.next(sse);
