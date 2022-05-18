@@ -13,12 +13,11 @@ export const UserSlice = createSlice({
     setUser: (state, action: PayloadAction<any>) => {
       state.id = action.payload;
     },
+    //create
+
     setBookmarks: (state, action: PayloadAction<any>) => {
       state.bookmarks = action.payload;
     },
-    // createBookmark: (state, action: PayloadAction<any>) => {
-    //   state.bookmarks = [...state.bookmarks, action.payload];
-    // },
     deleteBookmark: (state, action: PayloadAction<any>) => {
       state.bookmarks = state.bookmarks.filter(
         (article_id: number) => article_id !== action.payload
@@ -26,6 +25,7 @@ export const UserSlice = createSlice({
     },
     updateBookmarks: (state, action: PayloadAction<any>) => {
       const oldBookmarks = state.bookmarks.filter((article_id: any) => {
+        console.log('action payload,articleID', action.payload, article_id);
         article_id !== action.payload;
       });
       state.bookmarks = [...oldBookmarks, action.payload];

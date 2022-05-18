@@ -26,6 +26,9 @@ const Board = () => {
   const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
   console.log('LEVELS DOWN ', reduxAllProjects);
 
+  const router = useRouter();
+
+
   useEffect(() => {
     // sse
     streamTask();
@@ -37,6 +40,7 @@ const Board = () => {
     );
 
     sseTask.addEventListener('message', (tsk: any) => {
+
       console.log('AAAAAAAHHHH >>>>', tsk);
       const event = JSON.parse(tsk.data).event;
       const task = JSON.parse(tsk.data).data;
@@ -45,6 +49,7 @@ const Board = () => {
         // @ts-ignore
         if (task.milestoneid === reduxCurrentMile.id) {
           dispatch(updateTasks(task));
+
         }
       }
 
@@ -63,6 +68,7 @@ const Board = () => {
         }
       }
 
+
       sseTask.close();
     });
   };
@@ -75,10 +81,12 @@ const Board = () => {
     'Backlog',
   ];
   return (
-    <div className={styles.scrollContainer}>
-      {/* <FilterComponent 
+    <>
+      <div className={styles.scrollContainer}>
+        {/* <FilterComponent 
       milestones={milestones} 
       tags={tags} /> */}
+
 
       {sections.map((section, index) => {
         let filteredTasks: ITask[] = reduxAllTasks.length
@@ -94,6 +102,7 @@ const Board = () => {
         );
       })}
     </div>
+
   );
 };
 

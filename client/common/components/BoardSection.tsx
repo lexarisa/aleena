@@ -20,8 +20,8 @@ const emptyTask = {} as ITask;
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector(state => state.user.id);
-  const selectedTask = useAppSelector(state => state.task.currentTask);
+  const user = useAppSelector((state) => state.user.id);
+  const selectedTask = useAppSelector((state) => state.task.currentTask);
 
   const [showTask, setShowTask] = useState(false);
   const [showButton, setShowButton] = useState(true);
@@ -57,7 +57,6 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         status: columnTitle,
       };
 
-      console.log('hey hooo lets go', newTask)
       await createNewTask(newTask).catch((error) => console.log(error));
       setTaskTitle('');
       setShowInput(false);

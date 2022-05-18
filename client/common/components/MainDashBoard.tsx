@@ -30,29 +30,37 @@ const MainDashboard = () => {
     (state) => state.project.currentProject
   );
 
+
   useEffect(() => {
     milestoneEvent();
   });
 
+
   const handleSelectMile = (milestone: any) => {
+
     dispatch(setCurrentMilestone(milestone));
   };
 
   const milestoneEvent = () => {
+
     const source = new EventSource(
       'https://ae99-45-130-134-153.eu.ngrok.io/milestone/sse'
     );
+t
 
     source.addEventListener('message', (message) => {
       const event = JSON.parse(message.data).event;
       const newMilestone = JSON.parse(message.data).data;
 
       if (event === 'create') {
+
         console.log('urzeMilestone', newMilestone);
+
         //@ts-ignore
         if (newMilestone.project_id === reduxCurrentProject.id) {
           dispatch(updateMilestones(newMilestone));
         }
+
       }
 
       if (event === 'delete') {
@@ -74,6 +82,7 @@ const MainDashboard = () => {
   };
 
   return (
+
     <>
       <div className={styles.tab}>
         <MilestoneAdd />
@@ -96,6 +105,7 @@ const MainDashboard = () => {
         ))}
       </div>
     </>
+
   );
 };
 

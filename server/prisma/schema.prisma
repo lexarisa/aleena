@@ -24,7 +24,7 @@ model User {
   tasks User_Tasks[]
   comments Comment[]
   projects User_Projects[]
-  articles Article[]
+  articles User_Articles[]
 }
 
 model Project {
@@ -55,6 +55,18 @@ model User_Tasks {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 }
+
+model User_Articles{
+  id Int @id @default(autoincrement())
+  user_id Int
+  article_id Int
+  user User @relation(fields:[user_id],references:[id], onDelete: Cascade)
+  article Article @relation(fields:[article_id],references:[id], onDelete: Cascade)
+}
+
+
+
+
 model Milestone {
   id Int @id @default(autoincrement())
   created_at DateTime @default(now())
@@ -113,7 +125,7 @@ model Article {
   user_id Int?
   title String 
   content String?
-  user User? @relation(fields: [user_id], references: [id])
+  users User_Articles[]
   documentation_id Int 
   documentation Documentation @relation(fields: [documentation_id], references: [id], onDelete: Cascade)
 }

@@ -46,6 +46,15 @@ CREATE TABLE "User_Tasks" (
 );
 
 -- CreateTable
+CREATE TABLE "User_Articles" (
+    "id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "article_id" INTEGER NOT NULL,
+
+    CONSTRAINT "User_Articles_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Milestone" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -186,6 +195,12 @@ ALTER TABLE "User_Tasks" ADD CONSTRAINT "User_Tasks_user_id_fkey" FOREIGN KEY ("
 ALTER TABLE "User_Tasks" ADD CONSTRAINT "User_Tasks_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "Task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "User_Articles" ADD CONSTRAINT "User_Articles_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "User_Articles" ADD CONSTRAINT "User_Articles_article_id_fkey" FOREIGN KEY ("article_id") REFERENCES "Article"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Milestone" ADD CONSTRAINT "Milestone_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -199,9 +214,6 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_task_id_fkey" FOREIGN KEY ("task_i
 
 -- AddForeignKey
 ALTER TABLE "Documentation" ADD CONSTRAINT "Documentation_milestone_id_fkey" FOREIGN KEY ("milestone_id") REFERENCES "Milestone"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Article" ADD CONSTRAINT "Article_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Article" ADD CONSTRAINT "Article_documentation_id_fkey" FOREIGN KEY ("documentation_id") REFERENCES "Documentation"("id") ON DELETE CASCADE ON UPDATE CASCADE;
