@@ -6,7 +6,7 @@ import { useAppSelector } from '../store/hooks/redux-hooks';
 
 const ArticleCard = ({ data }: any) => {
   // const dispatch = useAppDispatch();
-  // const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+
   // const userBookmarksIds = userBookmarks.map((a: any) => a.article_id); // map and create id array
 
   return (

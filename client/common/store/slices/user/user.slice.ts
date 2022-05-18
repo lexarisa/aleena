@@ -18,6 +18,7 @@ export const UserSlice = createSlice({
     },
 
     setBookmarks: (state, action: PayloadAction<any>) => {
+      console.log('action payload in setB', action.payload);
       state.bookmarks = action.payload;
     },
     deleteBookmark: (state, action: PayloadAction<any>) => {
