@@ -16,9 +16,6 @@ export const UserSlice = createSlice({
     setBookmarks: (state, action: PayloadAction<any>) => {
       state.bookmarks = action.payload;
     },
-    // createBookmark: (state, action: PayloadAction<any>) => {
-    //   state.bookmarks = [...state.bookmarks, action.payload];
-    // },
     deleteBookmark: (state, action: PayloadAction<any>) => {
       state.bookmarks = state.bookmarks.filter(
         (article_id: number) => article_id !== action.payload

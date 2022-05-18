@@ -8,7 +8,7 @@ export class UserController {
 
   async userBookmarks(req: Request, res: Response): Promise<void> {
     try {
-      const { user_id } = req.body;
+      const { user_id } = req.params;
       const bookmarkedArticles = await service.getUserBookmarks(+user_id);
       res.send(bookmarkedArticles);
     } catch (error) {

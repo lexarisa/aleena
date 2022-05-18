@@ -65,8 +65,6 @@ const Board = () => {
   ];
   return (
     <>
-      <button onClick={() => console.log(router.query)}>go to docs</button>
-
       <div className={styles.scrollContainer}>
         {/* <FilterComponent 
       milestones={milestones} 

@@ -26,8 +26,8 @@ const Dashboard = ({
 
   const fetchMilestones = async () => {
     const res = await fetch(
-      `https://localhost:3001/milestone/dash/${id}`
-      // `https://ae99-45-130-134-153.eu.ngrok.io/milestone/dash/${id}`
+      // `https://localhost:3001/milestone/dash/${id}`
+      `https://ae99-45-130-134-153.eu.ngrok.io/milestone/dash/${id}`
     );
 
     const data = await res.json();

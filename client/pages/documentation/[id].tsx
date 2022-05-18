@@ -11,34 +11,38 @@ import {
   setDocuments,
   setProjectDocuments,
 } from '../../common/store/slices/documentation/documentation.slice';
+import { setBookmarks } from '../../common/store/slices/user/user.slice';
 
 const DocumentationPage = ({
-  id,
+  query,
   pathname,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const currentProject = useAppSelector(
     (state) => state.project.currentProject
   );
-  // console.log('currentProject', currentProject.id);
-  console.log('query', id);
+  const user_id = useAppSelector((state) => {
+    state.user.id;
+  });
+  console.log('query', query);
   console.log('pathname in id', pathname);
-
   const dispatch = useAppDispatch();
-  //get project id
-  //@ts-ignore
-  // const project_id = currentProject.id;
-  const project_id = 32;
+  let queries = Object.values(query);
 
-  // const milestone_id =pathname.includes('milestone'); //! HARDCODED
-  const milestone_id = 1;
+  //@ts-ignore
+  const project_id = currentProject.id;
+  console.log(queries);
+  let milestone_id = queries.length > 1 ? queries[0] : 1; // 1 as fail-safe
 
   useEffect(() => {
     fetchMilestoneDocuments();
     fetchProjectDocuments();
+    // fetchUserBookmarks();
   }, []);
 
   const fetchMilestoneDocuments = async () => {
+    console.log('milestone_id:', milestone_id);
     const resMilestone = await fetch(
+      //@ts-ignore
       `http://localhost:3001/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();
@@ -46,7 +50,7 @@ const DocumentationPage = ({
   };
 
   const fetchProjectDocuments = async () => {
-    console.log('before sending', project_id);
+    console.log('before sending project _id', project_id);
     const resProject = await fetch(
       `http://localhost:3001/documentation/project/${+project_id}`
     );
@@ -65,6 +69,14 @@ const DocumentationPage = ({
 
     dispatch(setProjectDocuments(dataProject));
   };
+  //   const fetchUserBookmarks = async () => {
+  //     console.log('before sending user_id', user_id);
+  //     const resBookmarks = await fetch(
+  //       `http://localhost:3001/user/bookmarks/${user_id}`
+  //     );
+  //     const bookmarks = await resBookmarks.json();
+  //     dispatch(setBookmarks(bookmarks));
+  //   };
 
   return (
     <DashboardLayout>
@@ -78,10 +90,10 @@ const DocumentationPage = ({
 export default DocumentationPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
+  // const { id } = context.query;
   // from what i understand i do not need this since i'm fetching from store
   return {
-    props: { id: context.query, pathname: context.resolvedUrl },
+    props: { query: context.query, pathname: context.resolvedUrl },
     notFound: false,
   };
 };

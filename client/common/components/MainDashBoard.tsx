@@ -42,7 +42,7 @@ const MainDashboard = () => {
 
       if (event === 'create') {
         console.log('urzeMilestone', newMilestone);
-        dispatch(updateMilestone(newMilestone));
+        dispatch(updateMilestones(newMilestone));
       }
 
       if (event === 'delete') {
@@ -69,7 +69,11 @@ const MainDashboard = () => {
           >
             <a onClick={async () => await handleClickHere(item)} key={item.id}>
               {/* <a key={item.id}> */}
-              <MileStoneCard title={item.title} status={item.status} />
+              <MileStoneCard
+                title={item.title}
+                status={item.status}
+                milestone_id={item.id}
+              />
             </a>
           </Link>
         </div>

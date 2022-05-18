@@ -14,7 +14,6 @@ const TabContainer = ({ children }: TabContainerProps) => {
   const router = useRouter();
   const milestone = useAppSelector((state) => state.milestone.currentMilestone);
   const project = useAppSelector((state) => state.project.currentProject);
-  console.log('project in Tab', project);
 
   console.log(milestone);
   useEffect(() => {});
@@ -44,10 +43,9 @@ const TabContainer = ({ children }: TabContainerProps) => {
           </Link>
           <Link
             href={{
-              pathname: '/documentation/[project_id]/',
+              pathname: '/documentation/[project_id]',
               query: {
                 project_id: router.query.id,
-                // milestone_id: router.query.id,
               },
             }}
           >

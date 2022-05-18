@@ -14,27 +14,19 @@ import { useRouter } from 'next/router';
 
 export const MainDocumentation = () => {
   const dispatch = useAppDispatch();
-  // let reduxDocumentation = [];
 
   const router = useRouter();
-  console.log('query', router.query);
-  console.log('pathname', router.pathname);
-
-  // if (router.pathname.includes('milestone')) {
-  //   reduxDocumentation = useAppSelector(
-  //     (state) => state.documentation.documents
-  //   );
-  // } else
-  const reduxDocumentation = useAppSelector(
-    (state) => state.documentation.projectDocuments
-  );
-
-  //TODO
-  //check query to see with what info to populate the page
-
-  // const reduxDocumentation = useAppSelector(
-  //   (state) => state.documentation.documents
-  // );
+  // console.log('query', router.query);
+  // console.log('pathname', router.pathname);
+  let reduxDocumentation = [];
+  const inMilestone = router.query.milestone_id;
+  inMilestone
+    ? (reduxDocumentation = useAppSelector(
+        (state) => state.documentation.documents
+      ))
+    : (reduxDocumentation = useAppSelector(
+        (state) => state.documentation.projectDocuments
+      ));
 
   useEffect(() => {
     documentationEvent();
@@ -42,9 +34,12 @@ export const MainDocumentation = () => {
 
   const documentationEvent = () => {
     const sourceDoc = new EventSource(
-      'http://localhost:3001/documentation/sse'
+      // 'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
+      'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
     );
-    const sourceArticle = new EventSource('http://localhost:3001/article/sse');
+    const sourceArticle = new EventSource(
+      'https://ae99-45-130-134-153.eu.ngrok.io/article/sse'
+    );
 
     // add article sse here
     sourceDoc.addEventListener('message', (message) => {
@@ -52,6 +47,7 @@ export const MainDocumentation = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('doc was created');
         const docWithArticles = newDoc.articles
           ? newDoc
           : { ...newDoc, articles: [] };
@@ -71,6 +67,7 @@ export const MainDocumentation = () => {
       const newDoc = JSON.parse(message.data).data;
 
       if (event === 'create') {
+        console.log('article was created');
         dispatch(updateArticleDocument(newDoc));
       }
       if (event === 'delete') {
@@ -95,7 +92,7 @@ export const MainDocumentation = () => {
           </div>
         </div>
       ))}
-      <DocumentationAdd />
+      <DocumentationAdd inMilestone={inMilestone} />
     </div>
   );
 };
