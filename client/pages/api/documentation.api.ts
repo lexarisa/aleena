@@ -2,14 +2,17 @@ import { INewDocumentation } from '../../common/types/INewDocumentation';
 
 export const createDocumentation = async (data: INewDocumentation) => {
   console.log(data, 'data in createDocAPI');
-  const response = await fetch(`http://localhost:3001/documentation`, {
-    // const response = await fetch(`${process.env.BASEURL}/doc`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  const response = await fetch(
+    `https://ae99-45-130-134-153.eu.ngrok.io/documentation`,
+    {
+      // const response = await fetch(`${process.env.BASEURL}/doc`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
 
   if (!response.ok) {
     const message = `An error has occurred: 404`;
@@ -19,14 +22,17 @@ export const createDocumentation = async (data: INewDocumentation) => {
 
 export const deleteDocumentation = async (id: number) => {
   console.log(id, 'data in deleteDocAPI');
-  const response = await fetch(`http://localhost:3001/documentation`, {
-    // const response = await fetch(`${process.env.BASEURL}/article`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: id }),
-  });
+  const response = await fetch(
+    `https://ae99-45-130-134-153.eu.ngrok.io/documentation`,
+    {
+      // const response = await fetch(`${process.env.BASEURL}/article`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id }),
+    }
+  );
   console.log('response', response);
 
   if (!response.ok) {
@@ -39,18 +45,21 @@ export const updateDocumentation = async (
   title: string,
   content: string
 ) => {
-  const response = await fetch(`http://localhost:3001/documentation`, {
-    // const response = await fetch(`${process.env.BASEURL}/documentation`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      documentation_id: documentation_id,
-      title: title,
-      content: content,
-    }),
-  });
+  const response = await fetch(
+    `https://ae99-45-130-134-153.eu.ngrok.io/documentation`,
+    {
+      // const response = await fetch(`${process.env.BASEURL}/documentation`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        documentation_id: documentation_id,
+        title: title,
+        content: content,
+      }),
+    }
+  );
   console.log('response', response);
 
   if (!response.ok) {

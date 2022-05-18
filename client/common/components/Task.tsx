@@ -3,6 +3,7 @@ import styles from '../../styles/Task.module.css';
 import ITaskProps from '../types/ITaskProps';
 import Tag from '../components/small/Tag';
 import { updateTaskDetail, deleteTaskApi } from '../../pages/api/taskApi';
+import { linkPRTask } from '../../pages/api/taskApi';
 import Modal from './Modal';
 import RoundButton from './small/RoundButton';
 import CustomButton from './small/CustomButton';
@@ -33,7 +34,10 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
   console.log('reduxTask', reduxTask)
 
-  const [githubLink, setGithubLink] = useState('');
+  let initialLinkPR = reduxTask.githubs[0]?.pull_url
+  if (initialLinkPR === undefined) initialLinkPR = '';
+
+  const [githubLink, setGithubLink] = useState(initialLinkPR); // TODO !!! IF A TASK HAS MORE THAN ONE PR
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
   const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
   const [description, setDescription] = useState(reduxTask.description);
@@ -56,6 +60,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
     };
 
     await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
+    await linkPRTask(githubLink, reduxTask.id);
     setShowTask(false);
   };
 
@@ -170,6 +175,21 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             placeholder="Add a comment..."
             className={styles.input}
           />
+        </div>
+      </div>
+
+      <div>
+        <div>
+          {reduxTask.githubs.length > 0 ? reduxTask.githubs.map((pr:any) => {
+          return (
+            <>
+              <h3>#{pr.number}</h3>
+              <h3>{pr.title}</h3>
+              <h3>{pr.pull_url}</h3>
+              <h3>{pr.status}</h3>
+            </>
+          )
+        }) : []};
         </div>
       </div>
     </Modal>

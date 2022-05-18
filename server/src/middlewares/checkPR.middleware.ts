@@ -20,25 +20,30 @@ export const checkPR = async (
     //find pr in db and update status
     let taskId = await service.findAndUpdatePR(+pull_id, status);
 
-    if (taskId !== null) {
-      // update status of task if all PRs closed
-      const allStatus = await service.getPRsInTask(+taskId);
-
-      let updatedTask;
-
-      if (allStatus?.githubs.every((git) => git.status === 'closed')) {
-        updatedTask = await service.updateTaskStatus(+taskId, 'done');
-      } else {
-        updatedTask = await service.updateTaskStatus(+taskId, 'review');
-      }
-      updatedTask && newHookTask.next(updatedTask); // with db id
-      req.body = true;
-      next();
-    } else {
+    console.log('TEST HOOK FEED', taskId)
+    if (taskId === null) {
       req.body = false;
       const feedUnit = await service.createOrUpdateFeed(pull_request); 
    
       newHookFeed.next(feedUnit); // always send the pull req to feed
+      next();
+
+    } else {
+      // update status of task if all PRs closed
+      const allStatus = await service.getPRsInTask(+taskId.task_id);
+
+      console.log('allStatus', allStatus)
+      let updatedTask;
+
+      if (allStatus?.githubs.every((git) => git.status === 'closed')) {
+        updatedTask = await service.updateTaskStatus(+taskId.task_id, 'Done');
+      } else {
+        updatedTask = await service.updateTaskStatus(+taskId.task_id, 'Review');
+      }
+
+      const sse = { event: 'update', data: updatedTask };
+      updatedTask && newHookTask.next(sse); // with db id
+      req.body = true;
       next();
     }
   } catch (error) {

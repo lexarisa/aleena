@@ -34,7 +34,6 @@ export const MainDocumentation = () => {
 
   const documentationEvent = () => {
     const sourceDoc = new EventSource(
-      // 'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
       'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
     );
     const sourceArticle = new EventSource(
@@ -45,6 +44,7 @@ export const MainDocumentation = () => {
     sourceDoc.addEventListener('message', (message) => {
       const event = JSON.parse(message.data).event;
       const newDoc = JSON.parse(message.data).data;
+      console.log('listening');
 
       if (event === 'create') {
         console.log('doc was created');

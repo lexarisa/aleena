@@ -7,7 +7,7 @@ import { useAppSelector } from '../../store/hooks/redux-hooks';
 
 const DocumentationAdd = (props: any) => {
   const [documentationTitle, setDocumentationTitle] = useState('');
-  const [selectedMilestone, setSelectedMilestone] = useState(null);
+  const [selectedMilestone, setSelectedMilestone] = useState(0);
   const router = useRouter();
 
   const handleCreateDocumentation = async () => {
@@ -23,7 +23,7 @@ const DocumentationAdd = (props: any) => {
     } else {
       //if not in a milestone
       if (documentationTitle === '') return;
-      if (selectedMilestone === null) return;
+      if (selectedMilestone === 0) return;
       newDocumentation = {
         title: documentationTitle,
         milestone_id: selectedMilestone,

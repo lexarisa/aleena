@@ -23,6 +23,7 @@ export class DocumentationController {
       const { title, id } = req.body;
       const doc = await service.updateDocumentation(title, +id);
       const sse = { event: 'update', data: doc };
+
       newDocumentationSSE.next(sse);
       res.send(doc);
     } catch (error) {

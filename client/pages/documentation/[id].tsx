@@ -43,6 +43,7 @@ const DocumentationPage = ({
     console.log('milestone_id:', milestone_id);
     const resMilestone = await fetch(
       //@ts-ignore
+      // `http://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
       `http://localhost:3001/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();

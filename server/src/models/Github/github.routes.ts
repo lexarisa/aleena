@@ -20,6 +20,6 @@ router.post('/github/PR', controller.createPR);
 router.get('/api/auth/callback/github', controller.tokenGithub);
 
 // SSE
-router.post('/payload', cleanData, checkPR, feedController.hookFeed);
+router.post('/payload', cleanData, checkPR, taskController.sseTask);
 
 export default router;

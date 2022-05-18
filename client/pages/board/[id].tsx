@@ -20,7 +20,9 @@ const BoardPage = ({
   }, []);
 
   const fetchTasks = async () => {
-    const res = await fetch(`http://localhost:3001/milestone/${id}`);
+    const res = await fetch(
+      `https://ae99-45-130-134-153.eu.ngrok.io/milestone/${id}`
+    );
 
     const data = await res.json();
 

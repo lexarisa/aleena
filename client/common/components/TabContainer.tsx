@@ -3,7 +3,6 @@ import styles from '../../styles/TabContainer.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
-import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
 import Image from 'next/image';
 
 type TabContainerProps = {
@@ -12,10 +11,9 @@ type TabContainerProps = {
 
 const TabContainer = ({ children }: TabContainerProps) => {
   const router = useRouter();
-  const milestone = useAppSelector((state) => state.milestone.currentMilestone);
   const project = useAppSelector((state) => state.project.currentProject);
+  console.log('current project', project);
 
-  console.log(milestone);
   useEffect(() => {});
 
   return (
@@ -45,7 +43,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
             href={{
               pathname: '/documentation/[project_id]',
               query: {
-                project_id: router.query.id,
+                project_id: project.id || router.query.id,
               },
             }}
           >

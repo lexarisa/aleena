@@ -1,7 +1,7 @@
 import ITask from '../../common/types/ITask';
 
 export const createNewTask = async (task: ITask) => {
-  const response = await fetch(`http://localhost:3001/task`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/task`, {
     method: 'POST',
     body: JSON.stringify(task),
     headers: { 'Content-Type': 'application/json' },
@@ -28,7 +28,7 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
   const lastIndex = splitPR.length - 1;
 
   const response = await fetch(
-    `${process.env.PR_API_URL}/${splitPR[lastIndex - 3]}/${
+    `https://api.github.com/repos/${splitPR[lastIndex - 3]}/${
       splitPR[lastIndex - 2]
     }/pulls/${splitPR[lastIndex]}`
   );
@@ -48,6 +48,8 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
     number: data.number,
     pull_url: data.url,
     comment: data.body,
+    description: data.body,
+    repo_url: pr_url
   };
 
   const options = {
@@ -59,7 +61,7 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
   };
 
   const sendPR = await fetch(
-    `${process.env.NEXT_PUBLIC_BASEURL}/github/PR`,
+    `${process.env.BASEURL}/github/PR`,
     options
   );
 
@@ -68,7 +70,7 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
 
 export const updateTaskDetail = async (id: Number, taskData: ITask) => {
   
-  const response = await fetch(`http://localhost:3001/task/${id}`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/task/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(taskData),
     headers: { 'Content-Type': 'application/json' },
@@ -81,7 +83,7 @@ export const updateTaskDetail = async (id: Number, taskData: ITask) => {
 };
 
 export const deleteTaskApi = async (id: Number) => {
-  const response = await fetch(`http://localhost:3001/task/${id}`, {
+  const response = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/task/${id}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   });
