@@ -6,15 +6,17 @@ const router: Router = Router();
 // @ts-ignore missing correct dependency injection
 const controller = new TaskController();
 
-// router.get('/hookTask', controller.hookTask);
-
 router.get('/task/:task_id', controller.findTask);
+
+router.get('/filter/tasks', controller.getFilterTask);
 
 router.post('/task', controller.createTask);
 
 router.delete('/task/:task_id', controller.deleteTask);
 
 router.patch('/task/:task_id', controller.updateTaskDetail);
+
+// HOOKS AND SSEs
 
 router.get('/payload/task', cleanData, controller.createTask);
 
