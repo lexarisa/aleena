@@ -23,7 +23,7 @@ const DocumentationAdd = (props: any) => {
     } else {
       //if not in a milestone
       if (documentationTitle === '') return;
-      if (selectedMilestone === 0) return;
+      if (selectedMilestone === undefined) return;
       newDocumentation = {
         title: documentationTitle,
         milestone_id: selectedMilestone,
@@ -63,7 +63,9 @@ const DocumentationAdd = (props: any) => {
           id="milestone"
           value={selectedMilestone}
           onChange={(e) => setSelectedMilestone(e.target.value)}
+          className={styles.select}
         >
+          <option value="">Select milestone</option>
           {availableMilestones.map((option: any) => (
             <option key={option.id} value={option.id}>
               {option.title}

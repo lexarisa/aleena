@@ -32,10 +32,13 @@ export class UserController {
   async deleteBookmark(req: Request, res: Response): Promise<void> {
     try {
       // const { user_id } = req.params;
-      const { user_article_id } = req.body;
+      const { user_id, article_id } = req.body;
+      console.log('user_id', user_id, 'article_id', article_id);
       const unBookmarkedArticle = await service.deleteBookmarks(
-        +user_article_id
+        +user_id,
+        +article_id
       );
+      console.log('response in deleteBookM controller', unBookmarkedArticle);
       res.send(unBookmarkedArticle);
     } catch (error) {
       console.error(error);
