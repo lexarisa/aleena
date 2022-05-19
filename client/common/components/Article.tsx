@@ -12,12 +12,15 @@ import {
 } from '../../pages/api/article.api';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 // import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
-import { BsTrash, BsPlus } from 'react-icons/bs';
+import { BsTrash, BsPlusLg } from 'react-icons/bs';
 import {
   createBookmark,
   deleteBookmark,
 } from '../store/slices/user/user.slice';
 import { IoStarOutline, IoStar } from 'react-icons/io5';
+import { AiOutlineClose } from 'react-icons/ai';
+import RoundButton from './small/RoundButton';
+import CustomButton from './small/CustomButton';
 
 // hljs.configure({
 //   languages: ['javascript', 'ruby', 'python', 'rust'],
@@ -116,15 +119,21 @@ export default function Article({ data, setShowArticle }: any) {
 
   return (
     <>
-      {isBookmarked && userBookmarksIds.includes(data.id) ? (
-        <div onClick={handleDeleteBookmark}>
-          <IoStar />
+      <div className={styles.buttonContainerHeader}>
+        {isBookmarked && userBookmarksIds.includes(data.id) ? (
+          <div onClick={handleDeleteBookmark}>
+            <IoStar className={styles.icon} />
+          </div>
+        ) : (
+          <div onClick={handleCreateBookmark}>
+            <IoStarOutline className={styles.icon} />
+          </div>
+        )}
+
+        <div onClick={() => setShowArticle(false)}>
+          <AiOutlineClose className={styles.icon} />
         </div>
-      ) : (
-        <div onClick={handleCreateBookmark}>
-          <IoStarOutline />
-        </div>
-      )}
+      </div>
 
       <div className={styles.container}>
         <h1>{data.title}</h1>
@@ -135,15 +144,20 @@ export default function Article({ data, setShowArticle }: any) {
           value={content}
           onChange={handleChange}
           placeholder="add some documentation"
+          // style={styles.textEditorContainer}
+          style={{ backgroundColor: 'transparent' }}
         />
       </div>
       <div className={styles.buttonContainer}>
         <div onClick={handleDelete}>
-          <BsTrash />
+          <BsTrash className={styles.deleteIcon} />
         </div>
-        <div onClick={handleSave}>
-          <BsPlus />
-        </div>
+        <CustomButton
+          button="Save"
+          textColor="#fff"
+          color="#415a77"
+          onClick={handleSave}
+        />
       </div>
     </>
   );

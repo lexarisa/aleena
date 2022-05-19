@@ -80,16 +80,20 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
       user_id: Number(user.id),
       project_id: Number(reduxCurrentProject.id),
       status: selectedStatus,
-      priority: selectedTag,
+      priority: selectedPriority,
       description: description,
       comments: {
         user_id: Number(user.id),
         task_id: Number(reduxTask.id),
         description: comment,
       },
-      tags: selectedTag,
+      tags: {
+        title: selectedTag,
+        color: 'red'
+      },
     };
 
+    console.log(dataToUpdate)
     await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
     if (githubLink !== '') {
       await linkPRTask(githubLink, reduxTask.id);
