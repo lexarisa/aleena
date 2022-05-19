@@ -37,12 +37,16 @@ export const TaskSlice = createSlice({
         setCurrentTask: (state, action) => {
             state.currentTask = action.payload
         },
+
+        setAllFilterTask: (state, action) => {
+            state.allFilterTasks = action.payload
+        }
     },
     extraReducers: {
     }
 })
 
-export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask  } = TaskSlice.actions;
+export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask, setAllFilterTask  } = TaskSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.task.allTasks;
 

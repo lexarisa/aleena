@@ -30,7 +30,13 @@ const Board = () => {
   const reduxUser = useAppSelector((state) => state.user.id);
   const pagination = 0;
 
-  const [tasksToDisplay, setTasksToDisplay] = useState(reduxAllTasks);
+  let tasksToDisplay: any;
+
+  if (reduxFilterTask && reduxFilterTask.length > 0) {
+    tasksToDisplay = reduxFilterTask;
+  } else {
+    tasksToDisplay = reduxAllTasks
+  }
 
   const router = useRouter();
 
@@ -40,12 +46,9 @@ const Board = () => {
   });
 
   useEffect(() => {
+    tasksToDisplay = reduxAllTasks
     // fetchAllTasksBoard();
-    if (reduxFilterTask && reduxFilterTask.length) {
-      setTasksToDisplay(reduxFilterTask);
-    } else {
-      setTasksToDisplay(reduxAllTasks)
-    }
+   
   }, []);
 
   const fetchAllTasksBoard = async () => {
@@ -115,31 +118,31 @@ const Board = () => {
 
   // TODO MAKE A IF STATEMENT TO CHECK IF YOU WANT THE DATA FROM THE MILESTONE OR FOR ALL !!!
 
-  return (
-    <>
-      <Filter />
-
-      <div className={styles.scrollContainer}>
-        {/* <FilterComponent 
-      milestones={milestones} 
-      tags={tags} /> */}
-
-        {sections.map((section, index) => {
-          let filteredTasks: ITask[] = reduxAllTasks.length
-            ? reduxAllTasks.filter((task: ITask) => {
-                console.log(task);
-                return task.status === section;
-              })
-            : [];
-          return (
-            <div key={index} className={styles.taskColumn}>
-              <BoardSection columnTitle={section} tasks={filteredTasks} />
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
+    return (
+      <>
+        <Filter />
+  
+        <div className={styles.scrollContainer}>
+          {/* <FilterComponent 
+        milestones={milestones} 
+        tags={tags} /> */}
+  
+          {sections.map((section, index) => {
+            let filteredTasks: ITask[] = tasksToDisplay.length
+              ? tasksToDisplay.filter((task: ITask) => {
+                  console.log(task);
+                  return task.status === section;
+                })
+              : [];
+            return (
+              <div key={index} className={styles.taskColumn}>
+                <BoardSection columnTitle={section} tasks={filteredTasks} />
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
 };
 
 export default Board;

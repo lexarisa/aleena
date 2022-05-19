@@ -3,13 +3,15 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useState } from 'react';
 import { stat } from 'fs';
 import CustomButton from './small/CustomButton';
-import { useAppSelector } from '../store/hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { filterTasks } from '../../pages/api/taskApi';
+import { setAllFilterTask } from '../store/slices/task/task.slices';
 
 const Filter = () => {
   //milestones
+  const dispatch = useAppDispatch()
   const [showCollapsible, setShowCollapsible] = useState(false);
-
+  
   // FORM DATA
   const status: String[] = [
     'To Do',
@@ -69,7 +71,9 @@ const Filter = () => {
 
     const filtered = await filterTasks(data)
 
-    console.log('WOOOOW IT WORKED', filtered)
+    const flatFilt = filtered.flat()
+    console.log('WOOOOW IT WORKED', flatFilt)
+    dispatch(setAllFilterTask(flatFilt))
   }
 
   return (
