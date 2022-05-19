@@ -46,6 +46,7 @@ const Login = () => {
             </button>
 
             <div className={styles.loginOption}>
+              <p className={styles.or}>or </p>
               <label htmlFor="email" className={styles.label}>
                 Email Address
               </label>

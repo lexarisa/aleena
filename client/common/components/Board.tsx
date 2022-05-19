@@ -13,6 +13,7 @@ import {
 } from '../store/slices/task/task.slices';
 import { useRouter } from 'next/router';
 import { setCurrentMilestone } from '../store/slices/milestone/milestone.slice';
+import Filter from './Filter';
 
 const Board = () => {
   const dispatch = useAppDispatch();
@@ -108,6 +109,8 @@ const Board = () => {
 
   return (
     <>
+      <Filter />
+
       <div className={styles.scrollContainer}>
         {/* <FilterComponent 
       milestones={milestones} 

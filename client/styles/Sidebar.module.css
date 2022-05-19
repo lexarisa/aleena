@@ -59,6 +59,8 @@
 .collapsible {
   margin-top: var(--unit2);
   border-bottom: 1px solid var(--color-lightBg);
+  max-height: 8rem;
+  overflow-y: scroll;
 }
 /* .collapsibleContent {
   max-height: 0;

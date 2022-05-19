@@ -10,6 +10,8 @@ import CustomButton from './small/CustomButton';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { deleteTask, setCurrentTask } from '../store/slices/task/task.slices';
 import Image from 'next/image';
+import { AiOutlineClose } from 'react-icons/ai';
+import Comment from './Comment';
 
 const options = [
   { value: 'To Do' },
@@ -56,7 +58,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const [selectedTag, setSelectedTag] = useState('');
   const [description, setDescription] = useState(reduxTask.description);
   const [comment, setComment] = useState('');
-  const [pr, setPR] = useState('');
 
   const handleShowTask = () => {
     setShowTask(false);
@@ -93,17 +94,12 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
     const deleted = await deleteTaskApi(reduxTask.id as Number);
     setShowTask(false);
   };
-  //TODO make reusable button
+
   return (
     <Modal>
       <div className={styles.wrapper}></div>
-      <div className={styles.close}>
-        <RoundButton
-          button="x"
-          onClick={handleShowTask}
-          color="#fff"
-          textColor="#333"
-        />
+      <div className={styles.close} onClick={handleShowTask}>
+        <AiOutlineClose className={styles.icon} />
       </div>
 
       <div className={styles.detail}>
@@ -139,7 +135,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
                   value={tag.labels}
                   className={styles.options}
                 >
-                  {/* {console.log(e.target.value)} */}
                   {tag.labels}
                 </option>
               ))}

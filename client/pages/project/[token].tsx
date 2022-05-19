@@ -12,7 +12,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../common/store/hooks/redux-hooks';
-import { setUser, setUserDetails } from '../../common/store/slices/user/user.slice';
+import {
+  setUser,
+  setUserDetails,
+} from '../../common/store/slices/user/user.slice';
 import {
   updateProjects,
   setProjects,
@@ -21,6 +24,7 @@ import {
 } from '../../common/store/slices/projects/project.slice';
 import { store } from '../../common/store/index.store';
 import { AiOutlinePlus } from 'react-icons/ai';
+import Meta from '../../common/components/Meta';
 
 const project = ({
   data,
@@ -51,8 +55,8 @@ const project = ({
 
     const data = await res.json();
 
-    dispatch(setUserDetails(data))
-  }
+    dispatch(setUserDetails(data));
+  };
 
   const fetchProjects = async () => {
     const res = await fetch(
@@ -83,7 +87,7 @@ const project = ({
         if (event === 'create') {
           dispatch(updateProjects(newProject));
         }
-  
+
         if (event === 'delete') {
           dispatch(deleteProject(newProject));
         }
@@ -103,6 +107,7 @@ const project = ({
 
   return (
     <>
+      <Meta title="Aleena: Productivity Tool For Developers" />
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
           <h1 className={styles.header}>

@@ -4,7 +4,7 @@
   margin-top: var(--unit4);
   border-radius: 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   color: var(--color-darkGrey);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -14,17 +14,28 @@
 .avatar {
   border-radius: 20px;
   overflow: hidden;
-  width: 30px;
+  width: 35px;
+  height: 35px;
   align-items: center;
   justify-content: center;
+  display: flex;
+  background-color: black;
+  margin-right: var(--unit2);
 }
 
 .username {
-  font-weight: 500;
+  font-weight: 600;
   font-size: var(--size-s);
+  margin-bottom: 0;
 }
 
 .comment {
   font-weight: 400;
   font-size: var(--size-s);
+  margin-top: 2px;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
 }

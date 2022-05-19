@@ -2,8 +2,8 @@ import Head from 'next/head';
 
 interface IHeadProps {
   title: string;
-  keywords: string;
-  description: string;
+  keywords?: string;
+  description?: string;
 }
 
 const Meta = ({ title, keywords, description }: IHeadProps) => {
