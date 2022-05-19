@@ -14,17 +14,20 @@ export const UserSlice = createSlice({
     setUser: (state, action: PayloadAction<any>) => {
       state.id = action.payload;
     },
-
+    createBookmark: (state, action: PayloadAction<any>) => {
+      state.bookmarks = [...state.bookmarks, action.payload];
+    },
     setUserDetails: (state, action: PayloadAction<any>) => {
       state.user_details = action.payload;
     },
 
     setBookmarks: (state, action: PayloadAction<any>) => {
+      console.log('action payload in setB', action.payload);
       state.bookmarks = action.payload;
     },
     deleteBookmark: (state, action: PayloadAction<any>) => {
       state.bookmarks = state.bookmarks.filter(
-        (article_id: number) => article_id !== action.payload
+        (article: any) => article.id !== action.payload.id
       );
     },
     updateBookmarks: (state, action: PayloadAction<any>) => {
@@ -38,8 +41,14 @@ export const UserSlice = createSlice({
   extraReducers: {},
 });
 
-export const { setUser, setUserDetails, setBookmarks, updateBookmarks, deleteBookmark } =
-  UserSlice.actions;
+export const {
+  setUser,
+  setBookmarks,
+  createBookmark,
+  updateBookmarks,
+  deleteBookmark,
+  setUserDetails,
+} = UserSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 

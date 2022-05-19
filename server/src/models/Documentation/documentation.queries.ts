@@ -1,9 +1,9 @@
 import { prisma } from '../../../prisma/prisma-client';
 
-export const getAllDocsInMilestoneQuery = async (milestoneId: number) => {
+export const getAllDocsInMilestoneQuery = async (milestone_id: number) => {
   const allDocs = await prisma.milestone.findMany({
     where: {
-      id: milestoneId,
+      id: milestone_id,
     },
     select: {
       documents: {

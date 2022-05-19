@@ -28,7 +28,7 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
 
         <Link
           href={{
-            pathname: `/documentation/[project_id]/`,
+            pathname: `/documentation/[project_id]`,
             query: {
               project_id: router.query.id,
               milestone_id: milestone_id,

@@ -16,7 +16,6 @@ import { setBookmarks } from '../../common/store/slices/user/user.slice';
 const DocumentationPage = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-
   const currentProject = useAppSelector(
     (state) => state.project.currentProject
   );
@@ -38,6 +37,7 @@ const DocumentationPage = ({
   const fetchMilestoneDocuments = async () => {
     const resMilestone = await fetch(
       //@ts-ignore
+      // `http://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
       `https://ae99-45-130-134-153.eu.ngrok.io/documentation/${+milestone_id}`
     );
     const dataMilestone = await resMilestone.json();
@@ -69,8 +69,10 @@ const DocumentationPage = ({
       `https://ae99-45-130-134-153.eu.ngrok.io/user/bookmarks/${user_id}`
     );
     const bookmarks = await resBookmarks.json();
-    console.log('bookmarks in id', bookmarks);
-    dispatch(setBookmarks(bookmarks.articles));
+    console.log('bookmarks in id', bookmarks.articles);
+
+    const bookMarkArr = bookmarks && bookmarks.articles.map((b) => b);
+    dispatch(setBookmarks(bookMarkArr));
   };
 
   return (

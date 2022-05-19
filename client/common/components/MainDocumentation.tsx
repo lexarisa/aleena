@@ -28,17 +28,13 @@ export const MainDocumentation = () => {
     : (reduxDocumentation = useAppSelector(
         (state) => state.documentation.projectDocuments
       ));
-
-  const userBookmarks = useAppSelector((state) => state.user.bookmarks);
-  console.log('userBookmarks', userBookmarks);
-
-
+  // const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+  // console.log('userBookmarks', userBookmarks);
   useEffect(() => {
     documentationEvent();
   });
 
   const documentationEvent = () => {
-
     const sourceDoc = new EventSource(
       'https://ae99-45-130-134-153.eu.ngrok.io/documentation/sse'
     );
