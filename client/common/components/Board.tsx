@@ -68,8 +68,6 @@ const Board = () => {
     });
 
     const allTasks = allPipeTasks.flat(); // ALL TASKS IN ONE ARRAY
-
-    console.log('all tasks', allTasks);
   };
 
   const streamTask = () => {

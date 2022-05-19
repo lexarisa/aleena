@@ -120,7 +120,7 @@ const CreateForm = ({ setShowForm, token }: ICreateFormProps) => {
           <CustomButton
             button="Add a New Project"
             color="#415a77"
-            textColor="#fff"
+            textColor="#fffff"
             onClick={handleSubmit(onSubmit)}
           />
         </div>

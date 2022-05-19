@@ -20,3 +20,10 @@
   padding: var(--unit3);
   overflow: hidden;
 }
+
+.tab {
+  display: flex;
+  justify-content: flex-start;
+  margin: var(--unit4) 0;
+  position: relative;
+}
