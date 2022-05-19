@@ -1,14 +1,16 @@
 .container {
-  padding: var(--unit3);
+  padding: var(--unit3) var(--unit5);
   width: 100%;
-  border-radius: 7px;
+  border-radius: 5px;
   outline: 0;
   border: none;
   background-color: var(--color-black);
   color: var(--color-white);
   transition: 0.3s all ease;
-  font-size: var(--size-s);
-  font-weight: 600;
+  font-size: var(--size-m);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container:hover {
