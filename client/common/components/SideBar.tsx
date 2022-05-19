@@ -9,9 +9,12 @@ import avatarPng from '../../../public/avatarPng.png';
 //styling
 import styles from '../../styles/Sidebar.module.css';
 import { useAppSelector } from '../store/hooks/redux-hooks';
+import Link from 'next/link';
 const SideBar = () => {
 
   const user_details = useAppSelector((state) => state.user.user_details)
+  const allProjects = useAppSelector((state) => state.project.allProjects)
+
   const [showCollapsible, setShowCollapsible] = useState(false);
   const [searchUser, setSearchUser] = useState('');
   const [allUsersInProject, setAllUsersInProject] = useState([]);
@@ -113,8 +116,22 @@ const SideBar = () => {
           </header>
           <div className={styles.collapsible}>
             <ul className={styles.collapsibleContent}>
-              <li className={styles.text}>Prj1</li>
-              <li className={styles.text}>Prj2</li>
+              {
+                allProjects && allProjects.map((pj: any) => {
+                  return (
+                    <Link 
+                    href={{
+                      pathname: '/dashboard/[project_id]',
+                      query: {
+                        project_id: pj.id,
+                      },
+                    }}>
+                      <li className={styles.text}>{pj.title}</li>
+                    </Link>
+
+                  )
+                })
+              }
             </ul>
           </div>
         </section>

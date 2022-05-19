@@ -91,6 +91,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
           textColor="#333"
         />
       </div>
+      
       <div className={styles.detail}>
         <h1>{reduxTask.title}</h1>
         <div className={styles.headerSection}>
@@ -202,16 +203,15 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         )
       }) : ''
       }
-
         </div>
       </div>
-   
-
       <div>
         <div>
           {reduxTask.githubs.length > 0 ? reduxTask.githubs.map((pr:any) => {
+            console.log(pr)
           return (
             <>
+              <h1>PR</h1>
               <h3>#{pr.number}</h3>
               <h3>{pr.title}</h3>
               <h3>{pr.pull_url}</h3>
@@ -221,6 +221,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         }) : []};
         </div>
       </div>
+
+      
     </Modal>
   );
 };
