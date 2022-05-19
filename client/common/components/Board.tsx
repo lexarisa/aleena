@@ -18,7 +18,7 @@ import Filter from './Filter';
 const Board = () => {
   const dispatch = useAppDispatch();
   const reduxAllTasks = useAppSelector((state) => state.task.allTasks);
-  const reduxFilterTask = useAppSelector((state) => state.task.allFilterTasks)
+  const reduxFilterTask = useAppSelector((state) => state.task.allFilterTasks);
   const reduxMile = useAppSelector((state) => state.milestone.allMilestones);
   const reduxCurrentMile = useAppSelector(
     (state) => state.milestone.currentMilestone
@@ -37,11 +37,10 @@ const Board = () => {
   if (reduxFilterTask && reduxFilterTask.length > 0) {
     tasksToDisplay = reduxFilterTask;
   } else {
-    tasksToDisplay = reduxAllTasks
+    tasksToDisplay = reduxAllTasks;
   }
 
   const router = useRouter();
-
 
   useEffect(() => {
     // sse
@@ -49,9 +48,8 @@ const Board = () => {
   });
 
   useEffect(() => {
-    tasksToDisplay = reduxAllTasks
+    tasksToDisplay = reduxAllTasks;
     // fetchAllTasksBoard();
-   
   }, []);
 
   const fetchAllTasksBoard = async () => {
@@ -87,7 +85,6 @@ const Board = () => {
         if (task.milestone_id === reduxCurrentMile.id) {
           console.log('hiiiit sse task');
           dispatch(updateTasks(task));
-
         }
       }
 
@@ -120,33 +117,33 @@ const Board = () => {
 
   // TODO MAKE A IF STATEMENT TO CHECK IF YOU WANT THE DATA FROM THE MILESTONE OR FOR ALL !!!
 
-    return (
-      <>
+  return (
+    <>
+      <div className={styles.tab}>
         <Filter />
+      </div>
 
-  
-        <div className={styles.scrollContainer}>
-          {/* <FilterComponent 
+      <div className={styles.scrollContainer}>
+        {/* <FilterComponent 
         milestones={milestones} 
         tags={tags} /> */}
-  
-          {sections.map((section, index) => {
-            let filteredTasks: ITask[] = tasksToDisplay.length
-              ? tasksToDisplay.filter((task: ITask) => {
-                  console.log(task);
-                  return task.status === section;
-                })
-              : [];
-            return (
-              <div key={index} className={styles.taskColumn}>
-                <BoardSection columnTitle={section} tasks={filteredTasks} />
-              </div>
-            );
-          })}
-        </div>
-      </>
-    );
 
+        {sections.map((section, index) => {
+          let filteredTasks: ITask[] = tasksToDisplay.length
+            ? tasksToDisplay.filter((task: ITask) => {
+                console.log(task);
+                return task.status === section;
+              })
+            : [];
+          return (
+            <div key={index} className={styles.taskColumn}>
+              <BoardSection columnTitle={section} tasks={filteredTasks} />
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
 };
 
 export default Board;

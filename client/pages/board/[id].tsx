@@ -26,27 +26,16 @@ const BoardPage = ({
     fetchMilestoneTasks();
     fetchAllTasks();
   }, []);
-  console.log('milestone in ID', milestone.id);
 
   const fetchMilestoneTasks = async () => {
     const res = await fetch(
       `https://ae99-45-130-134-153.eu.ngrok.io/milestone/${milestone.id}`
     );
     const data = await res.json();
-    console.log('data tasks Milestone', data);
 
     const formatTasks = formatData(data, 'tasks');
-    console.log('format tasks in Milestone', formatTasks);
 
     dispatch(setMilestoneTasks(formatTasks));
-  };
-  const fetchAllTasks = async () => {
-    const res = await fetch(
-      `https://ae99-45-130-134-153.eu.ngrok.io/dashboard/${project_id}/${user_id}/${0}`
-    );
-    const data = await res.json();
-    console.log('data tasks project', data);
-    dispatch(setTasks(data));
   };
 
   const fetchAllTasks = async () => {
@@ -59,7 +48,7 @@ const BoardPage = ({
     const formatTasks = formatData(data, 'tasks');
 
     dispatch(setTasks(formatTasks));
-  }
+  };
 
   return (
     <DashboardLayout>
