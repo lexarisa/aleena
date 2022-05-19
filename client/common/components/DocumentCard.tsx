@@ -9,6 +9,7 @@ import { deleteDocumentation } from '../../pages/api/documentation.api';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentArticle } from '../store/slices/article/article.slice';
 import { updateBookmarks } from '../store/slices/user/user.slice';
+import { AiOutlineClose } from 'react-icons/ai';
 
 interface DocumentCardProp {
   title: String;
@@ -43,12 +44,15 @@ const DocumentCard = ({ title, articles, id }: any) => {
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
 
-        <RoundButton
+        {/* <RoundButton
           button="x"
           onClick={() => handleDeleteDocument(id)}
           color="#333"
           textColor="#fff"
-        />
+        /> */}
+        <div onClick={() => handleDeleteDocument(id)}>
+          <AiOutlineClose className={styles.icon} />
+        </div>
       </div>
       <div>
         {articles.map((article: any, index: number) => {
