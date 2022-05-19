@@ -23,7 +23,7 @@ export const UserSlice = createSlice({
     },
     deleteBookmark: (state, action: PayloadAction<any>) => {
       state.bookmarks = state.bookmarks.filter(
-        (article_id: number) => article_id !== action.payload
+        (article: any) => article.id !== action.payload.id
       );
     },
     updateBookmarks: (state, action: PayloadAction<any>) => {

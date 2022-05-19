@@ -69,7 +69,10 @@ const DocumentCard = ({ title, articles, id }: any) => {
               color="#333"
               textColor="#fff"
             />
-            <Article data={reduxCurrentArticle} />
+            <Article
+              data={reduxCurrentArticle}
+              setShowArticle={setShowArticle}
+            />
           </Modal>
         )}
       </div>

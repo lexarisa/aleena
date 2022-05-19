@@ -73,9 +73,11 @@ export const deleteBookmarkQuery = async (
     },
   });
 
+  console.log('ID', unBookmarkedArticleId.id);
+
   const unBookmarkedArticle = await prisma.user_Articles.delete({
     where: {
-      id: unBookmarkedArticleId.id,
+      id: +unBookmarkedArticleId.id,
     },
   });
 

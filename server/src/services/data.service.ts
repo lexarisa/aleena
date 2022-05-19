@@ -208,7 +208,7 @@ export class DataService {
     return deleteDocumentationQuery(id);
   }
   getAllDocsInMilestone(milestone_id: number) {
-    return getAllDocsInMilestoneQuery(milestone_id);
+    return getAllDocsInMilestoneQuery(+milestone_id);
   }
   getArticle(id: number) {
     return getArticleQuery(+id);
@@ -229,7 +229,6 @@ export class DataService {
     return addUserToProjectQuery(username, project_id);
   }
 
-  //get all articles in milestone
   getAllDocumentsInProject(project_id: number) {
     return getAllDocumentsInProjectQuery(project_id);
   }

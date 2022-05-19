@@ -6,13 +6,15 @@ import { useAppSelector } from '../store/hooks/redux-hooks';
 
 const ArticleCard = ({ data }: any) => {
   // const dispatch = useAppDispatch();
+  const userBookmarks = useAppSelector((state) => state.user.bookmarks);
+  console.log(userBookmarks);
 
-  // const userBookmarksIds = userBookmarks.map((a: any) => a.article_id); // map and create id array
+  const userBookmarksIds = userBookmarks.map((a: any) => a.id); // map and create id array
 
   return (
     <div className={styles.container}>
       <p>{data.title}</p>
-      {/* {userBookmarksIds.includes(data.id) && <IoStar />} */}
+      {userBookmarksIds.includes(data.id) && <IoStar />}
     </div>
   );
 };
