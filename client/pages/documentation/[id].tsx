@@ -76,7 +76,8 @@ const DocumentationPage = ({
     console.log('bookmarks in id', bookmarks.articles);
 
     const bookMarkArr = bookmarks.articles && bookmarks.articles.map((bookmark: any) => bookmark);
-    dispatch(setBookmarks(bookMarkArr));
+    
+    bookMarkArr && dispatch(setBookmarks(bookMarkArr));
   };
 
   return (
