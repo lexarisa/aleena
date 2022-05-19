@@ -35,6 +35,7 @@ const DocumentCard = ({ title, articles, id }: any) => {
   };
   const handleDeleteDocument = (id: number) => {
     deleteDocumentation(id);
+    setShowArticle(false);
   };
 
   return (

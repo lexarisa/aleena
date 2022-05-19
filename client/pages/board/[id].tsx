@@ -24,7 +24,7 @@ const BoardPage = ({
 
   useEffect(() => {
     fetchMilestoneTasks();
-    fetchAllTasks();
+    // fetchAllTasks();
   }, []);
   console.log('milestone in ID', milestone.id);
 
@@ -40,14 +40,14 @@ const BoardPage = ({
 
     dispatch(setMilestoneTasks(formatTasks));
   };
-  const fetchAllTasks = async () => {
-    const res = await fetch(
-      `https://ae99-45-130-134-153.eu.ngrok.io/dashboard/${project_id}/${user_id}/${0}`
-    );
-    const data = await res.json();
-    console.log('data tasks project', data);
-    dispatch(setTasks(data));
-  };
+  // const fetchAllTasks = async () => {
+  //   const res = await fetch(
+  //     `https://ae99-45-130-134-153.eu.ngrok.io/dashboard/${project_id}/${user_id}/${0}`
+  //   );
+  //   const data = await res.json();
+  //   console.log('data tasks project', data);
+  //   dispatch(setTasks(data));
+  // };
 
   return (
     <DashboardLayout>

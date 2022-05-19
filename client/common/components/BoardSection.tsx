@@ -18,11 +18,12 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
-
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.user.id);
   const selectedTask = useAppSelector((state) => state.task.currentTask);
+  const project = useAppSelector((state) => state.project.currentProject);
+  const milestone = useAppSelector((state) => state.milestone.currentMilestone);
 
   const [showTask, setShowTask] = useState(false);
   const [showButton, setShowButton] = useState(true);
@@ -52,9 +53,9 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
       const newTask: ITask = {
         title: taskTitle,
         user_id: Number(user),
-        project_id: Number(router.query.project_id),
+        project_id: Number(project.id),
         priority: 'none',
-        milestone_id: Number(router.query.id),
+        milestone_id: Number(milestone.id),
         status: columnTitle,
       };
 

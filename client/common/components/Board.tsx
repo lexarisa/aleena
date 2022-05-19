@@ -98,7 +98,6 @@ const Board = () => {
         {sections.map((section, index) => {
           let filteredTasks: ITask[] = reduxTasks.length
             ? reduxTasks.filter((task: ITask) => {
-                console.log(task);
                 return task.status === section;
               })
             : [];
