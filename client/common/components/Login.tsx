@@ -3,6 +3,7 @@ import styles from '../../styles/login.module.css';
 // import { useSession, signOut } from 'next-auth/react';
 import CustomButton from './small/CustomButton';
 import { AiFillGithub } from 'react-icons/ai';
+import Image from 'next/image';
 
 const Login = () => {
   // const { data, status } = useSession()
@@ -31,6 +32,9 @@ const Login = () => {
         <div className={styles.cardWrapper}>
           <div className={styles.header}>
             <h1 className={styles.heading}>Log In to Aleena</h1>
+            {/* <div className={styles.logo}>
+              <Image src="/aleena.svg" width={50} height={50} />
+            </div> */}
           </div>
           <div className={styles.login}>
             <button className={styles.github} onClick={handleSignIn}>
