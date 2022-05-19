@@ -12,10 +12,11 @@ import { deleteTask, setCurrentTask } from '../store/slices/task/task.slices';
 import Image from 'next/image';
 import { AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
 import { getAllComments } from '../../pages/api/commentApi';
-
+import Link from 'next/link';
 import Comment from './Comment';
 import { setComments } from '../store/slices/comment/comment';
 import { setTags } from '../store/slices/tag/tag.slice';
+import FeedItem from './FeedItem';
 
 const options = [
   { value: 'To Do' },
@@ -274,20 +275,20 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
       </div>
       <div>
         <div>
-          {reduxTask.githubs.length > 0
-            ? reduxTask.githubs.map((pr: any) => {
-                console.log(pr);
+          {reduxTask.githubs && reduxTask.githubs.map((pr: any) => {
+                console.log('PR', pr);
                 return (
                   <>
-                    <h1>PR</h1>
-                    <h3>#{pr.number}</h3>
-                    <h3>{pr.title}</h3>
-                    <h3>{pr.pull_url}</h3>
-                    <h3>{pr.status}</h3>
+                  <div className={styles.pr}>  
+                    <p className={styles.text}>#{pr.number}  {pr.title}</p>
+                    <Link href={`${pr.repo_url}/pulls/${pr.number}`}>
+                    <a style={{color:'white'}} target="_blank">{pr.repo_url}/pulls/{pr.number}</a>
+                    </Link>
+                    <br></br>
+                    </div>
                   </>
                 );
-              })
-            : []}
+              })}
         </div>
       </div>
     </Modal>
