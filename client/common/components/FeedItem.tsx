@@ -1,5 +1,7 @@
 import styles from '../../styles/FeedItem.module.css';
 import { AiOutlineGithub, AiOutlineUser } from 'react-icons/ai';
+import Link from 'next/link';
+
 const FeedItem = ({ feed }: any) => {
   const statusColor =
     feed.status === 'closed' ? styles.closedStatus : styles.greenStatus;
@@ -18,7 +20,11 @@ const FeedItem = ({ feed }: any) => {
       <div className={styles.sender}>
         <AiOutlineUser /> {feed.sender}
       </div>
-      <div className={styles.url}>{feed.pull_url}</div>
+      <div className={styles.url}>
+        <Link href={feed.pull_url}>
+        <a>{feed.pull_url}</a>
+        </Link>
+        </div>
     </div>
   );
 };
