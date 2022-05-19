@@ -3,15 +3,13 @@ import { RootState } from '../../index.store';
 
 export const TaskSlice = createSlice({
   name: 'task',
-
-
     initialState: {
         allTasks: [] as any,
         allTasksMilestone: [] as any,
         allFilterTasks: [] as any,
         currentTask: '',
     },
-    
+
     reducers: {
 
         setTasks: (state, action: PayloadAction<any>) => {
@@ -44,6 +42,7 @@ export const TaskSlice = createSlice({
         }
 
     },
+}
 
 export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask, setAllFilterTask  } = TaskSlice.actions;
 
