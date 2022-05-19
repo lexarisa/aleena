@@ -22,11 +22,22 @@
 .userImage {
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
+.image {
+  border-radius: 50px;
+  overflow: hidden;
+  height: 100px;
+  border: 2px solid var(--color-black2);
+}
 .username {
   color: var(--color-black2);
   font-size: var(--size-s);
+  margin-top: var(--unit2);
 }
 
 .header {
@@ -57,9 +68,8 @@
 }
 
 .collapsible {
-  margin-top: var(--unit2);
   border-bottom: 1px solid var(--color-lightBg);
-  max-height: 8rem;
+
   overflow-y: scroll;
 }
 /* .collapsibleContent {
@@ -70,11 +80,6 @@
   margin: 0;
   margin-bottom: 0;
 } */
-
-.collapsibleExpanded {
-  max-height: 100vh;
-  opacity: 1;
-}
 
 .sideBarLower {
   display: flex;
@@ -101,7 +106,7 @@
 
 .input {
   padding: var(--unit3);
-  margin-top: var(--unit2);
+
   border-radius: 5px;
   border: none;
   outline: none;
@@ -114,7 +119,8 @@
 .avatar {
   border-radius: 20px;
   overflow: hidden;
-  width: 30px;
+  height: 40px;
+
   align-items: center;
   justify-content: center;
 }
@@ -127,7 +133,7 @@
   align-items: flex-start;
   gap: var(--unit3);
   padding: var(--unit2);
-  max-height: 8rem;
+  max-height: 15rem;
   overflow-y: scroll;
 }
 
@@ -136,9 +142,38 @@
   margin-left: var(--unit2);
 }
 
+.pj {
+  background-color: var(--color-lightBg);
+  margin: var(--unit2);
+  font-size: var(--size-s);
+  margin-left: var(--unit);
+  padding: var(--unit2);
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-black2);
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.pj:nth-child(2n) {
+  border-left: 3px solid var(--color-secondary);
+}
+
+.pj:nth-child(3n) {
+  border-left: 3px solid var(--color-success);
+}
 .userDetail {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
+}
+
+.users {
+  height: 8rem;
+  overflow-y: scroll;
+}
+
+.projectList {
+  max-height: 8rem;
+  overflow-y: scroll;
 }

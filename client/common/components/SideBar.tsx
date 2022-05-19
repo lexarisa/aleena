@@ -33,7 +33,6 @@ const SideBar = () => {
   const handleAddUserToProject = async (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       try {
-        console.log('running');
         const data = {
           username: searchUser,
           project_id: Number(router.query.id),
@@ -50,12 +49,14 @@ const SideBar = () => {
     <div className={styles.container}>
       <div className={styles.sideBarUp}>
         <div className={styles.userImage}>
-          <Image
-            src={user_details.profile_pic}
-            width={80}
-            height={80}
-            alt="User profile image"
-          />
+          <div className={styles.image}>
+            <Image
+              src={user_details.profile_pic}
+              width={100}
+              height={100}
+              alt="User profile image"
+            />
+          </div>
           <div>
             <p className={styles.username}>{user_details.username}</p>
           </div>
@@ -77,27 +78,28 @@ const SideBar = () => {
                 onChange={(e) => setSearchUser(e.target.value)}
                 onKeyDown={handleAddUserToProject}
               />
-
-              <div className={styles.teammate}>
-                {allUsersInProject.length > 0 &&
-                  allUsersInProject.map((user) => {
-                    console.log(user.id !== user_details.id);
-                    return (
-                      <div className={styles.userDetail} key={user.user.id}>
-                        <div className={styles.avatar}>
-                          <Image
-                            src={user_details.profile_pic}
-                            width={50}
-                            height={30}
-                            alt="User profile image"
-                          />
+              <div className={styles.users}>
+                <div className={styles.teammate}>
+                  {allUsersInProject.length > 0 &&
+                    allUsersInProject.map((user) => {
+                      return (
+                        <div className={styles.userDetail} key={user.user.id}>
+                          <div className={styles.avatar}>
+                            <Image
+                              src={user.user.profile_pic}
+                              width={40}
+                              height={40}
+                              alt="User profile image"
+                              layout="intrinsic"
+                            />
+                          </div>
+                          <span className={styles.text}>
+                            {user.user.username}
+                          </span>
                         </div>
-                        <span className={styles.text}>
-                          {user.user.username}
-                        </span>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
@@ -105,11 +107,11 @@ const SideBar = () => {
         <section className={styles.collapsible}>
           <header>
             <div id="project" className={styles.header}>
-              <h2 className={styles.title}>Project</h2>
+              <h2 className={styles.title}>Your Projects</h2>
             </div>
           </header>
-          <div className={styles.collapsible}>
-            <ul className={styles.collapsibleContent}>
+          <div className={styles.projectSections}>
+            <ul className={styles.projectList}>
               {allProjects &&
                 allProjects.map((pj: any) => {
                   return (
@@ -121,7 +123,7 @@ const SideBar = () => {
                         },
                       }}
                     >
-                      <li className={styles.text}>{pj.title}</li>
+                      <li className={styles.pj}>{pj.title}</li>
                     </Link>
                   );
                 })}
