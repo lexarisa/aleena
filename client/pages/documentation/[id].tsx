@@ -16,12 +16,13 @@ import { setBookmarks } from '../../common/store/slices/user/user.slice';
 const DocumentationPage = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  
+  const dispatch = useAppDispatch();
   const currentProject = useAppSelector(
     (state) => state.project.currentProject
   );
   const user_id = useAppSelector((state) => state.user.id);
 
-  const dispatch = useAppDispatch();
   let queries = Object.values(query);
 
   //@ts-ignore
@@ -65,14 +66,18 @@ const DocumentationPage = ({
   };
   const fetchUserBookmarks = async () => {
     console.log('before sending user_id', user_id);
+
     const resBookmarks = await fetch(
       `https://ae99-45-130-134-153.eu.ngrok.io/user/bookmarks/${user_id}`
     );
+
     const bookmarks = await resBookmarks.json();
+
     console.log('bookmarks in id', bookmarks.articles);
 
-    const bookMarkArr = bookmarks && bookmarks.articles.map((b) => b);
-    dispatch(setBookmarks(bookMarkArr));
+    const bookMarkArr = bookmarks.articles && bookmarks.articles.map((bookmark: any) => bookmark);
+    
+    bookMarkArr && dispatch(setBookmarks(bookMarkArr));
   };
 
   return (

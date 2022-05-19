@@ -88,11 +88,12 @@ export const updateTaskDetailQuery = async (
     where: {
       id: id,
     },
-    // @ts-ignore
     data: {
       user_id: updateTaskData.user_id,
       project_id: updateTaskData.project_id,
+      // @ts-ignore
       status: updateTaskData.status,
+      // @ts-ignore
       description: updateTaskData.description,
     },
     include: {
