@@ -25,10 +25,22 @@ const priority = [
   { labels: 'Low', color: 'white' },
   { labels: 'none', color: 'transparent' },
 ];
+
+const tags = [
+  { labels: 'Bug', color: 'orange' },
+  { labels: 'New Feature', color: 'green' },
+  { labels: 'Strategy', color: 'yellow' },
+  { labels: 'Duplicate', color: 'gray' },
+  { labels: 'Help Wanted', color: 'red' },
+  { labels: 'Question', color: 'purple' },
+  { labels: 'Brainstorm', color: 'blue' },
+];
+
+
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
 
-  const user: any = useAppSelector(state => state.user.id)
+  const user: any = useAppSelector(state => state.user.user_details)
   const reduxTask: any  = useAppSelector(state => state.task.currentTask)
   const reduxCurrentProject: any  = useAppSelector(state => state.project.currentProject)
 
@@ -39,7 +51,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
   const [githubLink, setGithubLink] = useState(initialLinkPR); // TODO !!! IF A TASK HAS MORE THAN ONE PR
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
-  const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
+  const [selectedPriority, setSelectedPriority] = useState(reduxTask.priority);
+  const [selectedTag, setSelectedTag] = useState('');
   const [description, setDescription] = useState(reduxTask.description);
   const [comment, setComment] = useState('');
   const [pr, setPR] = useState('');
@@ -54,13 +67,13 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
   const handleUpdateTask = async (closePage: boolean) => {
     const dataToUpdate = {
-      user_id: Number(user),
+      user_id: Number(user.id),
       project_id: Number(reduxCurrentProject.id),
       status: selectedStatus,
       priority: selectedTag,
       description: description,
       comments: {
-        user_id: Number(user),
+        user_id: Number(user.id),
         task_id: Number(reduxTask.id),
         description: comment,
       }
@@ -111,8 +124,29 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             </select>
           </div>
 
+
           <div>
             <label className={styles.label}>Tags</label>
+          </div>
+          <div>
+            <select
+              value={selectedTag}
+              onChange={(e) => setSelectedTag(e.target.value)}
+            >
+              {tags.map((tag) => (
+                <option
+                  key={tag.labels}
+                  value={tag.labels}
+                  className={styles.options}
+                >
+                  {tag.labels}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className={styles.label}>Priority</label>
           </div>
           <div>
             <select
@@ -175,7 +209,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         <div className={styles.comment}>
           <div className={styles.userImage}>
             <Image
-              src="https://github.com/thaiscosta.png"
+              src={user.profile_pic}
               width={50}
               height={50}
               alt="User profile image"

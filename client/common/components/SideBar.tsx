@@ -87,21 +87,22 @@ const SideBar = () => {
               <div className={styles.teammate}>
                 {allUsersInProject.length > 0 &&
                   allUsersInProject.map((user) => {
-                    return (
-                      <div className={styles.userDetail} key={user.user.id}>
-                        <div className={styles.avatar}>
-                          <Image
-                            src={avatarPng}
-                            width={50}
-                            height={30}
-                            alt="User profile image"
-                          />
+                    console.log((user.id !== user_details.id))
+                      return (
+                        <div className={styles.userDetail} key={user.user.id}>
+                          <div className={styles.avatar}>
+                            <Image
+                              src={user_details.profile_pic}
+                              width={50}
+                              height={30}
+                              alt="User profile image"
+                            />
+                          </div>
+                          <span className={styles.text}>
+                            {user.user.username}
+                          </span>
                         </div>
-                        <span className={styles.text}>
-                          {user.user.username}
-                        </span>
-                      </div>
-                    );
+                      );
                   })}
               </div>
             </div>
