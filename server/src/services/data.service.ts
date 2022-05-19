@@ -254,7 +254,7 @@ export class DataService {
     filterStatus: string[],
     filterMileIds: number[],
     filterAssignees: number[],
-    filterTags: number[]
+    filterTags: string[]
   ): Promise<any[]> {
     const allFilteredTasks: any = [];
     // const conditions = [project_id, filterPriority, filterStatus,filterMileIds,filterAssignees,filterTags]
@@ -344,7 +344,7 @@ export class DataService {
 
     if (filterTags) {
       const tags = await Promise.all(
-        filterTags.map(async (tag: number): Promise<any> => {
+        filterTags.map(async (tag: string): Promise<any> => {
           return await filterTasksTagsQuery(project_id, tag);
         })
       );

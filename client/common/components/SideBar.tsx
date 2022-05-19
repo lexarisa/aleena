@@ -3,28 +3,23 @@ import { useCallback } from 'react';
 import { addUserToProject } from '../../pages/api/projectApi';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getAllUsersInProject } from '../../pages/api/user.api';
+
 import avatarPng from '../../../public/avatarPng.png';
 import { useForm } from 'react-hook-form';
 
 //styling
 import styles from '../../styles/Sidebar.module.css';
-import { useAppSelector } from '../store/hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import Link from 'next/link';
 const SideBar = () => {
   const user_details = useAppSelector((state) => state.user.user_details);
   const allProjects = useAppSelector((state) => state.project.allProjects);
+  const allUsersProject = useAppSelector((state) => state.project.allUsersInProject)
 
   const [showCollapsible, setShowCollapsible] = useState(false);
   const [searchUser, setSearchUser] = useState('');
-  const [allUsersInProject, setAllUsersInProject] = useState([]);
-  const router = useRouter();
 
-  useEffect(() => {
-    getAllUsersInProject(Number(router.query.id))
-      .then((res) => setAllUsersInProject(res))
-      .catch((err) => console.log(err));
-  }, []);
+  const router = useRouter();
 
   const handleShowCollapsible = () => {
     setShowCollapsible(!showCollapsible);
@@ -79,14 +74,13 @@ const SideBar = () => {
               />
 
               <div className={styles.teammate}>
-                {allUsersInProject.length > 0 &&
-                  allUsersInProject.map((user) => {
-                    console.log(user.id !== user_details.id);
+                {allUsersProject &&
+                  allUsersProject.map((user: any) => {
                     return (
                       <div className={styles.userDetail} key={user.user.id}>
                         <div className={styles.avatar}>
                           <Image
-                            src={user_details.profile_pic}
+                            src={user.user.profile_pic}
                             width={50}
                             height={30}
                             alt="User profile image"

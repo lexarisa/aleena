@@ -7,6 +7,7 @@ export const TaskSlice = createSlice({
     initialState: {
         allTasks: [] as any,
         allTasksMilestone: [] as any,
+        allFilterTasks: [] as any,
         currentTask: '',
     },
     

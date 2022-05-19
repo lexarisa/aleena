@@ -150,8 +150,9 @@ async (project_id: number, filterAssignees: number) => {
     where: {
       project_id: project_id,
       users: {
-        // @ts-ignore
-        user_id: filterAssignees,
+        every: {
+          user_id: filterAssignees,
+        }
       }
     },
     include: {
@@ -188,13 +189,13 @@ async (project_id: number, filterStatus: string) => {
 }
 
 export const filterTasksTagsQuery = 
-async (project_id: number, filterTags: number) => {
+async (project_id: number, filterTags: string) => {
   const filterTaskTags = await prisma.task.findMany({
     where: {
       project_id: project_id,
       tags: {
         // @ts-ignore
-        id: filterTags,
+        title: filterTags,
       },
     },
     include: {

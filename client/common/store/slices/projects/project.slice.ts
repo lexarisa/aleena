@@ -6,14 +6,19 @@ export const ProjectSlice = createSlice({
 
     initialState: {
         allProjects: [] as any,
-        currentProject: null,
+        currentProject: [] as any,
+        allUsersInProject: [] as any,
     },
     
     reducers: {
 
         setProjects: (state, action: PayloadAction<any>) => {
-            console.log('wait', action.payload)
             state.allProjects = action.payload;
+        },
+
+        setAllUsersProject: (state, action: PayloadAction<any>) => {
+            console.log('wait', action.payload)
+            state.allUsersInProject = action.payload;
             console.log('wait', state.allProjects)
         },
 
@@ -40,7 +45,7 @@ export const ProjectSlice = createSlice({
     }
 })
 
-export const { setProjects, updateProjects, createProject, deleteProject, setCurrentProject  } = ProjectSlice.actions;
+export const { setProjects, setAllUsersProject, updateProjects, createProject, deleteProject, setCurrentProject  } = ProjectSlice.actions;
 
 export const selectProject = (state: RootState) => state.project;
 

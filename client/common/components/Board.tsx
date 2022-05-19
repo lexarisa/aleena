@@ -18,6 +18,7 @@ import Filter from './Filter';
 const Board = () => {
   const dispatch = useAppDispatch();
   const reduxAllTasks = useAppSelector((state) => state.task.allTasks);
+  const reduxFilterTask = useAppSelector((state) => state.task.allFilterTasks)
   const reduxMile = useAppSelector((state) => state.milestone.allMilestones);
   const reduxCurrentMile = useAppSelector(
     (state) => state.milestone.currentMilestone
@@ -29,6 +30,8 @@ const Board = () => {
   const reduxUser = useAppSelector((state) => state.user.id);
   const pagination = 0;
 
+  const [tasksToDisplay, setTasksToDisplay] = useState(reduxAllTasks);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -37,8 +40,13 @@ const Board = () => {
   });
 
   useEffect(() => {
-    fetchAllTasksBoard();
-  });
+    // fetchAllTasksBoard();
+    if (reduxFilterTask && reduxFilterTask.length) {
+      setTasksToDisplay(reduxFilterTask);
+    } else {
+      setTasksToDisplay(reduxAllTasks)
+    }
+  }, []);
 
   const fetchAllTasksBoard = async () => {
     const res = await fetch(
