@@ -124,6 +124,7 @@ const SideBar = () => {
                 allProjects.map((pj: any) => {
                   return (
                     <Link
+                      key={pj.id}
                       href={{
                         pathname: '/dashboard/[project_id]',
                         query: {

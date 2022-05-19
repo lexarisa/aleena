@@ -30,7 +30,7 @@ function Card({ title, tags, deadline, user }: ITaskProps) {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>{title}</h3>
-      {/* <Tag label={generateRandomTag()} /> */}
+      <Tag label="Bug" />
       {tags ? (
         tags.map((tag) => {
           return <Tag label={tag.label} />;

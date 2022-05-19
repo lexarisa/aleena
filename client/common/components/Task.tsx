@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../../styles/Task.module.css';
 import ITaskProps from '../types/ITaskProps';
 import Tag from '../components/small/Tag';
@@ -11,8 +11,11 @@ import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { deleteTask, setCurrentTask } from '../store/slices/task/task.slices';
 import Image from 'next/image';
 import { AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
+import { getAllComments } from '../../pages/api/commentApi';
 
 import Comment from './Comment';
+import { setComments } from '../store/slices/comment/comment';
+import { setTags } from '../store/slices/tag/tag.slice';
 
 const options = [
   { value: 'To Do' },
@@ -41,7 +44,7 @@ const tags = [
 
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
-
+  dispatch(setTags(tags));
   const user: any = useAppSelector((state) => state.user.user_details);
   const reduxTask: any = useAppSelector((state) => state.task.currentTask);
   const reduxCurrentProject: any = useAppSelector(
@@ -58,13 +61,18 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const [description, setDescription] = useState(reduxTask.description);
   const [comment, setComment] = useState('');
   const [showUpdateTask, setShowUpdateTask] = useState(false);
+  const [allComments, setAllComments] = useState([]);
 
   const handleShowTask = () => {
     setShowTask(false);
     dispatch(setCurrentTask(null));
   };
 
-  console.log('to create a task we need pj id', reduxCurrentProject);
+  useEffect(() => {
+    getAllComments(reduxTask.id).then((value) => setAllComments(value));
+  }, []);
+  // console.log('to create a task we need pj id', reduxCurrentProject);
+  console.log('ALL', allComments);
 
   const handleUpdateTask = async (closePage: boolean) => {
     const dataToUpdate = {
@@ -243,16 +251,24 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
         <div>
           <div>
-            {reduxTask.comments.length > 0
+            {allComments &&
+              allComments.map((comment, index) => {
+                return (
+                  <div key={index}>
+                    <Comment comment={comment} />
+                  </div>
+                );
+              })}
+            {/* {reduxTask.comments.length > 0
               ? reduxTask.comments.map((el: any) => {
                   console.log('task!!!!!!!!!', reduxTask);
                   return (
-                    <>
+                    <div key={el.id}>
                       <Comment description={el.description} />
-                    </>
+                    </div>
                   );
                 })
-              : ''}
+              : ''} */}
           </div>
         </div>
       </div>
