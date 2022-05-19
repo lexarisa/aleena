@@ -95,3 +95,20 @@ export const deleteTaskApi = async (id: Number) => {
   }
   return await response.json();
 };
+
+export const filterTasks = async (data: any) => {
+  const options = {
+    'method': 'POST',
+    'headers': {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  };
+
+    console.log(JSON.stringify(data))
+  const res = await fetch('https://ae99-45-130-134-153.eu.ngrok.io/filter/tasks', options);
+
+  const filtered = await res.json()
+
+  return filtered
+};

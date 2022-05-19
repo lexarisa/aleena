@@ -8,7 +8,7 @@ const controller = new TaskController();
 
 router.get('/task/:task_id', controller.findTask);
 
-router.get('/filter/tasks', controller.getFilterTask);
+router.post('/filter/tasks', controller.getFilterTask);
 
 router.post('/task', controller.createTask);
 
