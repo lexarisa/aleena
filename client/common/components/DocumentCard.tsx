@@ -64,12 +64,6 @@ const DocumentCard = ({ title, articles, id }: any) => {
       <div>
         {showArticle && (
           <Modal>
-            <RoundButton
-              button="x"
-              onClick={handleShowArticle}
-              color="#333"
-              textColor="#fff"
-            />
             <Article
               data={reduxCurrentArticle}
               setShowArticle={setShowArticle}
