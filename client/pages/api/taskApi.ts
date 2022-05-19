@@ -51,7 +51,7 @@ export const linkPRTask = async (pr_url: string, task_id: number) => {
     pull_url: data.url,
     comment: data.body,
     description: data.body,
-    repo_url: pr_url
+    repo_url: data.html_url
   };
 
   const options = {

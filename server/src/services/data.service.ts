@@ -121,8 +121,8 @@ export class DataService {
   createBookmarks(id: number, article_id: number) {
     return createBookmarkQuery(id, article_id);
   }
-  deleteBookmarks(user_article_id: number) {
-    return deleteBookmarkQuery(user_article_id);
+  deleteBookmarks(user_id: number, article_id: number) {
+    return deleteBookmarkQuery(user_id, article_id);
   }
 
   createProject(user_id: number, newProject: any, milestones: any) {
@@ -208,7 +208,7 @@ export class DataService {
     return deleteDocumentationQuery(id);
   }
   getAllDocsInMilestone(milestone_id: number) {
-    return getAllDocsInMilestoneQuery(milestone_id);
+    return getAllDocsInMilestoneQuery(+milestone_id);
   }
   getArticle(id: number) {
     return getArticleQuery(+id);
@@ -229,7 +229,6 @@ export class DataService {
     return addUserToProjectQuery(username, project_id);
   }
 
-  //get all articles in milestone
   getAllDocumentsInProject(project_id: number) {
     return getAllDocumentsInProjectQuery(project_id);
   }

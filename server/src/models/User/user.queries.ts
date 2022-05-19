@@ -23,14 +23,19 @@ export const findUserQuery = async (id: number) => {
   return user;
 };
 
-export const getAllBookmarksQuery = async (id: number) => {
-  const bookmarkedArticles = await prisma.user.findUnique({
+export const getAllBookmarksQuery = async (user_id: number) => {
+  const bookmarkedArticles = await prisma.user_Articles.findMany({
     where: {
-      id: id,
+      user_id: user_id,
     },
     select: {
-      articles: true,
+      article: true,
     },
+    // select: {
+    //   id: true,
+    //   article: true,
+    //   user: true,
+    // },
   });
   if (!bookmarkedArticles) return null;
   return bookmarkedArticles;
@@ -46,16 +51,38 @@ export const createBookmarkQuery = async (
       article_id: article_id,
       user_id: user_id,
     },
+    select: {
+      // id: true,
+      article: true,
+    },
   });
   if (!bookmarkedArticle) return null;
   return bookmarkedArticle;
 };
-export const deleteBookmarkQuery = async (user_article_id: number) => {
-  const unBookmarkedArticle = await prisma.user_Articles.delete({
+export const deleteBookmarkQuery = async (
+  user_id: number,
+  article_id: number
+) => {
+  const unBookmarkedArticleId = await prisma.user_Articles.findFirst({
     where: {
-      id: user_article_id,
+      user_id: user_id,
+      article_id: article_id,
+    },
+    select: {
+      id: true,
     },
   });
+
+  // @ts-ignore
+  console.log('ID', unBookmarkedArticleId.id);
+
+  const unBookmarkedArticle = await prisma.user_Articles.delete({
+    where: {
+      // @ts-ignore
+      id: +unBookmarkedArticleId.id,
+    },
+  });
+
   if (!unBookmarkedArticle) return null;
   return unBookmarkedArticle;
 };

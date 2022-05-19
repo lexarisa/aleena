@@ -9,6 +9,7 @@ export class DocumentationController {
   async createDocumentation(req: Request, res: Response): Promise<void> {
     try {
       const { title, milestone_id } = req.body;
+      console.log(title, milestone_id, 'in controllers');
       const doc = await service.createDocumentation(title, +milestone_id);
       const sse = { event: 'create', data: doc };
       newDocumentationSSE.next(sse);
@@ -47,7 +48,7 @@ export class DocumentationController {
   async getAllDocsInMilestone(req: Request, res: Response): Promise<void> {
     try {
       const { milestone_id } = req.params;
-      const allDocs = await service.getAllDocsInMilestone(+milestone_id);
+      const allDocs = await service.getAllDocsInMilestone(Number(milestone_id));
       res.send(allDocs);
     } catch (error) {
       console.error(error);

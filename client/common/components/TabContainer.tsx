@@ -12,9 +12,22 @@ type TabContainerProps = {
 const TabContainer = ({ children }: TabContainerProps) => {
   const router = useRouter();
 
+  const pagination = 0;
+  const user = useAppSelector((state) => state.user.id)
   const milestone = useAppSelector((state) => state.milestone.currentMilestone);
   const project = useAppSelector((state) => state.project.currentProject);
-  console.log(milestone);
+  const boardButton = useAppSelector((state) => state.button.boardButton);
+  const pathAllTasksBoards = {project_id: router.query.id, user_id: user, page: pagination }
+  const pathMilestoneTasksBoard= { milestone_id: router.query.id, project_id: router.query.id}
+  let selectedQuery;
+
+  useEffect(() => {
+    if(boardButton) {
+      selectedQuery = pathAllTasksBoards;
+    } else {
+      selectedQuery = pathMilestoneTasksBoard;
+    }
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -30,12 +43,10 @@ const TabContainer = ({ children }: TabContainerProps) => {
             <a className={styles.active}>Dashboard</a>
           </Link>
           <Link
+          
             href={{
               pathname: '/board',
-              query: {
-                milestone_id: router.query.id,
-                project_id: router.query.id,
-              },
+              query: selectedQuery,
             }}
           >
             <a className={styles.active}>Board</a>

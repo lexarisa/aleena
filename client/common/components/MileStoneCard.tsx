@@ -19,16 +19,16 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
         <div>
-          <Image
+          {/* <Image
             src="https://github.com/thaiscosta.png"
             width={50}
             height={50}
-          />
+          /> */}
         </div>
 
         <Link
           href={{
-            pathname: `/documentation/[project_id]/`,
+            pathname: `/documentation/[project_id]`,
             query: {
               project_id: router.query.id,
               milestone_id: milestone_id,

@@ -12,7 +12,7 @@
   color: var(--color-white);
 }
 .buttonContainer {
-  background-color: var(--color-black);
+  background-color: transparent;
   width: 30rem;
   display: flex;
   flex-direction: row;

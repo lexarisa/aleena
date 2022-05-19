@@ -18,6 +18,7 @@ interface DocumentCardProp {
 
 const DocumentCard = ({ title, articles, id }: any) => {
   const [showArticle, setShowArticle] = useState(false);
+  // const [bookmarked, setBookmarked] = useState([]);
 
   const dispatch = useAppDispatch();
 
@@ -49,15 +50,6 @@ const DocumentCard = ({ title, articles, id }: any) => {
         />
       </div>
       <div>
-        {/* {onlyBookmarks &&
-          userBookmarks.map((article: any, index: number) => {
-            return (
-              <div key={index} onClick={() => handleClick(article)}>
-                <ArticleCard data={article} />
-              </div>
-            );
-          })} */}
-
         {articles.map((article: any, index: number) => {
           return (
             <div key={index} onClick={() => handleClick(article)}>
@@ -77,7 +69,10 @@ const DocumentCard = ({ title, articles, id }: any) => {
               color="#333"
               textColor="#fff"
             />
-            <Article data={reduxCurrentArticle} />
+            <Article
+              data={reduxCurrentArticle}
+              setShowArticle={setShowArticle}
+            />
           </Modal>
         )}
       </div>

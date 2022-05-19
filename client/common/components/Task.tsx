@@ -25,10 +25,21 @@ const priority = [
   { labels: 'Low', color: 'white' },
   { labels: 'none', color: 'transparent' },
 ];
+
+const tags = [
+  { labels: 'Bug', color: 'orange' },
+  { labels: 'New Feature', color: 'green' },
+  { labels: 'Strategy', color: 'yellow' },
+  { labels: 'Duplicate', color: 'gray' },
+  { labels: 'Help Wanted', color: 'red' },
+  { labels: 'Question', color: 'purple' },
+  { labels: 'Brainstorm', color: 'blue' },
+];
+
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
 
-  const user: any = useAppSelector((state) => state.user.id);
+  const user: any = useAppSelector((state) => state.user.user_details);
   const reduxTask: any = useAppSelector((state) => state.task.currentTask);
   const reduxCurrentProject: any = useAppSelector(
     (state) => state.project.currentProject
@@ -36,13 +47,16 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
   console.log('reduxTask', reduxTask);
 
-  let initialLinkPR = reduxTask.githubs[0]?.pull_url;
+  let initialLinkPR = reduxTask?.githubs[0]?.pull_url;
   if (initialLinkPR === undefined) initialLinkPR = '';
 
   const [githubLink, setGithubLink] = useState(initialLinkPR); // TODO !!! IF A TASK HAS MORE THAN ONE PR
   const [selectedStatus, setSelectedStatus] = useState(reduxTask.status);
-  const [selectedTag, setSelectedTag] = useState(reduxTask.priority);
-  const [description, setDescription] = useState(reduxTask.description || '');
+  const [selectedPriority, setSelectedPriority] = useState(reduxTask.priority);
+  const [selectedTag, setSelectedTag] = useState('');
+  const [description, setDescription] = useState(reduxTask.description);
+  const [comment, setComment] = useState('');
+  const [pr, setPR] = useState('');
 
   const handleShowTask = () => {
     setShowTask(false);
@@ -50,20 +64,29 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   };
 
   console.log('to create a task we need pj id', reduxCurrentProject);
-  const handleUpdateTask = async () => {
+
+  const handleUpdateTask = async (closePage: boolean) => {
     const dataToUpdate = {
-      user_id: Number(user),
+      user_id: Number(user.id),
       project_id: Number(reduxCurrentProject.id),
       status: selectedStatus,
       priority: selectedTag,
       description: description,
+      comments: {
+        user_id: Number(user.id),
+        task_id: Number(reduxTask.id),
+        description: comment,
+      },
+      tags: selectedTag,
     };
 
     await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
     if (githubLink !== '') {
       await linkPRTask(githubLink, reduxTask.id);
     }
-    setShowTask(false);
+
+    setGithubLink(initialLinkPR);
+    setShowTask(closePage);
   };
 
   const handleDeleteTask = async () => {
@@ -82,6 +105,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
           textColor="#333"
         />
       </div>
+
       <div className={styles.detail}>
         <h1>{reduxTask.title}</h1>
         <div className={styles.headerSection}>
@@ -108,6 +132,27 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             <select
               value={selectedTag}
               onChange={(e) => setSelectedTag(e.target.value)}
+            >
+              {tags.map((tag: any) => (
+                <option
+                  key={tag.labels}
+                  value={tag.labels}
+                  className={styles.options}
+                >
+                  {/* {console.log(e.target.value)} */}
+                  {tag.labels}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className={styles.label}>Priority</label>
+          </div>
+          <div>
+            <select
+              value={selectedPriority}
+              onChange={(e) => setSelectedPriority(e.target.value)}
             >
               {priority.map((priority) => (
                 <option
@@ -156,17 +201,16 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             <p className={styles.description}> {reduxTask.description}</p>
           </div>
         </div>
-        <div>{reduxTask.comments}</div>
         <CustomButton
           button="Save"
           textColor="#fff"
           color="#415a77"
-          onClick={() => handleUpdateTask()}
+          onClick={() => handleUpdateTask(false)}
         />
         <div className={styles.comment}>
           <div className={styles.userImage}>
             <Image
-              src="https://github.com/thaiscosta.png"
+              src={user.profile_pic}
               width={50}
               height={50}
               alt="User profile image"
@@ -176,16 +220,35 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             type="text"
             placeholder="Add a comment..."
             className={styles.input}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            // onSubmit={() => handleUpdateTask(true)}
           />
         </div>
       </div>
 
       <div>
         <div>
-          {reduxTask.githubs.length > 0
-            ? reduxTask.githubs.map((pr: any) => {
+          {reduxTask.comments.length > 0
+            ? reduxTask.comments.map((el: any) => {
+                console.log(el);
                 return (
                   <>
+                    <h3>{el.description}</h3>
+                  </>
+                );
+              })
+            : ''}
+        </div>
+      </div>
+      <div>
+        <div>
+          {reduxTask.githubs.length > 0
+            ? reduxTask.githubs.map((pr: any) => {
+                console.log(pr);
+                return (
+                  <>
+                    <h1>PR</h1>
                     <h3>#{pr.number}</h3>
                     <h3>{pr.title}</h3>
                     <h3>{pr.pull_url}</h3>
@@ -194,6 +257,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
                 );
               })
             : []}
+          ;
         </div>
       </div>
     </Modal>

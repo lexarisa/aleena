@@ -14,6 +14,7 @@ import {
 } from '../store/slices/milestone/milestone.slice';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import Filter from './Filter';
+import { setButton } from '../store/slices/buttons/buttons.slice';
 
 const MainDashboard = () => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const MainDashboard = () => {
 
   const handleSelectMile = (milestone: any) => {
     dispatch(setCurrentMilestone(milestone));
+    dispatch(setButton(true));
   };
 
   const milestoneEvent = () => {
