@@ -5,6 +5,8 @@ export interface ITask {
   title: String;
   users: IUser[]; //IUser[];
   description: String;
+  user_id: Number;
+  project_id: Number;
   status: String;
   priority: String;
   tags: String[]; //Tags[]
@@ -17,6 +19,8 @@ export interface ITask {
 }
 
 export interface IUpdateTask {
+  project_id: number | IntFieldUpdateOperationsInput | undefined;
+  user_id: number | IntFieldUpdateOperationsInput | undefined;
   title?: String;
   users?: IUser[]; //IUser[];
   description?: String;
@@ -25,7 +29,12 @@ export interface IUpdateTask {
   tags?: String[]; //Tags[]
   deadline?: String;
   milestone_id?: String;
-  comments?: String[]; // Comment[]
+  comments?: {
+    user_id?: Number;
+    project_id?: Number;
+    task_id?: Number;
+    description?: String;
+  }; // Comment[]
   githubs?: String[]; // Github[]
   created_at: String; //Date;
   updated_at: String; //Date;

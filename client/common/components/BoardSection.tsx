@@ -1,35 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
-import CustomButton from './small/MainBtn';
+import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
-import { INewTask } from '../types/INewTask';
 import styles from '../../styles/BoardSection.module.css';
+import { useRouter } from 'next/router';
+import { IoIosAdd, IoIosClose } from 'react-icons/io';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { setCurrentTask } from '../store/slices/task/task.slices';
+import Filter from './Filter';
 
 interface BoardInterface {
-  title: String;
+  columnTitle: String;
   tasks: ITask[];
 }
 
 const emptyTask = {} as ITask;
-const BoardSection: React.FC<BoardInterface> = (props) => {
+
+const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
+  const dispatch = useAppDispatch();
+
+  const user = useAppSelector((state) => state.user.id);
+  const selectedTask = useAppSelector((state) => state.task.currentTask);
+
   const [showTask, setShowTask] = useState(false);
-  const [currentTask, setCurrentTask] = useState<ITask>(emptyTask);
   const [showButton, setShowButton] = useState(true);
   const [showInput, setShowInput] = useState(false);
   const [taskTitle, setTaskTitle] = useState('');
+  const router = useRouter();
 
   const taskProps = {
     showTask: showTask, // bool
-    task: currentTask,
-    setCurrentTask: setCurrentTask,
     setShowTask: setShowTask,
   };
 
   const handleClick = (task: ITask) => {
     setShowTask(!showTask);
-    setCurrentTask(task);
+    dispatch(setCurrentTask(task));
   };
 
   const handleShowInput = () => {
@@ -38,31 +46,43 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
   };
 
   const handleCreateTask = async () => {
-    const newTask: INewTask = {
-      title: taskTitle,
-      user_id: 1,
-      project_id: 1,
-      milestone_id: 1,
-    };
-    await createNewTask(newTask);
-    setTaskTitle('');
+    if (taskTitle === '') {
+      return;
+    } else {
+      const newTask: ITask = {
+        title: taskTitle,
+        user_id: Number(user),
+        project_id: Number(router.query.project_id),
+        priority: 'none',
+        milestone_id: Number(router.query.id),
+        status: columnTitle,
+      };
+
+      await createNewTask(newTask).catch((error) => console.log(error));
+      setTaskTitle('');
+      setShowInput(false);
+    }
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setTaskTitle(e.currentTarget.value);
   };
 
-  console.log(taskTitle);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleCreateTask();
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
         <div>
-          <h2 className={styles.boardTitle}>{props.title}</h2>
+          <h2 className={styles.boardTitle}>{columnTitle}</h2>
         </div>
-        {/* <CustomButton button="+ add" onClick={() => onClick()} /> */}
 
         <div>
-          {props.tasks.map((task: ITask, index) => {
+          {tasks.map((task: ITask, index) => {
             return (
               <div
                 key={index}
@@ -76,10 +96,17 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
         </div>
         <button
           onClick={() => handleShowInput()}
-          // style={showButton ? { display: 'flex' } : { display: 'none' }}
+          style={
+            showInput
+              ? {
+                  borderBottomLeftRadius: '0',
+                  borderBottomRightRadius: '0',
+                }
+              : { borderRadius: '10px' }
+          }
           className={styles.button}
         >
-          + add
+          {showInput ? <IoIosClose /> : <IoIosAdd />}
         </button>
         <div
           className={styles.createTask}
@@ -90,6 +117,7 @@ const BoardSection: React.FC<BoardInterface> = (props) => {
             name="task"
             id="task"
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             value={taskTitle}
             placeholder="Add new task"
             className={styles.input}

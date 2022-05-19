@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--color-black);
+  background-color: var(--color-primary);
   padding: var(--unit3);
   margin-top: var(--unit4);
   border-radius: 10px;
@@ -13,4 +13,12 @@
 .title {
   font-size: var(--size-s);
   font-weight: 400;
+}
+.input {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  color: var(--color-white);
+  padding: var(--unit3) var(--unit);
+  font-size: var(--size-xl);
 }

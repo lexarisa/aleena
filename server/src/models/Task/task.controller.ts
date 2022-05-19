@@ -1,20 +1,26 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { DataService } from '../../services/data.service';
-// import { newHook } from '../../utils/pull_request.utils'
-import { newHook } from '../../middlewares/checkPR.middleware';
+import { Subject } from 'rxjs';
+import { newHookTask } from './../../middlewares/checkPR.middleware';
 
 const service: DataService = new DataService();
 
+export const sseTask = new Subject();
+
 export class TaskController {
-  constructor() {}
+  constructor(private service: DataService) {}
 
   async createTask(req: Request, res: Response): Promise<void> {
     try {
       const newTask = req.body;
-
+      console.log('task data in task controller', newTask);
       const task = await service.createTask(newTask);
 
-      res.send(task);
+      console.log('XXXXXX');
+      const sse = { event: 'create', data: task };
+      sseTask.next(sse);
+
+      res.send(true);
     } catch (error) {
       console.error(error);
 
@@ -26,7 +32,7 @@ export class TaskController {
     try {
       const { task_id } = req.params;
 
-      console.log(task_id)
+      console.log(task_id);
 
       const task = await service.getTask(+task_id);
 
@@ -38,8 +44,14 @@ export class TaskController {
     }
   }
 
-  async hookTask(req: Request, res: Response): Promise<void> {
+  async hookTask(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
+      // if(newHookTask.observed currentObservers === null)
+      console.log('hit the feed HOOOOK TASK')
       const headers = {
         'Cache-Control': 'no-cache',
         'Content-Type': 'text/event-stream',
@@ -51,30 +63,102 @@ export class TaskController {
 
       res.flushHeaders();
 
-      newHook.subscribe((data: any) => {
-        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      const stream = newHookTask.subscribe((data: any) => {
+        res.write(`data ${JSON.stringify(data)} \n\n`);
       });
 
       req.on('close', () => {
         console.log('client closed connection');
+        stream.unsubscribe();
       });
-
-      res.status(200);
     } catch (error) {
       console.log(error);
       res.status(500);
     }
   }
 
-  async updateTask(req: Request, res: Response): Promise<void> {
+  async updateTaskDetail(req: Request, res: Response): Promise<void> {
     try {
       const { task_id } = req.params;
 
       const updateTaskData = req.body;
 
-      const task = await service.updateTask(+task_id, updateTaskData);
+      const task = await service.updateTaskDetail(+task_id, updateTaskData);
+
+      const sse = { event: 'update', data: task };
+      sseTask.next(sse);
 
       res.send(task);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+
+  async sseTask(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('hit the sseTask');
+      res.set({
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/event-stream',
+        'Access-Control-Allow-Origin': '*',
+        'X-Accel-Buffering': 'no',
+        Connection: 'keep-alive',
+      });
+      res.flushHeaders();
+
+      const stream = sseTask.subscribe((data: any) => {
+        console.log('DIOOOOS', data);
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+
+      const streamHook = newHookTask.subscribe((data: any) => {
+        console.log('YEEES', data);
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+
+      req.on('close', () => {
+        console.log('client closed connection');
+        stream.unsubscribe();
+        streamHook.unsubscribe();
+      });
+    } catch (error) {
+      console.log(error);
+
+      res.status(500);
+    }
+  }
+
+  async deleteTask(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('made it here');
+      const { task_id } = req.params;
+
+      const task = await service.deleteTask(+task_id);
+
+      const sse = { event: 'delete', data: task };
+      sseTask.next(sse);
+
+      res.send(task);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500);
+    }
+  }
+
+  async getFilterTask(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('made it here');
+      const { project_id, filterPriority, filterStatus, filterMileIds, filterAssignees, filterTags } = req.body;
+
+      const filteredTasks = await service.filterTasks(project_id, filterPriority, filterStatus, filterMileIds, filterAssignees, filterTags);
+
+      const sse = { event: 'delete', data: filteredTasks };
+      sseTask.next(sse);
+
+      res.send(filteredTasks);
     } catch (error) {
       console.error(error);
 

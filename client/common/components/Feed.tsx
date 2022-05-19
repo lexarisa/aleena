@@ -1,23 +1,60 @@
 import React, { useEffect, useState } from 'react';
+import FeedItem from './../components/FeedItem';
+import styles from '../../styles/Feed.module.css';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
+import { setFeed, updateFeed } from '../store/slices/feed/feed.slice';
 
-function Feed() {
-  const [events, setEvents] = useState(['first event']);
+const Feed = () => {
+  const dispatch = useAppDispatch();
+  const reduxFeedEvents = useAppSelector((state) => state.feed.feed);
+  // const [events, setEvents] = useState([]);
 
-  // useEffect(()=>{}) -> LOAD FEED FROM DB
+  useEffect(() => {
+    fetchLatestFeeds();
+  }, []);
 
-  const source = new EventSource('http://localhost:3001/updateTasks');
-  source.addEventListener('message', (message) => {
-    console.log('Data from server:', message);
+  useEffect(() => {
+    feedEvent();
   });
-  // {url} Pull request {action} by {sender} ,{number} {title} {comments} {repoUrl}
+
+  const fetchLatestFeeds = async () => {
+    const res = await fetch(
+      'https://ae99-45-130-134-153.eu.ngrok.io/feed/latest'
+    );
+
+    const feed = await res.json();
+
+    dispatch(setFeed(feed));
+  };
+
+  const feedEvent = () => {
+    const source = new EventSource(
+      'https://ae99-45-130-134-153.eu.ngrok.io/feed'
+    );
+
+    source.addEventListener('message', (feed) => {
+      const data = JSON.parse(feed.data);
+
+      dispatch(updateFeed(data));
+
+      source.close();
+    });
+  };
 
   return (
-    <div>
-      {events.map((e) => {
-        return <FeedItem />;
-      })}
-    </div>
+    <>
+      <div className={styles.container}>
+        <h1 className={styles.header}>Feed</h1>
+        {reduxFeedEvents.length ? (
+          reduxFeedEvents.map((e: any) => {
+            return <FeedItem key={e.id} feed={e} />;
+          })
+        ) : (
+          <h3>No feed yet</h3>
+        )}
+      </div>
+    </>
   );
-}
+};
 
 export default Feed;

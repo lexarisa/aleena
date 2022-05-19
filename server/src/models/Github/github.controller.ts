@@ -2,11 +2,17 @@ import { Request, Response } from 'express';
 import { GitHubService } from '../../services/github.service';
 import { DataService } from '../../services/data.service';
 import { createToken } from './../../utils/crypt.utils'
+import { Container, Service } from 'typedi';
 
-const gitService: GitHubService = new GitHubService();
+// const serviceInstance = Container.get(DataService);
+
 const dataService: DataService = new DataService();
+const gitService: GitHubService = new GitHubService();
 
-export class GithubControllers {
+export class GithubController {
+  
+  constructor(private readonly dataService: DataService, private readonly gitService: GitHubService){}
+
   async tokenGithub(req: Request, res: Response): Promise<void> {
     try {
       const { code } = req.query;
@@ -19,16 +25,17 @@ export class GithubControllers {
 
       if (findUser === null) {
         // res.send('Sorry you don\'t have an account. Install our app and join us')
+
         res.redirect(
           'https://github.com/apps/aleena-app/installations/new?state=AB12'
         );
+
         const createUser = await dataService.createUser(user);
       } else {
         // TODO need to add logic to check the projects.length
-        console.log('my id', user.id)
+
         const token = await createToken(user.id)
-        console.log('my token', token)
-        // res.redirect(`http://localhost:3000/project/1`);
+
         res.redirect(`http://localhost:3000/project/${token}`);
       }
     } catch (error) {
@@ -36,7 +43,7 @@ export class GithubControllers {
 
       res.status(500);
     }
-  }
+  };
 
   async payloadGithub(req: Request, res: Response): Promise<void> {
     try {
@@ -47,7 +54,7 @@ export class GithubControllers {
       console.error(error);
       res.status(500);
     }
-  }
+  };
 
   async createPR(req: Request, res: Response): Promise<void> {
     try {
@@ -58,7 +65,9 @@ export class GithubControllers {
       res.send(pr);
     } catch (error) {
       console.error(error);
+
       res.status(500);
     }
-  }
+  };
+
 }

@@ -1,15 +1,8 @@
-import ITask from './ITask';
-import IProject from './IProject';
-import IDocumentation from './IDocumentation';
-
-export default interface IMilestone {
+export interface IMilestone {
+  title: string;
+  project_id: number;
+  created_at: String;
+  updated_at?: String;
+  status?: String;
   id: Number;
-  created_at: Date;
-  updated_at: Date;
-  title: String;
-  status: String;
-  project_id: Number;
-  project: IProject;
-  tasks: ITask[];
-  documents: IDocumentation[];
 }

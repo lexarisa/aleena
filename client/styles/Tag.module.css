@@ -1,6 +1,15 @@
 .container {
-  height: 1rem;
-  width: 2.5rem;
   border-radius: 6px;
-  background-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: #f6bbc0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.label {
+  font-size: 10px;
+  white-space: nowrap;
+  font-weight: 500;
 }

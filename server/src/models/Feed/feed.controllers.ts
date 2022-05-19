@@ -1,28 +1,49 @@
 import { Request, Response } from 'express';
-import { newLog } from '../../middlewares/feed.middleware';
+import { Service } from 'typedi';
+import { newHookFeed } from './../../middlewares/checkPR.middleware';
+import { DataService } from './../../services/data.service';
 
-export const updateFeed = async (req: Request, res: Response): Promise<any> => {
-  try {
-    res.set({
-      'Cache-Control': 'no-cache',
-      'Content-Type': 'text/event-stream',
-      'Access-Control-Allow-Origin': '*',
-      Connection: 'keep-alive',
-    });
-    res.flushHeaders();
+const service: DataService = new DataService();
 
-    newLog.subscribe((data) => {
-      res.write(`data: ${JSON.stringify(data)} \n\n`);
-    });
+export class FeedController {
 
-    req.on('close', () => {
-      console.log('client closed connection');
-    });
+  async hookFeed(req: Request, res: Response): Promise<void> {
+    try {
+      console.log('hit the feed HOOOOK')
+      res.set({
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/event-stream',
+        'Access-Control-Allow-Origin': '*',
+        'X-Accel-Buffering': 'no',
+        Connection: 'keep-alive',
+      });
+      res.flushHeaders();
+  
+      const stream = newHookFeed.subscribe((data: any) => {
+        console.log(data)
+        res.write(`data: ${JSON.stringify(data)} \n\n`);
+      });
+  
+      req.on('close', () => {
+        console.log('client closed connection');
+        stream.unsubscribe();
+      });
+    } catch (error) {
+      console.log(error);
 
-    return res.status(200);
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-    res.end();
+      res.status(500);
+    }
+  };
+
+  async latestFeeds(req: Request, res: Response): Promise<void> {
+    try {
+      const latestFeeds = await service.getLatestFeeds();
+
+      res.send(latestFeeds)
+    } catch (error) {
+      console.log(error);
+
+      res.status(500);
+    }
   }
-};
+}

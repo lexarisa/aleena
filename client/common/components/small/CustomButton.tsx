@@ -1,18 +1,12 @@
 import styles from '../../../styles/CustomButton.module.css';
-
-interface CustomButtonProp {
-  button: String;
-  onClick?: React.MouseEventHandler;
-  color: String;
-  textColor: String;
-}
+import ICustomButtonProp from '../../types/ICustomButtonProps';
 
 const CustomButton = ({
   button,
   onClick,
   color,
   textColor,
-}: CustomButtonProp) => {
+}: ICustomButtonProp) => {
   return (
     <button
       onClick={onClick}

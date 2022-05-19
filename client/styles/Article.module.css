@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  width: 45rem;
+  min-height: 35rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  flex-direction: column;
+  padding: var(--unit5);
+  background: var(--color-lightBg);
+  color: var(--color-white);
+}
+.buttonContainer {
+  background-color: transparent;
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

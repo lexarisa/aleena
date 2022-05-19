@@ -1,0 +1,41 @@
+.container {
+  background-color: var(--color-lightBg);
+  padding: var(--unit6) var(--unit4);
+  margin-top: var(--unit4);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--color-darkGrey);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.avatar {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: black;
+  margin-right: var(--unit2);
+}
+
+.username {
+  font-weight: 600;
+  font-size: var(--size-s);
+  margin-bottom: 0;
+}
+
+.comment {
+  font-weight: 400;
+  font-size: var(--size-s);
+  margin-top: 2px;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+}
