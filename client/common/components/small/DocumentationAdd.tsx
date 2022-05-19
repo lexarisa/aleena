@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../../styles/MileStoneCard.module.css';
+import styles from '../../../styles/DocumentationCard.module.css';
 import { INewDocumentation } from '../../types/INewDocumentation';
 import { createDocumentation } from '../../../pages/api/documentation.api';
 import { useRouter } from 'next/router';

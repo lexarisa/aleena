@@ -2,14 +2,15 @@
   display: flex;
   width: 45rem;
   min-height: 35rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
   flex-direction: column;
-  padding: var(--unit5);
-  background: var(--color-lightBg);
+  padding: var(--unit10);
+  /* background: var(--color-lightBg); */
   color: var(--color-white);
+  /* position: fixed; */
 }
 .buttonContainer {
   background-color: transparent;
@@ -17,4 +18,33 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.buttonContainer {
+  background-color: transparent;
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttonContainerHeader {
+  background-color: transparent;
+  width: 35rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.textEditorContainer {
+  background-color: transparent;
+  /* padding: var(--unit7); */
+}
+.icon {
+  font-size: var(--size-xl);
+  margin: var(--unit3);
+}
+.deleteIcon {
+  position: relative;
+  z-index: 2;
+  right: 50px;
+  top: 10px;
+  font-size: var(--size-l);
 }
