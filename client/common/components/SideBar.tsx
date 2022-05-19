@@ -13,8 +13,10 @@ import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import Link from 'next/link';
 const SideBar = () => {
   const user_details = useAppSelector((state) => state.user.user_details);
+
   const allProjects = useAppSelector((state) => state.project.allProjects);
   const allUsersProject = useAppSelector((state) => state.project.allUsersInProject)
+
 
   const [showCollapsible, setShowCollapsible] = useState(false);
   const [searchUser, setSearchUser] = useState('');
@@ -44,6 +46,7 @@ const SideBar = () => {
     <div className={styles.container}>
       <div className={styles.sideBarUp}>
         <div className={styles.userImage}>
+
           <div className={styles.image}>
             <Image
               src={user_details.profile_pic}
@@ -52,6 +55,7 @@ const SideBar = () => {
               alt="User profile image"
             />
           </div>
+
           <div>
             <p className={styles.username}>{user_details.username}</p>
           </div>

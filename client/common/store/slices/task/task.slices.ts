@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../index.store';
 
 export const TaskSlice = createSlice({
-    name: 'task',
+  name: 'task',
+
 
     initialState: {
         allTasks: [] as any,
@@ -41,12 +42,11 @@ export const TaskSlice = createSlice({
         setAllFilterTask: (state, action) => {
             state.allFilterTasks = action.payload
         }
+
     },
-    extraReducers: {
-    }
-})
 
 export const { setTasks, createTask, updateTasks, deleteTask, setCurrentTask, setAllFilterTask  } = TaskSlice.actions;
+
 
 export const selectAllTasks = (state: RootState) => state.task.allTasks;
 

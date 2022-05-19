@@ -51,8 +51,10 @@ const TabContainer = ({ children }: TabContainerProps) => {
           </Link>
           <Link
             href={{
+
               pathname: '/board',
               query: selectedQuery,
+
             }}
           >
             <a className={styles.active}>Board</a>

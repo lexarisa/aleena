@@ -23,9 +23,11 @@ const Board = () => {
   const reduxCurrentMile = useAppSelector(
     (state) => state.milestone.currentMilestone
   );
+
   const reduxCurrentProject = useAppSelector(
     (state) => state.project.currentProject
   );
+
   const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
   const reduxUser = useAppSelector((state) => state.user.id);
   const pagination = 0;
@@ -39,6 +41,7 @@ const Board = () => {
   }
 
   const router = useRouter();
+
 
   useEffect(() => {
     // sse
@@ -84,6 +87,7 @@ const Board = () => {
         if (task.milestone_id === reduxCurrentMile.id) {
           console.log('hiiiit sse task');
           dispatch(updateTasks(task));
+
         }
       }
 
@@ -119,6 +123,7 @@ const Board = () => {
     return (
       <>
         <Filter />
+
   
         <div className={styles.scrollContainer}>
           {/* <FilterComponent 
@@ -141,6 +146,7 @@ const Board = () => {
         </div>
       </>
     );
+
 };
 
 export default Board;
