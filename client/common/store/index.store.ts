@@ -18,6 +18,7 @@ import tagReducer from './slices/tag/tag.slice';
 import userReducer from './slices/user/user.slice';
 import taskReducer from './slices/task/task.slices';
 import feedReducer from './slices/feed/feed.slice';
+import buttonReducer from './slices/buttons/buttons.slice';
 import commentReducer from './slices/comment/comment';
 import projectReducer from './slices/projects/project.slice';
 import milestoneReducer from './slices/milestone/milestone.slice';
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   user: userReducer,
   task: taskReducer,
   feed: feedReducer,
+  button: buttonReducer,
   project: projectReducer,
   comment: commentReducer,
   milestone: milestoneReducer,

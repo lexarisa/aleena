@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { cloneElement, useEffect, useState } from 'react';
 import BoardSection from './BoardSection';
 import ITask from '../types/ITask';
 import styles from '../../styles/Board.module.css';
 import tasks from '../../mockTasks';
 import FilterComponent from './Filter';
+import { formatData } from '../../pages/project/[token]';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import {
   deleteTask,
@@ -19,8 +20,10 @@ const Board = () => {
   const reduxAllTasks = useAppSelector((state) => state.task.allTasks);
   const reduxMile = useAppSelector((state) => state.milestone.allMilestones);
   const reduxCurrentMile = useAppSelector((state) => state.milestone.currentMilestone);
-  
+  const reduxCurrentProject = useAppSelector((state) => state.project.currentProject)
   const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
+  const reduxUser = useAppSelector((state) => state.user.id)
+  const pagination = 0;
 
   const router = useRouter();
 
@@ -29,6 +32,34 @@ const Board = () => {
     // sse
     streamTask();
   });
+
+  useEffect(() => {
+    fetchAllTasksBoard();
+  });
+
+
+  const fetchAllTasksBoard = async () => {
+    const res = await fetch(`https://ae99-45-130-134-153.eu.ngrok.io/dashboard/${reduxCurrentProject.id}/${reduxUser}/${pagination}`);
+
+    const data = await res.json();
+
+    const allPipeTasks: any = [] // ARRAY OF ARRAYS OF TASKS SEPARATED BY SECTION ! 
+    data.forEach((el: any) => {
+      el.forEach((pj: any) => {
+        pj.project.milestones.forEach((mile: any) => {
+          allPipeTasks.push(mile.tasks)
+        })
+      })
+    })
+    
+
+    const allTasks = allPipeTasks.flat(); // ALL TASKS IN ONE ARRAY
+  
+
+    console.log('all tasks', allTasks);
+
+  };
+  
 
   const streamTask = () => {
     const sseTask = new EventSource(
@@ -75,6 +106,11 @@ const Board = () => {
     'Done',
     'Backlog',
   ];
+
+  // TODO MAKE A IF STATEMENT TO CHECK IF YOU WANT THE DATA FROM THE MILESTONE OR FOR ALL !!!
+
+
+
   return (
     <>
       <div className={styles.scrollContainer}>

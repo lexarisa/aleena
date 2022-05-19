@@ -66,6 +66,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   console.log('to create a task we need pj id',reduxCurrentProject)
 
   const handleUpdateTask = async (closePage: boolean) => {
+    
     const dataToUpdate = {
       user_id: Number(user.id),
       project_id: Number(reduxCurrentProject.id),
@@ -76,7 +77,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         user_id: Number(user.id),
         task_id: Number(reduxTask.id),
         description: comment,
-      }
+      },
+      tags: selectedTag 
     };
 
     await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
@@ -133,12 +135,13 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
               value={selectedTag}
               onChange={(e) => setSelectedTag(e.target.value)}
             >
-              {tags.map((tag) => (
+              {tags.map((tag: any) => (
                 <option
-                  key={tag.labels}
+                  key={tag.labels} 
                   value={tag.labels}
                   className={styles.options}
                 >
+                {/* {console.log(e.target.value)} */}
                   {tag.labels}
                 </option>
               ))}
@@ -150,8 +153,8 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
           </div>
           <div>
             <select
-              value={selectedTag}
-              onChange={(e) => setSelectedTag(e.target.value)}
+              value={selectedPriority}
+              onChange={(e) => setSelectedPriority(e.target.value)}
             >
               {priority.map((priority) => (
                 <option
