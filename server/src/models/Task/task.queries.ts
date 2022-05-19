@@ -6,6 +6,9 @@ export const createTaskQuery = async (newTask: any) => {
     data: newTask,
     include: {
       githubs: true,
+      users: true,
+      comments: true,
+      tags: true,
     }
   });
 
@@ -67,20 +70,46 @@ export const updateTaskStatusQuery = async (id: number, status: string) => {
 
 export const updateTaskDetailQuery = async (
   id: number,
-  updateTaskData: IUpdateTask
+  updateTaskData: IUpdateTask,
 ) => {
+
+  const comment = await prisma.comment.create({
+    data: {
+      // @ts-ignore
+      user_id: updateTaskData.comments?.user_id,
+      // @ts-ignore
+      task_id: updateTaskData.comments?.task_id,
+      // @ts-ignore
+      description: updateTaskData.comments?.description,
+    }
+  });
+
   const task = await prisma.task.update({
     where: {
       id: id,
     },
     // @ts-ignore
-    data: updateTaskData,
+    data: {
+      user_id: updateTaskData.user_id,
+      project_id: updateTaskData.project_id,
+      status: updateTaskData.status,
+      description: updateTaskData.description,
+    },
+    include: {
+      comments: true,
+      githubs: true,
+      users: true,
+      tags: true,
+    }
   });
 
   if (!task) return null;
 
   return task;
 };
+
+
+
 
 export const deleteTaskQuery = async (id: number) => {
   const task = await prisma.task.delete({

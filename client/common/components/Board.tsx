@@ -19,12 +19,8 @@ const Board = () => {
   const reduxAllTasks = useAppSelector((state) => state.task.allTasks);
   const reduxMile = useAppSelector((state) => state.milestone.allMilestones);
   const reduxCurrentMile = useAppSelector((state) => state.milestone.currentMilestone);
-
-
-  console.log('q', reduxCurrentMile);
-
+  
   const reduxAllProjects = useAppSelector((state) => state.project.allProjects);
-  console.log('LEVELS DOWN ', reduxAllProjects);
 
   const router = useRouter();
 

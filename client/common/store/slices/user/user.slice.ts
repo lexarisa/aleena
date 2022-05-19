@@ -6,6 +6,7 @@ export const UserSlice = createSlice({
 
   initialState: {
     id: 0,
+    user_details: {},
     bookmarks: [] as any,
   },
 
@@ -15,6 +16,9 @@ export const UserSlice = createSlice({
     },
     createBookmark: (state, action: PayloadAction<any>) => {
       state.bookmarks = [...state.bookmarks, action.payload];
+    },
+    setUserDetails: (state, action: PayloadAction<any>) => {
+      state.user_details = action.payload;
     },
 
     setBookmarks: (state, action: PayloadAction<any>) => {
@@ -43,6 +47,7 @@ export const {
   createBookmark,
   updateBookmarks,
   deleteBookmark,
+  setUserDetails,
 } = UserSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;

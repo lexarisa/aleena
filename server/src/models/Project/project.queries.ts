@@ -30,9 +30,19 @@ export const createProjectQuery = async (user_id: number, newProject: any, miles
       },
     });
 
+    const projectDetails = await prisma.project.findUnique({
+      where: {
+        id: project.id
+      },
+      include: {
+        user: true,
+      }
+    });
+
     if (!projectUser) throw new Error();
 
-    return project
+    console.log(projectDetails)
+    return projectDetails
 
 
   }
@@ -54,6 +64,11 @@ export const findUserProjectsQuery = async (id: number) => {
               description: true,
               status: true,
               deadline: true,
+              user: {
+                select: {
+                  id: true,
+                },
+              },
             },
           },
         },

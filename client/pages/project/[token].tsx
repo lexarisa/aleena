@@ -12,7 +12,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../common/store/hooks/redux-hooks';
-import { setUser } from '../../common/store/slices/user/user.slice';
+import { setUser, setUserDetails } from '../../common/store/slices/user/user.slice';
 import {
   updateProjects,
   setProjects,
@@ -37,11 +37,22 @@ const project = ({
 
   useEffect(() => {
     fetchProjects();
+    fetchUserDetails();
   }, []);
 
   useEffect(() => {
     streamProject();
   });
+
+  const fetchUserDetails = async () => {
+    const res = await fetch(
+      `https://ae99-45-130-134-153.eu.ngrok.io/user-details/${token}`
+    );
+
+    const data = await res.json();
+
+    dispatch(setUserDetails(data))
+  }
 
   const fetchProjects = async () => {
     const res = await fetch(
@@ -70,12 +81,14 @@ const project = ({
       const event = JSON.parse(project.data).event;
       const newProject = JSON.parse(project.data).data;
 
-      if (event === 'create') {
-        dispatch(updateProjects(newProject));
-      }
-
-      if (event === 'delete') {
-        dispatch(deleteProject(newProject));
+      if (newProject.user.some((el: any) => el.user_id === +token)) {
+        if (event === 'create') {
+          dispatch(updateProjects(newProject));
+        }
+  
+        if (event === 'delete') {
+          dispatch(deleteProject(newProject));
+        }
       }
 
       sseProject.close();
