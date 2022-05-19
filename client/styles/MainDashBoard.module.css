@@ -1,0 +1,6 @@
+.container {
+  display: grid;
+  margin-top: var(--unit3);
+  gap: var(--unit6);
+  grid-template-columns: repeat(2, 1fr);
+}
