@@ -64,6 +64,14 @@ const SideBar = () => {
 
         <section className={styles.collapsible}>
           <header>
+            <div id="profile" className={styles.header}>
+              <h2 className={styles.title}>Your Profile</h2>
+            </div>
+          </header>
+        </section>
+
+        <section className={styles.collapsible}>
+          <header>
             <div className={styles.header} id="teammates">
               <h2 className={styles.title}>Teammates</h2>
             </div>
@@ -132,16 +140,31 @@ const SideBar = () => {
         </section>
         <section className={styles.collapsible}>
           <header>
-            <div className={styles.header} id="bookmark">
-              <h2 className={styles.title}>Bookmarked</h2>
+            <div id="setting" className={styles.header}>
+              <h2 className={styles.title}>Bookmarks</h2>
             </div>
           </header>
-          <div className={styles.collapsible}>
-            <ul className={styles.collapsibleContent}>
-              <li className={styles.text}>Doc1</li>
-              <li className={styles.text}>Doc2</li>
-            </ul>
-          </div>
+        </section>
+        <section className={styles.collapsible}>
+          <header>
+            <div id="setting" className={styles.header}>
+              <h2 className={styles.title}>Settings</h2>
+            </div>
+          </header>
+        </section>
+        <section className={styles.collapsible}>
+          <header>
+            <div id="setting" className={styles.header}>
+              <h2 className={styles.title}>Help & Support</h2>
+            </div>
+          </header>
+        </section>
+        <section className={styles.collapsible}>
+          <header>
+            <div id="setting" className={styles.header}>
+              <h2 className={styles.title}>Contact</h2>
+            </div>
+          </header>
         </section>
       </div>
       <div className={styles.sideBarLower}>

@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentTask } from '../store/slices/task/task.slices';
-import Filter from './Filter';
 
 interface BoardInterface {
   columnTitle: String;

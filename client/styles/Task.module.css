@@ -66,9 +66,14 @@
   align-items: center;
   justify-items: stretch;
 }
+.detailSection {
+  width: 100%;
+  align-self: flex-start;
+  padding: 0 var(--unit7);
+}
 
 .descriptionWrapper {
-  border-top: 1px dashed #fff;
+  margin-top: var(--unit4);
 }
 
 .button {
@@ -133,4 +138,54 @@
   color: var(--color-white);
   font-size: var(--size-s);
   padding: var(--unit3) var(--unit2);
+}
+
+.close {
+  display: flex;
+  align-self: flex-end;
+}
+
+.close:hover {
+  transform: scale(1.08);
+  cursor: pointer;
+}
+
+.icon {
+  font-size: var(--size-xl);
+}
+
+.editButton {
+  color: var(--color-white2);
+
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+  margin-bottom: var(--unit2);
+}
+
+.editButton:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.updateButton {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding: var(--unit2);
+  margin-bottom: var(--unit5);
+}
+
+.collapsible {
+  max-height: 30rem;
+  overflow-y: scroll;
+}
+
+.label {
+  color: var(--color-darkGrey);
+  font-size: var(--size-m);
+}
+
+.description {
+  font-size: var(--size-l);
+  color: var(--color-white2);
 }

@@ -109,7 +109,9 @@ const Board = () => {
 
   return (
     <>
-      <Filter />
+      <div className={styles.tab}>
+        <Filter />
+      </div>
 
       <div className={styles.scrollContainer}>
         {/* <FilterComponent 

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../styles/Comment.module.css';
 import Image from 'next/image';
 
-const Comment = ({ user, description }) => {
+const Comment = ({ description }: any) => {
   return (
     <div className={styles.container}>
       <div className={styles.userSection}>
@@ -17,7 +17,7 @@ const Comment = ({ user, description }) => {
         </div>
       </div>
       <div className={styles.commentSection}>
-        <p className={styles.username}>{user}</p>
+        {/* <p className={styles.username}>{user}</p> */}
         <p className={styles.comment}>{description}</p>
       </div>
     </div>
