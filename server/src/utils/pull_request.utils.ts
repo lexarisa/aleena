@@ -5,6 +5,7 @@ export const cleanPullRequest = (event: any) => {
     event.action === 'reopened' ||
     event.action === 'closed'
   ) {
+    console.log(event)
     const pullEvent = {
       pull_id: event.pull_request.id,
       title: event.pull_request.title,

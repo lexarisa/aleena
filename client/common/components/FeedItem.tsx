@@ -21,8 +21,8 @@ const FeedItem = ({ feed }: any) => {
         <AiOutlineUser /> {feed.sender}
       </div>
       <div className={styles.url}>
-        <Link href={feed.pull_url}>
-        <a>{feed.pull_url}</a>
+        <Link href={`${feed.repo_url}/pulls/${feed.number}`}>
+        <a target="_blank">{feed.repo_url}/pulls/{feed.number}</a>
         </Link>
         </div>
     </div>
