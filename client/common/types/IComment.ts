@@ -1,7 +1,7 @@
 export default interface IComment {
-  id: Number;
+  id?: Number;
 
   description: String;
-  user_id: Number;
-  task_id: Number;
+  user_id?: Number;
+  task_id?: Number;
 }

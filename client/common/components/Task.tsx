@@ -10,6 +10,8 @@ import CustomButton from './small/CustomButton';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { deleteTask, setCurrentTask } from '../store/slices/task/task.slices';
 import Image from 'next/image';
+import { AiOutlineClose } from 'react-icons/ai';
+import Comment from './Comment';
 
 const options = [
   { value: 'To Do' },
@@ -36,17 +38,18 @@ const tags = [
   { labels: 'Brainstorm', color: 'blue' },
 ];
 
-
 const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const dispatch = useAppDispatch();
 
-  const user: any = useAppSelector(state => state.user.user_details)
-  const reduxTask: any  = useAppSelector(state => state.task.currentTask)
-  const reduxCurrentProject: any  = useAppSelector(state => state.project.currentProject)
+  const user: any = useAppSelector((state) => state.user.user_details);
+  const reduxTask: any = useAppSelector((state) => state.task.currentTask);
+  const reduxCurrentProject: any = useAppSelector(
+    (state) => state.project.currentProject
+  );
 
-  console.log('reduxTask', reduxTask)
+  console.log('reduxTask', reduxTask);
 
-  let initialLinkPR = reduxTask?.githubs[0]?.pull_url
+  let initialLinkPR = reduxTask?.githubs[0]?.pull_url;
   if (initialLinkPR === undefined) initialLinkPR = '';
 
   const [githubLink, setGithubLink] = useState(initialLinkPR); // TODO !!! IF A TASK HAS MORE THAN ONE PR
@@ -55,18 +58,15 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
   const [selectedTag, setSelectedTag] = useState('');
   const [description, setDescription] = useState(reduxTask.description);
   const [comment, setComment] = useState('');
-  const [pr, setPR] = useState('');
-
 
   const handleShowTask = () => {
     setShowTask(false);
     dispatch(setCurrentTask(null));
   };
 
-  console.log('to create a task we need pj id',reduxCurrentProject)
+  console.log('to create a task we need pj id', reduxCurrentProject);
 
   const handleUpdateTask = async (closePage: boolean) => {
-    
     const dataToUpdate = {
       user_id: Number(user.id),
       project_id: Number(reduxCurrentProject.id),
@@ -78,7 +78,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
         task_id: Number(reduxTask.id),
         description: comment,
       },
-      tags: selectedTag 
+      tags: selectedTag,
     };
 
     await updateTaskDetail(reduxTask.id as Number, dataToUpdate);
@@ -86,7 +86,7 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
       await linkPRTask(githubLink, reduxTask.id);
     }
 
-    setGithubLink(initialLinkPR)
+    setGithubLink(initialLinkPR);
     setShowTask(closePage);
   };
 
@@ -94,19 +94,14 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
     const deleted = await deleteTaskApi(reduxTask.id as Number);
     setShowTask(false);
   };
-  //TODO make reusable button
+
   return (
     <Modal>
       <div className={styles.wrapper}></div>
-      <div className={styles.close}>
-        <RoundButton
-          button="x"
-          onClick={handleShowTask}
-          color="#fff"
-          textColor="#333"
-        />
+      <div className={styles.close} onClick={handleShowTask}>
+        <AiOutlineClose className={styles.icon} />
       </div>
-      
+
       <div className={styles.detail}>
         <h1>{reduxTask.title}</h1>
         <div className={styles.headerSection}>
@@ -126,7 +121,6 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             </select>
           </div>
 
-
           <div>
             <label className={styles.label}>Tags</label>
           </div>
@@ -137,11 +131,10 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
             >
               {tags.map((tag: any) => (
                 <option
-                  key={tag.labels} 
+                  key={tag.labels}
                   value={tag.labels}
                   className={styles.options}
                 >
-                {/* {console.log(e.target.value)} */}
                   {tag.labels}
                 </option>
               ))}
@@ -231,35 +224,37 @@ const Task: React.FC<ITaskProps> = ({ setShowTask }) => {
 
       <div>
         <div>
-      {reduxTask.comments.length > 0 ? reduxTask.comments.map((el: any) => {
-        console.log(el)
-        return (
-          <>
-            <h3>{el.description}</h3>
-          </>
-        )
-      }) : ''
-      }
+          {reduxTask.comments.length > 0
+            ? reduxTask.comments.map((el: any) => {
+                console.log(el);
+                return (
+                  <>
+                    <h3>{el.description}</h3>
+                  </>
+                );
+              })
+            : ''}
         </div>
       </div>
       <div>
         <div>
-          {reduxTask.githubs.length > 0 ? reduxTask.githubs.map((pr:any) => {
-            console.log(pr)
-          return (
-            <>
-              <h1>PR</h1>
-              <h3>#{pr.number}</h3>
-              <h3>{pr.title}</h3>
-              <h3>{pr.pull_url}</h3>
-              <h3>{pr.status}</h3>
-            </>
-          )
-        }) : []};
+          {reduxTask.githubs.length > 0
+            ? reduxTask.githubs.map((pr: any) => {
+                console.log(pr);
+                return (
+                  <>
+                    <h1>PR</h1>
+                    <h3>#{pr.number}</h3>
+                    <h3>{pr.title}</h3>
+                    <h3>{pr.pull_url}</h3>
+                    <h3>{pr.status}</h3>
+                  </>
+                );
+              })
+            : []}
+          ;
         </div>
       </div>
-
-      
     </Modal>
   );
 };

@@ -13,6 +13,7 @@ import {
 } from '../common/store/hooks/redux-hooks';
 import Router from 'next/router';
 import { updateMilestone } from './api/milestoneApi';
+import Meta from '../common/components/Meta';
 // const source = new EventSource('https://dcb2-45-130-134-153.eu.ngrok.io/feed');
 
 const Dashboard = ({
@@ -38,19 +39,20 @@ const Dashboard = ({
   };
 
   return (
-    <DashboardLayout>
-      <TabContainer>
-        <MainDashboard />
-      </TabContainer>
-    </DashboardLayout>
+    <>
+      <Meta title="" />
+      <DashboardLayout>
+        <TabContainer>
+          <MainDashboard />
+        </TabContainer>
+      </DashboardLayout>
+    </>
   );
 };
 
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('what?');
-
   const id = context.query.id;
   console.log('context query', context.query);
 

@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getAllUsersInProject } from '../../pages/api/user.api';
 import avatarPng from '../../../public/avatarPng.png';
+import { useForm } from 'react-hook-form';
 
 //styling
 import styles from '../../styles/Sidebar.module.css';
 import { useAppSelector } from '../store/hooks/redux-hooks';
 import Link from 'next/link';
 const SideBar = () => {
-
-  const user_details = useAppSelector((state) => state.user.user_details)
-  const allProjects = useAppSelector((state) => state.project.allProjects)
+  const user_details = useAppSelector((state) => state.user.user_details);
+  const allProjects = useAppSelector((state) => state.project.allProjects);
 
   const [showCollapsible, setShowCollapsible] = useState(false);
   const [searchUser, setSearchUser] = useState('');
@@ -37,7 +37,6 @@ const SideBar = () => {
         const data = {
           username: searchUser,
           project_id: Number(router.query.id),
-
         };
         await addUserToProject(data);
         setSearchUser('');
@@ -64,13 +63,8 @@ const SideBar = () => {
 
         <section className={styles.collapsible}>
           <header>
-            <div
-              className={styles.header}
-              id="teammates"
-              onClick={handleShowCollapsible}
-            >
+            <div className={styles.header} id="teammates">
               <h2 className={styles.title}>Teammates</h2>
-              <span className={styles.dropDown}>+</span>
             </div>
           </header>
           <div className={styles.collapsible}>
@@ -87,22 +81,22 @@ const SideBar = () => {
               <div className={styles.teammate}>
                 {allUsersInProject.length > 0 &&
                   allUsersInProject.map((user) => {
-                    console.log((user.id !== user_details.id))
-                      return (
-                        <div className={styles.userDetail} key={user.user.id}>
-                          <div className={styles.avatar}>
-                            <Image
-                              src={user_details.profile_pic}
-                              width={50}
-                              height={30}
-                              alt="User profile image"
-                            />
-                          </div>
-                          <span className={styles.text}>
-                            {user.user.username}
-                          </span>
+                    console.log(user.id !== user_details.id);
+                    return (
+                      <div className={styles.userDetail} key={user.user.id}>
+                        <div className={styles.avatar}>
+                          <Image
+                            src={user_details.profile_pic}
+                            width={50}
+                            height={30}
+                            alt="User profile image"
+                          />
                         </div>
-                      );
+                        <span className={styles.text}>
+                          {user.user.username}
+                        </span>
+                      </div>
+                    );
                   })}
               </div>
             </div>
@@ -112,39 +106,32 @@ const SideBar = () => {
           <header>
             <div id="project" className={styles.header}>
               <h2 className={styles.title}>Project</h2>
-              <span>+</span>
             </div>
           </header>
           <div className={styles.collapsible}>
             <ul className={styles.collapsibleContent}>
-              {
-                allProjects && allProjects.map((pj: any) => {
+              {allProjects &&
+                allProjects.map((pj: any) => {
                   return (
-                    <Link 
-                    href={{
-                      pathname: '/dashboard/[project_id]',
-                      query: {
-                        project_id: pj.id,
-                      },
-                    }}>
+                    <Link
+                      href={{
+                        pathname: '/dashboard/[project_id]',
+                        query: {
+                          project_id: pj.id,
+                        },
+                      }}
+                    >
                       <li className={styles.text}>{pj.title}</li>
                     </Link>
-
-                  )
-                })
-              }
+                  );
+                })}
             </ul>
           </div>
         </section>
         <section className={styles.collapsible}>
           <header>
-            <div
-              className={styles.header}
-              id="bookmark"
-              onClick={handleShowCollapsible}
-            >
+            <div className={styles.header} id="bookmark">
               <h2 className={styles.title}>Bookmarked</h2>
-              <span>+</span>
             </div>
           </header>
           <div className={styles.collapsible}>

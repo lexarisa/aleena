@@ -35,7 +35,7 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
             },
           }}
         >
-          <a>Docs</a>
+          <a>{/* <IoDocumentTextOutline className={styles.icon} /> */}</a>
         </Link>
       </div>
 
