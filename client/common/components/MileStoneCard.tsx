@@ -19,11 +19,11 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>{title}</h1>
         <div>
-          <Image
+          {/* <Image
             src="https://github.com/thaiscosta.png"
             width={50}
             height={50}
-          />
+          /> */}
         </div>
 
         <Link
@@ -35,7 +35,7 @@ const MileStoneCard = ({ title, status, milestone_id }: any) => {
             },
           }}
         >
-          <a>Docs</a>
+          <a>{/* <IoDocumentTextOutline className={styles.icon} /> */}</a>
         </Link>
       </div>
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
-import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
 import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
@@ -18,7 +17,6 @@ interface BoardInterface {
 const emptyTask = {} as ITask;
 
 const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
-
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.user.id);
@@ -80,7 +78,6 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         <div>
           <h2 className={styles.boardTitle}>{columnTitle}</h2>
         </div>
-        {/* <CustomButton button="+ add" onClick={() => onClick()} /> */}
 
         <div>
           {tasks.map((task: ITask, index) => {

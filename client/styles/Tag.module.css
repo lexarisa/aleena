@@ -12,4 +12,5 @@
   font-size: 10px;
   white-space: nowrap;
   font-weight: 500;
+  color: var(--color-white);
 }

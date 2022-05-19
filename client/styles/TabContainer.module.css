@@ -1,5 +1,5 @@
 .container {
-  min-height: 100vh;
+  max-height: 100vh;
   padding: 0 var(--unit5);
   display: grid;
   align-content: flex-start;
@@ -31,6 +31,7 @@
 
 .tabContent {
   overflow-x: scroll;
+  margin-top: var(--unit4);
 }
 
 .avatar {
