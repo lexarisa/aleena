@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <Head>
-        <title>Aleena: Productivity Tool For Developers</title>
+        <title>Aleena: Productivity Tool For Developers and everyone</title>
       </Head>
       <PersistGate loading={null} persistor={persistor}>
         <Component {...pageProps} />
