@@ -81,7 +81,7 @@ const project = ({
       const event = JSON.parse(project.data).event;
       const newProject = JSON.parse(project.data).data;
 
-      if (newProject.user.some((el: any) => el.user_id === token)) {
+      if (newProject.user.some((el: any) => el.user_id === +token)) {
         if (event === 'create') {
           dispatch(updateProjects(newProject));
         }

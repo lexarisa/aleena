@@ -39,9 +39,9 @@ export const createProjectQuery = async (user_id: number, newProject: any, miles
       }
     });
 
-
     if (!projectUser) throw new Error();
 
+    console.log(projectDetails)
     return projectDetails
 
 
@@ -64,6 +64,11 @@ export const findUserProjectsQuery = async (id: number) => {
               description: true,
               status: true,
               deadline: true,
+              user: {
+                select: {
+                  id: true,
+                },
+              },
             },
           },
         },
