@@ -57,8 +57,6 @@ const Board = () => {
     });
 
     const allTasks = allPipeTasks.flat(); // ALL TASKS IN ONE ARRAY
-
-    console.log('all tasks', allTasks);
   };
 
   const streamTask = () => {
@@ -109,7 +107,9 @@ const Board = () => {
 
   return (
     <>
-      <Filter />
+      <div className={styles.tab}>
+        <Filter />
+      </div>
 
       <div className={styles.scrollContainer}>
         {/* <FilterComponent 

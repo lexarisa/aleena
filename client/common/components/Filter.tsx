@@ -81,7 +81,7 @@ const Filter = () => {
           <CustomButton
             button="Filter"
             color="#e63946"
-            textColor="#fff;"
+            textColor="#fff"
             onClick={() => console.log('clicked')}
           />
         </div>
