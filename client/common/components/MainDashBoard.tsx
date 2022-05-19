@@ -17,6 +17,7 @@ import Filter from './Filter';
 
 const MainDashboard = () => {
   const router = useRouter();
+  const project = useAppSelector((state) => state.project.currentProject);
 
   const dispatch = useAppDispatch();
 
@@ -83,8 +84,8 @@ const MainDashboard = () => {
           <div key={item.id}>
             <Link
               href={{
-                pathname: '/board/[milestone_id]',
-                query: { milestone_id: item.id, project_id: router.query.id },
+                pathname: '/board/[project_id]',
+                query: { project_id: project.id, milestone_id: item.id },
               }}
             >
               <a onClick={() => handleSelectMile(item)} key={item.id}>

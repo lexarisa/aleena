@@ -31,10 +31,11 @@ const TabContainer = ({ children }: TabContainerProps) => {
           </Link>
           <Link
             href={{
-              pathname: '/board',
+              pathname: '/board/[project_id]',
               query: {
-                milestone_id: router.query.id,
-                project_id: router.query.id,
+                // @ts-ignore
+                project_id: project.id || router.query.id,
+                // milestone_id: router.query.id,
               },
             }}
           >
