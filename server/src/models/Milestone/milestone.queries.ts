@@ -22,6 +22,7 @@ export const getAllTasksInMilestoneQuery = async (milestoneId: number) => {
             },
           },
           githubs: true,
+          comments: true,
         },
       },
     },
