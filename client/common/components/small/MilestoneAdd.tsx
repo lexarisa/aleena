@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 import CustomButton from './CustomButton';
 import { IoAddCircleOutline } from 'react-icons/io5';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const MilestoneAdd = () => {
   const [milestoneTitle, setMilestoneTitle] = useState('');
@@ -49,17 +50,15 @@ const MilestoneAdd = () => {
               onKeyDown={handleKeyDown}
             />
             <button className={styles.add} onClick={handleCreateMilestone}>
-              <IoAddCircleOutline className={styles.addButton} />
+              <AiOutlinePlus className={styles.addButton} />
             </button>
           </div>
         </div>
       ) : (
-        <CustomButton
-          button="+ Add a New Milestone"
-          color="#415a77"
-          textColor="#fff"
-          onClick={() => setShowInput(true)}
-        />
+        <button className={styles.button} onClick={() => setShowInput(true)}>
+          New Milestone
+          <AiOutlinePlus className={styles.icon} />
+        </button>
       )}
     </div>
   );

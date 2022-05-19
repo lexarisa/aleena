@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getAllUsersInProject } from '../../pages/api/user.api';
 import avatarPng from '../../../public/avatarPng.png';
+import { useForm } from 'react-hook-form';
 
 //styling
 import styles from '../../styles/Sidebar.module.css';
@@ -62,13 +63,8 @@ const SideBar = () => {
 
         <section className={styles.collapsible}>
           <header>
-            <div
-              className={styles.header}
-              id="teammates"
-              onClick={handleShowCollapsible}
-            >
+            <div className={styles.header} id="teammates">
               <h2 className={styles.title}>Teammates</h2>
-              <span className={styles.dropDown}>+</span>
             </div>
           </header>
           <div className={styles.collapsible}>
@@ -110,7 +106,6 @@ const SideBar = () => {
           <header>
             <div id="project" className={styles.header}>
               <h2 className={styles.title}>Project</h2>
-              <span>+</span>
             </div>
           </header>
           <div className={styles.collapsible}>
@@ -135,13 +130,8 @@ const SideBar = () => {
         </section>
         <section className={styles.collapsible}>
           <header>
-            <div
-              className={styles.header}
-              id="bookmark"
-              onClick={handleShowCollapsible}
-            >
+            <div className={styles.header} id="bookmark">
               <h2 className={styles.title}>Bookmarked</h2>
-              <span>+</span>
             </div>
           </header>
           <div className={styles.collapsible}>

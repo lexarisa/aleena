@@ -49,6 +49,18 @@ const BoardPage = ({
   //   dispatch(setTasks(data));
   // };
 
+  const fetchAllTasks = async () => {
+    const res = await fetch(
+      `https://ae99-45-130-134-153.eu.ngrok.io/dashboard/`
+    );
+
+    const data = await res.json();
+
+    const formatTasks = formatData(data, 'tasks');
+
+    dispatch(setTasks(formatTasks));
+  }
+
   return (
     <DashboardLayout>
       <TabContainer>

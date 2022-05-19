@@ -5,6 +5,7 @@
   align-items: center;
   padding: var(--unit3);
   border-radius: 10px;
+  width: 18rem;
 }
 
 .input {
@@ -14,6 +15,8 @@
   font-family: inherit;
   background-color: transparent;
   font-size: var(--size-s);
+  width: 13rem;
+  margin-left: var(--unit4);
 }
 
 .add {
@@ -36,4 +39,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.button {
+  border-radius: 5px;
+  padding: var(--unit3) var(--unit4);
+  display: flex;
+  outline: 0;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--size-l);
+  font-weight: 500;
+}
+
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  opacity: 0.9;
 }

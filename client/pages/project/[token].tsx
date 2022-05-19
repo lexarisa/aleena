@@ -12,7 +12,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../common/store/hooks/redux-hooks';
-import { setUser, setUserDetails } from '../../common/store/slices/user/user.slice';
+import {
+  setUser,
+  setUserDetails,
+} from '../../common/store/slices/user/user.slice';
 import {
   updateProjects,
   setProjects,
@@ -21,6 +24,7 @@ import {
 } from '../../common/store/slices/projects/project.slice';
 import { store } from '../../common/store/index.store';
 import { AiOutlinePlus } from 'react-icons/ai';
+import Meta from '../../common/components/Meta';
 
 const project = ({
   data,
@@ -51,8 +55,8 @@ const project = ({
 
     const data = await res.json();
 
-    dispatch(setUserDetails(data))
-  }
+    dispatch(setUserDetails(data));
+  };
 
   const fetchProjects = async () => {
     const res = await fetch(
@@ -67,9 +71,7 @@ const project = ({
 
     dispatch(setProjects(formatProjects));
 
-
     dispatch(setUser(token));
-
   };
 
   const streamProject = () => {
@@ -85,7 +87,7 @@ const project = ({
         if (event === 'create') {
           dispatch(updateProjects(newProject));
         }
-  
+
         if (event === 'delete') {
           dispatch(deleteProject(newProject));
         }
@@ -105,21 +107,21 @@ const project = ({
 
   return (
     <>
+      <Meta title="Aleena: Productivity Tool For Developers" />
       <div className={styles.container}>
         <div className={styles.cardWrapper}>
-
-
-          <h1>Welcome to Aleena {reduxAllProjects.username}</h1>
-
-          <button className={styles.selectCard} onClick={handleShowForm}>
+          <h1 className={styles.header}>
+            Welcome to Aleena {reduxAllProjects.username}
+          </h1>
+          <button className={styles.addButton} onClick={handleShowForm}>
             New Project
             <AiOutlinePlus className={styles.icon} />
           </button>
         </div>
-        <div>
+        <div className={styles.projects}>
           {reduxAllProjects &&
             reduxAllProjects.map((project: any) => (
-              <div key={String(project.id)}>
+              <div key={String(project.id)} className={styles.project}>
                 <Link
                   href={{
                     pathname: '/dashboard',
@@ -128,52 +130,21 @@ const project = ({
                 >
                   <div
                     onClick={() => handleProjectSelect(project)}
-                    className={styles.selectCard}
+                    className={styles.projectDetail}
                   >
                     <h2>{project.title}</h2>
                     <p>{project.description}</p>
-                    <p>{project.status}</p>
                   </div>
                 </Link>
               </div>
             ))}
         </div>
       </div>
-      {/* <div className={styles.selectCard} onClick={handleShowForm}>
-            <span className={styles.addButton}>
-              <AiOutlinePlus className={styles.icon} />
-            </span>
-            <p>Create a new project</p>
-            <div className={styles.projectSection}>
-              {reduxAllProjects &&
-                reduxAllProjects.map((project: any) => (
-                  <div key={String(project.id)}>
-                    <Link
-                      href={{
-                        pathname: '/dashboard',
-                        query: { id: project.id },
-                      }}
-                    >
-                      <div
-                        onClick={() => handleProjectSelect(project)}
-                        className={styles.selectCard}
-                      >
-                        <h2>{project.title}</h2>
-                        <p>{project.description}</p>
-                        <p>{project.status}</p>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-            </div>
-          </div> */}
-
       {showForm && (
         <Modal>
           <CreateForm setShowForm={setShowForm} token={token} />
         </Modal>
       )}
-
     </>
   );
 };

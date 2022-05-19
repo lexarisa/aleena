@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentTask } from '../store/slices/task/task.slices';
+import Filter from './Filter';
 
 interface BoardInterface {
   columnTitle: String;
@@ -81,7 +82,6 @@ const BoardSection = ({ columnTitle, tasks }: BoardInterface) => {
         <div>
           <h2 className={styles.boardTitle}>{columnTitle}</h2>
         </div>
-        {/* <CustomButton button="+ add" onClick={() => onClick()} /> */}
 
         <div>
           {tasks.map((task: ITask, index) => {
