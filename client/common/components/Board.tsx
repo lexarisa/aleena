@@ -18,6 +18,7 @@ import Filter from './Filter';
 const Board = () => {
   const dispatch = useAppDispatch();
   const reduxAllTasks = useAppSelector((state) => state.task.allTasks);
+  const reduxFilterTask = useAppSelector((state) => state.task.allFilterTasks);
   const reduxMile = useAppSelector((state) => state.milestone.allMilestones);
   const reduxCurrentMile = useAppSelector(
     (state) => state.milestone.currentMilestone
@@ -30,30 +31,25 @@ const Board = () => {
   const reduxUser = useAppSelector((state) => state.user.id);
   const pagination = 0;
 
+  let tasksToDisplay: any;
+
+  if (reduxFilterTask && reduxFilterTask.length > 0) {
+    tasksToDisplay = reduxFilterTask;
+  } else {
+    tasksToDisplay = reduxAllTasks;
+  }
+
   const router = useRouter();
-  let reduxTasks = [];
-  const inMilestone = router.query.milestone_id;
-  console.log('inMilestone', inMilestone);
-  inMilestone
-    ? (reduxTasks = useAppSelector((state) => state.task.allTasksMilestone))
-    : (reduxTasks = useAppSelector((state) => state.task.allTasks));
-  console.log('redux tasks', reduxTasks);
-  console.log(
-    'all tasks',
-    useAppSelector((state) => state.task.allTasks)
-  ),
-    console.log(
-      'milestone tasks',
-      useAppSelector((state) => state.task.allTasksMilestone)
-    );
+
   useEffect(() => {
     // sse
     streamTask();
   });
 
   useEffect(() => {
-    fetchAllTasksBoard();
-  });
+    tasksToDisplay = reduxAllTasks;
+    // fetchAllTasksBoard();
+  }, []);
 
   const fetchAllTasksBoard = async () => {
     const res = await fetch(
@@ -72,8 +68,6 @@ const Board = () => {
     });
 
     const allTasks = allPipeTasks.flat(); // ALL TASKS IN ONE ARRAY
-
-    console.log('all tasks', allTasks);
   };
 
   const streamTask = () => {
@@ -128,14 +122,12 @@ const Board = () => {
 
       <div className={styles.scrollContainer}>
         {/* <FilterComponent 
-      milestones={milestones} 
-      tags={tags} /> */}
+        milestones={milestones} 
+        tags={tags} /> */}
 
         {sections.map((section, index) => {
-          // let filteredTasks: ITask[] = reduxTasks.length
-          //   ? reduxTasks.filter((task: ITask) => {
-          let filteredTasks: ITask[] = reduxAllTasks.length
-            ? reduxAllTasks.filter((task: ITask) => {
+          let filteredTasks: ITask[] = tasksToDisplay.length
+            ? tasksToDisplay.filter((task: ITask) => {
                 console.log(task);
                 return task.status === section;
               })

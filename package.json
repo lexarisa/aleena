@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@prisma/client": "^3.14.0",
+    "dayjs": "^1.11.2",
     "react-hook-form": "^7.31.1",
     "react-icons": "^4.3.1"
   }

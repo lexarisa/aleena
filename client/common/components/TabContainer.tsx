@@ -51,12 +51,8 @@ const TabContainer = ({ children }: TabContainerProps) => {
           </Link>
           <Link
             href={{
-              pathname: '/board/[project_id]',
-              query: {
-                // @ts-ignore
-                project_id: project.id || router.query.id,
-                // milestone_id: router.query.id,
-              },
+              pathname: '/board',
+              query: selectedQuery,
             }}
           >
             <a className={styles.active}>Board</a>
@@ -73,7 +69,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
             <a className={styles.active}>Documentation</a>
           </Link>
         </div>
-        <div className={styles.users}>
+        {/* <div className={styles.users}>
           <div className={styles.avatar}>
             <Image
               src="https://github.com/thaiscosta.png"
@@ -88,7 +84,7 @@ const TabContainer = ({ children }: TabContainerProps) => {
               height={50}
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.tabContent}>{children}</div>

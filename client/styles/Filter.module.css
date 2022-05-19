@@ -3,9 +3,15 @@
 .filter {
   background-color: var(--color-lightGrey);
   border-radius: 10px;
-  padding-right: var(--unit2);
+  padding: 0 var(--unit2);
   justify-content: center;
-  position: relative;
+  align-items: center;
+  width: 5rem;
+}
+
+.filter:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .tab:hover {
@@ -15,7 +21,6 @@
 }
 
 .collapsible {
-  position: absolute;
   height: 12rem;
   width: 30rem;
   background-color: var(--color-lightGrey);
@@ -24,7 +29,8 @@
   border-top-right-radius: 10px;
   z-index: 2;
   overflow-y: scroll;
-
+  position: absolute;
+  top: 2.5rem;
   display: flex;
   padding: var(--unit2);
   flex-direction: column;

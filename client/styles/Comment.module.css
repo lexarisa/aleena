@@ -39,3 +39,8 @@
   display: flex;
   align-items: center;
 }
+
+.date {
+  font-size: var(--size-xs);
+  margin-top: var(--unit);
+}

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ITask from '../types/ITask';
 import Card from './Card';
 import Task from './Task';
-import CustomButton from './small/CustomButton';
 import { createNewTask } from '../../pages/api/taskApi';
 import styles from '../../styles/BoardSection.module.css';
 import { useRouter } from 'next/router';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux-hooks';
 import { setCurrentTask } from '../store/slices/task/task.slices';
-import Filter from './Filter';
 
 interface BoardInterface {
   columnTitle: String;
