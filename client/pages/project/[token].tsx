@@ -128,13 +128,15 @@ const project = ({
                     query: { id: project.id },
                   }}
                 >
-                  <div
-                    onClick={() => handleProjectSelect(project)}
-                    className={styles.projectDetail}
-                  >
-                    <h2>{project.title}</h2>
-                    <p>{project.description}</p>
-                  </div>
+                  <a>
+                    <div
+                      onClick={() => handleProjectSelect(project)}
+                      className={styles.projectDetail}
+                    >
+                      <h2>{project.title}</h2>
+                      <p>{project.description}</p>
+                    </div>
+                  </a>
                 </Link>
               </div>
             ))}
